@@ -6,7 +6,7 @@
 html,
 body {
   font-family: Vollkorn, "Courier New", Courier, monospace;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 18px;
   margin: 0;
   padding: 0;
@@ -16,9 +16,19 @@ div#root {
   display: grid;
   height: 100vh;
   background: #777;
+  grid-template-rows: 1fr auto;
 }
 
 canvas.game {
   align-self: center;
   justify-self: center;
+}
+
+.panel {
+  background: red;
+  padding: 20px 0;
+  display: grid;
+}
+
+.debug {
 }
