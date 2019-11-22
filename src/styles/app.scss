@@ -6,8 +6,7 @@
 html,
 body {
   font-family: Vollkorn, "Courier New", Courier, monospace;
-  /* text-transform: uppercase; */
-  font-size: 18px;
+  font-size: 20px;
   margin: 0;
   padding: 0;
 }
@@ -17,18 +16,23 @@ div#root {
   height: 100vh;
   background: #777;
   grid-template-rows: 1fr auto;
-}
 
-canvas.game {
-  align-self: center;
-  justify-self: center;
-}
+  canvas.game {
+    align-self: center;
+    justify-self: center;
+  }
 
-.panel {
-  background: red;
-  padding: 20px 0;
-  display: grid;
-}
-
-.debug {
+  .panel {
+    display: grid;
+    justify-items: center;
+    .debug {
+      color: #444;
+      border-top: 5px solid #444;
+      border-right: 5px solid #444;
+      border-bottom: 5px solid #999;
+      border-left: 5px solid #999;
+      margin: 20px;
+      padding: 20px;
+    }
+  }
 }
