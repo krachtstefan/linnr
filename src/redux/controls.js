@@ -88,6 +88,10 @@ export const moveEvent = keyObj => {
         delete payload.destination;
         delete payload.moving;
       }
+      dispatch({
+        type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
+        payload
+      });
     }
   };
 };
