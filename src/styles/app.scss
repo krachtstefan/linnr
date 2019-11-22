@@ -20,6 +20,10 @@ div#root {
   canvas.game {
     align-self: center;
     justify-self: center;
+    border-top: 5px solid #444;
+    border-right: 5px solid #444;
+    border-bottom: 5px solid #999;
+    border-left: 5px solid #999;
   }
 
   .panel {
