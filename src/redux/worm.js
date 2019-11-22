@@ -18,7 +18,13 @@ const DEFAULT_WORM_STATE = {
   },
   direction: WORM_DIRECTIONS.E,
   moving: false,
-  character: "worm"
+
+  animations: {
+    idle: {
+      name: "worm",
+      speed: 1
+    }
+  }
 };
 
 export const WORM_ACTION_TYPES = {
