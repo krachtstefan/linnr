@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Controls from "./Controls";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import config from "../config";
@@ -21,7 +22,9 @@ const Game = () => {
     <React.Fragment>
       {spritesheet ? (
         <React.Fragment>
-          <Map className="game"></Map>
+          <Controls>
+            <Map className="game" />
+          </Controls>
         </React.Fragment>
       ) : null}
     </React.Fragment>
