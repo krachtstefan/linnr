@@ -4,11 +4,24 @@ export const DEFAULT_STAGE_STATE = {
   tileSize: config.tileSize,
   // prettier-ignore
   board: [
-    ["xx", "xx", "xx", "xx", "xx", "xx"],
-    ["xx", "xx", "xx", "xx", "xx", "xx"]
+    ["t", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["t", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["t", "t", "t", "t", "t", "t", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "t", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "t", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"]
   ],
   spriteSpecs: {
-    xx: { image: null, collissionType: null }
+    x: { image: null, collissionType: null },
+    t: {
+      image: "worm",
+      collissionType: null
+    }
   }
 };
 
