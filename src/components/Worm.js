@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { WORM_DIRECTIONS, setMoving, setPosition } from "../redux/worm";
+import { setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
@@ -73,20 +73,16 @@ let Worm = () => {
 
   const createAnimation = useCallback(() => {
     const { idle } = animations;
-
-    let animation_arr = spritesheet.spritesheet.animations[idle.name];
-    let animationHeight = animation_arr[0].height;
-    let animationWidth = animation_arr[0].width;
-    let animation = new AnimatedSprite(animation_arr);
+    let animationArr = spritesheet.spritesheet.animations[idle.name];
+    let animation = new AnimatedSprite(animationArr);
     animation.animationSpeed = idle.speed;
-    if (direction === WORM_DIRECTIONS.W) {
-      animation.scale.x = -1;
-      animation.x = animation.x + animationWidth;
-    }
-    animation.y = animation.y - Math.round(animationHeight / 1.8);
+    animation.y = idle.offset.y;
+    animation.x = idle.offset.x;
+    animation.width = idle.space.width * config.tileSize;
+    animation.height = idle.space.height * config.tileSize;
     animation.play();
     return animation;
-  }, [animations, direction, spritesheet.spritesheet.animations, moving]);
+  }, [animations, spritesheet.spritesheet.animations]);
 
   useEffect(() => {
     setAnimation(createAnimation());
