@@ -16,6 +16,12 @@ const DEFAULT_WORM_STATE = {
     x: 3,
     y: 5
   },
+  tail: [
+    { x: 2, y: 5 },
+    { x: 1, y: 5 },
+    { x: 1, y: 4 },
+    { x: 1, y: 3 }
+  ],
   direction: WORM_DIRECTIONS.E,
   moving: false,
 
