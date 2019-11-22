@@ -24,7 +24,6 @@ const DEFAULT_WORM_STATE = {
   ],
   direction: WORM_DIRECTIONS.E,
   moving: false,
-
   animations: {
     idle: {
       name: "worm",
