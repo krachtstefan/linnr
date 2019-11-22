@@ -1,5 +1,6 @@
 import config from "../config";
-export const DEFAULT_STAGE_STATE = {
+
+const DEFAULT_STAGE_STATE = {
   spritesheet: null,
   tileSize: config.tileSize,
   // prettier-ignore
