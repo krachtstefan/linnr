@@ -1,25 +1,51 @@
 {
 	"frames": {
-		"worm": {
+		"worm_01.png": {
 			"frame": {
 				"x": 1,
 				"y": 1,
-				"w": 24,
-				"h": 24
+				"w": 26,
+				"h": 26
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 24,
-				"h": 24
+				"w": 26,
+				"h": 26
 			},
 			"sourceSize": {
-				"w": 24,
-				"h": 24
+				"w": 26,
+				"h": 26
+			}
+		},
+		"worm_02.png": {
+			"frame": {
+				"x": 29,
+				"y": 1,
+				"w": 26,
+				"h": 26
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 26,
+				"h": 26
+			},
+			"sourceSize": {
+				"w": 26,
+				"h": 26
 			}
 		}
+	},
+	"animations": {
+		"worm": [
+			"worm_01.png",
+			"worm_02.png"
+		]
 	},
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
@@ -27,10 +53,10 @@
 		"image": "spritesheet.png",
 		"format": "RGBA8888",
 		"size": {
-			"w": 26,
-			"h": 26
+			"w": 56,
+			"h": 28
 		},
 		"scale": "1",
-		"smartupdate": "$TexturePacker:SmartUpdate:9da3e23ec10e39645ee27a8f14d6aac6:9d091eaf3399d288b56c58020aff25c8:729adc6043343cfda41c447ce8f464d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:bd1723c2ce16fde026745595237a61ea:24d39d8aa2b171692bd1ba36eec7b226:729adc6043343cfda41c447ce8f464d6$"
 	}
 }
