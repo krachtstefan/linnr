@@ -6,6 +6,6 @@ export default {
     velocity: 1,
     maxQueueLength: 3
   },
-  tileSize: 16,
+  tileSize: 24,
   background: 0x9ac503
 };
