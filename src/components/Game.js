@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Controls from "./Controls";
 import { Loader } from "pixi.js";
 import Map from "./Map";
+import Worm from "./Worm";
 import config from "../config";
 import { setSpritesheet } from "../redux/stage";
 
@@ -23,7 +24,9 @@ const Game = () => {
       {spritesheet ? (
         <React.Fragment>
           <Controls>
-            <Map className="game" />
+            <Map className="game">
+              <Worm />
+            </Map>
           </Controls>
         </React.Fragment>
       ) : null}
