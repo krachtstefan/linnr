@@ -1,17 +1,18 @@
+import { AnimatedSprite, Texture } from "pixi.js";
 import React, { useCallback, useEffect, useState } from "react";
+import { Sprite, useTick } from "@inlet/react-pixi";
 import { setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AnimatedSprite } from "pixi.js";
 import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
 import config from "../config";
-import { useTick } from "@inlet/react-pixi";
 
 let Worm = () => {
   let dispatch = useDispatch();
   const {
     positionStage,
     destinationStage,
+    tail,
     destination,
     direction,
     animations,
@@ -28,6 +29,9 @@ let Worm = () => {
         x: stage.tileSize * worm.destination.x,
         y: stage.tileSize * worm.destination.y
       },
+      tail: worm.tail.map(pos => {
+        return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
+      }),
       destination: worm.destination,
       direction: worm.direction,
       moving: worm.moving,
@@ -65,6 +69,7 @@ let Worm = () => {
       [arrived, newPos] = getNextPos(y, destinationStage.y, -1 * tickVelosity);
       setY(arrived ? destinationStage.y : newPos);
     }
+
     if (arrived) {
       dispatch(setPosition(destination));
       dispatch(setMoving(false));
@@ -84,16 +89,31 @@ let Worm = () => {
     return animation;
   }, [animations, spritesheet.spritesheet.animations]);
 
-  useEffect(() => {
-    setAnimation(createAnimation());
-  }, [direction, animations, createAnimation, moving]);
+  // useEffect(() => {
+  //   setAnimation(createAnimation());
+  // }, [direction, animations, createAnimation]);
 
   const [animation, setAnimation] = useState(createAnimation);
+  const [tailAnimations, setTailAnimations] = useState(
+    tail.map(x => createAnimation(0))
+  );
 
   return (
     <React.Fragment>
       {animation ? (
-        <AnimatedSpritesheet x={x} y={y} animation={animation} />
+        <React.Fragment>
+          <AnimatedSpritesheet x={x} y={y} animation={animation} />
+          {tail.map((tail, i) => {
+            return (
+              <AnimatedSpritesheet
+                x={tail.x}
+                y={tail.y}
+                animation={tailAnimations[i]}
+                key={`${i}-${tail.x}-${tail.y}`}
+              />
+            );
+          })}
+        </React.Fragment>
       ) : null}
     </React.Fragment>
   );
