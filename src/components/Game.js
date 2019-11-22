@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
+import Debugger from "./Debugger";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
@@ -28,6 +29,9 @@ const Game = () => {
               <Worm />
             </Map>
           </Controls>
+          <div className="panel">
+            <Debugger />
+          </div>
         </React.Fragment>
       ) : null}
     </React.Fragment>
