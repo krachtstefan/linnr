@@ -1,0 +1,16 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+div#root {
+  display: grid;
+  height: 100vh;
+  background: #777;
+}
+
+canvas.game {
+  align-self: center;
+  justify-self: center;
+}
