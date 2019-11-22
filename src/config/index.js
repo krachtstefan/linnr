@@ -1,4 +1,7 @@
 export default {
-  tileSize: 32,
-  background: 0x222222
+  assets: {
+    spritesheet: "images/spritesheet.json"
+  },
+  tileSize: 16,
+  background: 0x9ac503
 };
