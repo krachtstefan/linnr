@@ -41,6 +41,7 @@ let Gamestage = props => {
           options={{ backgroundColor: config.background }}
           width={width}
           height={height}
+          className={props.className}
         >
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {

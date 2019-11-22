@@ -21,7 +21,7 @@ const Game = () => {
     <React.Fragment>
       {spritesheet ? (
         <React.Fragment>
-          <Map></Map>
+          <Map className="game"></Map>
         </React.Fragment>
       ) : null}
     </React.Fragment>
