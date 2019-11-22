@@ -3,7 +3,6 @@ import { Sprite, Stage } from "@inlet/react-pixi";
 import React from "react";
 import { ReactReduxContext } from "react-redux";
 import { Texture } from "pixi.js";
-import { compose } from "redux";
 import config from "../config";
 import { useSelector } from "react-redux";
 
