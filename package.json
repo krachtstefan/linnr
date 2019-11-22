@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^1.1.9",
+    "node-sass": "^4.13.0",
     "pixi.js": "^5.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
