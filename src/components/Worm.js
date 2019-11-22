@@ -32,6 +32,9 @@ let Worm = () => {
       tail: worm.tail.map(pos => {
         return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
       }),
+      tailDestination: worm.tailDestination.map(pos => {
+        return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
+      }),
       destination: worm.destination,
       direction: worm.direction,
       moving: worm.moving,
