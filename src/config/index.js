@@ -1,6 +1,7 @@
 export default {
   assets: {
-    spritesheet: "images/spritesheet.json"
+    spritesheet: "images/spritesheet.json",
+    canvasBg: "images/canvasBg"
   },
   controls: {
     velocity: 2,
