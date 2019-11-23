@@ -2,7 +2,8 @@ import config from "../config";
 
 const DEFAULT_STAGE_STATE = {
   assets: {
-    spritesheet: null
+    spritesheet: null,
+    canvasBg: null
   },
   tileSize: config.tileSize,
   // prettier-ignore

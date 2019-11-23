@@ -11,20 +11,27 @@ import { setAsset } from "../redux/stage";
 
 const Game = () => {
   const dispatch = useDispatch();
-  const { spritesheet } = useSelector(state => state["stage"]["assets"]);
+  const { spritesheet, canvasBg } = useSelector(
+    state => state["stage"]["assets"]
+  );
   useEffect(() => {
     let setup = () => {
       dispatch(
         setAsset({
-          spritesheet: Loader.shared.resources[config.assets.spritesheet]
+          spritesheet: Loader.shared.resources[config.assets.spritesheet],
+          canvasBg: Loader.shared.resources[config.assets.canvasBg]
         })
       );
     };
-    Loader.shared.add(config.assets.spritesheet).load(setup);
+    Loader.shared
+      .add(config.assets.spritesheet)
+      .add(config.assets.canvasBg)
+      .load(setup);
   }, [dispatch]);
+
   return (
     <React.Fragment>
-      {spritesheet ? (
+      {spritesheet && canvasBg ? (
         <React.Fragment>
           <Controls>
             <Map className="game">
