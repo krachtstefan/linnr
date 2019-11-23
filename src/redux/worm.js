@@ -80,10 +80,6 @@ export const setPosition = position => {
 
 export const setMoving = moving => {
   return (dispatch, state) => {
-    dispatch({
-      type: WORM_ACTION_TYPES.SET_MOVING,
-      payload: moving
-    });
     if (moving === false && config.autoplay === true) {
       let { direction } = state()["worm"];
       dispatch(
@@ -94,6 +90,11 @@ export const setMoving = moving => {
           e: direction === WORM_DIRECTIONS.E
         })
       );
+    } else {
+      dispatch({
+        type: WORM_ACTION_TYPES.SET_MOVING,
+        payload: moving
+      });
     }
   };
 };
