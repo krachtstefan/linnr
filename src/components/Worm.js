@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { setMoving, setPosition } from "../redux/worm";
+import { WORM_DIRECTIONS, setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
@@ -126,8 +126,21 @@ let Worm = () => {
   );
 
   useEffect(() => {
-    setFake(createAnimation(animations["fake"]));
-  }, [destination, createAnimation, animations]);
+    switch (direction) {
+      case WORM_DIRECTIONS.N:
+        setFake(createAnimation(animations["WORM-HD/N/Entry"]));
+        break;
+      case WORM_DIRECTIONS.E:
+        setFake(createAnimation(animations["WORM-HD/E/Entry"]));
+        break;
+      case WORM_DIRECTIONS.S:
+        setFake(createAnimation(animations["WORM-HD/S/Entry"]));
+        break;
+      case WORM_DIRECTIONS.W:
+        setFake(createAnimation(animations["WORM-HD/W/Entry"]));
+        break;
+    }
+  }, [destination, createAnimation, animations, direction]);
 
   let [wormAnimations] = useState(
     positionStage.map((x, i) =>
