@@ -45,8 +45,20 @@ const DEFAULT_WORM_STATE = {
       name: "WORM-BY/S/2S",
       ...defaultAnimationProps
     },
-    fake: {
-      name: "WORM-HD/S/2S",
+    "WORM-HD/E/Entry": {
+      name: "WORM-HD/E/Entry",
+      ...defaultAnimationProps
+    },
+    "WORM-HD/N/Entry": {
+      name: "WORM-HD/N/Entry",
+      ...defaultAnimationProps
+    },
+    "WORM-HD/S/Entry": {
+      name: "WORM-HD/S/Entry",
+      ...defaultAnimationProps
+    },
+    "WORM-HD/W/Entry": {
+      name: "WORM-HD/W/Entry",
       ...defaultAnimationProps
     }
   }
