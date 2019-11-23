@@ -11,18 +11,18 @@ export const WORM_DIRECTIONS = {
 
 const DEFAULT_WORM_STATE = {
   position: [
-    { x: 2, y: 5 },
-    { x: 1, y: 5 },
-    { x: 1, y: 4 },
-    { x: 1, y: 3 }
+    { x: 10, y: 4 },
+    { x: 10, y: 3 },
+    { x: 10, y: 2 },
+    { x: 10, y: 1 }
   ],
   destination: [
-    { x: 2, y: 5 },
-    { x: 1, y: 5 },
-    { x: 1, y: 4 },
-    { x: 1, y: 3 }
+    { x: 10, y: 5 },
+    { x: 10, y: 4 },
+    { x: 10, y: 3 },
+    { x: 10, y: 2 }
   ],
-  direction: WORM_DIRECTIONS.E,
+  direction: WORM_DIRECTIONS.S,
   moving: false,
   animations: {
     idle: {
