@@ -13,7 +13,7 @@ const isOutOfBounds = ({ board, position }) =>
 
 const hitsWall = ({ board, spriteSpecs, position }) =>
   spriteSpecs[board[position.y][position.x]] &&
-  spriteSpecs[board[position.y][position.x]].collissionType === "wall";
+  spriteSpecs[board[position.y][position.x]].collisionType === "wall";
 
 const maxQueueLengthReached = ({ position, destination }) => {
   return (

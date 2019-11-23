@@ -23,14 +23,14 @@ const DEFAULT_STAGE_STATE = {
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
   spriteSpecs: {
-    x: { image: null, collissionType: null },
+    x: { image: null, collisionType: null },
     t: {
       image: "worm",
-      collissionType: null
+      collisionType: null
     },
     w: {
       image: null,
-      collissionType: "wall"
+      collisionType: "wall"
     }
   }
 };
