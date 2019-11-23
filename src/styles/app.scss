@@ -9,15 +9,16 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
+  background: #777;
 }
 
 div#root {
   display: grid;
   height: 100vh;
-  background: #777;
   grid-template-rows: 1fr auto;
 
   canvas.game {
+    max-width: 100%;
     align-self: center;
     justify-self: center;
     border-top: 5px solid #444;
