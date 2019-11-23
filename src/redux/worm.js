@@ -25,7 +25,7 @@ const DEFAULT_WORM_STATE = {
   animations: {
     idle: {
       name: "worm",
-      speed: 1,
+      speed: 0,
       offset: {
         x: 0,
         y: 0
