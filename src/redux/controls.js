@@ -5,17 +5,15 @@ export const CONTROLS_ACTION_TYPES = {
   SET_DESTINATION: "SET_DESTINATION"
 };
 
-const isOutOfBounds = ({ board, position }) => {
-  return (
-    position.x < 0 ||
-    position.x > board[0].length - 1 ||
-    position.y < 0 ||
-    position.y > board.length - 1
-  );
-};
+const isOutOfBounds = ({ board, position }) =>
+  position.x < 0 ||
+  position.x > board[0].length - 1 ||
+  position.y < 0 ||
+  position.y > board.length - 1;
 
 const hitsWall = ({ board, spriteSpecs, position }) =>
-  spriteSpecs[board[position[0].y][position[0].x]].collissionType === "wall";
+  spriteSpecs[board[position.y][position.x]] &&
+  spriteSpecs[board[position.y][position.x]].collissionType === "wall";
 
 const maxQueueLengthReached = ({ position, destination }) => {
   return (
@@ -88,8 +86,8 @@ export const moveEvent = keyObj => {
     }
     if (payload) {
       if (
-        isOutOfBounds({ board, position: payload.destination }) === true ||
-        hitsWall({ board, spriteSpecs, position: payload.destination }) ===
+        isOutOfBounds({ board, position: payload.destination[0] }) === true ||
+        hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
           true ||
         maxQueueLengthReached({
           position,
