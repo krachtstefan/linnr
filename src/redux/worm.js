@@ -1,4 +1,4 @@
-import { CONTROLS_ACTION_TYPES } from "./controls";
+import { CONTROLS_ACTION_TYPES, moveEvent } from "./controls";
 
 export const WORM_DIRECTIONS = {
   N: "north",
@@ -77,7 +77,19 @@ export const setPosition = position => {
 };
 
 export const setMoving = moving => {
-  return dispatch => {
+  return (dispatch, state) => {
+    if (moving === false) {
+      let { direction } = state()["worm"];
+      dispatch(
+        moveEvent({
+          n: direction === WORM_DIRECTIONS.N,
+          s: direction === WORM_DIRECTIONS.S,
+          w: direction === WORM_DIRECTIONS.W,
+          e: direction === WORM_DIRECTIONS.E
+        })
+      );
+    }
+
     dispatch({
       type: WORM_ACTION_TYPES.SET_MOVING,
       payload: moving
