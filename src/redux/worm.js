@@ -36,7 +36,7 @@ const DEFAULT_WORM_STATE = {
       }
     },
     test: {
-      name: "WORM-BY/S/XX2N",
+      name: "WORM-BY/S/2S",
       speed: 0.5,
       offset: {
         x: 0,
