@@ -34,6 +34,18 @@ const DEFAULT_WORM_STATE = {
         width: 1,
         height: 1
       }
+    },
+    test: {
+      name: "WORM-BY/S/XX2N",
+      speed: 0.5,
+      offset: {
+        x: 0,
+        y: 0
+      },
+      space: {
+        width: 1,
+        height: 1
+      }
     }
   }
 };
