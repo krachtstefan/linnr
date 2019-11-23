@@ -4,7 +4,7 @@ export default {
     canvasBg: "images/canvasBg.png"
   },
   controls: {
-    velocity: 2
+    velocity: 1
   },
   tileSize: 24,
   background: 0x9ac503,
