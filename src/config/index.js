@@ -3,7 +3,7 @@ export default {
     spritesheet: "images/spritesheet.json"
   },
   controls: {
-    velocity: 1,
+    velocity: 2,
     maxQueueLength: 3
   },
   tileSize: 24,
