@@ -1,5 +1,7 @@
 import { CONTROLS_ACTION_TYPES, moveEvent } from "./controls";
 
+import config from "./../config";
+
 export const WORM_DIRECTIONS = {
   N: "north",
   E: "east",
@@ -78,7 +80,11 @@ export const setPosition = position => {
 
 export const setMoving = moving => {
   return (dispatch, state) => {
-    if (moving === false) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_MOVING,
+      payload: moving
+    });
+    if (moving === false && config.autoplay === true) {
       let { direction } = state()["worm"];
       dispatch(
         moveEvent({
@@ -89,11 +95,6 @@ export const setMoving = moving => {
         })
       );
     }
-
-    dispatch({
-      type: WORM_ACTION_TYPES.SET_MOVING,
-      payload: moving
-    });
   };
 };
 

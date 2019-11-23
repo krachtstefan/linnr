@@ -8,5 +8,6 @@ export default {
     maxQueueLength: 3
   },
   tileSize: 24,
-  background: 0x9ac503
+  background: 0x9ac503,
+  autoplay: true
 };
