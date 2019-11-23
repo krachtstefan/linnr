@@ -1,5 +1,4 @@
 import { WORM_DIRECTIONS } from "./worm";
-import config from "../config";
 
 export const CONTROLS_ACTION_TYPES = {
   SET_DESTINATION: "SET_DESTINATION"
