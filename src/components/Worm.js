@@ -120,27 +120,22 @@ let Worm = () => {
   //   setAnimation(createAnimation());
   // }, [direction, animations, createAnimation]);
 
-  const [animation, setAnimation] = useState(createAnimation);
   const [tailAnimations, setTailAnimations] = useState(
     positionStage.map(() => createAnimation())
   );
 
   return (
     <React.Fragment>
-      {animation ? (
-        <React.Fragment>
-          {x.map((xPos, i) => {
-            return (
-              <AnimatedSpritesheet
-                x={xPos}
-                y={y[i]}
-                animation={tailAnimations[i]}
-                key={`${i}-${xPos}-${y[i]}`}
-              />
-            );
-          })}
-        </React.Fragment>
-      ) : null}
+      {x.map((xPos, i) => {
+        return (
+          <AnimatedSpritesheet
+            x={xPos}
+            y={y[i]}
+            animation={tailAnimations[i]}
+            key={`${i}-${xPos}-${y[i]}`}
+          />
+        );
+      })}
     </React.Fragment>
   );
 };
