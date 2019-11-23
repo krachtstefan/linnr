@@ -20,4 +20,5 @@ mkdir -p $texturePackerImportFolder/$file$ts/
 cp -r $asepriteExportFolder/$file$ts/$file-* $texturePackerImportFolder/$file$ts
 
 echo "🔧 creating spritesheet with TexturePacker"
-TexturePacker $asepriteExportFolder/$file$ts --format pixijs4 --sheet $spritesheetPath.png --data $spritesheetPath.json
+
+TexturePacker $texturePackerImportFolder/$file$ts --format pixijs4 --sheet $spritesheetPath.png --data $spritesheetPath.json
