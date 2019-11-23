@@ -15,7 +15,7 @@ const DEFAULT_WORM_STATE = {
     { x: 1, y: 3 }
   ],
   destination: [
-    { x: 10, y: 10 },
+    { x: 2, y: 5 },
     { x: 1, y: 5 },
     { x: 1, y: 4 },
     { x: 1, y: 3 }
