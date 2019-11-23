@@ -37,7 +37,10 @@ export const moveEvent = keyObj => {
       keyObj["w"] === false
     ) {
       payload = {
-        destination: { x: destination.x, y: destination.y - 1 },
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
+        })),
         moving: true,
         direction: WORM_DIRECTIONS.N
       };
@@ -48,7 +51,10 @@ export const moveEvent = keyObj => {
       keyObj["w"] === false
     ) {
       payload = {
-        destination: { x: destination.x + 1, y: destination.y },
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x + 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
         moving: true,
         direction: WORM_DIRECTIONS.E
       };
@@ -59,7 +65,10 @@ export const moveEvent = keyObj => {
       keyObj["w"] === false
     ) {
       payload = {
-        destination: { x: destination.x, y: destination.y + 1 },
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
+        })),
         moving: true,
         direction: WORM_DIRECTIONS.S
       };
@@ -70,7 +79,10 @@ export const moveEvent = keyObj => {
       keyObj["w"] === true
     ) {
       payload = {
-        destination: { x: destination.x - 1, y: destination.y },
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x - 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
         moving: true,
         direction: WORM_DIRECTIONS.W
       };
