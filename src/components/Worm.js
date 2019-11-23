@@ -56,16 +56,15 @@ let Worm = () => {
       arrivedY = false,
       newPos = null,
       tickVelosity = delta * config.controls.velocity;
-
-    let newX = virtualX.map((xPos, i) => {
+    let newX = [];
+    virtualX.forEach((xPos, i) => {
       if (xPos < destinationStage[i].x) {
         [arrivedX, newPos] = getNextPos(
           xPos,
           destinationStage[i].x,
           tickVelosity
         );
-
-        return arrivedX ? destinationStage[i].x : newPos;
+        newX[i] = arrivedX ? destinationStage[i].x : newPos;
       } else if (xPos > destinationStage[i].x) {
         [arrivedX, newPos] = getNextPos(
           xPos,
@@ -73,29 +72,30 @@ let Worm = () => {
           -1 * tickVelosity
         );
 
-        return arrivedX ? destinationStage[i].x : newPos;
+        newX[i] = arrivedX ? destinationStage[i].x : newPos;
       } else {
-        return xPos;
+        newX[i] = xPos;
       }
     });
 
-    let newY = virtualY.map((yPos, i) => {
+    let newY = [];
+    virtualY.forEach((yPos, i) => {
       if (yPos < destinationStage[i].y) {
         [arrivedY, newPos] = getNextPos(
           yPos,
           destinationStage[i].y,
           tickVelosity
         );
-        return arrivedY ? destinationStage[i].y : newPos;
+        newY[i] = arrivedY ? destinationStage[i].y : newPos;
       } else if (yPos > destinationStage[i].y) {
         [arrivedY, newPos] = getNextPos(
           yPos,
           destinationStage[i].y,
           -1 * tickVelosity
         );
-        return arrivedY ? destinationStage[i].y : newPos;
+        newY[i] = arrivedY ? destinationStage[i].y : newPos;
       } else {
-        return yPos;
+        newY[i] = yPos;
       }
     });
 
