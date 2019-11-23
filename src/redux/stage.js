@@ -29,13 +29,13 @@ const DEFAULT_STAGE_STATE = {
 };
 
 export const STAGE_ACTION_TYPES = {
-  SET_SPRITESHEET: "SET_SPRITESHEET"
+  SET_ASSET: "SET_ASSET"
 };
 
-export const setSpritesheet = asset => {
+export const setAsset = asset => {
   return dispatch => {
     dispatch({
-      type: STAGE_ACTION_TYPES.SET_SPRITESHEET,
+      type: STAGE_ACTION_TYPES.SET_ASSET,
       payload: asset
     });
   };
@@ -43,7 +43,7 @@ export const setSpritesheet = asset => {
 
 export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
   switch (action.type) {
-    case STAGE_ACTION_TYPES.SET_SPRITESHEET:
+    case STAGE_ACTION_TYPES.SET_ASSET:
       return {
         ...state,
         assets: {

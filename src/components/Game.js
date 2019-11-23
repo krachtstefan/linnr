@@ -7,7 +7,7 @@ import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
 import config from "../config";
-import { setSpritesheet } from "../redux/stage";
+import { setAsset } from "../redux/stage";
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Game = () => {
   useEffect(() => {
     let setup = () => {
       dispatch(
-        setSpritesheet({
+        setAsset({
           spritesheet: Loader.shared.resources[config.assets.spritesheet]
         })
       );
