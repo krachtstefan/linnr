@@ -97,7 +97,7 @@ let Worm = () => {
     setY(newY);
     setX(newX);
 
-    if (arrivedY === true && arrivedY === true) {
+    if (arrivedY === true && arrivedX === true) {
       dispatch(setPosition(destination));
       dispatch(setMoving(false));
     }
