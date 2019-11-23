@@ -2,6 +2,18 @@ import { CONTROLS_ACTION_TYPES, moveEvent } from "./controls";
 
 import config from "./../config";
 
+let defaultAnimationProps = {
+  speed: 0.5,
+  offset: {
+    x: 0,
+    y: 0
+  },
+  space: {
+    width: 1,
+    height: 1
+  }
+};
+
 export const WORM_DIRECTIONS = {
   N: "north",
   E: "east",
@@ -27,39 +39,15 @@ const DEFAULT_WORM_STATE = {
   animations: {
     idle: {
       name: "WORM-HD/S/Ref",
-      speed: 0.5,
-      offset: {
-        x: 0,
-        y: 0
-      },
-      space: {
-        width: 1,
-        height: 1
-      }
+      ...defaultAnimationProps
     },
     test: {
       name: "WORM-BY/S/2S",
-      speed: 0.5,
-      offset: {
-        x: 0,
-        y: 0
-      },
-      space: {
-        width: 1,
-        height: 1
-      }
+      ...defaultAnimationProps
     },
     fake: {
       name: "WORM-HD/S/2S",
-      speed: 0.5,
-      offset: {
-        x: 0,
-        y: 0
-      },
-      space: {
-        width: 1,
-        height: 1
-      }
+      ...defaultAnimationProps
     }
   }
 };
