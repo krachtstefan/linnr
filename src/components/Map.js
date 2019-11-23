@@ -23,6 +23,7 @@ let Gamestage = props => {
     tileSize,
     board,
     spritesheet,
+    canvasBg,
     spriteSpecs
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
@@ -30,6 +31,7 @@ let Gamestage = props => {
     board: state.stage.board,
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
+    canvasBg: state.stage.assets.canvasBg,
     spriteSpecs: state.stage.spriteSpecs
   }));
   return (
@@ -42,6 +44,7 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
+          <Sprite image={canvasBg.url} />
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {
               let texture = spritesheet.textures[spriteSpecs[tile].image];
