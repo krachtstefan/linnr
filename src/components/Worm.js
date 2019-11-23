@@ -26,14 +26,14 @@ let Worm = () => {
   } = useSelector(state => {
     let { worm, stage } = state;
     return {
-      positionStage: worm.position.map(pos => {
-        // rename this in whaterStage
-        return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
-      }),
-      destinationStage: worm.destination.map(pos => {
-        // rename this in whaterStage
-        return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
-      }),
+      positionStage: worm.position.map(pos => ({
+        x: stage.tileSize * pos.x,
+        y: stage.tileSize * pos.y
+      })),
+      destinationStage: worm.destination.map(pos => ({
+        x: stage.tileSize * pos.x,
+        y: stage.tileSize * pos.y
+      })),
       destination: worm.destination,
       direction: worm.direction,
       moving: worm.moving,
@@ -103,25 +103,30 @@ let Worm = () => {
     }
   });
 
-  const createAnimation = useCallback(() => {
-    const { idle } = animations;
-    let animationArr = spritesheet.spritesheet.animations[idle.name];
-    let animation = new AnimatedSprite(animationArr);
-    animation.animationSpeed = idle.speed;
-    animation.y = idle.offset.y;
-    animation.x = idle.offset.x;
-    animation.width = idle.space.width * config.tileSize;
-    animation.height = idle.space.height * config.tileSize;
-    animation.play();
-    return animation;
-  }, [animations, spritesheet.spritesheet.animations]);
+  const createAnimation = useCallback(
+    i => {
+      const { idle, test } = animations;
+      let selectedAnimation = i === 0 ? idle : test;
+      let animationArr =
+        spritesheet.spritesheet.animations[selectedAnimation.name];
+      let animation = new AnimatedSprite(animationArr);
+      animation.animationSpeed = selectedAnimation.speed;
+      animation.y = selectedAnimation.offset.y;
+      animation.x = selectedAnimation.offset.x;
+      animation.width = selectedAnimation.space.width * config.tileSize;
+      animation.height = selectedAnimation.space.height * config.tileSize;
+      animation.play();
+      return animation;
+    },
+    [animations, spritesheet.spritesheet.animations]
+  );
 
   // useEffect(() => {
   //   setAnimation(createAnimation());
   // }, [direction, animations, createAnimation]);
 
   const [tailAnimations, setTailAnimations] = useState(
-    positionStage.map(() => createAnimation())
+    positionStage.map((x, i) => createAnimation(i))
   );
 
   return (
