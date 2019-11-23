@@ -15,6 +15,9 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
   spriteSpecs[board[position.y][position.x]] &&
   spriteSpecs[board[position.y][position.x]].collisionType === "wall";
 
+const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
+  nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
+
 const maxQueueLengthReached = ({ position, destination }) => {
   return (
     Math.abs(position.x - destination.x) > config.controls.maxQueueLength ||
@@ -86,21 +89,23 @@ export const moveEvent = keyObj => {
     }
     if (payload) {
       if (
-        isOutOfBounds({ board, position: payload.destination[0] }) === true ||
+        movesBackwards({
+          nextHeadPos: payload.destination[0],
+          lastHeadPos: position[1]
+        }) === false &&
+        isOutOfBounds({ board, position: payload.destination[0] }) === false &&
         hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
-          true ||
+          false &&
         maxQueueLengthReached({
           position,
           destination: payload.destination
-        }) === true
+        }) === false
       ) {
-        delete payload.destination;
-        delete payload.moving;
+        dispatch({
+          type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
+          payload
+        });
       }
-      dispatch({
-        type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
-        payload
-      });
     }
   };
 };
