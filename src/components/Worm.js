@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -46,13 +46,18 @@ let Worm = () => {
   const [x, setX] = useState(positionStage.map(pos => pos.x));
   const [y, setY] = useState(positionStage.map(pos => pos.y));
 
+  const [virtualX, setVirtualX] = useState(x);
+  const [virtualY, setVirtualY] = useState(y);
+
+  let [fake, setFake] = useState(null);
+
   useTick(delta => {
     let arrivedX = false,
       arrivedY = false,
       newPos = null,
       tickVelosity = delta * config.controls.velocity;
 
-    let newX = x.map((xPos, i) => {
+    let newX = virtualX.map((xPos, i) => {
       if (xPos < destinationStage[i].x) {
         [arrivedX, newPos] = getNextPos(
           xPos,
@@ -74,7 +79,7 @@ let Worm = () => {
       }
     });
 
-    let newY = y.map((yPos, i) => {
+    let newY = virtualY.map((yPos, i) => {
       if (yPos < destinationStage[i].y) {
         [arrivedY, newPos] = getNextPos(
           yPos,
@@ -94,49 +99,58 @@ let Worm = () => {
       }
     });
 
-    setY(newY);
-    setX(newX);
+    setVirtualY(newY);
+    setVirtualX(newX);
 
-    if (arrivedY === true && arrivedX === true) {
+    if (arrivedY === true || arrivedX === true) {
+      setY(newY);
+      setX(newX);
       dispatch(setPosition(destination));
       dispatch(setMoving(false));
     }
   });
 
   const createAnimation = useCallback(
-    i => {
-      const { idle, test } = animations;
-      let selectedAnimation = i === 0 ? idle : test;
-      let animationArr =
-        spritesheet.spritesheet.animations[selectedAnimation.name];
+    an => {
+      let animationArr = spritesheet.spritesheet.animations[an.name];
       let animation = new AnimatedSprite(animationArr);
-      animation.animationSpeed = selectedAnimation.speed;
-      animation.y = selectedAnimation.offset.y;
-      animation.x = selectedAnimation.offset.x;
-      animation.width = selectedAnimation.space.width * config.tileSize;
-      animation.height = selectedAnimation.space.height * config.tileSize;
+      animation.animationSpeed = an.speed;
+      animation.y = an.offset.y;
+      animation.x = an.offset.x;
+      animation.width = an.space.width * config.tileSize;
+      animation.height = an.space.height * config.tileSize;
       animation.play();
       return animation;
     },
-    [animations, spritesheet.spritesheet.animations]
+    [spritesheet.spritesheet.animations]
   );
 
-  // useEffect(() => {
-  //   setAnimation(createAnimation());
-  // }, [direction, animations, createAnimation]);
+  useEffect(() => {
+    setFake(createAnimation(animations["fake"]));
+  }, [destination]);
 
-  const [tailAnimations, setTailAnimations] = useState(
-    positionStage.map((x, i) => createAnimation(i))
+  let [wormAnimations] = useState(
+    positionStage.map((x, i) =>
+      createAnimation(i === 0 ? animations["idle"] : animations["test"])
+    )
   );
 
   return (
     <React.Fragment>
+      {fake ? (
+        <AnimatedSpritesheet
+          x={destinationStage[0].x}
+          y={destinationStage[0].y}
+          animation={fake}
+          key={`${fake}-${destination.x}-${destination.y}`}
+        />
+      ) : null}
       {x.map((xPos, i) => {
         return (
           <AnimatedSpritesheet
             x={xPos}
             y={y[i]}
-            animation={tailAnimations[i]}
+            animation={wormAnimations[i]}
             key={`${i}-${xPos}-${y[i]}`}
           />
         );
