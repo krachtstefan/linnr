@@ -18,12 +18,9 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
 const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
   nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
 
-const maxQueueLengthReached = ({ position, destination }) => {
-  return (
-    Math.abs(position.x - destination.x) > config.controls.maxQueueLength ||
-    Math.abs(position.y - destination.y) > config.controls.maxQueueLength
-  );
-};
+const toMuchInput = ({ position, destination }) =>
+  Math.abs(position.x - destination.x) > 1 ||
+  Math.abs(position.y - destination.y) > 1;
 
 export const moveEvent = keyObj => {
   return (dispatch, state) => {
@@ -96,9 +93,9 @@ export const moveEvent = keyObj => {
         isOutOfBounds({ board, position: payload.destination[0] }) === false &&
         hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
           false &&
-        maxQueueLengthReached({
-          position,
-          destination: payload.destination
+        toMuchInput({
+          position: position[0],
+          destination: payload.destination[0]
         }) === false
       ) {
         dispatch({

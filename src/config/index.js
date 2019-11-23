@@ -4,8 +4,7 @@ export default {
     canvasBg: "images/canvasBg.png"
   },
   controls: {
-    velocity: 2,
-    maxQueueLength: 3
+    velocity: 2
   },
   tileSize: 24,
   background: 0x9ac503,
