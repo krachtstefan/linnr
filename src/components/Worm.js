@@ -127,7 +127,7 @@ let Worm = () => {
 
   useEffect(() => {
     setFake(createAnimation(animations["fake"]));
-  }, [destination]);
+  }, [destination, createAnimation, animations]);
 
   let [wormAnimations] = useState(
     positionStage.map((x, i) =>
