@@ -1,11 +1,11 @@
-import { AnimatedSprite, Texture } from "pixi.js";
-import React, { useCallback, useEffect, useState } from "react";
-import { Sprite, useTick } from "@inlet/react-pixi";
+import React, { useCallback, useState } from "react";
 import { setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
+import { AnimatedSprite } from "pixi.js";
 import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
 import config from "../config";
+import { useTick } from "@inlet/react-pixi";
 
 let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
   let nextPos = nextPosition + velocity;
