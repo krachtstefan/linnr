@@ -39,7 +39,7 @@ let Worm = () => {
       moving: worm.moving,
       heroSize: worm.tileSize,
       animations: worm.animations,
-      spritesheet: state.stage.spritesheet
+      spritesheet: stage.assets.spritesheet
     };
   });
 

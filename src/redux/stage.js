@@ -1,7 +1,9 @@
 import config from "../config";
 
 const DEFAULT_STAGE_STATE = {
-  spritesheet: null,
+  assets: {
+    spritesheet: null
+  },
   tileSize: config.tileSize,
   // prettier-ignore
   board: [
@@ -30,11 +32,11 @@ export const STAGE_ACTION_TYPES = {
   SET_SPRITESHEET: "SET_SPRITESHEET"
 };
 
-export const setSpritesheet = spritesheet => {
+export const setSpritesheet = asset => {
   return dispatch => {
     dispatch({
       type: STAGE_ACTION_TYPES.SET_SPRITESHEET,
-      payload: spritesheet
+      payload: asset
     });
   };
 };
@@ -44,7 +46,10 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
     case STAGE_ACTION_TYPES.SET_SPRITESHEET:
       return {
         ...state,
-        spritesheet: action.payload
+        assets: {
+          ...state.assets,
+          ...action.payload
+        }
       };
     default:
       return state;

@@ -11,11 +11,13 @@ import { setSpritesheet } from "../redux/stage";
 
 const Game = () => {
   const dispatch = useDispatch();
-  const { spritesheet } = useSelector(state => state["stage"]);
+  const { spritesheet } = useSelector(state => state["stage"]["assets"]);
   useEffect(() => {
     let setup = () => {
       dispatch(
-        setSpritesheet(Loader.shared.resources[config.assets.spritesheet])
+        setSpritesheet({
+          spritesheet: Loader.shared.resources[config.assets.spritesheet]
+        })
       );
     };
     Loader.shared.add(config.assets.spritesheet).load(setup);

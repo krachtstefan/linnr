@@ -29,7 +29,7 @@ let Gamestage = props => {
     height: state.stage.board.length * state.stage.tileSize,
     board: state.stage.board,
     tileSize: state.stage.tileSize,
-    spritesheet: state.stage.spritesheet,
+    spritesheet: state.stage.assets.spritesheet,
     spriteSpecs: state.stage.spriteSpecs
   }));
   return (
