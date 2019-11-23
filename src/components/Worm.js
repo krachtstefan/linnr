@@ -7,32 +7,31 @@ import { useDispatch, useSelector } from "react-redux";
 import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
 import config from "../config";
 
+let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
+  let nextPos = nextPosition + velocity;
+  let arrived =
+    velocity > 0 ? nextPos >= destPosition : nextPos <= destPosition;
+  return [arrived, nextPos];
+};
+
 let Worm = () => {
   let dispatch = useDispatch();
   const {
     positionStage,
     destinationStage,
-    tail,
     destination,
     direction,
     animations,
-    spritesheet,
-    moving
+    spritesheet
   } = useSelector(state => {
     let { worm, stage } = state;
     return {
-      positionStage: {
-        x: stage.tileSize * worm.position.x,
-        y: stage.tileSize * worm.position.y
-      },
-      destinationStage: {
-        x: stage.tileSize * worm.destination.x,
-        y: stage.tileSize * worm.destination.y
-      },
-      tail: worm.tail.map(pos => {
+      positionStage: worm.position.map(pos => {
+        // rename this in whaterStage
         return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
       }),
-      tailDestination: worm.tailDestination.map(pos => {
+      destinationStage: worm.destination.map(pos => {
+        // rename this in whaterStage
         return { x: stage.tileSize * pos.x, y: stage.tileSize * pos.y };
       }),
       destination: worm.destination,
@@ -44,36 +43,61 @@ let Worm = () => {
     };
   });
 
-  const [x, setX] = useState(positionStage.x);
-  const [y, setY] = useState(positionStage.y);
-
-  let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
-    let nextPos = nextPosition + velocity;
-    let arrived =
-      velocity > 0 ? nextPos >= destPosition : nextPos <= destPosition;
-    return [arrived, nextPos];
-  };
+  const [x, setX] = useState(positionStage.map(pos => pos.x));
+  const [y, setY] = useState(positionStage.map(pos => pos.y));
 
   useTick(delta => {
-    let arrived = false,
+    let arrivedX = false,
+      arrivedY = false,
       newPos = null,
       tickVelosity = delta * config.controls.velocity;
 
-    if (x < destinationStage.x) {
-      [arrived, newPos] = getNextPos(x, destinationStage.x, tickVelosity);
-      setX(arrived ? destinationStage.x : newPos);
-    } else if (x > destinationStage.x) {
-      [arrived, newPos] = getNextPos(x, destinationStage.x, -1 * tickVelosity);
-      setX(arrived ? destinationStage.x : newPos);
-    } else if (y < destinationStage.y) {
-      [arrived, newPos] = getNextPos(y, destinationStage.y, tickVelosity);
-      setY(arrived ? destinationStage.y : newPos);
-    } else if (y > destinationStage.y) {
-      [arrived, newPos] = getNextPos(y, destinationStage.y, -1 * tickVelosity);
-      setY(arrived ? destinationStage.y : newPos);
-    }
+    let newX = x.map((xPos, i) => {
+      if (xPos < destinationStage[i].x) {
+        [arrivedX, newPos] = getNextPos(
+          xPos,
+          destinationStage[i].x,
+          tickVelosity
+        );
 
-    if (arrived) {
+        return arrivedX ? destinationStage[i].x : newPos;
+      } else if (xPos > destinationStage[i].x) {
+        [arrivedX, newPos] = getNextPos(
+          xPos,
+          destinationStage[i].x,
+          -1 * tickVelosity
+        );
+
+        return arrivedX ? destinationStage[i].x : newPos;
+      } else {
+        return xPos;
+      }
+    });
+
+    let newY = y.map((yPos, i) => {
+      if (yPos < destinationStage[i].y) {
+        [arrivedY, newPos] = getNextPos(
+          yPos,
+          destinationStage[i].y,
+          tickVelosity
+        );
+        return arrivedY ? destinationStage[i].y : newPos;
+      } else if (yPos > destinationStage[i].y) {
+        [arrivedY, newPos] = getNextPos(
+          yPos,
+          destinationStage[i].y,
+          -1 * tickVelosity
+        );
+        return arrivedY ? destinationStage[i].y : newPos;
+      } else {
+        return yPos;
+      }
+    });
+
+    setY(newY);
+    setX(newX);
+
+    if (arrivedY === true && arrivedY === true) {
       dispatch(setPosition(destination));
       dispatch(setMoving(false));
     }
@@ -98,21 +122,20 @@ let Worm = () => {
 
   const [animation, setAnimation] = useState(createAnimation);
   const [tailAnimations, setTailAnimations] = useState(
-    tail.map(x => createAnimation(0))
+    positionStage.map(() => createAnimation())
   );
 
   return (
     <React.Fragment>
       {animation ? (
         <React.Fragment>
-          <AnimatedSpritesheet x={x} y={y} animation={animation} />
-          {tail.map((tail, i) => {
+          {x.map((xPos, i) => {
             return (
               <AnimatedSpritesheet
-                x={tail.x}
-                y={tail.y}
+                x={xPos}
+                y={y[i]}
                 animation={tailAnimations[i]}
-                key={`${i}-${tail.x}-${tail.y}`}
+                key={`${i}-${xPos}-${y[i]}`}
               />
             );
           })}

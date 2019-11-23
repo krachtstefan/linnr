@@ -22,9 +22,9 @@ const Debugger = () => {
   return (
     <React.Fragment>
       <div className="debug">
-        <b>Position</b> {worm.position.x},{worm.position.y}
+        <b>Position</b> {worm.position[0].x},{worm.position[0].y}
         <br />
-        <b>Destination</b> {worm.destination.x},{worm.destination.y}
+        <b>Destination</b> {worm.destination[0].x},{worm.destination[0].y}
         <br />
         <b>Direction</b> <span>{renderDirectionEmoji(worm.direction)}</span>
         <br />

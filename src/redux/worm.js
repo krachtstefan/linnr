@@ -8,22 +8,14 @@ export const WORM_DIRECTIONS = {
 };
 
 const DEFAULT_WORM_STATE = {
-  position: {
-    x: 3,
-    y: 5
-  },
-  destination: {
-    x: 3,
-    y: 5
-  },
-  tail: [
+  position: [
     { x: 2, y: 5 },
     { x: 1, y: 5 },
     { x: 1, y: 4 },
     { x: 1, y: 3 }
   ],
-  tailDestination: [
-    { x: 2, y: 10 },
+  destination: [
+    { x: 10, y: 10 },
     { x: 1, y: 5 },
     { x: 1, y: 4 },
     { x: 1, y: 3 }
@@ -74,10 +66,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
         ...state,
-        position: {
-          ...state.position,
-          ...action.payload
-        }
+        position: [...action.payload]
       };
     case WORM_ACTION_TYPES.SET_MOVING:
       return {
