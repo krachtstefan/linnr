@@ -36,6 +36,9 @@ div#root {
     display: grid;
     justify-items: center;
     .dpad {
+      @media (pointer: fine) {
+        display: none !important;
+      }
       justify-content: center;
       align-self: center;
       justify-self: center;
