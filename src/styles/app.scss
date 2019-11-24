@@ -29,6 +29,7 @@ div#root {
 
   canvas.game {
     max-width: 100%;
+    box-sizing: border-box;
     align-self: center;
     justify-self: center;
     border-top: 5px solid #444;
