@@ -36,10 +36,10 @@ const DEFAULT_WORM_STATE = {
     { x: 9, y: 2 }
   ],
   destination: [
+    { x: 10, y: 5 },
     { x: 10, y: 4 },
     { x: 10, y: 3 },
-    { x: 9, y: 3 },
-    { x: 9, y: 2 }
+    { x: 9, y: 3 }
   ],
   direction: [
     WORM_DIRECTIONS.S,
