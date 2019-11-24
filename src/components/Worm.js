@@ -108,6 +108,7 @@ let Worm = () => {
     }
   });
 
+  // store them once and return an instance
   const createAnimation = useCallback(
     an => {
       let animationArr = spritesheet.spritesheet.animations[an.name];
@@ -125,7 +126,7 @@ let Worm = () => {
 
   let [fake, setFake] = useState(null);
   useEffect(() => {
-    switch (direction) {
+    switch (direction[0]) {
       case WORM_DIRECTIONS.N:
         setFake(createAnimation(animations["WORM-HD/N/Entry"]));
         break;
@@ -143,30 +144,25 @@ let Worm = () => {
 
   let [wormAnimations, setWormAnimations] = useState(null);
   useEffect(() => {
-    switch (direction) {
-      case WORM_DIRECTIONS.N:
-        setWormAnimations(
-          positionStage.map(() => createAnimation(animations["WORM-BY/N/2N"]))
-        );
-        break;
-      case WORM_DIRECTIONS.E:
-        setWormAnimations(
-          positionStage.map(() => createAnimation(animations["WORM-BY/E/2E"]))
-        );
-        break;
-      case WORM_DIRECTIONS.S:
-        setWormAnimations(
-          positionStage.map(() => createAnimation(animations["WORM-BY/S/2S"]))
-        );
-        break;
-      case WORM_DIRECTIONS.W:
-        setWormAnimations(
-          positionStage.map(() => createAnimation(animations["WORM-BY/W/2W"]))
-        );
-        break;
-      default:
-        break;
-    }
+    // TODO:
+    // store direction for every worm fragment
+    // ttry to use useEffect for setting the x and y for every tile (may create a arrived variable with setState and watch it with the useEffect)
+
+    setWormAnimations(
+      positionStage.map((pos, i) => {
+        switch (direction[i]) {
+          case WORM_DIRECTIONS.N:
+            return createAnimation(animations["WORM-BY/N/2N"]);
+          case WORM_DIRECTIONS.E:
+            return createAnimation(animations["WORM-BY/E/2E"]);
+          case WORM_DIRECTIONS.S:
+            return createAnimation(animations["WORM-BY/S/2S"]);
+          case WORM_DIRECTIONS.W:
+          default:
+            return createAnimation(animations["WORM-BY/W/2W"]);
+        }
+      })
+    );
   }, [createAnimation, positionStage, animations, direction]);
 
   return (

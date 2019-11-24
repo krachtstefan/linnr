@@ -28,7 +28,7 @@ const Debugger = () => {
         <br />
         <b>Destination</b> {worm.destination[0].x},{worm.destination[0].y}
         <br />
-        <b>Direction</b> <span>{renderDirectionEmoji(worm.direction)}</span>
+        <b>Direction</b> <span>{renderDirectionEmoji(worm.direction[0])}</span>
         <br />
         <b>Moving</b> <span>{worm.moving ? "✔" : "❌"}</span>
       </div>

@@ -34,7 +34,12 @@ const DEFAULT_WORM_STATE = {
     { x: 10, y: 3 },
     { x: 10, y: 2 }
   ],
-  direction: WORM_DIRECTIONS.S,
+  direction: [
+    WORM_DIRECTIONS.S,
+    WORM_DIRECTIONS.S,
+    WORM_DIRECTIONS.S,
+    WORM_DIRECTIONS.S
+  ],
   moving: false,
   animations: {
     idle: {

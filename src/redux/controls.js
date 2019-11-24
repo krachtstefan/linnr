@@ -24,7 +24,7 @@ const toMuchInput = ({ position, destination }) =>
 export const moveEvent = keyObj => {
   return (dispatch, state) => {
     let payload;
-    let { position, destination } = state().worm;
+    let { position, destination, direction } = state().worm;
     let { board, spriteSpecs } = state().stage;
     if (
       keyObj["n"] === true &&
@@ -38,7 +38,9 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: WORM_DIRECTIONS.N
+        direction: direction.map((direction, i, directions) => {
+          return i === 0 ? WORM_DIRECTIONS.N : directions[i - 1];
+        })
       };
     } else if (
       keyObj["n"] === false &&
@@ -52,7 +54,9 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: WORM_DIRECTIONS.E
+        direction: direction.map((direction, i, directions) => {
+          return i === 0 ? WORM_DIRECTIONS.E : directions[i - 1];
+        })
       };
     } else if (
       keyObj["n"] === false &&
@@ -66,7 +70,9 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: WORM_DIRECTIONS.S
+        direction: direction.map((direction, i, directions) => {
+          return i === 0 ? WORM_DIRECTIONS.S : directions[i - 1];
+        })
       };
     } else if (
       keyObj["n"] === false &&
@@ -80,7 +86,9 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: WORM_DIRECTIONS.W
+        direction: direction.map((direction, i, directions) => {
+          return i === 0 ? WORM_DIRECTIONS.W : directions[i - 1];
+        })
       };
     }
     if (payload) {
