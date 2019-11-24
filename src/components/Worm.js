@@ -164,8 +164,10 @@ let Worm = () => {
           positionStage.map(() => createAnimation(animations["WORM-BY/W/2W"]))
         );
         break;
+      default:
+        break;
     }
-  }, [positionStage, animations, direction]);
+  }, [createAnimation, positionStage, animations, direction]);
 
   return (
     <React.Fragment>
