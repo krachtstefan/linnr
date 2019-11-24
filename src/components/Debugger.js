@@ -22,6 +22,8 @@ const Debugger = () => {
   return (
     <React.Fragment>
       <div className="debug">
+        <strong>Debugger</strong>
+        <br />
         <b>Position</b> {worm.position[0].x},{worm.position[0].y}
         <br />
         <b>Destination</b> {worm.destination[0].x},{worm.destination[0].y}
