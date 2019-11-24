@@ -22,10 +22,10 @@ export const WORM_DIRECTIONS = {
 };
 
 export const FILENAME_SEGMENTS = {
-  north: "N",
-  east: "E",
-  south: "S",
-  west: "W"
+  north: "S",
+  east: "W",
+  south: "N",
+  west: "E"
 };
 
 const DEFAULT_WORM_STATE = {

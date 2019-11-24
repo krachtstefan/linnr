@@ -68,7 +68,6 @@ let Bone = ({
     let xArrived = undefined;
     let yArrived = undefined;
     let tickVelosity = delta * config.controls.velocity;
-    // console.log("🔃", destX, destY);
     if (destX !== x) {
       let [xArrived, xInterpolated] = getNextPos(
         x,
@@ -92,8 +91,6 @@ let Bone = ({
     }
 
     if (xArrived === true || yArrived === true) {
-      // console.log("!!!", newX, newY);
-      console.log(x, y);
       dispatch(setPosition(index, destination));
       dispatch(setMoving(false));
     }
@@ -287,9 +284,7 @@ let Worm = () => {
             direction={direction[i]}
             spritesheet={spritesheet}
             animations={animations}
-            nextNeighbourDirection={
-              direction.length === i ? direction[i + 1] : null
-            }
+            nextNeighbourDirection={i > 0 ? direction[i - 1] : null}
           />
         );
       })}
