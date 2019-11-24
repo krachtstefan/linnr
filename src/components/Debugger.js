@@ -22,18 +22,32 @@ const Debugger = () => {
   return (
     <React.Fragment>
       <div className="debug">
-        <h1>🦀 Debugger 👾</h1>
+        <h1>
+          <span role="img" aria-labelledby="Crab">
+            🦀
+          </span>{" "}
+          Debugger{" "}
+          <span role="img" aria-labelledby="Space Invader">
+            👾
+          </span>
+        </h1>
         <div className="row">
           <div>Position </div>
           <div>
-            {worm.position[0].x},{worm.position[0].y} 📍
+            {worm.position[0].x},{worm.position[0].y}{" "}
+            <span role="img" aria-labelledby="Position">
+              📍
+            </span>
           </div>
         </div>
 
         <div className="row">
           <div>Destination</div>
           <div>
-            {worm.destination[0].x},{worm.destination[0].y} 🏁
+            {worm.destination[0].x},{worm.destination[0].y}{" "}
+            <span role="img" aria-labelledby="Finish">
+              🏁
+            </span>
           </div>
         </div>
         <div className="row">
