@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
 import Debugger from "./Debugger";
+import Dpad from "./Dpad";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
@@ -39,6 +40,7 @@ const Game = () => {
             </Map>
           </Controls>
           <div className="panel">
+            <Dpad />
             <Debugger />
           </div>
         </React.Fragment>
