@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
 import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
+import PropTypes from "prop-types";
 import config from "../config";
 import { useTick } from "@inlet/react-pixi";
 
@@ -28,15 +29,23 @@ const createAnimation = (spritesheet, animation) => {
 };
 
 let Bone = ({
+  index,
   x,
   y,
+  destX,
+  destY,
+  destination,
   direction,
   nextNeighbourDirection,
   animations,
   spritesheet
 }) => {
   console.log("🦴");
+  let dispatch = useDispatch();
   let [animation, setAnimation] = useState(null);
+  const [virtualX, setVirtualX] = useState(x);
+  const [virtualY, setVirtualY] = useState(y);
+  const [arrived, setArrived] = useState(false);
 
   useEffect(() => {
     setAnimation(() => {
@@ -53,24 +62,72 @@ let Bone = ({
     });
   }, [x, y, direction]);
 
-  // useTick(delta => {
-  //   console.log("🔃");
-  // });
+  useTick(delta => {
+    let newY = y;
+    let newX = x;
+    let xArrived = undefined;
+    let yArrived = undefined;
+    let tickVelosity = delta * config.controls.velocity;
+    // console.log("🔃", destX, destY);
+    if (destX !== x) {
+      let [xArrived, xInterpolated] = getNextPos(
+        x,
+        destX,
+        x < destX ? tickVelosity : -1 * tickVelosity
+      );
+
+      newX = xArrived ? destX : xInterpolated;
+    } else {
+      xArrived = true;
+    }
+    if (destY !== y) {
+      let [yArrived, yInterpolated] = getNextPos(
+        y,
+        destY,
+        y < destY ? tickVelosity : -1 * tickVelosity
+      );
+      newY = yArrived ? destY : yInterpolated;
+    } else {
+      yArrived = true;
+    }
+
+    if (xArrived === true || yArrived === true) {
+      // console.log("!!!", newX, newY);
+      console.log(x, y);
+      dispatch(setPosition(index, destination));
+      dispatch(setMoving(false));
+    }
+  });
 
   return animation ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
   ) : null;
 };
 
-// ADD PROPTYPES
+Bone.propTypes = {
+  index: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  destX: PropTypes.number.isRequired,
+  destY: PropTypes.number.isRequired,
+  destination: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }),
+  direction: PropTypes.string.isRequired,
+
+  nextNeighbourDirection: PropTypes.string,
+  animations: PropTypes.object.isRequired,
+  spritesheet: PropTypes.object.isRequired
+};
 
 let Worm = () => {
   console.log("🐛");
   // let dispatch = useDispatch();
   const {
     positionStage,
-    // destinationStage,
-    // destination,
+    destinationStage,
+    destination,
     direction,
     animations,
     spritesheet
@@ -85,7 +142,7 @@ let Worm = () => {
         x: stage.tileSize * pos.x,
         y: stage.tileSize * pos.y
       })),
-      // destination: worm.destination,
+      destination: worm.destination,
       direction: worm.direction,
       // moving: worm.moving,
       // heroSize: worm.tileSize,
@@ -223,6 +280,10 @@ let Worm = () => {
           <Bone
             key={`bone-${i}`}
             {...position}
+            index={i}
+            destX={destinationStage[i].x}
+            destY={destinationStage[i].y}
+            destination={destination[i]}
             direction={direction[i]}
             spritesheet={spritesheet}
             animations={animations}
