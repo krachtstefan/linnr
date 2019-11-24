@@ -45,22 +45,26 @@ const DEFAULT_WORM_STATE = {
       name: "WORM-BY/S/2S",
       ...defaultAnimationProps
     },
-    "WORM-HD/E/Entry": {
-      name: "WORM-HD/E/Entry",
-      ...defaultAnimationProps
-    },
-    "WORM-HD/N/Entry": {
-      name: "WORM-HD/N/Entry",
-      ...defaultAnimationProps
-    },
-    "WORM-HD/S/Entry": {
-      name: "WORM-HD/S/Entry",
-      ...defaultAnimationProps
-    },
-    "WORM-HD/W/Entry": {
-      name: "WORM-HD/W/Entry",
-      ...defaultAnimationProps
-    }
+    "WORM-BY/E/2E": { name: "WORM-BY/E/2E", ...defaultAnimationProps },
+    "WORM-BY/E/2N": { name: "WORM-BY/E/2N", ...defaultAnimationProps },
+    "WORM-BY/E/2S": { name: "WORM-BY/E/2S", ...defaultAnimationProps },
+    "WORM-BY/N/2E": { name: "WORM-BY/N/2E", ...defaultAnimationProps },
+    "WORM-BY/N/2N": { name: "WORM-BY/N/2N", ...defaultAnimationProps },
+    "WORM-BY/N/2W": { name: "WORM-BY/N/2W", ...defaultAnimationProps },
+    "WORM-BY/S/2E": { name: "WORM-BY/S/2E", ...defaultAnimationProps },
+    "WORM-BY/S/2S": { name: "WORM-BY/S/2S", ...defaultAnimationProps },
+    "WORM-BY/S/2W": { name: "WORM-BY/S/2W", ...defaultAnimationProps },
+    "WORM-BY/W/2N": { name: "WORM-BY/W/2N", ...defaultAnimationProps },
+    "WORM-BY/W/2S": { name: "WORM-BY/W/2S", ...defaultAnimationProps },
+    "WORM-BY/W/2W": { name: "WORM-BY/W/2W", ...defaultAnimationProps },
+    "WORM-HD/E/Entry": { name: "WORM-HD/E/Entry", ...defaultAnimationProps },
+    "WORM-HD/N/Entry": { name: "WORM-HD/N/Entry", ...defaultAnimationProps },
+    "WORM-HD/S/Entry": { name: "WORM-HD/S/Entry", ...defaultAnimationProps },
+    "WORM-HD/W/Entry": { name: "WORM-HD/W/Entry", ...defaultAnimationProps },
+    "WORM-TL/E/2E": { name: "WORM-TL/E/2E", ...defaultAnimationProps },
+    "WORM-TL/N/2N": { name: "WORM-TL/N/2N", ...defaultAnimationProps },
+    "WORM-TL/S/2S": { name: "WORM-TL/S/2S", ...defaultAnimationProps },
+    "WORM-TL/W/2W": { name: "WORM-TL/W/2W", ...defaultAnimationProps }
   }
 };
 
