@@ -9,7 +9,12 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
+  color: #444;
   background: #777;
+}
+
+strong {
+  color: #222;
 }
 
 div#root {
@@ -30,8 +35,48 @@ div#root {
   .panel {
     display: grid;
     justify-items: center;
-    .debug {
-      color: #444;
+    .dpad {
+      justify-content: center;
+      align-self: center;
+      justify-self: center;
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 40px 25px 40px;
+      grid-template-rows: 40px 25px 40px;
+      grid-template-areas:
+        "...... up ......"
+        "left ...... right"
+        "...... down ......";
+      div {
+        background: #222;
+        border-top: 4px solid #999;
+
+        &:active,
+        &.active {
+          border-top: 0;
+          border-top: 2px solid #999;
+        }
+      }
+      .up {
+        border-radius: 0.25em 0.25em 0 0;
+        grid-area: up;
+      }
+      .right {
+        border-radius: 0 0.25em 0 0;
+        grid-area: right;
+      }
+      .left {
+        border-radius: 0.25em 0 0 0;
+        grid-area: left;
+      }
+      .down {
+        border-radius: 0.25em 0.25em 0 0;
+        grid-area: down;
+      }
+    }
+    .debug,
+    .dpad {
+      min-width: 200px;
       border-top: 5px solid #444;
       border-right: 5px solid #444;
       border-bottom: 5px solid #999;
