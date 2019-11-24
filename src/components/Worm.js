@@ -1,5 +1,5 @@
 import { FILENAME_SEGMENTS, setMoving, setPosition } from "../redux/worm";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
@@ -43,9 +43,6 @@ let Bone = ({
   console.log("🦴");
   let dispatch = useDispatch();
   let [animation, setAnimation] = useState(null);
-  const [virtualX, setVirtualX] = useState(x);
-  const [virtualY, setVirtualY] = useState(y);
-  const [arrived, setArrived] = useState(false);
 
   useEffect(() => {
     setAnimation(() => {
@@ -60,39 +57,34 @@ let Bone = ({
         console.warn(`${animationName} is missing in spritesheets`);
       }
     });
-  }, [x, y, direction]);
+  }, [x, y, direction, animations, nextNeighbourDirection, spritesheet]);
 
   useTick(delta => {
-    let newY = y;
-    let newX = x;
     let xArrived = undefined;
     let yArrived = undefined;
     let tickVelosity = delta * config.controls.velocity;
     if (destX !== x) {
-      let [xArrived, xInterpolated] = getNextPos(
+      [xArrived] = getNextPos(
         x,
         destX,
         x < destX ? tickVelosity : -1 * tickVelosity
       );
-
-      newX = xArrived ? destX : xInterpolated;
     } else {
       xArrived = true;
     }
     if (destY !== y) {
-      let [yArrived, yInterpolated] = getNextPos(
+      [yArrived] = getNextPos(
         y,
         destY,
         y < destY ? tickVelosity : -1 * tickVelosity
       );
-      newY = yArrived ? destY : yInterpolated;
     } else {
       yArrived = true;
     }
 
     if (xArrived === true || yArrived === true) {
-      dispatch(setPosition(index, destination));
       dispatch(setMoving(false));
+      dispatch(setPosition(index, destination));
     }
   });
 
