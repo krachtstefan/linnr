@@ -49,8 +49,6 @@ let Worm = () => {
   const [virtualX, setVirtualX] = useState(x);
   const [virtualY, setVirtualY] = useState(y);
 
-  let [fake, setFake] = useState(null);
-
   useTick(delta => {
     let arrivedX = false,
       arrivedY = false,
@@ -125,6 +123,7 @@ let Worm = () => {
     [spritesheet.spritesheet.animations]
   );
 
+  let [fake, setFake] = useState(null);
   useEffect(() => {
     switch (direction) {
       case WORM_DIRECTIONS.N:
@@ -142,11 +141,31 @@ let Worm = () => {
     }
   }, [destination, createAnimation, animations, direction]);
 
-  let [wormAnimations] = useState(
-    positionStage.map((x, i) =>
-      createAnimation(i === 0 ? animations["idle"] : animations["test"])
-    )
-  );
+  let [wormAnimations, setWormAnimations] = useState(null);
+  useEffect(() => {
+    switch (direction) {
+      case WORM_DIRECTIONS.N:
+        setWormAnimations(
+          positionStage.map(() => createAnimation(animations["WORM-BY/N/2N"]))
+        );
+        break;
+      case WORM_DIRECTIONS.E:
+        setWormAnimations(
+          positionStage.map(() => createAnimation(animations["WORM-BY/E/2E"]))
+        );
+        break;
+      case WORM_DIRECTIONS.S:
+        setWormAnimations(
+          positionStage.map(() => createAnimation(animations["WORM-BY/S/2S"]))
+        );
+        break;
+      case WORM_DIRECTIONS.W:
+        setWormAnimations(
+          positionStage.map(() => createAnimation(animations["WORM-BY/W/2W"]))
+        );
+        break;
+    }
+  }, [positionStage, animations, direction]);
 
   return (
     <React.Fragment>
@@ -158,16 +177,18 @@ let Worm = () => {
           key={`${fake}-${destination.x}-${destination.y}`}
         />
       ) : null}
-      {x.map((xPos, i) => {
-        return (
-          <AnimatedSpritesheet
-            x={xPos}
-            y={y[i]}
-            animation={wormAnimations[i]}
-            key={`${i}-${xPos}-${y[i]}`}
-          />
-        );
-      })}
+      {wormAnimations
+        ? x.map((xPos, i) => {
+            return (
+              <AnimatedSpritesheet
+                x={xPos}
+                y={y[i]}
+                animation={wormAnimations[i]}
+                key={`${i}-${xPos}-${y[i]}`}
+              />
+            );
+          })
+        : null}
     </React.Fragment>
   );
 };
