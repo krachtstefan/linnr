@@ -9,7 +9,7 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
-  color: #444;
+  color: #af9980;
   background: #282828;
 }
 
@@ -43,10 +43,6 @@ div#root {
     box-sizing: border-box;
     align-self: center;
     justify-self: center;
-    border-top: 5px solid #444;
-    border-right: 5px solid #444;
-    border-bottom: 5px solid #999;
-    border-left: 5px solid #999;
   }
 
   .panel {
@@ -68,13 +64,13 @@ div#root {
         "left ...... right"
         "...... down ......";
       div {
-        background: #222;
-        border-top: 4px solid #999;
+        background: #af9980;
+        border-top: 4px solid #797258;
 
         &:active,
         &.active {
           border-top: 0;
-          border-top: 2px solid #999;
+          border-top: 2px solid#797258;
         }
       }
       .up {
@@ -100,10 +96,10 @@ div#root {
         text-align: center;
       }
       min-width: 200px;
-      border-top: 5px solid #444;
-      border-right: 5px solid #444;
-      border-bottom: 5px solid #999;
-      border-left: 5px solid #999;
+      border-top: 5px solid #797258;
+      border-right: 5px solid #797258;
+      border-bottom: 5px solid #af9980;
+      border-left: 5px solid #af9980;
       margin: 20px;
       padding: 20px;
     }
