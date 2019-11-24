@@ -21,23 +21,30 @@ export const WORM_DIRECTIONS = {
   W: "west"
 };
 
+export const FILENAME_SEGMENTS = {
+  north: "N",
+  east: "E",
+  south: "S",
+  west: "W"
+};
+
 const DEFAULT_WORM_STATE = {
   position: [
     { x: 10, y: 4 },
     { x: 10, y: 3 },
-    { x: 10, y: 2 },
-    { x: 10, y: 1 }
+    { x: 9, y: 3 },
+    { x: 9, y: 2 }
   ],
   destination: [
-    { x: 10, y: 5 },
     { x: 10, y: 4 },
     { x: 10, y: 3 },
-    { x: 10, y: 2 }
+    { x: 9, y: 3 },
+    { x: 9, y: 2 }
   ],
   direction: [
     WORM_DIRECTIONS.S,
     WORM_DIRECTIONS.S,
-    WORM_DIRECTIONS.S,
+    WORM_DIRECTIONS.E,
     WORM_DIRECTIONS.S
   ],
   moving: false,

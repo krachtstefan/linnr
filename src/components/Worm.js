@@ -1,5 +1,5 @@
+import { FILENAME_SEGMENTS, setMoving, setPosition } from "../redux/worm";
 import React, { useCallback, useEffect, useState } from "react";
-import { WORM_DIRECTIONS, setMoving, setPosition } from "../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
@@ -126,19 +126,11 @@ let Worm = () => {
 
   let [fake, setFake] = useState(null);
   useEffect(() => {
-    switch (direction[0]) {
-      case WORM_DIRECTIONS.N:
-        setFake(createAnimation(animations["WORM-HD/N/Entry"]));
-        break;
-      case WORM_DIRECTIONS.E:
-        setFake(createAnimation(animations["WORM-HD/E/Entry"]));
-        break;
-      case WORM_DIRECTIONS.S:
-        setFake(createAnimation(animations["WORM-HD/S/Entry"]));
-        break;
-      case WORM_DIRECTIONS.W:
-        setFake(createAnimation(animations["WORM-HD/W/Entry"]));
-        break;
+    let animationName = `WORM-HD/${FILENAME_SEGMENTS[direction[0]]}/Entry`;
+    if (Object.keys(animations).includes(animationName)) {
+      setFake(createAnimation(animations[animationName]));
+    } else {
+      console.warn(`${animationName} is missing in spritesheets`);
     }
   }, [destination, createAnimation, animations, direction]);
 
@@ -149,17 +141,17 @@ let Worm = () => {
     // ttry to use useEffect for setting the x and y for every tile (may create a arrived variable with setState and watch it with the useEffect)
 
     setWormAnimations(
-      positionStage.map((pos, i) => {
-        switch (direction[i]) {
-          case WORM_DIRECTIONS.N:
-            return createAnimation(animations["WORM-BY/N/2N"]);
-          case WORM_DIRECTIONS.E:
-            return createAnimation(animations["WORM-BY/E/2E"]);
-          case WORM_DIRECTIONS.S:
-            return createAnimation(animations["WORM-BY/S/2S"]);
-          case WORM_DIRECTIONS.W:
-          default:
-            return createAnimation(animations["WORM-BY/W/2W"]);
+      positionStage.map((pos, i, positions) => {
+        let nextDirection =
+          i === positions.length - 1 ? direction[i] : direction[i + 1];
+        let animationName = `WORM-BY/${FILENAME_SEGMENTS[nextDirection]}/2${
+          FILENAME_SEGMENTS[direction[i]]
+        }`;
+        if (Object.keys(animations).includes(animationName)) {
+          console.log(animationName);
+          return createAnimation(animations[animationName]);
+        } else {
+          console.warn(`${animationName} is missing in spritesheets`);
         }
       })
     );

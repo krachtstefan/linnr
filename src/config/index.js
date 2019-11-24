@@ -8,5 +8,5 @@ export default {
   },
   tileSize: 24,
   background: 0x9ac503,
-  autoplay: false
+  autoplay: true
 };
