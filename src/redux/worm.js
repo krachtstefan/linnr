@@ -22,10 +22,10 @@ export const WORM_DIRECTIONS = {
 };
 
 export const FILENAME_SEGMENTS = {
-  north: "N",
-  east: "E",
-  south: "S",
-  west: "W"
+  north: "S",
+  east: "W",
+  south: "N",
+  west: "E"
 };
 
 const DEFAULT_WORM_STATE = {
@@ -85,11 +85,11 @@ export const WORM_ACTION_TYPES = {
   SET_MOVING: "SET_MOVING"
 };
 
-export const setPosition = position => {
+export const setPosition = (index, position) => {
   return dispatch => {
     dispatch({
       type: WORM_ACTION_TYPES.SET_POSITION,
-      payload: position
+      payload: { position, index }
     });
   };
 };
@@ -120,7 +120,13 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
         ...state,
-        position: [...action.payload]
+        position: [
+          ...state.position.map((item, index) => {
+            return index === action.payload.index
+              ? action.payload.position
+              : item;
+          })
+        ]
       };
     case WORM_ACTION_TYPES.SET_MOVING:
       return {
