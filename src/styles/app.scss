@@ -9,7 +9,6 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
-  background: url("/images/logo.png") top 100px center no-repeat;
   color: #af9980;
   background-color: #282828;
 }
@@ -37,7 +36,12 @@ div {
 div#root {
   display: grid;
   height: 100vh;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+
+  div.logo {
+    height: 200px;
+    background: url("/images/logo.png") center center no-repeat;
+  }
 
   canvas.game {
     max-width: 100%;

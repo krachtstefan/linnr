@@ -34,6 +34,7 @@ const Game = () => {
     <React.Fragment>
       {spritesheet && canvasBg ? (
         <React.Fragment>
+          <div className="logo"></div>
           <Controls>
             <Map className="game">
               <Worm />
