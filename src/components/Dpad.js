@@ -1,11 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import React from "react";
-import { WORM_DIRECTIONS } from "../redux/worm";
 import { moveEvent } from "../redux/controls";
+import { useDispatch } from "react-redux";
 
 const Dpad = () => {
-  const { moving, direction } = useSelector(state => state["worm"]);
   const dispatch = useDispatch();
   return (
     <div className="dpad">
