@@ -17,6 +17,11 @@ strong {
   color: #222;
 }
 
+a,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 div#root {
   display: grid;
   height: 100vh;
