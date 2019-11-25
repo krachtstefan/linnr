@@ -43,6 +43,8 @@ let Bone = ({
   console.log("🦴");
   let dispatch = useDispatch();
   let [animation, setAnimation] = useState(null);
+  let [virtualX, setVirtualX] = useState(x);
+  let [virtualY, setVirtualY] = useState(y);
 
   useEffect(() => {
     setAnimation(() => {
@@ -62,24 +64,25 @@ let Bone = ({
   useTick(delta => {
     let xArrived = undefined;
     let yArrived = undefined;
+    let nextX = null;
+    let nextY = null;
     let tickVelosity = delta * config.controls.velocity;
-    if (destX !== x) {
-      [xArrived] = getNextPos(
-        x,
+
+    if (destX !== virtualX) {
+      [xArrived, nextX] = getNextPos(
+        virtualX,
         destX,
-        x < destX ? tickVelosity : -1 * tickVelosity
+        virtualX < destX ? tickVelosity : -1 * tickVelosity
       );
-    } else {
-      xArrived = true;
+      setVirtualX(xArrived ? destX : nextX);
     }
-    if (destY !== y) {
-      [yArrived] = getNextPos(
-        y,
+    if (destY !== virtualY) {
+      [yArrived, nextY] = getNextPos(
+        virtualY,
         destY,
-        y < destY ? tickVelosity : -1 * tickVelosity
+        virtualY < destY ? tickVelosity : -1 * tickVelosity
       );
-    } else {
-      yArrived = true;
+      setVirtualY(yArrived ? destY : nextY);
     }
 
     if (xArrived === true || yArrived === true) {
