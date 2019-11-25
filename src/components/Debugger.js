@@ -28,7 +28,7 @@ const Debugger = () => {
         role="button"
         onClick={() => setOpen(current => !current)}
       >
-        {open === true ? "close" : "open debugger"}
+        {open === true ? "\ue150 close debugger" : `🔍 open debugger`}
       </a>
       <div className={`debug ${open === false ? "hide" : ""}`.trim()}>
         <h1>
