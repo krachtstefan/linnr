@@ -39,8 +39,8 @@ div#root {
   grid-template-rows: auto 1fr auto;
 
   div.logo {
-    height: 200px;
-    background: url("/images/logo.png") center center no-repeat;
+    background: url("/images/logo.svg") center center no-repeat;
+    background-size: 200px;
   }
 
   canvas.game {
