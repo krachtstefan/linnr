@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { WORM_DIRECTIONS } from "../redux/worm";
 import { useSelector } from "react-redux";
 
 const Debugger = () => {
   let { worm } = useSelector(state => state);
+  let [open, setOpen] = useState(false);
 
   const renderDirectionEmoji = direction => {
     switch (direction) {
@@ -20,8 +22,15 @@ const Debugger = () => {
   };
 
   return (
-    <React.Fragment>
-      <div className="debug">
+    <div className="debug-wrapper">
+      <a
+        className="toggle-debugger"
+        role="button"
+        onClick={() => setOpen(current => !current)}
+      >
+        {open === true ? "close" : "open debugger"}
+      </a>
+      <div className={`debug ${open === false ? "hide" : ""}`.trim()}>
         <h1>
           <span role="img" aria-labelledby="Crab">
             🦀
@@ -59,7 +68,7 @@ const Debugger = () => {
           <div>{worm.moving ? "✔" : "❌"}</div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

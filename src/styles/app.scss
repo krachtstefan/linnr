@@ -1,3 +1,9 @@
+:root {
+  --color-beige: #af9980;
+  --color-beige-dark: #797258;
+  --color-dark: #282828;
+}
+
 @font-face {
   font-family: "Vollkorn";
   src: url("/fonts/vollkorn.ttf");
@@ -9,12 +15,12 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
-  color: #af9980;
-  background-color: #282828;
+  color: var(--color-beige);
+  background-color: var(--color-dark);
 }
 
 strong {
-  color: #222;
+  color: var(--color-dark);
 }
 
 h1 {
@@ -33,11 +39,14 @@ div {
   grid-template-columns: 1fr auto;
 }
 
+.hide {
+  display: none;
+}
+
 div#root {
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 1fr auto;
-
+  grid-template-rows: 100px 1fr auto;
   div.logo {
     background: url("/images/logo.svg") center center no-repeat;
     background-size: 200px;
@@ -57,6 +66,8 @@ div#root {
       @media (pointer: fine) {
         display: none !important;
       }
+      margin: 20px;
+      padding: 20px;
       justify-content: center;
       align-self: center;
       justify-self: center;
@@ -69,13 +80,13 @@ div#root {
         "left ...... right"
         "...... down ......";
       div {
-        background: #af9980;
-        border-top: 4px solid #797258;
+        background: var(--color-beige);
+        border-top: 4px solid var(--color-beige-dark);
 
         &:active,
         &.active {
           border-top: 0;
-          border-top: 2px solid#797258;
+          border-top: 2px solidvar(--color-beige-dark);
         }
       }
       .up {
@@ -95,16 +106,28 @@ div#root {
         grid-area: down;
       }
     }
-    .debug,
-    .dpad {
+
+    .debug-wrapper {
+      width: 100%;
+      background: var(--color-beige);
+      color: var(--color-dark);
+      a.toggle-debugger {
+        cursor: pointer;
+        display: inline-block;
+        height: 30px;
+        margin-top: -30px;
+        background: var(--color-beige);
+        color: var(--color-dark);
+        padding: 0 20px;
+        position: absolute;
+      }
+    }
+
+    .debug {
       h1 {
         text-align: center;
       }
-      min-width: 200px;
-      border-top: 5px solid #797258;
-      border-right: 5px solid #797258;
-      border-bottom: 5px solid #af9980;
-      border-left: 5px solid #af9980;
+
       margin: 20px;
       padding: 20px;
     }
