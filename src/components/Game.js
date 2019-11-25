@@ -35,15 +35,15 @@ const Game = () => {
       {spritesheet && canvasBg ? (
         <React.Fragment>
           <div className="logo"></div>
-          <Controls>
-            <Map className="game">
-              <Worm />
-            </Map>
-          </Controls>
-          <div className="panel">
+          <div className="game">
+            <Controls>
+              <Map>
+                <Worm />
+              </Map>
+            </Controls>
             <Dpad />
-            <Debugger />
           </div>
+          <Debugger />
         </React.Fragment>
       ) : null}
     </React.Fragment>

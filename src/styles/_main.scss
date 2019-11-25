@@ -1,0 +1,35 @@
+html,
+body {
+  font-family: Vollkorn, "Courier New", Courier, monospace;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  color: var(--color-beige);
+  background-color: var(--color-dark);
+}
+
+strong {
+  color: var(--color-dark);
+}
+
+h1 {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 24px;
+}
+
+a,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+div#root {
+  display: grid;
+  height: 100vh;
+  row-gap: 20px;
+  grid-template-rows: 100px 1fr auto;
+  div.logo {
+    background: url("/images/logo.svg") center center no-repeat;
+    background-size: 200px;
+  }
+}

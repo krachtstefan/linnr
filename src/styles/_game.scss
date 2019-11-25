@@ -1,0 +1,53 @@
+.game {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 50px;
+  canvas {
+    max-width: 100%;
+  }
+  .dpad-wrapper {
+    @media (pointer: fine) {
+      display: none !important;
+    }
+    display: grid;
+    justify-items: center;
+    .dpad {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 40px 25px 40px;
+      grid-template-rows: 40px 25px 40px;
+      grid-template-areas:
+        "...... up ......"
+        "left ...... right"
+        "...... down ......";
+      div {
+        background: var(--color-beige);
+        border-top: 4px solid var(--color-beige-dark);
+
+        &:active,
+        &.active {
+          border-top: 0;
+          border-top: 2px solidvar(--color-beige-dark);
+        }
+      }
+      .up {
+        border-radius: 0.25em 0.25em 0 0;
+        grid-area: up;
+      }
+      .right {
+        border-radius: 0 0.25em 0 0;
+        grid-area: right;
+      }
+      .left {
+        border-radius: 0.25em 0 0 0;
+        grid-area: left;
+      }
+      .down {
+        border-radius: 0.25em 0.25em 0 0;
+        grid-area: down;
+      }
+    }
+  }
+}
