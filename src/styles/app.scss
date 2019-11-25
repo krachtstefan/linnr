@@ -34,11 +34,6 @@ div {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-}
-
 .hide {
   display: none;
 }
@@ -124,11 +119,16 @@ div#root {
     }
 
     .debug {
+      display: grid;
+      grid-template-columns: minmax(max-content, 400px);
+      justify-content: center;
       h1 {
         text-align: center;
       }
-
-      margin: 20px;
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+      }
       padding: 20px;
     }
   }
