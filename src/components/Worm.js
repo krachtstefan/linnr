@@ -24,7 +24,6 @@ const createAnimation = (spritesheet, animation) => {
   newAnimation.width = animation.space.width * config.tileSize;
   newAnimation.height = animation.space.height * config.tileSize;
   newAnimation.play();
-  console.log("📼");
   return newAnimation;
 };
 
@@ -41,7 +40,7 @@ let Bone = ({
   spritesheet,
   arrived = () => {}
 }) => {
-  console.log("🦴");
+  // console.log("🦴");
   let [animation, setAnimation] = useState(null);
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
@@ -122,8 +121,7 @@ Bone.propTypes = {
 };
 
 let Worm = () => {
-  console.log("🐛");
-  // let dispatch = useDispatch();
+  // console.log("🐛");
   let dispatch = useDispatch();
   const {
     positionStage,
