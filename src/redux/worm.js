@@ -46,6 +46,7 @@ const DEFAULT_WORM_STATE = {
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S }
   ],
   nextDirection: WORM_DIRECTIONS.S,
+  age: 0,
   dead: false,
   animations: {
     idle: {
@@ -83,7 +84,8 @@ export const WORM_ACTION_TYPES = {
   SET_POSITION: "SET_POSITION",
   SET_DESTINATION: "SET_DESTINATION",
   SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
-  SET_DEAD: "SET_DEAD"
+  SET_DEAD: "SET_DEAD",
+  INCREASE_AGE: "INCREASE_AGE"
 };
 
 export const setPosition = position => {
@@ -179,6 +181,10 @@ export const initiateNextMove = () => {
             type: WORM_ACTION_TYPES.SET_DESTINATION,
             payload
           });
+          dispatch({
+            type: WORM_ACTION_TYPES.INCREASE_AGE,
+            payload: state().worm.age + 1
+          });
         } else {
           dispatch({
             type: WORM_ACTION_TYPES.SET_DEAD
@@ -200,6 +206,11 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
       return {
         ...state,
         dead: true
+      };
+    case WORM_ACTION_TYPES.INCREASE_AGE:
+      return {
+        ...state,
+        age: action.payload
       };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
       return {
