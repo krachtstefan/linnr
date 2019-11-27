@@ -95,6 +95,100 @@ export const setPosition = position => {
   };
 };
 
+const isOutOfBounds = ({ board, position }) =>
+  position.x < 0 ||
+  position.x > board[0].length - 1 ||
+  position.y < 0 ||
+  position.y > board.length - 1;
+
+const hitsWall = ({ board, spriteSpecs, position }) =>
+  spriteSpecs[board[position.y][position.x]] &&
+  spriteSpecs[board[position.y][position.x]].collisionType === "wall";
+
+const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
+  nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
+
+export const initiateNextMove = () => {
+  return (dispatch, state) => {
+    let payload;
+    let { position, destination, direction, nextDirection } = state().worm;
+    let { board, spriteSpecs } = state().stage;
+    if (nextDirection === WORM_DIRECTIONS.N) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.N }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.E) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x + 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.E }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.S) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.S }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.W) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x - 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.W }
+            : directions[i - 1]
+        )
+      };
+    }
+    if (payload) {
+      if (
+        movesBackwards({
+          nextHeadPos: payload.destination[0],
+          lastHeadPos: position[1]
+        }) === false
+      ) {
+        if (
+          isOutOfBounds({ board, position: payload.destination[0] }) ===
+            false &&
+          hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
+            false
+        ) {
+          dispatch({
+            type: WORM_ACTION_TYPES.SET_DESTINATION,
+            payload
+          });
+        } else {
+          dispatch({
+            type: WORM_ACTION_TYPES.SET_DEAD
+          });
+        }
+      }
+    }
+  };
+};
+
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_POSITION:
