@@ -1,4 +1,8 @@
-import { FILENAME_SEGMENTS, setMoving, setPosition } from "../redux/worm";
+import {
+  FILENAME_SEGMENTS,
+  initiateNextMove,
+  setPosition
+} from "../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,67 +28,79 @@ const createAnimation = (spritesheet, animation) => {
   newAnimation.width = animation.space.width * config.tileSize;
   newAnimation.height = animation.space.height * config.tileSize;
   newAnimation.play();
-  console.log("📼");
   return newAnimation;
 };
 
 let Bone = ({
   index,
+  boneCount,
   x,
   y,
   destX,
   destY,
   destination,
   direction,
-  nextNeighbourDirection,
   animations,
-  spritesheet
+  dead,
+  spritesheet,
+  arrived = () => {}
 }) => {
-  console.log("🦴");
-  let dispatch = useDispatch();
+  // console.log("🦴");
   let [animation, setAnimation] = useState(null);
+  let [virtualX, setVirtualX] = useState(x);
+  let [virtualY, setVirtualY] = useState(y);
 
   useEffect(() => {
     setAnimation(() => {
-      let nextDirection = nextNeighbourDirection
-        ? nextNeighbourDirection
-        : direction;
-      let animationName = `WORM-BY/${FILENAME_SEGMENTS[nextDirection]}/2${FILENAME_SEGMENTS[direction]}`;
+      let bodypart = index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY";
+      let animationName = `WORM-${bodypart}/${
+        FILENAME_SEGMENTS[direction.from]
+      }/2${FILENAME_SEGMENTS[direction.to]}`;
 
       if (Object.keys(animations).includes(animationName)) {
         return createAnimation(spritesheet, animations[animationName]);
       } else {
         console.warn(`${animationName} is missing in spritesheets`);
+        return createAnimation(spritesheet, animations["WORM-BY/S/2S"]);
       }
     });
-  }, [x, y, direction, animations, nextNeighbourDirection, spritesheet]);
+  }, [x, y, direction, animations, spritesheet, index, boneCount]);
+
+  useEffect(() => {
+    setAnimation(animation => {
+      if (animation) {
+        animation.stop();
+      }
+      return animation;
+    });
+  }, [dead]);
 
   useTick(delta => {
     let xArrived = undefined;
     let yArrived = undefined;
+    let nextX = null;
+    let nextY = null;
     let tickVelosity = delta * config.controls.velocity;
-    if (destX !== x) {
-      [xArrived] = getNextPos(
-        x,
+
+    if (destX !== virtualX) {
+      [xArrived, nextX] = getNextPos(
+        virtualX,
         destX,
-        x < destX ? tickVelosity : -1 * tickVelosity
+        virtualX < destX ? tickVelosity : -1 * tickVelosity
       );
-    } else {
-      xArrived = true;
+      setVirtualX(xArrived ? destX : nextX);
     }
-    if (destY !== y) {
-      [yArrived] = getNextPos(
-        y,
+    if (destY !== virtualY) {
+      [yArrived, nextY] = getNextPos(
+        virtualY,
         destY,
-        y < destY ? tickVelosity : -1 * tickVelosity
+        virtualY < destY ? tickVelosity : -1 * tickVelosity
       );
-    } else {
-      yArrived = true;
+      setVirtualY(yArrived ? destY : nextY);
     }
 
     if (xArrived === true || yArrived === true) {
-      dispatch(setMoving(false));
-      dispatch(setPosition(index, destination));
+      arrived(index, destination);
     }
   });
 
@@ -95,6 +111,7 @@ let Bone = ({
 
 Bone.propTypes = {
   index: PropTypes.number.isRequired,
+  boneCount: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   destX: PropTypes.number.isRequired,
@@ -103,22 +120,26 @@ Bone.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
   }),
-  direction: PropTypes.string.isRequired,
-
-  nextNeighbourDirection: PropTypes.string,
+  direction: PropTypes.shape({
+    from: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired
+  }),
   animations: PropTypes.object.isRequired,
-  spritesheet: PropTypes.object.isRequired
+  dead: PropTypes.bool.isRequired,
+  spritesheet: PropTypes.object.isRequired,
+  arrived: PropTypes.func.isRequired
 };
 
 let Worm = () => {
-  console.log("🐛");
-  // let dispatch = useDispatch();
+  // console.log("🐛");
+  let dispatch = useDispatch();
   const {
     positionStage,
     destinationStage,
     destination,
     direction,
     animations,
+    dead,
     spritesheet
   } = useSelector(state => {
     let { worm, stage } = state;
@@ -133,150 +154,59 @@ let Worm = () => {
       })),
       destination: worm.destination,
       direction: worm.direction,
-      // moving: worm.moving,
-      // heroSize: worm.tileSize,
       animations: worm.animations,
+      dead: worm.dead,
       spritesheet: stage.assets.spritesheet
     };
   });
 
-  // const [x, setX] = useState(positionStage.map(pos => pos.x));
-  // const [y, setY] = useState(positionStage.map(pos => pos.y));
+  let [nextPositions, setNextPositions] = useState({});
 
-  // const [virtualX, setVirtualX] = useState(x);
-  // const [virtualY, setVirtualY] = useState(y);
+  let arrived = (boneIndex, position) => {
+    setNextPositions(old => ({ ...old, [boneIndex]: position }));
+  };
 
-  // useTick(delta => {
-  //   let arrivedX = false,
-  //     arrivedY = false,
-  //     newPos = null,
-  //     tickVelosity = delta * config.controls.velocity;
-  //   let newX = [];
-  //   virtualX.forEach((xPos, i) => {
-  //     if (xPos < destinationStage[i].x) {
-  //       [arrivedX, newPos] = getNextPos(
-  //         xPos,
-  //         destinationStage[i].x,
-  //         tickVelosity
-  //       );
-  //       newX[i] = arrivedX ? destinationStage[i].x : newPos;
-  //     } else if (xPos > destinationStage[i].x) {
-  //       [arrivedX, newPos] = getNextPos(
-  //         xPos,
-  //         destinationStage[i].x,
-  //         -1 * tickVelosity
-  //       );
+  useEffect(() => {
+    /**
+     * as soon as all bones have submitted their next position,
+     * dispatch it to redux and reset internal state
+     */
+    if (Object.keys(nextPositions).length === positionStage.length) {
+      dispatch(
+        setPosition(
+          Object.keys(nextPositions)
+            .sort()
+            .map(key => nextPositions[key])
+        )
+      );
+      setNextPositions({});
+    }
+  }, [nextPositions, positionStage.length, dispatch]);
 
-  //       newX[i] = arrivedX ? destinationStage[i].x : newPos;
-  //     } else {
-  //       newX[i] = xPos;
-  //     }
-  //   });
-
-  //   let newY = [];
-  //   virtualY.forEach((yPos, i) => {
-  //     if (yPos < destinationStage[i].y) {
-  //       [arrivedY, newPos] = getNextPos(
-  //         yPos,
-  //         destinationStage[i].y,
-  //         tickVelosity
-  //       );
-  //       newY[i] = arrivedY ? destinationStage[i].y : newPos;
-  //     } else if (yPos > destinationStage[i].y) {
-  //       [arrivedY, newPos] = getNextPos(
-  //         yPos,
-  //         destinationStage[i].y,
-  //         -1 * tickVelosity
-  //       );
-  //       newY[i] = arrivedY ? destinationStage[i].y : newPos;
-  //     } else {
-  //       newY[i] = yPos;
-  //     }
-  //   });
-
-  //   setVirtualY(newY);
-  //   setVirtualX(newX);
-
-  //   if (arrivedY === true || arrivedX === true) {
-  //     setY(newY);
-  //     setX(newX);
-  //     dispatch(setPosition(destination));
-  //     dispatch(setMoving(false));
-  //   }
-  // });
-
-  // // store them once and return an instance
-  // const createAnimation = useCallback(
-  //   an => {
-  //     let animationArr = spritesheet.spritesheet.animations[an.name];
-  //     let animation = new AnimatedSprite(animationArr);
-  //     animation.animationSpeed = an.speed;
-  //     animation.y = an.offset.y;
-  //     animation.x = an.offset.x;
-  //     animation.width = an.space.width * config.tileSize;
-  //     animation.height = an.space.height * config.tileSize;
-  //     animation.play();
-  //     return animation;
-  //   },
-  //   [spritesheet.spritesheet.animations]
-  // );
-
-  // let [fake, setFake] = useState(null);
-  // useEffect(() => {
-  //   let animationName = `WORM-HD/${FILENAME_SEGMENTS[direction[0]]}/Entry`;
-  //   if (Object.keys(animations).includes(animationName)) {
-  //     setFake(createAnimation(animations[animationName]));
-  //   } else {
-  //     console.warn(`${animationName} is missing in spritesheets`);
-  //   }
-  // }, [destination, createAnimation, animations, direction]);
-
-  // let [wormAnimations, setWormAnimations] = useState(null);
-  // useEffect(() => {
-  //   // TODO:
-  //   // store direction for every worm fragment
-  //   // ttry to use useEffect for setting the x and y for every tile (may create a arrived variable with setState and watch it with the useEffect)
-
-  //   setWormAnimations(
-  //     positionStage.map((pos, i, positions) => {
-  //       let nextDirection =
-  //         i === positions.length - 1 ? direction[i] : direction[i + 1];
-  //       let animationName = `WORM-BY/${FILENAME_SEGMENTS[nextDirection]}/2${
-  //         FILENAME_SEGMENTS[direction[i]]
-  //       }`;
-  //       if (Object.keys(animations).includes(animationName)) {
-  //         console.log(animationName);
-  //         return createAnimation(animations[animationName]);
-  //       } else {
-  //         console.warn(`${animationName} is missing in spritesheets`);
-  //       }
-  //     })
-  //   );
-  // }, [createAnimation, positionStage, animations, direction]);
+  useEffect(() => {
+    // when nextPositions was flushed, trigger next move
+    if (Object.keys(nextPositions).length === 0) {
+      dispatch(initiateNextMove());
+    }
+  }, [nextPositions, dispatch]);
 
   return (
     <React.Fragment>
-      {/* {fake ? (
-        <AnimatedSpritesheet
-          x={destinationStage[0].x}
-          y={destinationStage[0].y}
-          animation={fake}
-          key={`${fake}-${destination.x}-${destination.y}`}
-        />
-      ) : null} */}
       {positionStage.map((position, i) => {
         return (
           <Bone
             key={`bone-${i}`}
             {...position}
             index={i}
+            boneCount={positionStage.length}
             destX={destinationStage[i].x}
             destY={destinationStage[i].y}
             destination={destination[i]}
             direction={direction[i]}
             spritesheet={spritesheet}
             animations={animations}
-            nextNeighbourDirection={i > 0 ? direction[i - 1] : null}
+            dead={dead}
+            arrived={arrived}
           />
         );
       })}

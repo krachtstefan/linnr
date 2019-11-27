@@ -1,7 +1,3 @@
-import { CONTROLS_ACTION_TYPES, moveEvent } from "./controls";
-
-import config from "./../config";
-
 let defaultAnimationProps = {
   speed: 0.5,
   offset: {
@@ -22,10 +18,10 @@ export const WORM_DIRECTIONS = {
 };
 
 export const FILENAME_SEGMENTS = {
-  north: "S",
-  east: "W",
-  south: "N",
-  west: "E"
+  north: "N",
+  east: "E",
+  south: "S",
+  west: "W"
 };
 
 const DEFAULT_WORM_STATE = {
@@ -33,21 +29,30 @@ const DEFAULT_WORM_STATE = {
     { x: 10, y: 4 },
     { x: 10, y: 3 },
     { x: 9, y: 3 },
-    { x: 9, y: 2 }
+    { x: 9, y: 2 },
+    { x: 8, y: 2 },
+    { x: 7, y: 2 }
   ],
   destination: [
     { x: 10, y: 5 },
     { x: 10, y: 4 },
     { x: 10, y: 3 },
-    { x: 9, y: 3 }
+    { x: 9, y: 3 },
+    { x: 8, y: 3 },
+    { x: 7, y: 3 }
   ],
   direction: [
-    WORM_DIRECTIONS.S,
-    WORM_DIRECTIONS.S,
-    WORM_DIRECTIONS.E,
-    WORM_DIRECTIONS.S
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.E, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E }
   ],
-  moving: false,
+  nextDirection: WORM_DIRECTIONS.S,
+  age: 0,
+  dead: false,
   animations: {
     idle: {
       name: "WORM-HD/S/Ref",
@@ -69,9 +74,16 @@ const DEFAULT_WORM_STATE = {
     "WORM-BY/W/2N": { name: "WORM-BY/W/2N", ...defaultAnimationProps },
     "WORM-BY/W/2S": { name: "WORM-BY/W/2S", ...defaultAnimationProps },
     "WORM-BY/W/2W": { name: "WORM-BY/W/2W", ...defaultAnimationProps },
+    "WORM-HD/E/2E": { name: "WORM-HD/E/2E", ...defaultAnimationProps },
     "WORM-HD/E/Entry": { name: "WORM-HD/E/Entry", ...defaultAnimationProps },
+    "WORM-HD/N/2N": { name: "WORM-HD/N/2N", ...defaultAnimationProps },
     "WORM-HD/N/Entry": { name: "WORM-HD/N/Entry", ...defaultAnimationProps },
+    "WORM-HD/S/2E": { name: "WORM-HD/S/2E", ...defaultAnimationProps },
+    "WORM-HD/S/2S": { name: "WORM-HD/S/2S", ...defaultAnimationProps },
     "WORM-HD/S/Entry": { name: "WORM-HD/S/Entry", ...defaultAnimationProps },
+    "WORM-HD/S/Ref": { name: "WORM-HD/S/Ref", ...defaultAnimationProps },
+    "WORM-HD/S/W": { name: "WORM-HD/S/W", ...defaultAnimationProps },
+    "WORM-HD/W/2W": { name: "WORM-HD/W/2W", ...defaultAnimationProps },
     "WORM-HD/W/Entry": { name: "WORM-HD/W/Entry", ...defaultAnimationProps },
     "WORM-TL/E/2E": { name: "WORM-TL/E/2E", ...defaultAnimationProps },
     "WORM-TL/N/2N": { name: "WORM-TL/N/2N", ...defaultAnimationProps },
@@ -82,35 +94,121 @@ const DEFAULT_WORM_STATE = {
 
 export const WORM_ACTION_TYPES = {
   SET_POSITION: "SET_POSITION",
-  SET_MOVING: "SET_MOVING"
+  SET_DESTINATION: "SET_DESTINATION",
+  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
+  SET_DEAD: "SET_DEAD",
+  INCREASE_AGE: "INCREASE_AGE"
 };
 
-export const setPosition = (index, position) => {
+export const setPosition = position => {
   return dispatch => {
     dispatch({
       type: WORM_ACTION_TYPES.SET_POSITION,
-      payload: { position, index }
+      payload: position
     });
   };
 };
 
-export const setMoving = moving => {
+const isOutOfBounds = ({ board, position }) =>
+  position.x < 0 ||
+  position.x > board[0].length - 1 ||
+  position.y < 0 ||
+  position.y > board.length - 1;
+
+const hitsWall = ({ board, spriteSpecs, position }) =>
+  spriteSpecs[board[position.y][position.x]] &&
+  spriteSpecs[board[position.y][position.x]].collisionType === "wall";
+
+const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
+  nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
+
+// when the destination has dublicate entries
+const hitsItself = ({ destination }) =>
+  [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
+  destination.length;
+
+export const initiateNextMove = () => {
   return (dispatch, state) => {
-    if (moving === false && config.autoplay === true) {
-      let { direction } = state()["worm"];
-      dispatch(
-        moveEvent({
-          n: direction === WORM_DIRECTIONS.N,
-          s: direction === WORM_DIRECTIONS.S,
-          w: direction === WORM_DIRECTIONS.W,
-          e: direction === WORM_DIRECTIONS.E
-        })
-      );
-    } else {
-      dispatch({
-        type: WORM_ACTION_TYPES.SET_MOVING,
-        payload: moving
-      });
+    let payload;
+    let { position, destination, direction, nextDirection } = state().worm;
+    let { board, spriteSpecs } = state().stage;
+    if (nextDirection === WORM_DIRECTIONS.N) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.N }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.E) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x + 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.E }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.S) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x : dest[i - 1]["x"],
+          y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.S }
+            : directions[i - 1]
+        )
+      };
+    } else if (nextDirection === WORM_DIRECTIONS.W) {
+      payload = {
+        destination: destination.map((pos, i, dest) => ({
+          x: i === 0 ? pos.x - 1 : dest[i - 1]["x"],
+          y: i === 0 ? pos.y : dest[i - 1]["y"]
+        })),
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.W }
+            : directions[i - 1]
+        )
+      };
+    }
+    if (payload) {
+      if (
+        movesBackwards({
+          nextHeadPos: payload.destination[0],
+          lastHeadPos: position[1]
+        }) === false
+      ) {
+        if (
+          isOutOfBounds({ board, position: payload.destination[0] }) ===
+            false &&
+          hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
+            false &&
+          hitsItself({ destination: payload.destination }) === false
+        ) {
+          dispatch({
+            type: WORM_ACTION_TYPES.SET_DESTINATION,
+            payload
+          });
+          dispatch({
+            type: WORM_ACTION_TYPES.INCREASE_AGE,
+            payload: state().worm.age + 1
+          });
+        } else {
+          dispatch({
+            type: WORM_ACTION_TYPES.SET_DEAD
+          });
+        }
+      }
     }
   };
 };
@@ -120,20 +218,24 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
         ...state,
-        position: [
-          ...state.position.map((item, index) => {
-            return index === action.payload.index
-              ? action.payload.position
-              : item;
-          })
-        ]
+        position: action.payload
       };
-    case WORM_ACTION_TYPES.SET_MOVING:
+    case WORM_ACTION_TYPES.SET_DEAD:
       return {
         ...state,
-        moving: action.payload
+        dead: true
       };
-    case CONTROLS_ACTION_TYPES.SET_DESTINATION:
+    case WORM_ACTION_TYPES.INCREASE_AGE:
+      return {
+        ...state,
+        age: action.payload
+      };
+    case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
+      return {
+        ...state,
+        nextDirection: action.payload
+      };
+    case WORM_ACTION_TYPES.SET_DESTINATION:
       let newState = {
         ...state,
         ...action.payload

@@ -24,6 +24,8 @@ let Gamestage = props => {
     board,
     spritesheet,
     canvasBg,
+    deathscreen,
+    dead,
     spriteSpecs
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
@@ -32,6 +34,8 @@ let Gamestage = props => {
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
+    deathscreen: state.stage.assets.deathscreen,
+    dead: state.worm.dead,
     spriteSpecs: state.stage.spriteSpecs
   }));
   return (
@@ -62,6 +66,13 @@ let Gamestage = props => {
             });
           })}
           {children}
+          {dead === true ? (
+            <Sprite
+              image={deathscreen.url}
+              x={(width - deathscreen.texture.orig.width) / 2}
+              y={(height - deathscreen.texture.orig.height) / 2}
+            />
+          ) : null}
         </Stage>
       )}
     >

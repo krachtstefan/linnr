@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { moveEvent } from "../redux/controls";
+import { setNextDirection } from "../redux/controls";
 import { useDispatch } from "react-redux";
 import useGamepad from "../hooks/use-gamepad";
 import useKeyPress from "../hooks/use-keypress";
@@ -23,11 +23,11 @@ const Controls = ({ ...props }) => {
 
   useEffect(() => {
     dispatch(
-      moveEvent({
-        n: arrowUp || dPadUp,
-        s: arrowDown || dPadDown,
-        w: arrowLeft || dPadLeft,
-        e: arrowRight || dPadRight
+      setNextDirection({
+        N: arrowUp || dPadUp,
+        S: arrowDown || dPadDown,
+        W: arrowLeft || dPadLeft,
+        E: arrowRight || dPadRight
       })
     );
   }, [

@@ -23,13 +23,13 @@ const Debugger = () => {
 
   return (
     <div className="debug-wrapper">
-      <a
+      <div
         className="toggle-debugger"
         role="button"
         onClick={() => setOpen(current => !current)}
       >
         {open === true ? "\ue150 close debugger" : `🔍 open debugger`}
-      </a>
+      </div>
       <div className={`debug ${open === false ? "hide" : ""}`.trim()}>
         <h1>
           <span role="img" aria-labelledby="Crab">
@@ -41,7 +41,7 @@ const Debugger = () => {
           </span>
         </h1>
         <div className="row">
-          <div>Position </div>
+          <div>position </div>
           <div>
             {worm.position[0].x},{worm.position[0].y}{" "}
             <span role="img" aria-labelledby="Position">
@@ -49,9 +49,8 @@ const Debugger = () => {
             </span>
           </div>
         </div>
-
         <div className="row">
-          <div>Destination</div>
+          <div>destination</div>
           <div>
             {worm.destination[0].x},{worm.destination[0].y}{" "}
             <span role="img" aria-labelledby="Finish">
@@ -60,12 +59,16 @@ const Debugger = () => {
           </div>
         </div>
         <div className="row">
-          <div>Direction</div>
-          <div>{renderDirectionEmoji(worm.direction[0])}</div>
+          <div>direction</div>
+          <div>{renderDirectionEmoji(worm.nextDirection)}</div>
         </div>
         <div className="row">
-          <div>Moving</div>
-          <div>{worm.moving ? "✔" : "❌"}</div>
+          <div>age</div>
+          <div>{worm.age}</div>
+        </div>
+        <div className="row">
+          <div>status</div>
+          <div>{worm.dead ? "☠️" : "❤️"}</div>
         </div>
       </div>
     </div>
