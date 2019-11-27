@@ -1,7 +1,8 @@
 export default {
   assets: {
     spritesheet: "images/spritesheet.json",
-    canvasBg: "images/canvasBg.png"
+    canvasBg: "images/canvasBg.png",
+    deathscreen: "images/deathscreen.png"
   },
   controls: {
     velocity: 1
