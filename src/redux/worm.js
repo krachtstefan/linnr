@@ -29,19 +29,26 @@ const DEFAULT_WORM_STATE = {
     { x: 10, y: 4 },
     { x: 10, y: 3 },
     { x: 9, y: 3 },
-    { x: 9, y: 2 }
+    { x: 9, y: 2 },
+    { x: 8, y: 2 },
+    { x: 7, y: 2 }
   ],
   destination: [
     { x: 10, y: 5 },
     { x: 10, y: 4 },
     { x: 10, y: 3 },
-    { x: 9, y: 3 }
+    { x: 9, y: 3 },
+    { x: 8, y: 3 },
+    { x: 7, y: 3 }
   ],
   direction: [
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
     { from: WORM_DIRECTIONS.E, to: WORM_DIRECTIONS.S },
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S }
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E }
   ],
   nextDirection: WORM_DIRECTIONS.S,
   age: 0,
