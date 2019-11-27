@@ -81,8 +81,9 @@ const DEFAULT_WORM_STATE = {
 
 export const WORM_ACTION_TYPES = {
   SET_POSITION: "SET_POSITION",
-  SET_DEAD: "SET_DEAD",
-  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION"
+  SET_DESTINATION: "SET_DESTINATION",
+  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
+  SET_DEAD: "SET_DEAD"
 };
 
 export const setPosition = position => {
@@ -111,7 +112,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         ...state,
         nextDirection: action.payload
       };
-    case CONTROLS_ACTION_TYPES.SET_DESTINATION:
+    case WORM_ACTION_TYPES.SET_DESTINATION:
       let newState = {
         ...state,
         ...action.payload

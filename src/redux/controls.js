@@ -1,9 +1,5 @@
 import { WORM_ACTION_TYPES, WORM_DIRECTIONS } from "./worm";
 
-export const CONTROLS_ACTION_TYPES = {
-  SET_DESTINATION: "SET_DESTINATION"
-};
-
 const isOutOfBounds = ({ board, position }) =>
   position.x < 0 ||
   position.x > board[0].length - 1 ||
@@ -127,7 +123,7 @@ export const moveEvent = keyObj => {
             false
         ) {
           dispatch({
-            type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
+            type: WORM_ACTION_TYPES.SET_DESTINATION,
             payload
           });
         } else {
