@@ -37,6 +37,7 @@ let Bone = ({
   destination,
   direction,
   animations,
+  dead,
   spritesheet
 }) => {
   console.log("🦴");
@@ -58,6 +59,13 @@ let Bone = ({
       }
     });
   }, [x, y, direction, animations, spritesheet]);
+
+  useEffect(() => {
+    setAnimation(animation => {
+      animation.stop();
+      return animation;
+    });
+  }, [dead]);
 
   useTick(delta => {
     let xArrived = undefined;
@@ -109,6 +117,7 @@ Bone.propTypes = {
     to: PropTypes.string.isRequired
   }),
   animations: PropTypes.object.isRequired,
+  dead: PropTypes.bool.isRequired,
   spritesheet: PropTypes.object.isRequired
 };
 
@@ -121,6 +130,7 @@ let Worm = () => {
     destination,
     direction,
     animations,
+    dead,
     spritesheet
   } = useSelector(state => {
     let { worm, stage } = state;
@@ -136,6 +146,7 @@ let Worm = () => {
       destination: worm.destination,
       direction: worm.direction,
       animations: worm.animations,
+      dead: worm.dead,
       spritesheet: stage.assets.spritesheet
     };
   });
@@ -154,6 +165,7 @@ let Worm = () => {
             direction={direction[i]}
             spritesheet={spritesheet}
             animations={animations}
+            dead={dead}
           />
         );
       })}

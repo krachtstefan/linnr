@@ -1,4 +1,4 @@
-import { WORM_DIRECTIONS } from "./worm";
+import { WORM_ACTION_TYPES, WORM_DIRECTIONS } from "./worm";
 
 export const CONTROLS_ACTION_TYPES = {
   SET_DESTINATION: "SET_DESTINATION"
@@ -105,18 +105,26 @@ export const moveEvent = keyObj => {
           nextHeadPos: payload.destination[0],
           lastHeadPos: position[1]
         }) === false &&
-        isOutOfBounds({ board, position: payload.destination[0] }) === false &&
-        hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
-          false &&
         toMuchInput({
           position: position[0],
           destination: payload.destination[0]
         }) === false
       ) {
-        dispatch({
-          type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
-          payload
-        });
+        if (
+          isOutOfBounds({ board, position: payload.destination[0] }) ===
+            false &&
+          hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
+            false
+        ) {
+          dispatch({
+            type: CONTROLS_ACTION_TYPES.SET_DESTINATION,
+            payload
+          });
+        } else {
+          dispatch({
+            type: WORM_ACTION_TYPES.SET_DEAD
+          });
+        }
       }
     }
   };
