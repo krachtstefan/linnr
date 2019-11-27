@@ -38,9 +38,11 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: direction.map((direction, i, directions) => {
-          return i === 0 ? WORM_DIRECTIONS.N : directions[i - 1];
-        })
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.N }
+            : directions[i - 1]
+        )
       };
     } else if (
       keyObj["n"] === false &&
@@ -54,9 +56,11 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: direction.map((direction, i, directions) => {
-          return i === 0 ? WORM_DIRECTIONS.E : directions[i - 1];
-        })
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.E }
+            : directions[i - 1]
+        )
       };
     } else if (
       keyObj["n"] === false &&
@@ -70,9 +74,11 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: direction.map((direction, i, directions) => {
-          return i === 0 ? WORM_DIRECTIONS.S : directions[i - 1];
-        })
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.S }
+            : directions[i - 1]
+        )
       };
     } else if (
       keyObj["n"] === false &&
@@ -86,9 +92,11 @@ export const moveEvent = keyObj => {
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
         moving: true,
-        direction: direction.map((direction, i, directions) => {
-          return i === 0 ? WORM_DIRECTIONS.W : directions[i - 1];
-        })
+        direction: direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: WORM_DIRECTIONS.W }
+            : directions[i - 1]
+        )
       };
     }
     if (payload) {

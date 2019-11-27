@@ -36,7 +36,6 @@ let Bone = ({
   destY,
   destination,
   direction,
-  nextNeighbourDirection,
   animations,
   spritesheet
 }) => {
@@ -48,10 +47,9 @@ let Bone = ({
 
   useEffect(() => {
     setAnimation(() => {
-      let nextDirection = nextNeighbourDirection
-        ? nextNeighbourDirection
-        : direction;
-      let animationName = `WORM-BY/${FILENAME_SEGMENTS[nextDirection]}/2${FILENAME_SEGMENTS[direction]}`;
+      let animationName = `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+        FILENAME_SEGMENTS[direction.to]
+      }`;
 
       if (Object.keys(animations).includes(animationName)) {
         return createAnimation(spritesheet, animations[animationName]);
@@ -59,7 +57,7 @@ let Bone = ({
         console.warn(`${animationName} is missing in spritesheets`);
       }
     });
-  }, [x, y, direction, animations, nextNeighbourDirection, spritesheet]);
+  }, [x, y, direction, animations, spritesheet]);
 
   useTick(delta => {
     let xArrived = undefined;
@@ -106,9 +104,10 @@ Bone.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
   }),
-  direction: PropTypes.string.isRequired,
-
-  nextNeighbourDirection: PropTypes.string,
+  direction: PropTypes.shape({
+    from: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired
+  }),
   animations: PropTypes.object.isRequired,
   spritesheet: PropTypes.object.isRequired
 };
@@ -155,7 +154,6 @@ let Worm = () => {
             direction={direction[i]}
             spritesheet={spritesheet}
             animations={animations}
-            nextNeighbourDirection={i > 0 ? direction[i - 1] : null}
           />
         );
       })}

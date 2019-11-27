@@ -22,10 +22,10 @@ export const WORM_DIRECTIONS = {
 };
 
 export const FILENAME_SEGMENTS = {
-  north: "S",
-  east: "W",
-  south: "N",
-  west: "E"
+  north: "N",
+  east: "E",
+  south: "S",
+  west: "W"
 };
 
 const DEFAULT_WORM_STATE = {
@@ -42,10 +42,10 @@ const DEFAULT_WORM_STATE = {
     { x: 9, y: 3 }
   ],
   direction: [
-    WORM_DIRECTIONS.S,
-    WORM_DIRECTIONS.S,
-    WORM_DIRECTIONS.E,
-    WORM_DIRECTIONS.S
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.E, to: WORM_DIRECTIONS.S },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
+    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S }
   ],
   moving: false,
   dead: false,
@@ -101,10 +101,10 @@ export const setMoving = moving => {
       let { direction } = state()["worm"];
       dispatch(
         moveEvent({
-          n: direction === WORM_DIRECTIONS.N,
-          s: direction === WORM_DIRECTIONS.S,
-          w: direction === WORM_DIRECTIONS.W,
-          e: direction === WORM_DIRECTIONS.E
+          n: direction[0]["to"] === WORM_DIRECTIONS.N,
+          s: direction[0]["to"] === WORM_DIRECTIONS.S,
+          w: direction[0]["to"] === WORM_DIRECTIONS.W,
+          e: direction[0]["to"] === WORM_DIRECTIONS.E
         })
       );
     } else {
