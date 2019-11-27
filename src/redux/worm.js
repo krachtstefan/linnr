@@ -45,6 +45,7 @@ const DEFAULT_WORM_STATE = {
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S }
   ],
+  nextDirection: WORM_DIRECTIONS.S,
   dead: false,
   animations: {
     idle: {
@@ -80,7 +81,8 @@ const DEFAULT_WORM_STATE = {
 
 export const WORM_ACTION_TYPES = {
   SET_POSITION: "SET_POSITION",
-  SET_DEAD: "SET_DEAD"
+  SET_DEAD: "SET_DEAD",
+  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION"
 };
 
 export const setPosition = position => {
@@ -103,6 +105,11 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
       return {
         ...state,
         dead: true
+      };
+    case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
+      return {
+        ...state,
+        nextDirection: action.payload
       };
     case CONTROLS_ACTION_TYPES.SET_DESTINATION:
       let newState = {

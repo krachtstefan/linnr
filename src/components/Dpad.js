@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { moveEvent } from "../redux/controls";
+import { setNextDirection } from "../redux/controls";
 import { useDispatch } from "react-redux";
 
 const Dpad = () => {
@@ -24,11 +24,11 @@ const Dpad = () => {
           onClick={() => {
             setDirection("n");
             dispatch(
-              moveEvent({
-                n: true,
-                s: false,
-                w: false,
-                e: false
+              setNextDirection({
+                N: true,
+                S: false,
+                W: false,
+                E: false
               })
             );
           }}
@@ -38,11 +38,11 @@ const Dpad = () => {
           onClick={() => {
             setDirection("w");
             dispatch(
-              moveEvent({
-                n: false,
-                s: false,
-                w: true,
-                e: false
+              setNextDirection({
+                N: false,
+                S: false,
+                W: true,
+                E: false
               })
             );
           }}
@@ -52,11 +52,11 @@ const Dpad = () => {
           onClick={() => {
             setDirection("e");
             dispatch(
-              moveEvent({
-                n: false,
-                s: false,
-                w: false,
-                e: true
+              setNextDirection({
+                N: false,
+                S: false,
+                W: false,
+                E: true
               })
             );
           }}
@@ -66,11 +66,11 @@ const Dpad = () => {
           onClick={() => {
             setDirection("s");
             dispatch(
-              moveEvent({
-                n: false,
-                s: true,
-                w: false,
-                e: false
+              setNextDirection({
+                N: false,
+                S: true,
+                W: false,
+                E: false
               })
             );
           }}
