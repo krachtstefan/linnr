@@ -87,11 +87,11 @@ export const WORM_ACTION_TYPES = {
   SET_DEAD: "SET_DEAD"
 };
 
-export const setPosition = (index, position) => {
+export const setPosition = position => {
   return dispatch => {
     dispatch({
       type: WORM_ACTION_TYPES.SET_POSITION,
-      payload: { position, index }
+      payload: position
     });
   };
 };
@@ -122,13 +122,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
         ...state,
-        position: [
-          ...state.position.map((item, index) => {
-            return index === action.payload.index
-              ? action.payload.position
-              : item;
-          })
-        ]
+        position: action.payload
       };
     case WORM_ACTION_TYPES.SET_MOVING:
       return {

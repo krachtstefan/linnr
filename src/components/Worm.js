@@ -38,10 +38,10 @@ let Bone = ({
   direction,
   animations,
   dead,
-  spritesheet
+  spritesheet,
+  arrived = () => {}
 }) => {
   console.log("🦴");
-  let dispatch = useDispatch();
   let [animation, setAnimation] = useState(null);
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
@@ -92,8 +92,7 @@ let Bone = ({
     }
 
     if (xArrived === true || yArrived === true) {
-      dispatch(setMoving(false));
-      dispatch(setPosition(index, destination));
+      arrived(index, destination);
     }
   });
 
@@ -118,12 +117,14 @@ Bone.propTypes = {
   }),
   animations: PropTypes.object.isRequired,
   dead: PropTypes.bool.isRequired,
-  spritesheet: PropTypes.object.isRequired
+  spritesheet: PropTypes.object.isRequired,
+  arrived: PropTypes.func.isRequired
 };
 
 let Worm = () => {
   console.log("🐛");
   // let dispatch = useDispatch();
+  let dispatch = useDispatch();
   const {
     positionStage,
     destinationStage,
@@ -151,6 +152,29 @@ let Worm = () => {
     };
   });
 
+  let [nextPositions, setNextPositions] = useState({});
+
+  let arrived = (boneIndex, position) => {
+    setNextPositions(old => ({ ...old, [boneIndex]: position }));
+  };
+
+  useEffect(() => {
+    /**
+     * as soon as all bones have submitted their next position,
+     * dispatch it to redux and reset internal state
+     */
+    if (Object.keys(nextPositions).length === positionStage.length) {
+      dispatch(
+        setPosition(
+          Object.keys(nextPositions)
+            .sort()
+            .map(key => nextPositions[key])
+        )
+      );
+      setNextPositions({});
+    }
+  }, [nextPositions]);
+
   return (
     <React.Fragment>
       {positionStage.map((position, i) => {
@@ -166,6 +190,7 @@ let Worm = () => {
             spritesheet={spritesheet}
             animations={animations}
             dead={dead}
+            arrived={arrived}
           />
         );
       })}
