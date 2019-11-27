@@ -1,4 +1,8 @@
-import { FILENAME_SEGMENTS, setPosition } from "../redux/worm";
+import {
+  FILENAME_SEGMENTS,
+  initiateNextMove,
+  setPosition
+} from "../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -172,6 +176,13 @@ let Worm = () => {
       setNextPositions({});
     }
   }, [nextPositions, positionStage.length, dispatch]);
+
+  useEffect(() => {
+    // when nextPositions was flushed, trigger next move
+    if (Object.keys(nextPositions).length === 0) {
+      dispatch(initiateNextMove());
+    }
+  }, [nextPositions, dispatch]);
 
   return (
     <React.Fragment>
