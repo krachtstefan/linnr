@@ -171,7 +171,7 @@ let Worm = () => {
       );
       setNextPositions({});
     }
-  }, [nextPositions]);
+  }, [nextPositions, positionStage.length, dispatch]);
 
   return (
     <React.Fragment>
