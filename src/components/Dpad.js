@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { moveEvent } from "../redux/controls";
 import { useDispatch } from "react-redux";
 
 const Dpad = () => {
   const dispatch = useDispatch();
+  let [direction, setDirection] = useState("");
+
+  useEffect(() => {
+    if (direction !== "") {
+      const timer = setTimeout(() => {
+        setDirection("");
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [direction]);
+
   return (
     <div className="dpad-wrapper">
-      <div className="dpad">
+      <div className={`dpad ${direction ? `active-${direction}` : ""}`}>
         <div
-          className={`up`}
+          className={`n`}
           onClick={() => {
+            setDirection("n");
             dispatch(
               moveEvent({
                 n: true,
@@ -21,8 +34,9 @@ const Dpad = () => {
           }}
         />
         <div
-          className={`left`}
+          className={`w`}
           onClick={() => {
+            setDirection("w");
             dispatch(
               moveEvent({
                 n: false,
@@ -34,8 +48,9 @@ const Dpad = () => {
           }}
         />
         <div
-          className={`right`}
+          className={`e`}
           onClick={() => {
+            setDirection("e");
             dispatch(
               moveEvent({
                 n: false,
@@ -47,8 +62,9 @@ const Dpad = () => {
           }}
         />
         <div
-          className={`down`}
+          className={`s`}
           onClick={() => {
+            setDirection("s");
             dispatch(
               moveEvent({
                 n: false,

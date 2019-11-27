@@ -8,45 +8,55 @@
     max-width: 100%;
   }
   .dpad-wrapper {
+    // preload hover states
+    background: url(/images/dpad/n.svg) no-repeat -9999px -9999px,
+      url(/images/dpad/s.svg) no-repeat -9999px -9999px,
+      url(/images/dpad/w.svg) no-repeat -9999px -9999px,
+      url(/images/dpad/e.svg) no-repeat -9999px -9999px;
+
     @media (pointer: fine) {
       display: none !important;
     }
     display: grid;
     justify-items: center;
     .dpad {
+      background: url(/images/dpad/default.svg) center center no-repeat;
       display: grid;
-      grid-gap: 5px;
-      grid-template-columns: 40px 25px 40px;
-      grid-template-rows: 40px 25px 40px;
+      grid-gap: 0;
+      grid-template-columns: 40px 30px 40px;
+      grid-template-rows: 40px 30px 40px;
       grid-template-areas:
-        "...... up ......"
-        "left ...... right"
-        "...... down ......";
+        ".... north ...."
+        "west ..... east"
+        ".... south ....";
+      &.active-n {
+        background-image: url(/images/dpad/n.svg);
+      }
+      &.active-s {
+        background-image: url(/images/dpad/s.svg);
+      }
+      &.active-w {
+        background-image: url(/images/dpad/w.svg);
+      }
+      &.active-e {
+        background-image: url(/images/dpad/e.svg);
+      }
       div {
-        background: var(--color-beige);
-        border-top: 4px solid var(--color-beige-dark);
-
-        &:active,
-        &.active {
-          border-top: 0;
-          border-top: 2px solidvar(--color-beige-dark);
+        &:active {
+          // background: rgba(0, 255, 255, 0.2);
         }
       }
-      .up {
-        border-radius: 0.25em 0.25em 0 0;
-        grid-area: up;
+      .n {
+        grid-area: north;
       }
-      .right {
-        border-radius: 0 0.25em 0 0;
-        grid-area: right;
+      .e {
+        grid-area: east;
       }
-      .left {
-        border-radius: 0.25em 0 0 0;
-        grid-area: left;
+      .w {
+        grid-area: west;
       }
-      .down {
-        border-radius: 0.25em 0.25em 0 0;
-        grid-area: down;
+      .s {
+        grid-area: south;
       }
     }
   }

@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,6 +11,8 @@ import Map from "./Map";
 import Worm from "./Worm";
 import config from "../config";
 import { setAsset } from "../redux/stage";
+
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 const Game = () => {
   const dispatch = useDispatch();
