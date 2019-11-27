@@ -51,21 +51,25 @@ let Bone = ({
 
   useEffect(() => {
     setAnimation(() => {
-      let animationName = `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
-        FILENAME_SEGMENTS[direction.to]
-      }`;
+      let bodypart = index === 0 ? "HD" : "BY";
+      let animationName = `WORM-${bodypart}/${
+        FILENAME_SEGMENTS[direction.from]
+      }/2${FILENAME_SEGMENTS[direction.to]}`;
 
       if (Object.keys(animations).includes(animationName)) {
         return createAnimation(spritesheet, animations[animationName]);
       } else {
         console.warn(`${animationName} is missing in spritesheets`);
+        return createAnimation(spritesheet, animations["WORM-BY/S/2S"]);
       }
     });
-  }, [x, y, direction, animations, spritesheet]);
+  }, [x, y, direction, animations, spritesheet, index]);
 
   useEffect(() => {
     setAnimation(animation => {
-      animation.stop();
+      if (animation) {
+        animation.stop();
+      }
       return animation;
     });
   }, [dead]);
