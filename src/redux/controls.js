@@ -13,10 +13,6 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
 const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
   nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
 
-const toMuchInput = ({ position, destination }) =>
-  Math.abs(position.x - destination.x) > 1 ||
-  Math.abs(position.y - destination.y) > 1;
-
 export const setNextDirection = keyObj => {
   return dispatch => {
     let pressedKey = Object.keys(keyObj).find(
@@ -110,10 +106,6 @@ export const moveEvent = keyObj => {
         movesBackwards({
           nextHeadPos: payload.destination[0],
           lastHeadPos: position[1]
-        }) === false &&
-        toMuchInput({
-          position: position[0],
-          destination: payload.destination[0]
         }) === false
       ) {
         if (
