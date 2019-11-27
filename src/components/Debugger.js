@@ -41,7 +41,7 @@ const Debugger = () => {
           </span>
         </h1>
         <div className="row">
-          <div>Position </div>
+          <div>position </div>
           <div>
             {worm.position[0].x},{worm.position[0].y}{" "}
             <span role="img" aria-labelledby="Position">
@@ -51,7 +51,7 @@ const Debugger = () => {
         </div>
 
         <div className="row">
-          <div>Destination</div>
+          <div>destination</div>
           <div>
             {worm.destination[0].x},{worm.destination[0].y}{" "}
             <span role="img" aria-labelledby="Finish">
@@ -60,11 +60,11 @@ const Debugger = () => {
           </div>
         </div>
         <div className="row">
-          <div>Direction</div>
+          <div>direction</div>
           <div>{renderDirectionEmoji(worm.direction[0]["to"])}</div>
         </div>
         <div className="row">
-          <div>Moving</div>
+          <div>moving</div>
           <div>{worm.moving ? "✔" : "❌"}</div>
         </div>
       </div>
