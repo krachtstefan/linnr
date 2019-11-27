@@ -1,5 +1,3 @@
-import { CONTROLS_ACTION_TYPES } from "./controls";
-
 let defaultAnimationProps = {
   speed: 0.5,
   offset: {
