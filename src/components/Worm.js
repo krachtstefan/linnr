@@ -33,6 +33,7 @@ const createAnimation = (spritesheet, animation) => {
 
 let Bone = ({
   index,
+  boneCount,
   x,
   y,
   destX,
@@ -51,7 +52,7 @@ let Bone = ({
 
   useEffect(() => {
     setAnimation(() => {
-      let bodypart = index === 0 ? "HD" : "BY";
+      let bodypart = index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY";
       let animationName = `WORM-${bodypart}/${
         FILENAME_SEGMENTS[direction.from]
       }/2${FILENAME_SEGMENTS[direction.to]}`;
@@ -110,6 +111,7 @@ let Bone = ({
 
 Bone.propTypes = {
   index: PropTypes.number.isRequired,
+  boneCount: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   destX: PropTypes.number.isRequired,
@@ -196,6 +198,7 @@ let Worm = () => {
             key={`bone-${i}`}
             {...position}
             index={i}
+            boneCount={positionStage.length}
             destX={destinationStage[i].x}
             destY={destinationStage[i].y}
             destination={destination[i]}
