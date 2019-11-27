@@ -48,6 +48,7 @@ const DEFAULT_WORM_STATE = {
     WORM_DIRECTIONS.S
   ],
   moving: false,
+  dead: false,
   animations: {
     idle: {
       name: "WORM-HD/S/Ref",
