@@ -5,7 +5,7 @@ export default {
     deathscreen: "images/deathscreen.png"
   },
   controls: {
-    velocity: 1
+    velocity: 1.5
   },
   tileSize: 24,
   background: 0x9ac503,

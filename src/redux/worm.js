@@ -1,5 +1,5 @@
 let defaultAnimationProps = {
-  speed: 0.5,
+  speed: 0.4,
   offset: {
     x: 0,
     y: 0
