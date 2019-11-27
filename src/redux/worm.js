@@ -1,6 +1,4 @@
-import { CONTROLS_ACTION_TYPES, moveEvent } from "./controls";
-
-import config from "./../config";
+import { CONTROLS_ACTION_TYPES } from "./controls";
 
 let defaultAnimationProps = {
   speed: 0.5,
@@ -47,7 +45,6 @@ const DEFAULT_WORM_STATE = {
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
     { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S }
   ],
-  moving: false,
   dead: false,
   animations: {
     idle: {
@@ -83,7 +80,6 @@ const DEFAULT_WORM_STATE = {
 
 export const WORM_ACTION_TYPES = {
   SET_POSITION: "SET_POSITION",
-  SET_MOVING: "SET_MOVING",
   SET_DEAD: "SET_DEAD"
 };
 
@@ -96,38 +92,12 @@ export const setPosition = position => {
   };
 };
 
-export const setMoving = moving => {
-  return (dispatch, state) => {
-    if (moving === false && config.autoplay === true) {
-      let { direction } = state()["worm"];
-      dispatch(
-        moveEvent({
-          n: direction[0]["to"] === WORM_DIRECTIONS.N,
-          s: direction[0]["to"] === WORM_DIRECTIONS.S,
-          w: direction[0]["to"] === WORM_DIRECTIONS.W,
-          e: direction[0]["to"] === WORM_DIRECTIONS.E
-        })
-      );
-    } else {
-      dispatch({
-        type: WORM_ACTION_TYPES.SET_MOVING,
-        payload: moving
-      });
-    }
-  };
-};
-
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
         ...state,
         position: action.payload
-      };
-    case WORM_ACTION_TYPES.SET_MOVING:
-      return {
-        ...state,
-        moving: action.payload
       };
     case WORM_ACTION_TYPES.SET_DEAD:
       return {

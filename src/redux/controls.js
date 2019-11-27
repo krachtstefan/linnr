@@ -37,7 +37,6 @@ export const moveEvent = keyObj => {
           x: i === 0 ? pos.x : dest[i - 1]["x"],
           y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
         })),
-        moving: true,
         direction: direction.map((direction, i, directions) =>
           i === 0
             ? { from: direction.to, to: WORM_DIRECTIONS.N }
@@ -55,7 +54,6 @@ export const moveEvent = keyObj => {
           x: i === 0 ? pos.x + 1 : dest[i - 1]["x"],
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
-        moving: true,
         direction: direction.map((direction, i, directions) =>
           i === 0
             ? { from: direction.to, to: WORM_DIRECTIONS.E }
@@ -73,7 +71,6 @@ export const moveEvent = keyObj => {
           x: i === 0 ? pos.x : dest[i - 1]["x"],
           y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
         })),
-        moving: true,
         direction: direction.map((direction, i, directions) =>
           i === 0
             ? { from: direction.to, to: WORM_DIRECTIONS.S }
@@ -91,7 +88,6 @@ export const moveEvent = keyObj => {
           x: i === 0 ? pos.x - 1 : dest[i - 1]["x"],
           y: i === 0 ? pos.y : dest[i - 1]["y"]
         })),
-        moving: true,
         direction: direction.map((direction, i, directions) =>
           i === 0
             ? { from: direction.to, to: WORM_DIRECTIONS.W }

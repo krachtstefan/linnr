@@ -49,7 +49,6 @@ const Debugger = () => {
             </span>
           </div>
         </div>
-
         <div className="row">
           <div>destination</div>
           <div>
@@ -62,10 +61,6 @@ const Debugger = () => {
         <div className="row">
           <div>direction</div>
           <div>{renderDirectionEmoji(worm.direction[0]["to"])}</div>
-        </div>
-        <div className="row">
-          <div>moving</div>
-          <div>{worm.moving ? "✔" : "❌"}</div>
         </div>
         <div className="row">
           <div>age</div>

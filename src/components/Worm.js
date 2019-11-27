@@ -1,4 +1,4 @@
-import { FILENAME_SEGMENTS, setMoving, setPosition } from "../redux/worm";
+import { FILENAME_SEGMENTS, setPosition } from "../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
