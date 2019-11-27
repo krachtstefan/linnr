@@ -115,6 +115,11 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
 const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
   nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
 
+// when the destination has dublicate entries
+const hitsItself = ({ destination }) =>
+  [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
+  destination.length;
+
 export const initiateNextMove = () => {
   return (dispatch, state) => {
     let payload;
@@ -180,7 +185,8 @@ export const initiateNextMove = () => {
           isOutOfBounds({ board, position: payload.destination[0] }) ===
             false &&
           hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
-            false
+            false &&
+          hitsItself({ destination: payload.destination }) === false
         ) {
           dispatch({
             type: WORM_ACTION_TYPES.SET_DESTINATION,
