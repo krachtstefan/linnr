@@ -64,7 +64,7 @@ let Bone = ({
         return createAnimation(spritesheet, animations["WORM-BY/S/2S"]);
       }
     });
-  }, [x, y, direction, animations, spritesheet, index]);
+  }, [x, y, direction, animations, spritesheet, index, boneCount]);
 
   useEffect(() => {
     setAnimation(animation => {
