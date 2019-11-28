@@ -1,12 +1,12 @@
 #!/bin/bash
 export PATH="/Applications/Aseprite.app/Contents/MacOS/:$PATH"
 ts=$(date '+%s')
-asepriteExportFolder=~/Dropbox/linnr/_temp/aseprite-export
-texturePackerImportFolder=~/Dropbox/linnr/_temp/texturepacker-import
+asepriteExportFolder=~/Desktop/_temp/aseprite-export
+texturePackerImportFolder=~/Desktop/_temp/texturepacker-import
 
 spritesheetPath=~/git/linnr/public/images/spritesheet
 
-folder=~/Dropbox/linnr
+folder=~/Dropbox/linnr/ART/ASEs
 file=WORM
 
 echo "📁 asepriteExportFolder: $asepriteExportFolder"
