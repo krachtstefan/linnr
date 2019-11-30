@@ -1,8 +1,11 @@
+import canvasBg from "./../assets/images/ingame/canvasBg.png";
+import deathscreen from "./../assets/images/ingame/deathscreen.png";
+
 export default {
   assets: {
     spritesheet: "images/spritesheet.json",
-    canvasBg: "images/canvasBg.png",
-    deathscreen: "images/deathscreen.png"
+    canvasBg,
+    deathscreen
   },
   controls: {
     velocity: 1.5

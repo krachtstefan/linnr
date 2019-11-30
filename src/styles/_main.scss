@@ -29,7 +29,7 @@ div#root {
   row-gap: 20px;
   grid-template-rows: 100px 1fr auto;
   div.logo {
-    background: url("/images/logo.svg") center center no-repeat;
+    background: url("./../assets/images/logo.svg") center center no-repeat;
     background-size: 200px;
   }
 }

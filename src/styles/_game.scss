@@ -9,10 +9,10 @@
   }
   .dpad-wrapper {
     // preload hover states
-    background: url(/images/dpad/n.svg) no-repeat -9999px -9999px,
-      url(/images/dpad/s.svg) no-repeat -9999px -9999px,
-      url(/images/dpad/w.svg) no-repeat -9999px -9999px,
-      url(/images/dpad/e.svg) no-repeat -9999px -9999px;
+    background: url(./../assets/images/dpad/n.svg) no-repeat -9999px -9999px,
+      url(./../assets/images/dpad/s.svg) no-repeat -9999px -9999px,
+      url(./../assets/images/dpad/w.svg) no-repeat -9999px -9999px,
+      url(./../assets/images/dpad/e.svg) no-repeat -9999px -9999px;
 
     @media (pointer: fine) {
       display: none !important;
@@ -20,7 +20,8 @@
     display: grid;
     justify-items: center;
     .dpad {
-      background: url(/images/dpad/default.svg) center center no-repeat;
+      background: url(./../assets/images/dpad/default.svg) center center
+        no-repeat;
       display: grid;
       grid-gap: 0;
       grid-template-columns: 40px 30px 40px;
@@ -30,16 +31,16 @@
         "west ..... east"
         ".... south ....";
       &.active-n {
-        background-image: url(/images/dpad/n.svg);
+        background-image: url(./../assets/images/dpad/n.svg);
       }
       &.active-s {
-        background-image: url(/images/dpad/s.svg);
+        background-image: url(./../assets/images/dpad/s.svg);
       }
       &.active-w {
-        background-image: url(/images/dpad/w.svg);
+        background-image: url(./../assets/images/dpad/w.svg);
       }
       &.active-e {
-        background-image: url(/images/dpad/e.svg);
+        background-image: url(./../assets/images/dpad/e.svg);
       }
       div {
         &:active {
