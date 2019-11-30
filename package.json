@@ -14,9 +14,9 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "PORT=9000 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "NODE_PATH=. PORT=9000 react-scripts start",
+    "build": "NODE_PATH=. react-scripts build",
+    "test": "NODE_PATH=. react-scripts test",
     "eject": "react-scripts eject",
     "import-sprites": "./scripts/import-spritesheets.sh"
   },
