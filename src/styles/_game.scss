@@ -20,33 +20,39 @@
     display: grid;
     justify-items: center;
     .dpad {
-      background: url(./../assets/images/dpad/default.svg) center center
-        no-repeat;
-      display: grid;
-      grid-gap: 0;
-      grid-template-columns: 40px 30px 40px;
-      grid-template-rows: 40px 30px 40px;
-      grid-template-areas:
-        ".... north ...."
-        "west ..... east"
-        ".... south ....";
-      &.active-n {
+      &::before {
+        background: url(./../assets/images/dpad/default.svg) center center
+          no-repeat;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transform: rotate(-45deg);
+      }
+
+      &.active-n::before {
         background-image: url(./../assets/images/dpad/n.svg);
       }
-      &.active-s {
+      &.active-s::before {
         background-image: url(./../assets/images/dpad/s.svg);
       }
-      &.active-w {
+      &.active-w::before {
         background-image: url(./../assets/images/dpad/w.svg);
       }
-      &.active-e {
+      &.active-e::before {
         background-image: url(./../assets/images/dpad/e.svg);
       }
-      div {
-        &:active {
-          // background: rgba(0, 255, 255, 0.2);
-        }
-      }
+
+      transform: rotate(45deg);
+      display: grid;
+      grid-gap: 0;
+      grid-template-columns: 80px 80px;
+      grid-template-rows: 80px 80px;
+      grid-template-areas:
+        "north east"
+        "west south";
+
       .n {
         grid-area: north;
       }
