@@ -67,12 +67,14 @@ let Bone = ({
   }, [x, y, direction, animations, spritesheet, index, boneCount]);
 
   useEffect(() => {
-    setAnimation(animation => {
-      if (animation) {
-        animation.stop();
-      }
-      return animation;
-    });
+    if (dead === true) {
+      setAnimation(animation => {
+        if (animation) {
+          animation.stop();
+        }
+        return animation;
+      });
+    }
   }, [dead]);
 
   useTick(delta => {
