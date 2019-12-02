@@ -194,24 +194,26 @@ let Worm = () => {
 
   return (
     <React.Fragment>
-      {positionStage.map((position, i) => {
-        return (
-          <Bone
-            key={`bone-${i}`}
-            {...position}
-            index={i}
-            boneCount={positionStage.length}
-            destX={destinationStage[i].x}
-            destY={destinationStage[i].y}
-            destination={destination[i]}
-            direction={direction[i]}
-            spritesheet={spritesheet}
-            animations={animations}
-            dead={dead}
-            arrived={arrived}
-          />
-        );
-      })}
+      {direction.length > 0
+        ? positionStage.map((position, i) => {
+            return (
+              <Bone
+                key={`bone-${i}`}
+                {...position}
+                index={i}
+                boneCount={positionStage.length}
+                destX={destinationStage[i].x}
+                destY={destinationStage[i].y}
+                destination={destination[i]}
+                direction={direction[i]}
+                spritesheet={spritesheet}
+                animations={animations}
+                dead={dead}
+                arrived={arrived}
+              />
+            );
+          })
+        : null}
     </React.Fragment>
   );
 };
