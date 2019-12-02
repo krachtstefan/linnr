@@ -68,14 +68,11 @@ export const WORM_ACTION_TYPES = {
   INCREASE_AGE: "INCREASE_AGE"
 };
 
-export const setPosition = position => {
-  return dispatch => {
-    dispatch({
-      type: WORM_ACTION_TYPES.SET_POSITION,
-      payload: position
-    });
-  };
-};
+export const setPosition = position => dispatch =>
+  dispatch({
+    type: WORM_ACTION_TYPES.SET_POSITION,
+    payload: position
+  });
 
 export const getDirection = ({ pos, nextPos }) => {
   let direction = {
