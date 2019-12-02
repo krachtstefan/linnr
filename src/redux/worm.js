@@ -1,4 +1,5 @@
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
+
 let defaultAnimationProps = {
   speed: 0.4,
   offset: {
@@ -35,22 +36,14 @@ const DEFAULT_WORM_STATE = {
     { x: 7, y: 2 }
   ],
   destination: [
-    { x: 10, y: 5 },
     { x: 10, y: 4 },
     { x: 10, y: 3 },
     { x: 9, y: 3 },
-    { x: 8, y: 3 },
-    { x: 7, y: 3 }
+    { x: 9, y: 2 },
+    { x: 8, y: 2 },
+    { x: 7, y: 2 }
   ],
-  direction: [
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
-    { from: WORM_DIRECTIONS.E, to: WORM_DIRECTIONS.S },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.S },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E },
-    { from: WORM_DIRECTIONS.S, to: WORM_DIRECTIONS.E }
-  ],
+  direction: [],
   nextDirection: WORM_DIRECTIONS.S,
   age: 0,
   dead: false,
@@ -84,6 +77,62 @@ export const setPosition = position => {
   };
 };
 
+export const getDirection = ({ pos, nextPos }) => {
+  let direction = {
+    x: nextPos.x - pos.x,
+    y: nextPos.y - pos.y
+  };
+  if (Math.abs(direction.x) > 1 || Math.abs(direction.y) > 1) {
+    console.warn("attempted a move over 2 tiles at once", pos, nextPos);
+  }
+  if (Math.abs(direction.x) === 1 && Math.abs(direction.y) === 1) {
+    console.warn("attempted a move diagonal", pos, nextPos);
+  }
+
+  if (direction.x === 1) {
+    return WORM_DIRECTIONS.E;
+  } else if (direction.x === -1) {
+    return WORM_DIRECTIONS.W;
+  } else if (direction.y === 1) {
+    return WORM_DIRECTIONS.S;
+  } else if (direction.y === -1) {
+    return WORM_DIRECTIONS.S;
+  } else {
+    console.warn("unexpected direction");
+    return WORM_DIRECTIONS.S;
+  }
+};
+
+const getNextPosition = ({ position, direction }) => {
+  if (
+    [
+      WORM_DIRECTIONS.N,
+      WORM_DIRECTIONS.E,
+      WORM_DIRECTIONS.S,
+      WORM_DIRECTIONS.W
+    ].includes(direction) === false
+  ) {
+    console.warn("unsupported direction", direction);
+  } else {
+    let xShift =
+      direction === WORM_DIRECTIONS.W
+        ? -1
+        : direction === WORM_DIRECTIONS.E
+        ? 1
+        : 0;
+    let yShift =
+      direction === WORM_DIRECTIONS.N
+        ? -1
+        : direction === WORM_DIRECTIONS.S
+        ? 1
+        : 0;
+    return position.map((pos, i, dest) => ({
+      x: i === 0 ? pos.x + xShift : dest[i - 1]["x"],
+      y: i === 0 ? pos.y + yShift : dest[i - 1]["y"]
+    }));
+  }
+};
+
 const isOutOfBounds = ({ board, position }) =>
   position.x < 0 ||
   position.x > board[0].length - 1 ||
@@ -102,93 +151,75 @@ const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
   destination.length;
 
-export const initiateNextMove = () => {
-  return (dispatch, state) => {
-    let payload;
-    let { position, destination, direction, nextDirection } = state().worm;
+/**
+ * when position and destination become the same, calculate the
+ * next destination depending ong the nextDirection postion
+ */
+export const initiateNextMove = () => (dispatch, state) => {
+  let { position, direction, nextDirection } = state().worm;
+
+  let destination = getNextPosition({
+    position,
+    direction: nextDirection
+  });
+
+  let payload = {
+    destination,
+    direction:
+      // calculate the direction
+      direction.length > 0
+        ? // shifting the previous direction to each neighbour
+          direction.map((direction, i, directions) =>
+            i === 0
+              ? { from: direction.to, to: nextDirection }
+              : directions[i - 1]
+          )
+        : // or by settting it initially
+          position.map((pos, i) => {
+            let toDirection = getDirection({ pos, nextPos: destination[i] });
+            return {
+              from:
+                i === position.length - 1
+                  ? toDirection // the tail has an unknown origin, just make is straight
+                  : getDirection({ pos: position[i + 1], nextPos: pos }),
+              to: toDirection
+            };
+          })
+  };
+
+  if (payload) {
     let { board, spriteSpecs } = state().stage;
-    if (nextDirection === WORM_DIRECTIONS.N) {
-      payload = {
-        destination: destination.map((pos, i, dest) => ({
-          x: i === 0 ? pos.x : dest[i - 1]["x"],
-          y: i === 0 ? pos.y - 1 : dest[i - 1]["y"]
-        })),
-        direction: direction.map((direction, i, directions) =>
-          i === 0
-            ? { from: direction.to, to: WORM_DIRECTIONS.N }
-            : directions[i - 1]
-        )
-      };
-    } else if (nextDirection === WORM_DIRECTIONS.E) {
-      payload = {
-        destination: destination.map((pos, i, dest) => ({
-          x: i === 0 ? pos.x + 1 : dest[i - 1]["x"],
-          y: i === 0 ? pos.y : dest[i - 1]["y"]
-        })),
-        direction: direction.map((direction, i, directions) =>
-          i === 0
-            ? { from: direction.to, to: WORM_DIRECTIONS.E }
-            : directions[i - 1]
-        )
-      };
-    } else if (nextDirection === WORM_DIRECTIONS.S) {
-      payload = {
-        destination: destination.map((pos, i, dest) => ({
-          x: i === 0 ? pos.x : dest[i - 1]["x"],
-          y: i === 0 ? pos.y + 1 : dest[i - 1]["y"]
-        })),
-        direction: direction.map((direction, i, directions) =>
-          i === 0
-            ? { from: direction.to, to: WORM_DIRECTIONS.S }
-            : directions[i - 1]
-        )
-      };
-    } else if (nextDirection === WORM_DIRECTIONS.W) {
-      payload = {
-        destination: destination.map((pos, i, dest) => ({
-          x: i === 0 ? pos.x - 1 : dest[i - 1]["x"],
-          y: i === 0 ? pos.y : dest[i - 1]["y"]
-        })),
-        direction: direction.map((direction, i, directions) =>
-          i === 0
-            ? { from: direction.to, to: WORM_DIRECTIONS.W }
-            : directions[i - 1]
-        )
-      };
-    }
-    if (payload) {
+    if (
+      movesBackwards({
+        nextHeadPos: payload.destination[0],
+        lastHeadPos: position[1]
+      }) === false
+    ) {
       if (
-        movesBackwards({
-          nextHeadPos: payload.destination[0],
-          lastHeadPos: position[1]
-        }) === false
+        isOutOfBounds({ board, position: payload.destination[0] }) === false &&
+        hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
+          false &&
+        hitsItself({ destination: payload.destination }) === false
       ) {
-        if (
-          isOutOfBounds({ board, position: payload.destination[0] }) ===
-            false &&
-          hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
-            false &&
-          hitsItself({ destination: payload.destination }) === false
-        ) {
-          dispatch({
-            type: WORM_ACTION_TYPES.SET_DESTINATION,
-            payload
-          });
-          dispatch({
-            type: WORM_ACTION_TYPES.INCREASE_AGE,
-            payload: state().worm.age + 1
-          });
-        } else {
-          dispatch({
-            type: WORM_ACTION_TYPES.SET_DEAD
-          });
-        }
+        dispatch({
+          type: WORM_ACTION_TYPES.SET_DESTINATION,
+          payload
+        });
+        dispatch({
+          type: WORM_ACTION_TYPES.INCREASE_AGE,
+          payload: state().worm.age + 1
+        });
+      } else {
+        dispatch({
+          type: WORM_ACTION_TYPES.SET_DEAD
+        });
       }
     }
-  };
+  }
 };
 
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
+  // console.log(action.type, action);
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_POSITION:
       return {
