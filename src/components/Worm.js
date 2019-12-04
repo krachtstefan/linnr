@@ -1,8 +1,4 @@
-import {
-  FILENAME_SEGMENTS,
-  initiateNextMove,
-  setPosition
-} from "../redux/worm";
+import { FILENAME_SEGMENTS, initiateNextMove } from "../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -171,26 +167,20 @@ let Worm = () => {
   useEffect(() => {
     /**
      * as soon as all bones have submitted their next position,
-     * dispatch it to redux and reset internal state
+     * dispatch it to redux to persist it and and update the bones
+     * position
      */
     if (Object.keys(nextPositions).length === positionStage.length) {
+      setNextPositions({});
       dispatch(
-        setPosition(
+        initiateNextMove(
           Object.keys(nextPositions)
             .sort()
             .map(key => nextPositions[key])
         )
       );
-      setNextPositions({});
     }
   }, [nextPositions, positionStage.length, dispatch]);
-
-  useEffect(() => {
-    // when nextPositions was flushed, trigger next move
-    if (Object.keys(nextPositions).length === 0) {
-      dispatch(initiateNextMove());
-    }
-  }, [nextPositions, dispatch]);
 
   return (
     <React.Fragment>

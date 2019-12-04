@@ -1,78 +1,5 @@
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
 
-let defaultAnimationProps = {
-  speed: 0.4,
-  offset: {
-    x: 0,
-    y: 0
-  },
-  space: {
-    width: 1,
-    height: 1
-  }
-};
-
-export const WORM_DIRECTIONS = {
-  N: "north",
-  E: "east",
-  S: "south",
-  W: "west"
-};
-
-export const FILENAME_SEGMENTS = {
-  north: "N",
-  east: "E",
-  south: "S",
-  west: "W"
-};
-
-const DEFAULT_WORM_STATE = {
-  position: [
-    { x: 10, y: 4 },
-    { x: 10, y: 3 },
-    { x: 9, y: 3 },
-    { x: 9, y: 2 },
-    { x: 8, y: 2 },
-    { x: 7, y: 2 }
-  ],
-  destination: [
-    { x: 10, y: 4 },
-    { x: 10, y: 3 },
-    { x: 9, y: 3 },
-    { x: 9, y: 2 },
-    { x: 8, y: 2 },
-    { x: 7, y: 2 }
-  ],
-  direction: [],
-  nextDirection: WORM_DIRECTIONS.S,
-  age: 0,
-  dead: false,
-  animations: Object.keys(spritesheetJSON.animations)
-    .filter(key => key.startsWith("WORM-") === true)
-    .reduce((accObj, currAnimationName) => {
-      return {
-        ...accObj,
-        [currAnimationName]: {
-          name: currAnimationName,
-          ...defaultAnimationProps
-        }
-      };
-    }, {})
-};
-
-export const WORM_ACTION_TYPES = {
-  SET_POSITION: "SET_POSITION",
-  SET_DESTINATION: "SET_DESTINATION",
-  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
-  SET_DEAD: "SET_DEAD"
-};
-
-export const setPosition = position => dispatch =>
-  dispatch({
-    type: WORM_ACTION_TYPES.SET_POSITION,
-    payload: position
-  });
-
 export const getDirection = ({ pos, nextPos }) => {
   let direction = {
     x: nextPos.x - pos.x,
@@ -147,41 +74,103 @@ const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
   destination.length;
 
+let defaultAnimationProps = {
+  speed: 0.4,
+  offset: {
+    x: 0,
+    y: 0
+  },
+  space: {
+    width: 1,
+    height: 1
+  }
+};
+
+export const WORM_DIRECTIONS = {
+  N: "north",
+  E: "east",
+  S: "south",
+  W: "west"
+};
+
+export const FILENAME_SEGMENTS = {
+  north: "N",
+  east: "E",
+  south: "S",
+  west: "W"
+};
+
+let position = [
+  { x: 10, y: 4 },
+  { x: 10, y: 3 },
+  { x: 9, y: 3 },
+  { x: 9, y: 2 },
+  { x: 8, y: 2 },
+  { x: 7, y: 2 }
+];
+
+let nextDirection = WORM_DIRECTIONS.S;
+
+let destination = getNextPosition({
+  position,
+  direction: nextDirection
+});
+
+const DEFAULT_WORM_STATE = {
+  position,
+  destination,
+  direction: position.map((pos, i) => {
+    let toDirection = getDirection({ pos, nextPos: destination[i] });
+    return {
+      from:
+        i === position.length - 1
+          ? toDirection // the tail has an unknown origin, just make is straight
+          : getDirection({ pos: position[i + 1], nextPos: pos }),
+      to: toDirection
+    };
+  }),
+  nextDirection,
+  age: 0,
+  dead: false,
+  animations: Object.keys(spritesheetJSON.animations)
+    .filter(key => key.startsWith("WORM-") === true)
+    .reduce((accObj, currAnimationName) => {
+      return {
+        ...accObj,
+        [currAnimationName]: {
+          name: currAnimationName,
+          ...defaultAnimationProps
+        }
+      };
+    }, {})
+};
+
+export const WORM_ACTION_TYPES = {
+  MOVE: "MOVE",
+  SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
+  SET_DEAD: "SET_DEAD"
+};
+
 /**
- * when position and destination become the same, calculate the
- * next destination depending ong the nextDirection postion
+ * this function receives the next position, which results from the last destination and will
+ * be stored as the new position in the store
+ *
+ * it will also read the current "nextDirection", calculate the next destination and persist it
  */
-export const initiateNextMove = () => (dispatch, state) => {
-  let { position, direction, nextDirection } = state().worm;
-
-  let destination = getNextPosition({
-    position,
-    direction: nextDirection
-  });
-
+export const initiateNextMove = position => (dispatch, state) => {
+  let { direction, nextDirection } = state().worm;
   let payload = {
-    destination,
+    destination: getNextPosition({
+      position,
+      direction: nextDirection
+    }),
     direction:
-      // calculate the direction
-      direction.length > 0
-        ? // shifting the previous direction to each neighbour
-          direction.map((direction, i, directions) =>
-            i === 0
-              ? { from: direction.to, to: nextDirection }
-              : directions[i - 1]
-          )
-        : // or by settting it initially
-          position.map((pos, i) => {
-            let toDirection = getDirection({ pos, nextPos: destination[i] });
-            return {
-              from:
-                i === position.length - 1
-                  ? toDirection // the tail has an unknown origin, just make is straight
-                  : getDirection({ pos: position[i + 1], nextPos: pos }),
-              to: toDirection
-            };
-          }),
-    age: state().worm.age + 1
+      // shifting the previous direction to each neighbour
+      direction.map((direction, i, directions) =>
+        i === 0 ? { from: direction.to, to: nextDirection } : directions[i - 1]
+      ),
+    age: state().worm.age + 1,
+    position
   };
 
   if (payload) {
@@ -199,7 +188,7 @@ export const initiateNextMove = () => (dispatch, state) => {
         hitsItself({ destination: payload.destination }) === false
       ) {
         dispatch({
-          type: WORM_ACTION_TYPES.SET_DESTINATION,
+          type: WORM_ACTION_TYPES.MOVE,
           payload
         });
       } else {
@@ -212,13 +201,7 @@ export const initiateNextMove = () => (dispatch, state) => {
 };
 
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
-  // console.log(action.type, action);
   switch (action.type) {
-    case WORM_ACTION_TYPES.SET_POSITION:
-      return {
-        ...state,
-        position: action.payload
-      };
     case WORM_ACTION_TYPES.SET_DEAD:
       return {
         ...state,
@@ -229,7 +212,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         ...state,
         nextDirection: action.payload
       };
-    case WORM_ACTION_TYPES.SET_DESTINATION:
+    case WORM_ACTION_TYPES.MOVE: // RENAME
       let newState = {
         ...state,
         ...action.payload
