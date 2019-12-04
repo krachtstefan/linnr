@@ -61,7 +61,7 @@ let Bone = ({
         return createAnimation(spritesheet, animations[animationName]);
       } else {
         console.warn(`${animationName} is missing in spritesheets`);
-        return createAnimation(spritesheet, animations["WORM-BY/S/2S"]);
+        return createAnimation(spritesheet, animations["WORM-Fallback"]);
       }
     });
   }, [x, y, direction, animations, spritesheet, index, boneCount]);
