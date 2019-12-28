@@ -1,8 +1,9 @@
 import * as PIXI from "pixi.js";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { AnimatedSprite } from "pixi.js";
 import Controls from "./Controls";
 import Debugger from "./Debugger";
 import Dpad from "./Dpad";
@@ -14,11 +15,38 @@ import { setAsset } from "../redux/stage";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
+const createAnimation = (spritesheet, animation) => {
+  let animationArr = spritesheet.spritesheet.animations[animation.name];
+  let newAnimation = new AnimatedSprite(animationArr);
+  newAnimation.animationSpeed = animation.speed;
+  newAnimation.y = animation.offset.y;
+  newAnimation.x = animation.offset.x;
+  newAnimation.width = animation.space.width * config.tileSize;
+  newAnimation.height = animation.space.height * config.tileSize;
+  newAnimation.play();
+  return newAnimation;
+};
+
 const Game = () => {
   const dispatch = useDispatch();
-  const { spritesheet, canvasBg, deathscreen } = useSelector(
-    state => state["stage"]["assets"]
-  );
+  const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
+  const {
+    spritesheet,
+    canvasBg,
+    deathscreen,
+    wormAnimations,
+    boneCounter
+  } = useSelector(state => {
+    let { worm, stage } = state;
+    return {
+      spritesheet: stage.assets.spritesheet,
+      canvasBg: stage.assets.canvasBg,
+      deathscreen: stage.assets.canvasBg,
+      wormAnimations: worm.animations,
+      boneCounter: worm.position.length
+    };
+  });
+
   useEffect(() => {
     let setup = () => {
       dispatch(
@@ -36,15 +64,34 @@ const Game = () => {
       .load(setup);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (spritesheet) {
+      /**
+       * animations instances can not be used multiple times on stage,
+       * give every bone, every possible animation
+       */
+      let animations = [...Array(boneCounter)].map(() =>
+        Object.keys(wormAnimations).reduce(
+          (prev, curr) => ({
+            ...prev,
+            [curr]: createAnimation(spritesheet, wormAnimations[curr])
+          }),
+          {}
+        )
+      );
+      setPreloadedWormAnimations(animations);
+    }
+  }, [spritesheet, wormAnimations, setPreloadedWormAnimations, boneCounter]);
+
   return (
     <React.Fragment>
-      {spritesheet && canvasBg && deathscreen ? (
+      {spritesheet && canvasBg && deathscreen && preloadedWormAnimations ? (
         <React.Fragment>
           <div className="logo"></div>
           <div className="game">
             <Controls>
               <Map>
-                <Worm />
+                <Worm preloadedAnimations={preloadedWormAnimations} />
               </Map>
             </Controls>
             <Dpad />

@@ -2,7 +2,6 @@ import { FILENAME_SEGMENTS, initiateNextMove } from "../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AnimatedSprite } from "pixi.js";
 import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
 import config from "../config";
@@ -15,17 +14,6 @@ let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
   return [arrived, nextPos];
 };
 
-const createAnimation = (spritesheet, animation) => {
-  let animationArr = spritesheet.spritesheet.animations[animation.name];
-  let newAnimation = new AnimatedSprite(animationArr);
-  newAnimation.animationSpeed = animation.speed;
-  newAnimation.y = animation.offset.y;
-  newAnimation.x = animation.offset.x;
-  newAnimation.width = animation.space.width * config.tileSize;
-  newAnimation.height = animation.space.height * config.tileSize;
-  newAnimation.play();
-  return newAnimation;
-};
 
 let Bone = ({
   index,
@@ -36,9 +24,8 @@ let Bone = ({
   destY,
   destination,
   direction,
-  animations,
+  preloadedAnimations,
   dead,
-  spritesheet,
   arrived = () => {}
 }) => {
   // console.log("🦴");
@@ -53,14 +40,13 @@ let Bone = ({
         FILENAME_SEGMENTS[direction.from]
       }/2${FILENAME_SEGMENTS[direction.to]}`;
 
-      if (Object.keys(animations).includes(animationName)) {
-        return createAnimation(spritesheet, animations[animationName]);
-      } else {
-        console.warn(`${animationName} is missing in spritesheets`);
-        return createAnimation(spritesheet, animations["WORM-Fallback"]);
-      }
+      let animation =
+        Object.keys(preloadedAnimations).includes(animationName) === true
+          ? preloadedAnimations[animationName]
+          : preloadedAnimations["WORM-Fallback"];
+      return animation;
     });
-  }, [x, y, direction, animations, spritesheet, index, boneCount]);
+  }, [direction, preloadedAnimations, index, boneCount]);
 
   useEffect(() => {
     if (dead === true) {
@@ -123,12 +109,13 @@ Bone.propTypes = {
     to: PropTypes.string.isRequired
   }),
   animations: PropTypes.object.isRequired,
+  preloadedAnimations: PropTypes.object.isRequired,
   dead: PropTypes.bool.isRequired,
   spritesheet: PropTypes.object.isRequired,
   arrived: PropTypes.func.isRequired
 };
 
-let Worm = () => {
+let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
   let dispatch = useDispatch();
   const {
@@ -200,12 +187,17 @@ let Worm = () => {
                 animations={animations}
                 dead={dead}
                 arrived={arrived}
+                preloadedAnimations={preloadedAnimations[i]}
               />
             );
           })
         : null}
     </React.Fragment>
   );
+};
+
+Worm.propTypes = {
+  preloadedAnimations: PropTypes.object.isRequired
 };
 
 export default Worm;
