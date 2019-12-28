@@ -31,33 +31,8 @@ let Bone = ({
   arrived = () => {}
 }) => {
   // console.log("🦴");
-  let [animation, setAnimation] = useState(null);
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
-
-  useEffect(() => {
-    setAnimation(() => {
-      let animationName = getWormAnimationName({
-        bodypart: index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY",
-        from: direction.from,
-        to: direction.to
-      });
-      return Object.keys(preloadedAnimations).includes(animationName) === true
-        ? preloadedAnimations[animationName]
-        : preloadedAnimations["WORM-Fallback"];
-    });
-  }, [direction, preloadedAnimations, index, boneCount]);
-
-  useEffect(() => {
-    if (dead === true) {
-      setAnimation(animation => {
-        if (animation) {
-          animation.stop();
-        }
-        return animation;
-      });
-    }
-  }, [dead]);
 
   useTick(delta => {
     let xArrived = undefined;
@@ -94,14 +69,13 @@ let Bone = ({
     to: direction.to
   });
 
-  if (
-    animation &&
-    animation.textures[0]["textureCacheIds"][0].startsWith("WORM-Fallback") ===
-      false &&
-    animation.textures[0]["textureCacheIds"][0].startsWith(animationName) ===
-      false
-  ) {
-    console.warn("animation out of synch");
+  let animation =
+    Object.keys(preloadedAnimations).includes(animationName) === true
+      ? preloadedAnimations[animationName]
+      : preloadedAnimations["WORM-Fallback"];
+
+  if (dead === true) {
+    animation.stop();
   }
 
   return animation ? (
