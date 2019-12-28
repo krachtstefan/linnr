@@ -14,6 +14,9 @@ let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
   return [arrived, nextPos];
 };
 
+let getWormAnimationName = ({ bodypart, from, to }) =>
+  `WORM-${bodypart}/${FILENAME_SEGMENTS[from]}/2${FILENAME_SEGMENTS[to]}`;
+
 let Bone = ({
   index,
   boneCount,
@@ -34,16 +37,15 @@ let Bone = ({
 
   useEffect(() => {
     setAnimation(() => {
-      let bodypart = index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY";
-      let animationName = `WORM-${bodypart}/${
-        FILENAME_SEGMENTS[direction.from]
-      }/2${FILENAME_SEGMENTS[direction.to]}`;
+      let animationName = getWormAnimationName({
+        bodypart: index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY",
+        from: direction.from,
+        to: direction.to
+      });
 
-      let animation =
-        Object.keys(preloadedAnimations).includes(animationName) === true
-          ? preloadedAnimations[animationName]
-          : preloadedAnimations["WORM-Fallback"];
-      return animation;
+      return Object.keys(preloadedAnimations).includes(animationName) === true
+        ? preloadedAnimations[animationName]
+        : preloadedAnimations["WORM-Fallback"];
     });
   }, [direction, preloadedAnimations, index, boneCount]);
 
