@@ -42,7 +42,6 @@ let Bone = ({
         from: direction.from,
         to: direction.to
       });
-
       return Object.keys(preloadedAnimations).includes(animationName) === true
         ? preloadedAnimations[animationName]
         : preloadedAnimations["WORM-Fallback"];
@@ -88,6 +87,22 @@ let Bone = ({
       arrived(index, destination);
     }
   });
+
+  let animationName = getWormAnimationName({
+    bodypart: index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY",
+    from: direction.from,
+    to: direction.to
+  });
+
+  if (
+    animation &&
+    animation.textures[0]["textureCacheIds"][0].startsWith("WORM-Fallback") ===
+      false &&
+    animation.textures[0]["textureCacheIds"][0].startsWith(animationName) ===
+      false
+  ) {
+    console.warn("animation out of synch");
+  }
 
   return animation ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
