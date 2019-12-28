@@ -14,7 +14,6 @@ let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
   return [arrived, nextPos];
 };
 
-
 let Bone = ({
   index,
   boneCount,
@@ -197,7 +196,7 @@ let Worm = ({ preloadedAnimations }) => {
 };
 
 Worm.propTypes = {
-  preloadedAnimations: PropTypes.object.isRequired
+  preloadedAnimations: PropTypes.array.isRequired
 };
 
 export default Worm;
