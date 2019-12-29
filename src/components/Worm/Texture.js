@@ -52,7 +52,13 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
           ]
       }
     });
-  }, [preloadedAnimations, x, y, direction]);
+  }, [preloadedAnimations, x, y, bodypart, direction]);
+
+  useEffect(() => {
+    if (dead === true) {
+      state.animation.stop();
+    }
+  }, [dead, state.animation]);
 
   // if (
   //   animation &&
@@ -68,7 +74,7 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   //   animation.stop();
   // }
 
-  return state.animation && dead === false ? (
+  return state.animation ? (
     <AnimatedSpritesheet x={state.x} y={state.y} animation={state.animation} />
   ) : null;
 };
