@@ -30,17 +30,9 @@ const reducer = (state, action) => {
 
 let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   const [state, dispatch] = useReducer(reducer, {
-    x,
-    y,
-    animation:
-      preloadedAnimations[
-        getWormAnimationName({
-          bodypart: bodypart,
-          direction,
-          available: Object.keys(preloadedAnimations),
-          fallback: "WORM-Fallback"
-        })
-      ]
+    x: null,
+    y: null,
+    animation: null
   });
 
   useEffect(() => {
