@@ -213,11 +213,10 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         nextDirection: action.payload
       };
     case WORM_ACTION_TYPES.MOVE: // RENAME
-      let newState = {
+      return {
         ...state,
         ...action.payload
       };
-      return newState;
     default:
       return state;
   }
