@@ -1,45 +1,20 @@
-import React, { useEffect, useState } from "react";
-
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
+import React from "react";
 import { getWormAnimationName } from "./";
 
 let Head = ({ x, y, direction, preloadedAnimations, dead }) => {
-  let [animationName, setAnimationName] = useState(
-    getWormAnimationName({ bodypart: "HD", direction })
-  );
-
-  let [animation, setAnimation] = useState(
+  let animationName = getWormAnimationName({ bodypart: "HD", direction });
+  let animation =
     Object.keys(preloadedAnimations).includes(animationName) === true
       ? preloadedAnimations[animationName]
-      : preloadedAnimations["WORM-Fallback"]
-  );
+      : preloadedAnimations["WORM-Fallback"];
 
-  useEffect(() => {
-    setAnimationName(getWormAnimationName({ bodypart: "HD", direction }));
-  }, [direction]);
+  // if (animation.currentFrame === animation.totalFrames - 1) {
+  //   animation.stop();
+  // }
 
-  useEffect(() => {
-    setAnimation(
-      Object.keys(preloadedAnimations).includes(animationName) === true
-        ? preloadedAnimations[animationName]
-        : preloadedAnimations["WORM-Fallback"]
-    );
-  }, [preloadedAnimations, animationName]);
-
-  useEffect(() => {
-    if (dead === true) {
-      animation.stop();
-    }
-  }, [animation, dead]);
-
-  useEffect(() => {
-    if (animation.currentFrame === animation.totalFrames - 1) {
-      // animation.stop();
-    }
-  }, [animation, animation.currentFrame, animation.totalFrames]);
-
-  return animation ? (
+  return animation && dead === false ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
   ) : null;
 };
