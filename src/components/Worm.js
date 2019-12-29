@@ -210,7 +210,8 @@ let Worm = ({ preloadedAnimations }) => {
             return (
               <Bone
                 key={`bone-${i}`}
-                {...position}
+                x={position.x}
+                y={position.y}
                 index={i}
                 boneCount={positionStage.length}
                 destX={destinationStage[i].x}
