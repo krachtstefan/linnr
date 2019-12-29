@@ -7,9 +7,9 @@ export default {
     canvasBg,
     deathscreen
   },
-  controls: {
-    velocity: 1.5
-  },
+
+  velocity: 1.5,
+
   tileSize: 24,
   background: 0x9ac503,
   autoplay: true

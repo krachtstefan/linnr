@@ -39,7 +39,7 @@ let Bone = ({
     let yArrived = undefined;
     let nextX = null;
     let nextY = null;
-    let tickVelosity = delta * config.controls.velocity;
+    let tickVelosity = delta * config.velocity;
 
     if (destX !== virtualX) {
       [xArrived, nextX] = getNextPos(
