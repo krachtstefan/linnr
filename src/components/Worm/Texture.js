@@ -30,9 +30,17 @@ const reducer = (state, action) => {
 
 let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   const [state, dispatch] = useReducer(reducer, {
-    x: null,
-    y: null,
-    animation: null
+    x,
+    y,
+    animation:
+      preloadedAnimations[
+        getWormAnimationName({
+          bodypart: bodypart,
+          direction,
+          available: Object.keys(preloadedAnimations),
+          fallback: "WORM-Fallback"
+        })
+      ]
   });
 
   useEffect(() => {
@@ -60,19 +68,14 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     }
   }, [dead, state.animation]);
 
-  // if (
-  //   animation &&
-  //   animation.textures[0]["textureCacheIds"][0].startsWith("WORM-Fallback") ===
-  //     false &&
-  //   animation.textures[0]["textureCacheIds"][0].startsWith(animationName) ===
-  //     false
-  // ) {
-  //   console.warn("animation out of synch");
-  // }
-
-  // if (animation.currentFrame === animation.totalFrames - 1) {
-  //   animation.stop();
-  // }
+  useEffect(() => {
+    if (
+      state.animation &&
+      state.animation.currentFrame === state.animation.totalFrames - 1
+    ) {
+      state.animation.stop();
+    }
+  }, [state.animation.currentFrame]);
 
   return state.animation ? (
     <AnimatedSpritesheet x={state.x} y={state.y} animation={state.animation} />
