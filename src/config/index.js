@@ -9,7 +9,7 @@ export default {
   },
 
   velocity: 1.5,
-
+  fps: 60,
   tileSize: 24,
   background: 0x9ac503,
   autoplay: true

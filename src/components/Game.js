@@ -14,6 +14,7 @@ import config from "../config";
 import { setAsset } from "../redux/stage";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+PIXI.settings.TARGET_FPMS = config.fps / 1000;
 
 const createAnimation = (spritesheet, animation) => {
   let animationArr = spritesheet.spritesheet.animations[animation.name];
