@@ -12,8 +12,8 @@ Tail.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   direction: PropTypes.shape({
-    from: PropTypes.number.isRequired,
-    to: PropTypes.number.isRequired
+    from: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired
   }),
   dead: PropTypes.bool.isRequired
 };
