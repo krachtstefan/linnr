@@ -1,10 +1,10 @@
-import { FILENAME_SEGMENTS, initiateNextMove } from "../redux/worm";
+import { FILENAME_SEGMENTS, initiateNextMove } from "../../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import AnimatedSpritesheet from "./pixi/AnimatedSprite.js";
+import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
-import config from "../config";
+import config from "../../config";
 import { useTick } from "@inlet/react-pixi";
 
 let getNextPos = (position = 0, destPosition = 0, velocity = 0) => {
