@@ -35,7 +35,7 @@ let Head = ({ x, y, direction, preloadedAnimations, dead }) => {
 
   useEffect(() => {
     if (animation.currentFrame === animation.totalFrames - 1) {
-      animation.stop();
+      // animation.stop();
     }
   }, [animation, animation.currentFrame, animation.totalFrames]);
 
