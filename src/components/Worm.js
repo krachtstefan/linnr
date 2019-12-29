@@ -23,16 +23,43 @@ let Head = ({ x, y, animation }) => {
   ) : null;
 };
 
+Head.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  direction: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  })
+};
+
 let Body = ({ x, y, animation }) => {
   return animation ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
   ) : null;
 };
 
+Body.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  direction: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  })
+};
+
 let Tail = ({ x, y, animation }) => {
   return animation ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
   ) : null;
+};
+
+Tail.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  direction: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  })
 };
 
 let Bone = ({
