@@ -17,6 +17,24 @@ let getNextPos = (position = 0, destPosition = 0, velocity = 0) => {
 let getWormAnimationName = ({ bodypart, from, to }) =>
   `WORM-${bodypart}/${FILENAME_SEGMENTS[from]}/2${FILENAME_SEGMENTS[to]}`;
 
+let Head = ({ x, y, animation }) => {
+  return animation ? (
+    <AnimatedSpritesheet x={x} y={y} animation={animation} />
+  ) : null;
+};
+
+let Body = ({ x, y, animation }) => {
+  return animation ? (
+    <AnimatedSpritesheet x={x} y={y} animation={animation} />
+  ) : null;
+};
+
+let Tail = ({ x, y, animation }) => {
+  return animation ? (
+    <AnimatedSpritesheet x={x} y={y} animation={animation} />
+  ) : null;
+};
+
 let Bone = ({
   index,
   boneCount,
@@ -78,9 +96,8 @@ let Bone = ({
     animation.stop();
   }
 
-  return animation ? (
-    <AnimatedSpritesheet x={x} y={y} animation={animation} />
-  ) : null;
+  let BoneType = index === 0 ? Head : index === boneCount - 1 ? Tail : Body;
+  return <BoneType x={x} y={y} animation={animation} />;
 };
 
 Bone.propTypes = {
