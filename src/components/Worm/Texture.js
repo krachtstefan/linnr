@@ -28,7 +28,7 @@ const reducer = (state, action) => {
   }
 };
 
-let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
+let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
@@ -78,7 +78,7 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   ) : null;
 };
 
-Head.propTypes = {
+Texture.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   direction: PropTypes.shape({
@@ -90,4 +90,4 @@ Head.propTypes = {
   dead: PropTypes.bool.isRequired
 };
 
-export default Head;
+export default Texture;
