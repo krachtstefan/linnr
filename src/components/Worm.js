@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import config from "../config";
 import { useTick } from "@inlet/react-pixi";
 
-let getNextPos = (nextPosition = 0, destPosition = 0, velocity = 0) => {
-  let nextPos = nextPosition + velocity;
+let getNextPos = (position = 0, destPosition = 0, velocity = 0) => {
+  let nextPos = position + velocity;
   let arrived =
     velocity > 0 ? nextPos >= destPosition : nextPos <= destPosition;
   return [arrived, nextPos];
