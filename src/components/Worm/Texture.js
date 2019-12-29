@@ -4,16 +4,16 @@ import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
 
-const getWormAnimationName = ({
-  bodypart,
-  direction,
-  available = [],
-  fallback = ""
-}) => {
+const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
   let animationName = `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
     FILENAME_SEGMENTS[direction.to]
   }`;
-  return available.includes(animationName) === true ? animationName : fallback;
+  animationName =
+    Object.keys(animations).includes(animationName) === true
+      ? animationName
+      : "WORM-Fallback";
+
+  return animations[animationName];
 };
 
 const reducer = (state, action) => {
@@ -32,15 +32,11 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
-    animation:
-      preloadedAnimations[
-        getWormAnimationName({
-          bodypart: bodypart,
-          direction,
-          available: Object.keys(preloadedAnimations),
-          fallback: "WORM-Fallback"
-        })
-      ]
+    animationSpecs: getWormAnimationSpecs({
+      bodypart,
+      direction,
+      animations: preloadedAnimations
+    })
   });
 
   useEffect(() => {
@@ -49,36 +45,36 @@ let Head = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
       payload: {
         x,
         y,
-        animation:
-          preloadedAnimations[
-            getWormAnimationName({
-              bodypart: bodypart,
-              direction,
-              available: Object.keys(preloadedAnimations),
-              fallback: "WORM-Fallback"
-            })
-          ]
+        animationSpecs: getWormAnimationSpecs({
+          bodypart,
+          direction,
+          animations: preloadedAnimations
+        })
       }
     });
   }, [preloadedAnimations, x, y, bodypart, direction]);
 
   useEffect(() => {
     if (dead === true) {
-      state.animation.stop();
+      state.animationSpecs.stop();
     }
-  }, [dead, state.animation]);
+  }, [dead, state.animationSpecs]);
 
   useEffect(() => {
     if (
-      state.animation &&
-      state.animation.currentFrame === state.animation.totalFrames - 1
+      state.animationSpecs &&
+      state.animationSpecs.currentFrame === state.animationSpecs.totalFrames - 1
     ) {
-      state.animation.stop();
+      state.animationSpecs.stop();
     }
-  }, [state.animation.currentFrame]);
+  }, [state.animationSpecs, state.animationSpecs.currentFrame]);
 
-  return state.animation ? (
-    <AnimatedSpritesheet x={state.x} y={state.y} animation={state.animation} />
+  return state.animationSpecs ? (
+    <AnimatedSpritesheet
+      x={state.x}
+      y={state.y}
+      animation={state.animationSpecs}
+    />
   ) : null;
 };
 
