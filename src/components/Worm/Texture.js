@@ -1,8 +1,20 @@
 import React, { useEffect, useReducer } from "react";
 
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
+import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
-import { getWormAnimationName } from "./";
+
+const getWormAnimationName = ({
+  bodypart,
+  direction,
+  available = [],
+  fallback = ""
+}) => {
+  let animationName = `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+    FILENAME_SEGMENTS[direction.to]
+  }`;
+  return available.includes(animationName) === true ? animationName : fallback;
+};
 
 const reducer = (state, action) => {
   switch (action.type) {

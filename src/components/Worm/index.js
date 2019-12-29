@@ -1,14 +1,9 @@
-import { FILENAME_SEGMENTS, initiateNextMove } from "../../redux/worm";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Bone from "./Bone";
 import PropTypes from "prop-types";
-
-export const getWormAnimationName = ({ bodypart, direction }) =>
-  `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-    FILENAME_SEGMENTS[direction.to]
-  }`;
+import { initiateNextMove } from "../../redux/worm";
 
 let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
