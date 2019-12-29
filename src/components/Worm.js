@@ -14,10 +14,30 @@ let getNextPos = (position = 0, destPosition = 0, velocity = 0) => {
   return [arrived, nextPos];
 };
 
-let getWormAnimationName = ({ bodypart, from, to }) =>
-  `WORM-${bodypart}/${FILENAME_SEGMENTS[from]}/2${FILENAME_SEGMENTS[to]}`;
+let getWormAnimationName = ({ bodypart, direction }) =>
+  `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+    FILENAME_SEGMENTS[direction.to]
+  }`;
 
-let Head = ({ x, y, animation }) => {
+let Head = ({ x, y, direction, preloadedAnimations, dead }) => {
+  let animationName = getWormAnimationName({
+    bodypart: "HD",
+    direction
+  });
+
+  let animation =
+    Object.keys(preloadedAnimations).includes(animationName) === true
+      ? preloadedAnimations[animationName]
+      : preloadedAnimations["WORM-Fallback"];
+
+  if (dead === true) {
+    animation.stop();
+  }
+
+  if (animation.currentFrame === animation.totalFrames - 1) {
+    animation.stop();
+  }
+
   return animation ? (
     <AnimatedSpritesheet x={x} y={y} animation={animation} />
   ) : null;
@@ -29,7 +49,9 @@ Head.propTypes = {
   direction: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
-  })
+  }),
+  preloadedAnimations: PropTypes.object.isRequired,
+  dead: PropTypes.bool.isRequired
 };
 
 let Body = ({ x, y, animation }) => {
@@ -44,7 +66,8 @@ Body.propTypes = {
   direction: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
-  })
+  }),
+  dead: PropTypes.bool.isRequired
 };
 
 let Tail = ({ x, y, animation }) => {
@@ -59,7 +82,8 @@ Tail.propTypes = {
   direction: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
-  })
+  }),
+  dead: PropTypes.bool.isRequired
 };
 
 let Bone = ({
@@ -108,23 +132,16 @@ let Bone = ({
     }
   });
 
-  let animationName = getWormAnimationName({
-    bodypart: index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY",
-    from: direction.from,
-    to: direction.to
-  });
-
-  let animation =
-    Object.keys(preloadedAnimations).includes(animationName) === true
-      ? preloadedAnimations[animationName]
-      : preloadedAnimations["WORM-Fallback"];
-
-  if (dead === true) {
-    animation.stop();
-  }
-
   let BoneType = index === 0 ? Head : index === boneCount - 1 ? Tail : Body;
-  return <BoneType x={x} y={y} animation={animation} />;
+  return (
+    <BoneType
+      x={x}
+      y={y}
+      direction={direction}
+      preloadedAnimations={preloadedAnimations}
+      dead={dead}
+    />
+  );
 };
 
 Bone.propTypes = {
