@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
-import Body from "./Body";
-import Head from "./Head";
 import PropTypes from "prop-types";
-import Tail from "./Tail";
+import Texture from "./Texture";
 import config from "../../config";
 import { useTick } from "@inlet/react-pixi";
 
@@ -60,14 +58,14 @@ let Bone = ({
     }
   });
 
-  let BoneType = index === 0 ? Head : index === boneCount - 1 ? Tail : Body;
   return (
-    <BoneType
+    <Texture
       x={x}
       y={y}
       direction={direction}
       preloadedAnimations={preloadedAnimations}
       dead={dead}
+      bodypart={index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY"}
     />
   );
 };
