@@ -7,8 +7,7 @@ export default {
     canvasBg,
     deathscreen
   },
-
-  velocity: 1.5,
+  velocity: 1,
   fps: 60,
   tileSize: 24,
   background: 0x9ac503,
