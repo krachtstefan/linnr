@@ -5,15 +5,27 @@ import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
 
 const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
-  let animationName = `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-    FILENAME_SEGMENTS[direction.to]
-  }`;
-  animationName =
-    Object.keys(animations).includes(animationName) === true
-      ? animationName
-      : "WORM-Fallback";
+  const returnValidAnimationSpec = animationName => {
+    let validAnimationName =
+      Object.keys(animations).includes(animationName) === true
+        ? animationName
+        : "WORM-Fallback";
+    return {
+      name: validAnimationName,
+      animation: animations[validAnimationName]
+    };
+  };
 
-  return animations[animationName];
+  let animationsArr = [];
+  animationsArr.push(
+    returnValidAnimationSpec(
+      `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+        FILENAME_SEGMENTS[direction.to]
+      }`
+    )
+  );
+
+  return animationsArr;
 };
 
 const reducer = (state, action) => {
@@ -36,7 +48,12 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
       bodypart,
       direction,
       animations: preloadedAnimations
-    })
+    }),
+    selectedAnimation: getWormAnimationSpecs({
+      bodypart,
+      direction,
+      animations: preloadedAnimations
+    })[0]
   });
 
   useEffect(() => {
@@ -49,31 +66,37 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
           bodypart,
           direction,
           animations: preloadedAnimations
-        })
+        }),
+        selectedAnimation: getWormAnimationSpecs({
+          bodypart,
+          direction,
+          animations: preloadedAnimations
+        })[0]
       }
     });
   }, [preloadedAnimations, x, y, bodypart, direction]);
 
   useEffect(() => {
     if (dead === true) {
-      state.animationSpecs.stop();
+      state.selectedAnimation.animation.stop();
     }
-  }, [dead, state.animationSpecs]);
+  }, [dead, state.selectedAnimation]);
 
   useEffect(() => {
     if (
-      state.animationSpecs &&
-      state.animationSpecs.currentFrame === state.animationSpecs.totalFrames - 1
+      state.selectedAnimation &&
+      state.selectedAnimation.animation.currentFrame ===
+        state.selectedAnimation.animation.totalFrames - 1
     ) {
-      state.animationSpecs.stop();
+      state.selectedAnimation.animation.stop();
     }
-  }, [state.animationSpecs, state.animationSpecs.currentFrame]);
+  }, [state.selectedAnimation]);
 
-  return state.animationSpecs ? (
+  return state.selectedAnimation ? (
     <AnimatedSpritesheet
       x={state.x}
       y={state.y}
-      animation={state.animationSpecs}
+      animation={state.selectedAnimation.animation}
     />
   ) : null;
 };
