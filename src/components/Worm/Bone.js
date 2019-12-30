@@ -65,7 +65,15 @@ let Bone = ({
       direction={direction}
       preloadedAnimations={preloadedAnimations}
       dead={dead}
-      bodypart={index === 0 ? "HD" : index === boneCount - 1 ? "TL" : "BY"}
+      bodypart={
+        index === 0
+          ? "HD"
+          : index === 1
+          ? "HD2"
+          : index === boneCount - 1
+          ? "TL"
+          : "BY"
+      }
     />
   );
 };

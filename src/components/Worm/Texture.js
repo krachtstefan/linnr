@@ -5,35 +5,66 @@ import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
 
 const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
-  const returnValidAnimationSpec = animationName => {
+  const returnValidAnimationSpec = (animationName, props) => {
     let validAnimationName =
       Object.keys(animations).includes(animationName) === true
         ? animationName
         : "WORM-Fallback";
     return {
       name: validAnimationName,
-      animation: animations[validAnimationName]
+      animation: animations[validAnimationName],
+      startIndex: 0,
+      ...props
     };
   };
 
   let animationsArr = [];
 
+  // head
   if (bodypart === "HD") {
+    // entry
     animationsArr.push(
       returnValidAnimationSpec(
         `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/Entry`
       )
     );
+    // move
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+          FILENAME_SEGMENTS[direction.to]
+        }`
+      )
+    );
+    // second head
+  } else if (bodypart === "HD2") {
+    // going out
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-HD/${FILENAME_SEGMENTS[direction.from]}/2${
+          FILENAME_SEGMENTS[direction.to]
+        }`,
+        { startIndex: 4 }
+      )
+    );
+    // move
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+          FILENAME_SEGMENTS[direction.to]
+        }`
+      )
+    );
+  } else {
+    // move
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+          FILENAME_SEGMENTS[direction.to]
+        }`
+      )
+    );
   }
-
-  animationsArr.push(
-    returnValidAnimationSpec(
-      `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-        FILENAME_SEGMENTS[direction.to]
-      }`
-    )
-  );
-
   return animationsArr;
 };
 
@@ -66,21 +97,20 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   });
 
   useEffect(() => {
+    let animationSpecs = getWormAnimationSpecs({
+      bodypart,
+      direction,
+      animations: preloadedAnimations
+    });
+    let selectedAnimation = animationSpecs[0];
+    selectedAnimation.animation.gotoAndPlay(selectedAnimation.startIndex);
     dispatch({
       type: "UPDATE",
       payload: {
         x,
         y,
-        animationSpecs: getWormAnimationSpecs({
-          bodypart,
-          direction,
-          animations: preloadedAnimations
-        }),
-        selectedAnimation: getWormAnimationSpecs({
-          bodypart,
-          direction,
-          animations: preloadedAnimations
-        })[0]
+        animationSpecs,
+        selectedAnimation
       }
     });
   }, [preloadedAnimations, x, y, bodypart, direction]);
