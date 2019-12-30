@@ -14,6 +14,7 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
       name: validAnimationName,
       animation: animations[validAnimationName],
       startIndex: 0,
+      removeAtFinish: false,
       ...props
     };
   };
@@ -55,6 +56,16 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
         }`
       )
     );
+    // very last part ot the worm
+  } else if (bodypart === "TL2") {
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+          FILENAME_SEGMENTS[direction.to]
+        }`,
+        { startIndex: 12, removeAtFinish: true }
+      )
+    );
   } else {
     // move
     animationsArr.push(
@@ -84,6 +95,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
+    active: true,
     animationSpecs: getWormAnimationSpecs({
       bodypart,
       direction,
@@ -107,6 +119,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     dispatch({
       type: "UPDATE",
       payload: {
+        active: true,
         x,
         y,
         animationSpecs,
@@ -144,6 +157,15 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
             selectedAnimation
           }
         });
+      } else {
+        if (state.selectedAnimation.removeAtFinish === true) {
+          dispatch({
+            type: "UPDATE",
+            payload: {
+              active: false
+            }
+          });
+        }
       }
     }
   }, [
@@ -155,7 +177,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     bodypart
   ]);
 
-  return state.selectedAnimation ? (
+  return state.selectedAnimation && state.active === true ? (
     <AnimatedSpritesheet
       x={state.x}
       y={state.y}

@@ -71,6 +71,8 @@ let Bone = ({
           : index === 1
           ? "HD2"
           : index === boneCount - 1
+          ? "TL2"
+          : index === boneCount - 2
           ? "TL"
           : "BY"
       }
