@@ -99,7 +99,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     ) {
       state.selectedAnimation.animation.stop();
     }
-  }, [state.selectedAnimation]);
+  }, [state.selectedAnimation, state.selectedAnimation.currentFrame]);
 
   return state.selectedAnimation ? (
     <AnimatedSpritesheet
