@@ -97,9 +97,33 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
       state.selectedAnimation.animation.currentFrame ===
         state.selectedAnimation.animation.totalFrames - 1
     ) {
-      state.selectedAnimation.animation.stop();
+      let currentAnimationIndex = state.animationSpecs.findIndex(
+        animation => animation.name === state.selectedAnimation.name
+      );
+      // if there is another animation in the stack, use it and play it from the start
+      if (currentAnimationIndex !== state.animationSpecs.length - 1) {
+        let selectedAnimation = getWormAnimationSpecs({
+          bodypart,
+          direction,
+          animations: preloadedAnimations
+        })[currentAnimationIndex + 1];
+        selectedAnimation.animation.gotoAndPlay(0);
+        dispatch({
+          type: "UPDATE",
+          payload: {
+            selectedAnimation
+          }
+        });
+      }
     }
-  }, [state.selectedAnimation, state.selectedAnimation.currentFrame]);
+  }, [
+    state.selectedAnimation,
+    state.selectedAnimation.animation.currentFrame,
+    preloadedAnimations,
+    direction,
+    state.animationSpecs,
+    bodypart
+  ]);
 
   return state.selectedAnimation ? (
     <AnimatedSpritesheet
