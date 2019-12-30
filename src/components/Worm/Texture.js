@@ -17,6 +17,15 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
   };
 
   let animationsArr = [];
+
+  if (bodypart === "HD") {
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/Entry`
+      )
+    );
+  }
+
   animationsArr.push(
     returnValidAnimationSpec(
       `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
