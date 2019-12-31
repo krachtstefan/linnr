@@ -13,3 +13,5 @@ export default {
   background: 0x9ac503,
   autoplay: true
 };
+
+// 10 frames werden benutzt

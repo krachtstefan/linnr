@@ -182,6 +182,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
       x={state.x}
       y={state.y}
       animation={state.selectedAnimation.animation}
+      // alpha={state.alpha}
     />
   ) : null;
 };

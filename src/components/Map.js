@@ -66,13 +66,13 @@ let Gamestage = props => {
             });
           })}
           {children}
-          {dead === true ? (
+          {/* {dead === true ? (
             <Sprite
               image={deathscreen.url}
               x={(width - deathscreen.texture.orig.width) / 2}
               y={(height - deathscreen.texture.orig.height) / 2}
             />
-          ) : null}
+          ) : null} */}
         </Stage>
       )}
     >
