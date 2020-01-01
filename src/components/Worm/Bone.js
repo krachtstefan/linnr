@@ -29,12 +29,12 @@ let Bone = ({
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
 
-  useTick(delta => {
+  useTick(deltaMs => {
     let xArrived = undefined;
     let yArrived = undefined;
     let nextX = null;
     let nextY = null;
-    let tickVelosity = delta * config.velocity;
+    let tickVelosity = deltaMs * config.velocity;
 
     if (destX !== virtualX) {
       [xArrived, nextX] = getNextPos(
