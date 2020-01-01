@@ -135,16 +135,18 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
   }, [dead, state.selectedAnimation]);
 
   useEffect(() => {
+    let currentAnimationIndex = state.animationSpecs.findIndex(
+      animation => animation.name === state.selectedAnimation.name
+    );
+    // last frame
     if (
       state.selectedAnimation &&
       state.selectedAnimation.animation.currentFrame + 1 ===
         state.selectedAnimation.animation.totalFrames
     ) {
-      let currentAnimationIndex = state.animationSpecs.findIndex(
-        animation => animation.name === state.selectedAnimation.name
-      );
       // if there is another animation in the stack, and we reach the last frame
       if (
+        state.animationSpecs.length > 1 &&
         currentAnimationIndex !== state.animationSpecs.length - 1 &&
         !state.swapAnimationOnNextFrame
       ) {
@@ -157,16 +159,6 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
             swapAnimationOnNextFrame: true
           }
         });
-      } else if (state.swapAnimationOnNextFrame === true) {
-        let selectedAnimation = state.animationSpecs[currentAnimationIndex + 1];
-        selectedAnimation.animation.gotoAndPlay(0);
-        dispatch({
-          type: "UPDATE",
-          payload: {
-            selectedAnimation,
-            swapAnimationOnNextFrame: false
-          }
-        });
       } else {
         if (state.selectedAnimation.removeAtFinish === true) {
           dispatch({
@@ -177,6 +169,16 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
           });
         }
       }
+    } else if (state.swapAnimationOnNextFrame === true) {
+      let selectedAnimation = state.animationSpecs[currentAnimationIndex + 1];
+      selectedAnimation.animation.gotoAndPlay(0);
+      dispatch({
+        type: "UPDATE",
+        payload: {
+          selectedAnimation,
+          swapAnimationOnNextFrame: false
+        }
+      });
     }
   }, [
     state.selectedAnimation,
