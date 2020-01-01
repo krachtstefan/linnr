@@ -14,6 +14,9 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
       name: validAnimationName,
       animation: animations[validAnimationName],
       startIndex: 0,
+      // if skip after is an Integer (f.e. 3), it will jump to the
+      // next animation when the frame number 3 (index 2) is reached
+      skipAfter: null,
       removeAtFinish: false,
       ...props
     };
@@ -138,21 +141,20 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     let currentAnimationIndex = state.animationSpecs.findIndex(
       animation => animation.name === state.selectedAnimation.name
     );
+
+    let hasNextAnimation =
+      state.animationSpecs.length > 1 &&
+      currentAnimationIndex !== state.animationSpecs.length - 1;
+
     // last frame
     if (
       state.selectedAnimation &&
       state.selectedAnimation.animation.currentFrame + 1 ===
         state.selectedAnimation.animation.totalFrames
     ) {
-      // if there is another animation in the stack, and we reach the last frame
-      if (
-        state.animationSpecs.length > 1 &&
-        currentAnimationIndex !== state.animationSpecs.length - 1 &&
-        !state.swapAnimationOnNextFrame
-      ) {
-        /**
-         * when we reach the last position, set a flag for next swap
-         */
+      // if there is another animation in the stack
+      if (hasNextAnimation === true && !state.swapAnimationOnNextFrame) {
+        // when we reach the last position, set a flag for next swap
         dispatch({
           type: "UPDATE",
           payload: {
@@ -169,6 +171,21 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
           });
         }
       }
+      // skip after is reached
+    } else if (
+      state.selectedAnimation.skipAfter &&
+      state.selectedAnimation.skipAfter + 1 ===
+        state.selectedAnimation.animation.currentFrame + 1 &&
+      hasNextAnimation &&
+      !state.swapAnimationOnNextFrame
+    ) {
+      // if there is another animation in the stack, and we reach the last frame
+      dispatch({
+        type: "UPDATE",
+        payload: {
+          swapAnimationOnNextFrame: true
+        }
+      });
     } else if (state.swapAnimationOnNextFrame === true) {
       let selectedAnimation = state.animationSpecs[currentAnimationIndex + 1];
       selectedAnimation.animation.gotoAndPlay(0);
