@@ -2,21 +2,25 @@ import canvasBg from "./../assets/images/ingame/canvasBg.png";
 import deathscreen from "./../assets/images/ingame/deathscreen.png";
 
 /**
- * velocity influences fast the worm actualy is on stage
- * as the frames of composed animation are constant and
+ * velocity influences how fast the worm actually is on stage.
+ * As the frames of the composed animation are constant and
  * given by the design, we need to adjust the speed to get
  * exactly the desired frames in one move
  *
- * with a tilesize of 24:
+ * Data by tring it out with a tilesize of 24
  * velocity of 1 = 10 frames
  * velocity of 0.5 = 20 frames
  * velocity of 2 = 5 frames
  * -> frames = 1/velocity*10
  * -> velocity = 100/frames/10
+ *
+ * with distance
+ * -> velocity = 100/frames/10*distance/24
  */
-let getVelocityFromFrames = frames => 100 / frames / 10;
+let getVelocityFromFrames = (frames, tileSize) =>
+  ((100 / frames / 10) * tileSize) / 24;
 
-let fps = 20;
+let fps = 60;
 let tileSize = 24;
 
 export default {
@@ -27,7 +31,7 @@ export default {
   },
   velocity: getVelocityFromFrames(12, tileSize),
   fpms: fps / 1000,
-  tileSize: 24,
+  tileSize,
   background: 0x9ac503,
   autoplay: true
 };
