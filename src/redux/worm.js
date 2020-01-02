@@ -146,7 +146,7 @@ const DEFAULT_WORM_STATE = {
 };
 
 export const WORM_ACTION_TYPES = {
-  MOVE: "MOVE",
+  UPDATE: "UPDATE",
   SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
   SET_DEAD: "SET_DEAD"
 };
@@ -188,7 +188,7 @@ export const initiateNextMove = position => (dispatch, state) => {
         hitsItself({ destination: payload.destination }) === false
       ) {
         dispatch({
-          type: WORM_ACTION_TYPES.MOVE,
+          type: WORM_ACTION_TYPES.UPDATE,
           payload
         });
       } else {
@@ -212,7 +212,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         ...state,
         nextDirection: action.payload
       };
-    case WORM_ACTION_TYPES.MOVE: // RENAME
+    case WORM_ACTION_TYPES.UPDATE:
       return {
         ...state,
         ...action.payload
