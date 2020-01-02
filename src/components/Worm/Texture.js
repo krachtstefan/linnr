@@ -10,6 +10,10 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
       Object.keys(animations).includes(animationName) === true
         ? animationName
         : "WORM-Fallback";
+
+    if (Object.keys(animations).includes(animationName) === false) {
+      console.warn("sprite not found", animationName);
+    }
     return {
       name: validAnimationName,
       animation: animations[validAnimationName],
