@@ -30,6 +30,7 @@ export default {
     deathscreen
   },
   velocity: getVelocityFromFrames(12, tileSize),
+  animationSpeed: 0.4,
   fpms: fps / 1000,
   tileSize,
   background: 0x9ac503,

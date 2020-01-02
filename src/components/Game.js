@@ -19,11 +19,12 @@ PIXI.settings.TARGET_FPMS = config.fpms;
 const createAnimation = (spritesheet, animation) => {
   let animationArr = spritesheet.spritesheet.animations[animation.name];
   let newAnimation = new AnimatedSprite(animationArr);
-  newAnimation.animationSpeed = animation.speed;
+  newAnimation.animationSpeed = config.animationSpeed;
   newAnimation.y = animation.offset.y;
   newAnimation.x = animation.offset.x;
   newAnimation.width = animation.space.width * config.tileSize;
   newAnimation.height = animation.space.height * config.tileSize;
+  newAnimation.animationSpeed = config.animationSpeed;
   newAnimation.play();
   return newAnimation;
 };
