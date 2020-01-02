@@ -44,7 +44,7 @@ let Worm = ({ preloadedAnimations }) => {
   useEffect(() => {
     /**
      * as soon as all bones have submitted their next position,
-     * dispatch it to redux to persist it and and update the bones
+     * dispatch it to redux to persist it and update the bones
      * position
      */
     if (Object.keys(nextPositions).length === positionStage.length) {
