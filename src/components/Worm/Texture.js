@@ -73,6 +73,23 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
         { startIndex: 12, removeAtFinish: true }
       )
     );
+    // } else if (bodypart === "TL") {
+    //   // move
+    //   let animation = `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+    //     FILENAME_SEGMENTS[direction.to]
+    //   }`;
+
+    //   // if its a corner
+    //   if (direction.from !== direction.to) {
+    //     // animationsArr.push(returnValidAnimationSpec(animation, { skipAfter: 2 }));
+    //     animationsArr.push(returnValidAnimationSpec(animation));
+
+    //     // animationsArr.push(
+    //     //   returnValidAnimationSpec(animation, { startIndex: 2 })
+    //     // );
+    //   } else {
+    //     animationsArr.push(returnValidAnimationSpec(animation));
+    //   }
   } else {
     // move
     animationsArr.push(
