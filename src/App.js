@@ -1,4 +1,4 @@
-import "./styles/app.scss";
+import "./styles/app.css";
 
 import Game from "./components/Game";
 import React from "react";

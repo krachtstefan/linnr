@@ -1,0 +1,36 @@
+.debug-wrapper {
+  width: 100%;
+  background: var(--color-beige);
+  color: var(--color-dark);
+  margin-top: 80px;
+}
+.debug-wrapper .toggle-debugger {
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  margin-top: -30px;
+  background: var(--color-beige);
+  color: var(--color-dark);
+  padding: 0 20px;
+  position: absolute;
+}
+
+.debug {
+  display: grid;
+  grid-template-columns: minmax(max-content, 400px);
+  justify-content: center;
+  padding: 20px;
+}
+
+.debug.hide {
+  display: none;
+}
+
+.debug h1 {
+  text-align: center;
+}
+
+.debug .row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}

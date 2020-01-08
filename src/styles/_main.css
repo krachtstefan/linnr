@@ -28,8 +28,9 @@ div#root {
   height: 100vh;
   row-gap: 20px;
   grid-template-rows: 100px 1fr auto;
-  div.logo {
-    background: url("./../assets/images/logo.svg") center center no-repeat;
-    background-size: 200px;
-  }
+}
+
+div#root div.logo {
+  background: url("./../assets/images/logo.svg") center center no-repeat;
+  background-size: 200px;
 }
