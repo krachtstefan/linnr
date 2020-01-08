@@ -22,6 +22,7 @@ let getVelocityFromFrames = (frames, tileSize) =>
 
 let fps = 60;
 let tileSize = 24;
+let animationSpeed = 0.4;
 
 export default {
   assets: {
@@ -30,7 +31,7 @@ export default {
     deathscreen
   },
   velocity: getVelocityFromFrames(12, tileSize),
-  animationSpeed: 0.4,
+  animationSpeed,
   fpms: fps / 1000,
   tileSize,
   background: 0x9ac503,

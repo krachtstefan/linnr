@@ -75,7 +75,6 @@ const hitsItself = ({ destination }) =>
   destination.length;
 
 let defaultAnimationProps = {
-  speed: 0.4,
   offset: {
     x: 0,
     y: 0
