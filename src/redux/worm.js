@@ -150,6 +150,25 @@ export const WORM_ACTION_TYPES = {
   SET_DEAD: "SET_DEAD"
 };
 
+export const collisionCheck = () => (dispatch, state) => {
+  if (
+    isOutOfBounds({
+      board: state().stage.board,
+      position: state().worm.destination[0]
+    }) === true ||
+    hitsWall({
+      board: state().stage.board,
+      spriteSpecs: state().stage.spriteSpecs,
+      position: state().worm.destination[0]
+    }) === true ||
+    hitsItself({ destination: state().worm.destination }) === true
+  ) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_DEAD
+    });
+  }
+};
+
 /**
  * this function receives the next position, which results from the last destination and will
  * be stored as the new position in the store
@@ -157,45 +176,28 @@ export const WORM_ACTION_TYPES = {
  * it will also read the current "nextDirection", calculate the next destination and persist it
  */
 export const initiateNextMove = position => (dispatch, state) => {
-  let { direction, nextDirection } = state().worm;
-  let payload = {
-    destination: getNextPosition({
-      position,
-      direction: nextDirection
-    }),
-    direction:
-      // shifting the previous direction to each neighbour
-      direction.map((direction, i, directions) =>
-        i === 0 ? { from: direction.to, to: nextDirection } : directions[i - 1]
-      ),
-    age: state().worm.age + 1,
-    position
-  };
+  let { direction, nextDirection, dead } = state().worm;
+  if (dead === false) {
+    let payload = {
+      destination: getNextPosition({
+        position,
+        direction: nextDirection
+      }),
+      direction:
+        // shifting the previous direction to each neighbour
+        direction.map((direction, i, directions) =>
+          i === 0
+            ? { from: direction.to, to: nextDirection }
+            : directions[i - 1]
+        ),
+      age: state().worm.age + 1,
+      position
+    };
 
-  if (payload) {
-    let { board, spriteSpecs } = state().stage;
-    if (
-      movesBackwards({
-        nextHeadPos: payload.destination[0],
-        lastHeadPos: position[1]
-      }) === false
-    ) {
-      if (
-        isOutOfBounds({ board, position: payload.destination[0] }) === false &&
-        hitsWall({ board, spriteSpecs, position: payload.destination[0] }) ===
-          false &&
-        hitsItself({ destination: payload.destination }) === false
-      ) {
-        dispatch({
-          type: WORM_ACTION_TYPES.UPDATE,
-          payload
-        });
-      } else {
-        dispatch({
-          type: WORM_ACTION_TYPES.SET_DEAD
-        });
-      }
-    }
+    dispatch({
+      type: WORM_ACTION_TYPES.UPDATE,
+      payload
+    });
   }
 };
 

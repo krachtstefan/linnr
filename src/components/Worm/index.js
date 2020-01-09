@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { collisionCheck, initiateNextMove } from "../../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
 import Bone from "./Bone";
 import PropTypes from "prop-types";
-import { initiateNextMove } from "../../redux/worm";
 
 let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
@@ -78,6 +78,9 @@ let Worm = ({ preloadedAnimations }) => {
                 animations={animations}
                 dead={dead}
                 arrived={arrived}
+                checkCollision={() => {
+                  dispatch(collisionCheck());
+                }}
                 preloadedAnimations={preloadedAnimations[i]}
               />
             );
