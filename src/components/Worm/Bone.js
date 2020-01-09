@@ -23,11 +23,14 @@ let Bone = ({
   direction,
   preloadedAnimations,
   dead,
-  arrived = () => {}
+  arrived = () => {},
+  checkCollision = () => {}
 }) => {
   // console.log("🦴");
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
+  let [collisionCheckAllowed, setCollisionCheckAllowed] = useState(true);
+  let collisionCheckThreshold = 0.5;
 
   useTick(deltaMs => {
     let xArrived = undefined;
@@ -35,6 +38,32 @@ let Bone = ({
     let nextX = null;
     let nextY = null;
     let tickVelosity = deltaMs * config.velocity;
+
+    /**
+     * let the head bone trigger the checkCollision callback function
+     * once very move
+     */
+    if (index === 0) {
+      if (
+        destY - y !== 0 && // y position is currently progressing
+        collisionCheckAllowed === true && // collision check is allowed
+        Math.abs((virtualY - y) / (destY - y)) > collisionCheckThreshold ===
+          true // progress is over the threshold
+      ) {
+        checkCollision();
+        setCollisionCheckAllowed(false);
+      }
+
+      if (
+        destX - x !== 0 &&
+        collisionCheckAllowed === true &&
+        Math.abs((virtualX - x) / (destX - x)) > collisionCheckThreshold ===
+          true
+      ) {
+        checkCollision();
+        setCollisionCheckAllowed(false);
+      }
+    }
 
     if (destX !== virtualX) {
       [xArrived, nextX] = getNextPos(
@@ -55,6 +84,7 @@ let Bone = ({
 
     if (xArrived === true || yArrived === true) {
       arrived(index, destination);
+      setCollisionCheckAllowed(true); // allow collision check again
     }
   });
 
@@ -99,7 +129,8 @@ Bone.propTypes = {
   preloadedAnimations: PropTypes.object.isRequired,
   dead: PropTypes.bool.isRequired,
   spritesheet: PropTypes.object.isRequired,
-  arrived: PropTypes.func.isRequired
+  arrived: PropTypes.func.isRequired,
+  checkCollision: PropTypes.func.isRequired
 };
 
 export default Bone;
