@@ -37,8 +37,8 @@ let Worm = ({ preloadedAnimations }) => {
 
   let [nextPositions, setNextPositions] = useState({});
 
-  let arrived = (boneIndex, position) => {
-    setNextPositions(old => ({ ...old, [boneIndex]: position }));
+  let arrived = boneIndex => {
+    setNextPositions(old => ({ ...old, [boneIndex]: destination[boneIndex] }));
   };
 
   useEffect(() => {
@@ -72,7 +72,6 @@ let Worm = ({ preloadedAnimations }) => {
                 boneCount={positionStage.length}
                 destX={destinationStage[i].x}
                 destY={destinationStage[i].y}
-                destination={destination[i]}
                 direction={direction[i]}
                 spritesheet={spritesheet}
                 animations={animations}

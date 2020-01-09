@@ -19,7 +19,6 @@ let Bone = ({
   y,
   destX,
   destY,
-  destination,
   direction,
   preloadedAnimations,
   dead,
@@ -81,7 +80,7 @@ let Bone = ({
     }
 
     if (xArrived === true || yArrived === true) {
-      arrived(index, destination);
+      arrived(index);
       setCollisionCheckAllowed(true); // allow collision check again
     }
   });
@@ -115,10 +114,6 @@ Bone.propTypes = {
   y: PropTypes.number.isRequired,
   destX: PropTypes.number.isRequired,
   destY: PropTypes.number.isRequired,
-  destination: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired
-  }),
   direction: PropTypes.shape({
     from: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired
