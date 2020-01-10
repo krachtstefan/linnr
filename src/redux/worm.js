@@ -197,7 +197,7 @@ export const initiateNextMove = position => (dispatch, state) => {
             : directions[i - 1]
         ),
       age: state().worm.age + 1,
-      inputAllowed: false,
+      inputAllowed: true,
       position
     };
 
