@@ -129,6 +129,7 @@ const DEFAULT_WORM_STATE = {
     };
   }),
   nextDirection,
+  inputAllowed: true,
   age: 0,
   dead: false,
   animations: Object.keys(spritesheetJSON.animations)
@@ -166,6 +167,11 @@ export const collisionCheck = () => (dispatch, state) => {
     dispatch({
       type: WORM_ACTION_TYPES.SET_DEAD
     });
+  } else {
+    dispatch({
+      type: WORM_ACTION_TYPES.UPDATE,
+      payload: { inputAllowed: false }
+    });
   }
 };
 
@@ -191,6 +197,7 @@ export const initiateNextMove = position => (dispatch, state) => {
             : directions[i - 1]
         ),
       age: state().worm.age + 1,
+      inputAllowed: false,
       position
     };
 
@@ -209,10 +216,9 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         dead: true
       };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return {
-        ...state,
-        nextDirection: action.payload
-      };
+      return state.inputAllowed === true
+        ? { ...state, nextDirection: action.payload }
+        : state;
     case WORM_ACTION_TYPES.UPDATE:
       return {
         ...state,
