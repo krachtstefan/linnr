@@ -36,10 +36,7 @@ let Worm = ({ preloadedAnimations }) => {
   });
 
   let [nextPositions, setNextPositions] = useState({});
-
-  let arrived = boneIndex => {
-    setNextPositions(old => ({ ...old, [boneIndex]: destination[boneIndex] }));
-  };
+  let [nextCollision, setNextCollision] = useState({});
 
   useEffect(() => {
     /**
@@ -59,6 +56,13 @@ let Worm = ({ preloadedAnimations }) => {
     }
   }, [nextPositions, positionStage.length, dispatch]);
 
+  useEffect(() => {
+    if (Object.keys(nextCollision).length === positionStage.length) {
+      setNextCollision({});
+      dispatch(collisionCheck());
+    }
+  }, [nextCollision]);
+
   return (
     <React.Fragment>
       {direction.length > 0
@@ -75,8 +79,18 @@ let Worm = ({ preloadedAnimations }) => {
               spritesheet={spritesheet}
               animations={animations}
               dead={dead}
-              arrived={arrived}
-              checkCollision={() => dispatch(collisionCheck())}
+              arrived={boneIndex => {
+                setNextPositions(old => ({
+                  ...old,
+                  [boneIndex]: destination[boneIndex]
+                }));
+              }}
+              checkCollision={boneIndex => {
+                setNextCollision(old => ({
+                  ...old,
+                  [boneIndex]: true
+                }));
+              }}
               preloadedAnimations={preloadedAnimations[i]}
             />
           ))
