@@ -182,11 +182,9 @@ export const collisionCheck = () => (dispatch, state) => {
           direction: nextDirection
         }),
         direction:
-          // shifting the previous direction to each neighbour
-          direction.map((direction, i, directions) =>
-            i === 0
-              ? { from: direction.to, to: nextDirection }
-              : directions[i - 1]
+          // may change the direction of the head
+          direction.map((direction, i) =>
+            i === 0 ? { from: direction.to, to: nextDirection } : direction
           ),
         animationSequence: 2
       }
