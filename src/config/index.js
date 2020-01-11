@@ -33,6 +33,12 @@ export default {
   velocity: getVelocityFromFrames(12, tileSize),
   animationSpeed,
   fpms: fps / 1000,
+  /**
+   * value between 0 and 1 describing the breakdown of a moving sequence
+   * f.e. 0.5 means the firs half of a movement, the player can decide
+   * influence the next move, and the second half, the
+   */
+  sequenceThreshold: 0.5,
   tileSize,
   background: 0x9ac503,
   autoplay: true

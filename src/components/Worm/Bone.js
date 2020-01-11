@@ -29,7 +29,7 @@ let Bone = ({
   let [virtualX, setVirtualX] = useState(x);
   let [virtualY, setVirtualY] = useState(y);
   let [collisionCheckAllowed, setCollisionCheckAllowed] = useState(true);
-  let collisionCheckThreshold = 0.5;
+  let collisionCheckThreshold = config.sequenceThreshold;
 
   useTick(deltaMs => {
     let xArrived = undefined;
