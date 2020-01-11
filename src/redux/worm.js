@@ -151,6 +151,11 @@ export const WORM_ACTION_TYPES = {
   SET_DEAD: "SET_DEAD"
 };
 
+/**
+ * this function is a collision check that runs in the middle of a move
+ * and will check if the
+ *
+ */
 export const collisionCheck = () => (dispatch, state) => {
   if (
     isOutOfBounds({
@@ -168,9 +173,23 @@ export const collisionCheck = () => (dispatch, state) => {
       type: WORM_ACTION_TYPES.SET_DEAD
     });
   } else {
+    let { direction, nextDirection, position } = state().worm;
     dispatch({
       type: WORM_ACTION_TYPES.UPDATE,
-      payload: { inputAllowed: false }
+      payload: {
+        destination: getNextPosition({
+          position,
+          direction: nextDirection
+        }),
+        direction:
+          // shifting the previous direction to each neighbour
+          direction.map((direction, i, directions) =>
+            i === 0
+              ? { from: direction.to, to: nextDirection }
+              : directions[i - 1]
+          ),
+        inputAllowed: false
+      }
     });
   }
 };
@@ -180,6 +199,7 @@ export const collisionCheck = () => (dispatch, state) => {
  * be stored as the new position in the store
  *
  * it will also read the current "nextDirection", calculate the next destination and persist it
+ * collisions are not detected here, and the inputAllowed will be set to true
  */
 export const initiateNextMove = position => (dispatch, state) => {
   let { direction, nextDirection, dead } = state().worm;
