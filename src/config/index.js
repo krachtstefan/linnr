@@ -24,6 +24,7 @@ let fps = 60;
 let tileSize = 24;
 let animationSpeed = 0.4;
 
+// todo: check if all of these configs are still in use
 export default {
   assets: {
     spritesheet: "images/spritesheet.json",
