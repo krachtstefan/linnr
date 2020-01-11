@@ -59,6 +59,10 @@ const Debugger = () => {
           </div>
         </div>
         <div className="row">
+          <div>animation sequence</div>
+          <div>{worm.animationSequence}</div>
+        </div>
+        <div className="row">
           <div>direction</div>
           <div>{renderDirectionEmoji(worm.nextDirection)}</div>
         </div>
