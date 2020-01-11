@@ -62,26 +62,24 @@ let Worm = ({ preloadedAnimations }) => {
   return (
     <React.Fragment>
       {direction.length > 0
-        ? positionStage.map((position, i) => {
-            return (
-              <Bone
-                key={`bone-${i}`}
-                x={position.x}
-                y={position.y}
-                index={i}
-                boneCount={positionStage.length}
-                destX={destinationStage[i].x}
-                destY={destinationStage[i].y}
-                direction={direction[i]}
-                spritesheet={spritesheet}
-                animations={animations}
-                dead={dead}
-                arrived={arrived}
-                checkCollision={() => dispatch(collisionCheck())}
-                preloadedAnimations={preloadedAnimations[i]}
-              />
-            );
-          })
+        ? positionStage.map((position, i) => (
+            <Bone
+              key={`bone-${i}`}
+              x={position.x}
+              y={position.y}
+              index={i}
+              boneCount={positionStage.length}
+              destX={destinationStage[i].x}
+              destY={destinationStage[i].y}
+              direction={direction[i]}
+              spritesheet={spritesheet}
+              animations={animations}
+              dead={dead}
+              arrived={arrived}
+              checkCollision={() => dispatch(collisionCheck())}
+              preloadedAnimations={preloadedAnimations[i]}
+            />
+          ))
         : null}
     </React.Fragment>
   );
