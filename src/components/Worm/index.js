@@ -9,20 +9,25 @@ let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
   let dispatch = useDispatch();
 
-  const { positionStage, direction, animationSequence, dead } = useSelector(
-    state => {
-      let { worm, stage } = state;
-      return {
-        positionStage: worm.position.map(pos => ({
-          x: stage.tileSize * pos.x,
-          y: stage.tileSize * pos.y
-        })),
-        direction: worm.direction,
-        animationSequence: worm.animationSequence,
-        dead: worm.dead
-      };
-    }
-  );
+  const {
+    positionStage,
+    direction,
+    animationSequence,
+    dead,
+    destination
+  } = useSelector(state => {
+    let { worm, stage } = state;
+    return {
+      positionStage: worm.position.map(pos => ({
+        x: stage.tileSize * pos.x,
+        y: stage.tileSize * pos.y
+      })),
+      destination: worm.destination,
+      direction: worm.direction,
+      animationSequence: worm.animationSequence,
+      dead: worm.dead
+    };
+  });
 
   let [nextSequence, setNextSequence] = useState({});
 
@@ -37,14 +42,16 @@ let Worm = ({ preloadedAnimations }) => {
       dispatch(
         animationSequence === 1
           ? collisionCheck()
-          : initiateNextMove(
-              Object.keys(nextPositions)
-                .sort()
-                .map(key => nextPositions[key])
-            )
+          : initiateNextMove(destination)
       );
     }
-  }, [nextSequence, animationSequence, positionStage.length, dispatch]);
+  }, [
+    nextSequence,
+    destination,
+    animationSequence,
+    positionStage.length,
+    dispatch
+  ]);
 
   return (
     <React.Fragment>
