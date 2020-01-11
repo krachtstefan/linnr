@@ -45,6 +45,7 @@ let Bone = ({
     if (index === 0) {
       if (
         destY - y !== 0 && // y position is currently progressing
+        virtualY !== destY && // it hat not arrived yet
         collisionCheckAllowed === true && // collision check is allowed
         Math.abs((virtualY - y) / (destY - y)) > collisionCheckThreshold // progress is over the threshold
       ) {
@@ -54,6 +55,7 @@ let Bone = ({
 
       if (
         destX - x !== 0 &&
+        virtualX !== destX &&
         collisionCheckAllowed === true &&
         Math.abs((virtualX - x) / (destX - x)) > collisionCheckThreshold
       ) {
