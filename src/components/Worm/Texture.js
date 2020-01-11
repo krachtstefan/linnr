@@ -3,8 +3,14 @@ import React, { useEffect, useReducer } from "react";
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
+const getWormAnimationSpecs = ({
+  bodypart,
+  direction,
+  animations,
+  animationSequence
+}) => {
   const returnValidAnimationSpec = (animationName, props) => {
     let validAnimationName =
       Object.keys(animations).includes(animationName) === true
@@ -30,39 +36,47 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
 
   // head
   if (bodypart === "HD") {
-    // entry
-    animationsArr.push(
-      returnValidAnimationSpec(
-        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/Entry`
-      )
-    );
-    // move
-    animationsArr.push(
-      returnValidAnimationSpec(
-        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-          FILENAME_SEGMENTS[direction.to]
-        }`
-      )
-    );
+    if (animationSequence === 1) {
+      // entry
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/Entry`
+        )
+      );
+    } else {
+      // move
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`
+        )
+      );
+    }
     // second head
   } else if (bodypart === "HD2") {
-    // going out
-    animationsArr.push(
-      returnValidAnimationSpec(
-        `WORM-HD/${FILENAME_SEGMENTS[direction.from]}/2${
-          FILENAME_SEGMENTS[direction.to]
-        }`,
-        { startIndex: 4 }
-      )
-    );
-    // move
-    animationsArr.push(
-      returnValidAnimationSpec(
-        `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
-          FILENAME_SEGMENTS[direction.to]
-        }`
-      )
-    );
+    if (animationSequence === 1) {
+      // going out
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-HD/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          { startIndex: 4 }
+        )
+      );
+    } else {
+      // move
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          { startIndex: 8 }
+        )
+      );
+    }
+
     // very last part ot the worm
   } else if (bodypart === "TL2") {
     animationsArr.push(
@@ -70,7 +84,7 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
         `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
           FILENAME_SEGMENTS[direction.to]
         }`,
-        { startIndex: 12, removeAtFinish: true }
+        { startIndex: animationSequence === 1 ? 12 : 20, removeAtFinish: true }
       )
     );
     // } else if (bodypart === "TL") {
@@ -92,13 +106,30 @@ const getWormAnimationSpecs = ({ bodypart, direction, animations }) => {
     //   }
   } else {
     // move
-    animationsArr.push(
-      returnValidAnimationSpec(
+    if (animationSequence === 1) {
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`
+        )
+      );
+    } else {
+      let animationSpec = returnValidAnimationSpec(
         `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
           FILENAME_SEGMENTS[direction.to]
         }`
-      )
-    );
+      );
+
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          { startIndex: animationSpec.animation.totalFrames > 8 ? 8 : 0 }
+        )
+      );
+    }
   }
   return animationsArr;
 };
@@ -116,6 +147,7 @@ const reducer = (state, action) => {
 };
 
 let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
+  const { animationSequence } = useSelector(state => state.worm);
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
@@ -123,12 +155,14 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     animationSpecs: getWormAnimationSpecs({
       bodypart,
       direction,
-      animations: preloadedAnimations
+      animations: preloadedAnimations,
+      animationSequence
     }),
     selectedAnimation: getWormAnimationSpecs({
       bodypart,
       direction,
-      animations: preloadedAnimations
+      animations: preloadedAnimations,
+      animationSequence
     })[0]
   });
 
@@ -136,7 +170,8 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     let animationSpecs = getWormAnimationSpecs({
       bodypart,
       direction,
-      animations: preloadedAnimations
+      animations: preloadedAnimations,
+      animationSequence
     });
     let selectedAnimation = animationSpecs[0];
     selectedAnimation.animation.gotoAndPlay(selectedAnimation.startIndex);
@@ -150,7 +185,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
         selectedAnimation
       }
     });
-  }, [preloadedAnimations, x, y, bodypart, direction]);
+  }, [animationSequence, preloadedAnimations, x, y, bodypart, direction]);
 
   useEffect(() => {
     if (dead === true) {
