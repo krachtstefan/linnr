@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Debugger = () => {
   let { worm } = useSelector(state => state);
-  let [open, setOpen] = useState(false);
+  let [open, setOpen] = useState(true);
 
   const renderDirectionEmoji = direction => {
     switch (direction) {
