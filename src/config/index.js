@@ -38,7 +38,7 @@ export default {
    * f.e. 0.5 means the firs half of a movement, the player can decide
    * influence the next move, and the second half, the
    */
-  sequenceThreshold: 0.5,
+  sequenceThreshold: 8 / 12, // 8 of 12 frames will be the first sequence
   tileSize,
   background: 0x9ac503,
   autoplay: true
