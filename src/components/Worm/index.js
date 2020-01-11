@@ -77,9 +77,7 @@ let Worm = ({ preloadedAnimations }) => {
                 animations={animations}
                 dead={dead}
                 arrived={arrived}
-                checkCollision={() => {
-                  dispatch(collisionCheck());
-                }}
+                checkCollision={() => dispatch(collisionCheck())}
                 preloadedAnimations={preloadedAnimations[i]}
               />
             );
