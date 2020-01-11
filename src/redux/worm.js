@@ -129,7 +129,6 @@ const DEFAULT_WORM_STATE = {
     };
   }),
   nextDirection,
-  inputAllowed: true,
   age: 0,
   dead: false,
   animations: Object.keys(spritesheetJSON.animations)
@@ -187,8 +186,7 @@ export const collisionCheck = () => (dispatch, state) => {
             i === 0
               ? { from: direction.to, to: nextDirection }
               : directions[i - 1]
-          ),
-        inputAllowed: false
+          )
       }
     });
   }
@@ -199,7 +197,6 @@ export const collisionCheck = () => (dispatch, state) => {
  * be stored as the new position in the store
  *
  * it will also read the current "nextDirection", calculate the next destination and persist it
- * collisions are not detected here, and the inputAllowed will be set to true
  */
 export const initiateNextMove = position => (dispatch, state) => {
   let { direction, nextDirection, dead } = state().worm;
@@ -217,7 +214,6 @@ export const initiateNextMove = position => (dispatch, state) => {
             : directions[i - 1]
         ),
       age: state().worm.age + 1,
-      inputAllowed: true,
       position
     };
 
@@ -236,9 +232,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         dead: true
       };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return state.inputAllowed === true
-        ? { ...state, nextDirection: action.payload }
-        : state;
+      return { ...state, nextDirection: action.payload };
     case WORM_ACTION_TYPES.UPDATE:
       return {
         ...state,
