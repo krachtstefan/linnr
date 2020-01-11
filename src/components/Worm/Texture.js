@@ -1,9 +1,9 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import config from "../../config";
 
 const getWormAnimationSpecs = ({
   bodypart,
@@ -158,8 +158,18 @@ const reducer = (state, action) => {
   }
 };
 
-let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
-  const { animationSequence } = useSelector(state => state.worm);
+let Texture = ({
+  x,
+  y,
+  direction,
+  preloadedAnimations,
+  dead,
+  animationSequence,
+  index,
+  elementCount,
+  sequenceFinished = () => {}
+}) => {
+  const [bodypart] = useState(indexToBodypart(index, elementCount));
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
@@ -178,6 +188,7 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     })[0]
   });
 
+  // when sequence and/or direction changes
   useEffect(() => {
     let animationSpecs = getWormAnimationSpecs({
       bodypart,
@@ -199,12 +210,14 @@ let Texture = ({ x, y, direction, preloadedAnimations, dead, bodypart }) => {
     });
   }, [animationSequence, preloadedAnimations, x, y, bodypart, direction]);
 
+  // stop animation when dead
   useEffect(() => {
     if (dead === true) {
       state.selectedAnimation.animation.stop();
     }
   }, [dead, state.selectedAnimation]);
 
+  // on every new animation frame
   useEffect(() => {
     let currentAnimationIndex = state.animationSpecs.findIndex(
       animation => animation.name === state.selectedAnimation.name
@@ -292,8 +305,11 @@ Texture.propTypes = {
     to: PropTypes.string.isRequired
   }),
   preloadedAnimations: PropTypes.object.isRequired,
-  bodypart: PropTypes.string.isRequired,
-  dead: PropTypes.bool.isRequired
+  dead: PropTypes.bool.isRequired,
+  animationSequence: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  elementCount: PropTypes.number.isRequired,
+  sequenceFinished: PropTypes.func.isRequired
 };
 
 export default Texture;
