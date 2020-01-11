@@ -17,7 +17,7 @@ let Bone = ({
   boneCount,
   x,
   y,
-  destX,
+  destX, // todo destX and destY can be replaces by something like x + tilesize, just call it progress
   destY,
   direction,
   preloadedAnimations,
