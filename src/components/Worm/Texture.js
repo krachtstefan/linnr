@@ -134,6 +134,18 @@ const getWormAnimationSpecs = ({
   return animationsArr;
 };
 
+const indexToBodypart = (index, length) => {
+  return index === 0
+    ? "HD"
+    : index === 1
+    ? "HD2"
+    : index === length - 1
+    ? "TL2"
+    : index === length - 2
+    ? "TL"
+    : "BY";
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "UPDATE":
