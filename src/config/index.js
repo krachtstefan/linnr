@@ -34,8 +34,10 @@ export default {
   velocity: getVelocityFromFrames(12, tileSize),
   animationSpeed,
   fpms: fps / 1000,
-  wormReactionFrames: 8, // number of frames, the player can still change the animation
-  wormTurningFrames: 4, // number of frames, the worm needs to turn
+  wormSequences: [
+    8, // sequence 0 : player has 8 frames to decide the next animation
+    4 // sequence 1 : worm needs 4 frames to turn
+  ],
   tileSize,
   background: 0x9ac503,
   autoplay: true

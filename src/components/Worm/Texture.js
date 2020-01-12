@@ -36,7 +36,7 @@ const getWormAnimationSpecs = ({
 
   // head
   if (bodypart === "HD") {
-    if (animationSequence === 1) {
+    if (animationSequence === 0) {
       // entry
       animationsArr.push(
         returnValidAnimationSpec(
@@ -55,7 +55,7 @@ const getWormAnimationSpecs = ({
     }
     // second head
   } else if (bodypart === "HD2") {
-    if (animationSequence === 1) {
+    if (animationSequence === 0) {
       // going out
       animationsArr.push(
         returnValidAnimationSpec(
@@ -84,7 +84,7 @@ const getWormAnimationSpecs = ({
         `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
           FILENAME_SEGMENTS[direction.to]
         }`,
-        { startIndex: animationSequence === 1 ? 12 : 20, removeAtFinish: true }
+        { startIndex: animationSequence === 0 ? 12 : 20, removeAtFinish: true }
       )
     );
     // } else if (bodypart === "TL") {
@@ -106,7 +106,7 @@ const getWormAnimationSpecs = ({
     //   }
   } else {
     // move
-    if (animationSequence === 1) {
+    if (animationSequence === 0) {
       animationsArr.push(
         returnValidAnimationSpec(
           `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${

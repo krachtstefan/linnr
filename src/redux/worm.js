@@ -132,7 +132,7 @@ const DEFAULT_WORM_STATE = {
   nextDirection,
   age: 0,
   dead: false,
-  animationSequence: 1,
+  animationSequence: 0,
   animations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("WORM-") === true)
     .reduce((accObj, currAnimationName) => {
@@ -187,7 +187,7 @@ export const collisionCheck = () => (dispatch, state) => {
           direction.map((direction, i) =>
             i === 0 ? { from: direction.to, to: nextDirection } : direction
           ),
-        animationSequence: 2
+        animationSequence: 1
       }
     });
   }
@@ -215,7 +215,7 @@ export const initiateNextMove = position => (dispatch, state) => {
             : directions[i - 1]
         ),
       age: state().worm.age + 1,
-      animationSequence: 1,
+      animationSequence: 0,
       position
     };
 

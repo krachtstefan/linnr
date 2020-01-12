@@ -40,7 +40,7 @@ let Worm = ({ preloadedAnimations }) => {
       console.log("next sequence comitted by all textures", nextSequence);
       setNextSequence({});
       dispatch(
-        animationSequence === 1
+        animationSequence === 0
           ? collisionCheck()
           : initiateNextMove(destination)
       );
