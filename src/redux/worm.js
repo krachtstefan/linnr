@@ -93,6 +93,13 @@ export const WORM_DIRECTIONS = {
   W: "west"
 };
 
+const OPPOSITE_DIRECTIONS = {
+  [WORM_DIRECTIONS.N]: WORM_DIRECTIONS.S,
+  [WORM_DIRECTIONS.E]: WORM_DIRECTIONS.W,
+  [WORM_DIRECTIONS.S]: WORM_DIRECTIONS.N,
+  [WORM_DIRECTIONS.W]: WORM_DIRECTIONS.E
+};
+
 export const FILENAME_SEGMENTS = {
   north: "N",
   east: "E",
@@ -155,7 +162,6 @@ export const WORM_ACTION_TYPES = {
 /**
  * this function is a collision check that runs in the second
  * animation sequence of a move
- *
  */
 export const collisionCheck = () => (dispatch, state) => {
   if (
@@ -226,22 +232,30 @@ export const initiateNextMove = position => (dispatch, state) => {
   }
 };
 
+export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
+  let { animationSequence, position, destination } = state().worm;
+  if (animationSequence === 0) {
+    let toDirection = getDirection({
+      pos: position[0],
+      nextPos: destination[0]
+    });
+    if (OPPOSITE_DIRECTIONS[toDirection] !== WORM_DIRECTIONS[pressedKey]) {
+      dispatch({
+        type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
+        payload: WORM_DIRECTIONS[pressedKey]
+      });
+    }
+  }
+};
+
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_DEAD:
-      return {
-        ...state,
-        dead: true
-      };
+      return { ...state, dead: true };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return state.animationSequence === 0
-        ? { ...state, nextDirection: action.payload }
-        : state;
+      return { ...state, nextDirection: action.payload };
     case WORM_ACTION_TYPES.UPDATE:
-      return {
-        ...state,
-        ...action.payload
-      };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
