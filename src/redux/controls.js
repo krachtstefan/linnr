@@ -1,8 +1,4 @@
-import {
-  WORM_ACTION_TYPES,
-  WORM_DIRECTIONS,
-  forwardKeyboardInput
-} from "./worm";
+import { WORM_DIRECTIONS, forwardKeyboardInput } from "./worm";
 
 export const setNextDirection = keyObj => {
   return dispatch => {
