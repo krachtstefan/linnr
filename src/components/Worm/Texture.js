@@ -153,6 +153,16 @@ const reducer = (state, action) => {
         ...state,
         ...action.payload
       };
+    case "FRAME_INC":
+      return {
+        ...state,
+        frameCount: state.frameCount + 1
+      };
+    case "FRAME_RESET":
+      return {
+        ...state,
+        frameCount: 1
+      };
     default:
       return state;
   }
@@ -169,35 +179,50 @@ let Texture = ({
   elementCount,
   sequenceFinished = () => {}
 }) => {
-  const [bodypart] = useState(indexToBodypart(index, elementCount));
   const [state, dispatch] = useReducer(reducer, {
     x,
     y,
     active: true,
     animationSpecs: getWormAnimationSpecs({
-      bodypart,
+      bodypart: indexToBodypart(index, elementCount),
       direction,
       animations: preloadedAnimations,
       animationSequence
     }),
     selectedAnimation: getWormAnimationSpecs({
-      bodypart,
+      bodypart: indexToBodypart(index, elementCount),
       direction,
       animations: preloadedAnimations,
       animationSequence
-    })[0]
+    })[0],
+    frameCount: 1
   });
+
+  useEffect(() => {
+    if (state.frameCount === config.wormSequences[animationSequence]) {
+      // increment, to make sure this will not trigger multiple times while waiting
+      // for the other textures to be finished to finally trigger the reset
+      dispatch({ type: "FRAME_INC" });
+      sequenceFinished(index);
+    }
+  }, [index, animationSequence, sequenceFinished, state.frameCount]);
+
+  useEffect(() => {
+    dispatch({ type: "FRAME_RESET" });
+  }, [animationSequence]);
 
   // when sequence and/or direction changes
   useEffect(() => {
     let animationSpecs = getWormAnimationSpecs({
-      bodypart,
+      bodypart: indexToBodypart(index, elementCount),
       direction,
       animations: preloadedAnimations,
       animationSequence
     });
     let selectedAnimation = animationSpecs[0];
     selectedAnimation.animation.gotoAndPlay(selectedAnimation.startIndex);
+    selectedAnimation.animation.onFrameChange = () =>
+      dispatch({ type: "FRAME_INC" });
     dispatch({
       type: "UPDATE",
       payload: {
@@ -208,7 +233,20 @@ let Texture = ({
         selectedAnimation
       }
     });
-  }, [animationSequence, preloadedAnimations, x, y, bodypart, direction]);
+    // cleanup
+    return () =>
+      (selectedAnimation.animation.onFrameChange = dispatch({
+        type: "FRAME_INC"
+      }));
+  }, [
+    animationSequence,
+    preloadedAnimations,
+    x,
+    y,
+    index,
+    elementCount,
+    direction
+  ]);
 
   // stop animation when dead
   useEffect(() => {
@@ -235,6 +273,7 @@ let Texture = ({
     ) {
       // if there is another animation in the stack
       if (hasNextAnimation === true && !state.swapAnimationOnNextFrame) {
+        console.log("🎉 swapAnimationOnNextFrame 1");
         // when we reach the last position, set a flag for next swap
         dispatch({
           type: "UPDATE",
@@ -243,6 +282,7 @@ let Texture = ({
           }
         });
       } else {
+        console.log("🎉 removeAtFinish");
         if (state.selectedAnimation.removeAtFinish === true) {
           dispatch({
             type: "UPDATE",
@@ -260,6 +300,7 @@ let Texture = ({
       hasNextAnimation &&
       !state.swapAnimationOnNextFrame
     ) {
+      console.log("🎉 swapAnimationOnNextFrame 2");
       // if there is another animation in the stack, and we reach the last frame
       dispatch({
         type: "UPDATE",
@@ -270,6 +311,8 @@ let Texture = ({
     } else if (state.swapAnimationOnNextFrame === true) {
       let selectedAnimation = state.animationSpecs[currentAnimationIndex + 1];
       selectedAnimation.animation.gotoAndPlay(0);
+      // may also add a dispatch here
+      console.log("🎉 add fix here");
       dispatch({
         type: "UPDATE",
         payload: {
@@ -284,8 +327,7 @@ let Texture = ({
     preloadedAnimations,
     direction,
     state.animationSpecs,
-    state.swapAnimationOnNextFrame,
-    bodypart
+    state.swapAnimationOnNextFrame
   ]);
 
   return state.selectedAnimation && state.active === true ? (
