@@ -64,29 +64,57 @@ const getWormAnimationSpecs = ({
 
     // very last part ot the worm
   } else if (bodypart === "TL2") {
-    animationsArr.push(
-      returnValidAnimationSpec(
-        `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
-          FILENAME_SEGMENTS[direction.to]
-        }`,
-        { startIndex: animationSequence === 0 ? 6 : 14 }
-      )
-    );
+    // non corner
+    if (direction.from === direction.to) {
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          {
+            startIndex: animationSequence === 0 ? 12 : 20
+          }
+        )
+      );
+    } else {
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          {
+            startIndex: animationSequence === 0 ? 6 : 14
+          }
+        )
+      );
+    }
   } else if (bodypart === "TL") {
-    animationsArr.push(
-      animationSequence === 0
-        ? returnValidAnimationSpec(
-            `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
-              FILENAME_SEGMENTS[direction.to]
-            }`
-          )
-        : returnValidAnimationSpec(
-            `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-              FILENAME_SEGMENTS[direction.to]
-            }`,
-            { startIndex: 2 }
-          )
-    );
+    // non corner
+    if (direction.from === direction.to) {
+      animationsArr.push(
+        returnValidAnimationSpec(
+          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+            FILENAME_SEGMENTS[direction.to]
+          }`,
+          { startIndex: animationSequence === 0 ? 0 : 8 }
+        )
+      );
+    } else {
+      animationsArr.push(
+        animationSequence === 0
+          ? returnValidAnimationSpec(
+              `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+                FILENAME_SEGMENTS[direction.to]
+              }`
+            )
+          : returnValidAnimationSpec(
+              `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+                FILENAME_SEGMENTS[direction.to]
+              }`,
+              { startIndex: 2 }
+            )
+      );
+    }
 
     //   // move
     //   let animation = `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
