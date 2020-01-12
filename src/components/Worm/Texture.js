@@ -36,46 +36,35 @@ const getWormAnimationSpecs = ({
 
   // head
   if (bodypart === "HD") {
-    if (animationSequence === 0) {
-      // entry
-      animationsArr.push(
-        returnValidAnimationSpec(
-          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/Entry`
-        )
-      );
-    } else {
-      // move
-      animationsArr.push(
-        returnValidAnimationSpec(
-          `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-            FILENAME_SEGMENTS[direction.to]
-          }`
-        )
-      );
-    }
+    animationsArr.push(
+      returnValidAnimationSpec(
+        `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/${
+          animationSequence === 0
+            ? "Entry" // entry
+            : `2${FILENAME_SEGMENTS[direction.to]}` // move
+        }`
+      )
+    );
+
     // second head
   } else if (bodypart === "HD2") {
-    if (animationSequence === 0) {
-      // going out
-      animationsArr.push(
-        returnValidAnimationSpec(
-          `WORM-HD/${FILENAME_SEGMENTS[direction.from]}/2${
-            FILENAME_SEGMENTS[direction.to]
-          }`,
-          { startIndex: 4 }
-        )
-      );
-    } else {
-      // move
-      animationsArr.push(
-        returnValidAnimationSpec(
-          `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
-            FILENAME_SEGMENTS[direction.to]
-          }`,
-          { startIndex: 8 }
-        )
-      );
-    }
+    animationsArr.push(
+      animationSequence === 0
+        ? // head is going out
+          returnValidAnimationSpec(
+            `WORM-HD/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: 4 }
+          )
+        : // body part
+          returnValidAnimationSpec(
+            `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: 8 }
+          )
+    );
 
     // very last part ot the worm
   } else if (bodypart === "TL2") {
