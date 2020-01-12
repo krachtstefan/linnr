@@ -234,7 +234,9 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
         dead: true
       };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return { ...state, nextDirection: action.payload };
+      return state.animationSequence === 0
+        ? { ...state, nextDirection: action.payload }
+        : state;
     case WORM_ACTION_TYPES.UPDATE:
       return {
         ...state,
