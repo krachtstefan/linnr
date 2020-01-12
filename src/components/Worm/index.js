@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { collisionCheck, initiateNextMove } from "../../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
+import React from "react";
 import Texture from "./Texture";
 
 let Worm = ({ preloadedAnimations }) => {
