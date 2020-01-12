@@ -116,7 +116,7 @@ let position = [
   { x: 7, y: 2 }
 ];
 
-let nextDirection = WORM_DIRECTIONS.S;
+let nextDirection = getDirection({ pos: position[1], nextPos: position[0] });
 
 let destination = getNextPosition({
   position,
