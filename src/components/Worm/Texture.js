@@ -201,9 +201,11 @@ let Texture = ({
   useEffect(() => {
     if (state.frameCount === config.wormSequences[animationSequence]) {
       // increment, to make sure this will not trigger multiple times while waiting
-      // for the other textures to be finished to finally trigger the reset
-      dispatch({ type: "FRAME_INC" });
-      sequenceFinished(index);
+      // for animationSequence to update (which will trigger a FRAME_RESET)
+      if (index === 0) {
+        dispatch({ type: "FRAME_INC" });
+        sequenceFinished(index);
+      }
     }
   }, [index, animationSequence, sequenceFinished, state.frameCount]);
 

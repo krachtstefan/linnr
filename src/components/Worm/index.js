@@ -29,30 +29,6 @@ let Worm = ({ preloadedAnimations }) => {
     };
   });
 
-  let [nextSequence, setNextSequence] = useState({});
-
-  useEffect(() => {
-    /**
-     * as soon as all textures have called their next sequence callback
-     * move to the next trigger the next sequence
-     */
-    if (Object.keys(nextSequence).length === positionStage.length) {
-      console.log("next sequence comitted by all textures", nextSequence);
-      setNextSequence({});
-      dispatch(
-        animationSequence === 0
-          ? collisionCheck()
-          : initiateNextMove(destination)
-      );
-    }
-  }, [
-    nextSequence,
-    destination,
-    animationSequence,
-    positionStage.length,
-    dispatch
-  ]);
-
   return (
     <React.Fragment>
       {direction.length > 0
@@ -65,7 +41,13 @@ let Worm = ({ preloadedAnimations }) => {
               preloadedAnimations={preloadedAnimations[i]}
               dead={dead}
               animationSequence={animationSequence}
-              sequenceFinished={() => console.log("sequence finished", i)}
+              sequenceFinished={() => {
+                dispatch(
+                  animationSequence === 0
+                    ? collisionCheck()
+                    : initiateNextMove(destination)
+                );
+              }}
               index={i}
               elementCount={positionStage.length}
             />
