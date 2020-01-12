@@ -66,10 +66,6 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
   spriteSpecs[board[position.y][position.x]] &&
   spriteSpecs[board[position.y][position.x]].collisionType === "wall";
 
-// todo
-// const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
-//   nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
-
 // when the destination has dublicate entries
 const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
