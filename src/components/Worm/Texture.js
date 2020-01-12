@@ -184,11 +184,11 @@ let Texture = ({
       animations: preloadedAnimations,
       animationSequence
     })[0],
-    frameCount: 1
+    frameCount: 0
   });
 
   useEffect(() => {
-    if (state.frameCount === config.wormSequences[animationSequence] + 1) {
+    if (state.frameCount === config.wormSequences[animationSequence]) {
       // increment, to make sure this will not trigger multiple times while waiting
       // for animationSequence to update (which will trigger a FRAME_RESET)
       if (index === 0) {
