@@ -153,8 +153,8 @@ export const WORM_ACTION_TYPES = {
 };
 
 /**
- * this function is a collision check that runs in the middle of a move
- * and will check if the
+ * this function is a collision check that runs in the second
+ * animation sequence of a move
  *
  */
 export const collisionCheck = () => (dispatch, state) => {
