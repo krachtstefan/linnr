@@ -24,9 +24,6 @@ const getWormAnimationSpecs = ({
       name: validAnimationName,
       animation: animations[validAnimationName],
       startIndex: 0,
-      // if skip after is an Integer (f.e. 3), it will jump to the
-      // next animation when the frame number 3 (index 2) is reached
-      skipAfter: null,
       removeAtFinish: false,
       ...props
     };
@@ -45,7 +42,6 @@ const getWormAnimationSpecs = ({
         }`
       )
     );
-
     // second head
   } else if (bodypart === "HD2") {
     animationsArr.push(
@@ -248,78 +244,22 @@ let Texture = ({
 
   // on every new animation frame
   useEffect(() => {
-    let currentAnimationIndex = state.animationSpecs.findIndex(
-      animation => animation.name === state.selectedAnimation.name
-    );
-
-    let hasNextAnimation =
-      state.animationSpecs.length > 1 &&
-      currentAnimationIndex !== state.animationSpecs.length - 1;
-
     // last frame
     if (
       state.selectedAnimation &&
       state.selectedAnimation.animation.currentFrame + 1 ===
         state.selectedAnimation.animation.totalFrames
     ) {
-      // if there is another animation in the stack
-      if (hasNextAnimation === true && !state.swapAnimationOnNextFrame) {
-        console.log("🎉 swapAnimationOnNextFrame 1");
-        // when we reach the last position, set a flag for next swap
+      if (state.selectedAnimation.removeAtFinish === true) {
         dispatch({
           type: "UPDATE",
           payload: {
-            swapAnimationOnNextFrame: true
+            active: false
           }
         });
-      } else {
-        console.log("🎉 removeAtFinish");
-        if (state.selectedAnimation.removeAtFinish === true) {
-          dispatch({
-            type: "UPDATE",
-            payload: {
-              active: false
-            }
-          });
-        }
       }
-      // skip after is reached
-    } else if (
-      state.selectedAnimation.skipAfter &&
-      state.selectedAnimation.skipAfter + 1 ===
-        state.selectedAnimation.animation.currentFrame + 1 &&
-      hasNextAnimation &&
-      !state.swapAnimationOnNextFrame
-    ) {
-      console.log("🎉 swapAnimationOnNextFrame 2");
-      // if there is another animation in the stack, and we reach the last frame
-      dispatch({
-        type: "UPDATE",
-        payload: {
-          swapAnimationOnNextFrame: true
-        }
-      });
-    } else if (state.swapAnimationOnNextFrame === true) {
-      let selectedAnimation = state.animationSpecs[currentAnimationIndex + 1];
-      selectedAnimation.animation.gotoAndPlay(0);
-      // may also add a dispatch here
-      console.log("🎉 add fix here");
-      dispatch({
-        type: "UPDATE",
-        payload: {
-          selectedAnimation,
-          swapAnimationOnNextFrame: false
-        }
-      });
     }
-  }, [
-    state.selectedAnimation,
-    state.selectedAnimation.animation.currentFrame,
-    preloadedAnimations,
-    direction,
-    state.animationSpecs,
-    state.swapAnimationOnNextFrame
-  ]);
+  }, [state.selectedAnimation, index]);
 
   return state.selectedAnimation && state.active === true ? (
     <AnimatedSpritesheet
