@@ -19,7 +19,7 @@ export const getDirection = ({ pos, nextPos }) => {
   } else if (direction.y === 1) {
     return WORM_DIRECTIONS.S;
   } else if (direction.y === -1) {
-    return WORM_DIRECTIONS.S;
+    return WORM_DIRECTIONS.N;
   } else {
     console.warn("unexpected direction");
     return WORM_DIRECTIONS.S;
