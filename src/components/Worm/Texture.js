@@ -69,7 +69,7 @@ const getWormAnimationSpecs = ({
         `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
           FILENAME_SEGMENTS[direction.to]
         }`,
-        { startIndex: animationSequence === 0 ? 12 : 20, removeAtFinish: true }
+        { startIndex: animationSequence === 0 ? 6 : 14 }
       )
     );
     // } else if (bodypart === "TL") {
