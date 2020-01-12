@@ -31,7 +31,7 @@ export default {
     canvasBg,
     deathscreen
   },
-  velocity: getVelocityFromFrames(12, tileSize),
+  velocity: getVelocityFromFrames(12, tileSize), // todo: delete this????
   animationSpeed,
   fpms: fps / 1000,
   wormSequences: [
