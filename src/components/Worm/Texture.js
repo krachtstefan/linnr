@@ -1,7 +1,7 @@
+import { FILENAME_SEGMENTS, WORM_DIRECTIONS } from "../../redux/worm";
 import React, { useEffect, useReducer } from "react";
 
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
-import { FILENAME_SEGMENTS } from "../../redux/worm";
 import PropTypes from "prop-types";
 import config from "../../config";
 
@@ -66,31 +66,91 @@ const getWormAnimationSpecs = ({
   } else if (bodypart === "TL2") {
     // non corner
     if (direction.from === direction.to) {
-      animationsArr.push(
-        returnValidAnimationSpec(
-          `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
-            FILENAME_SEGMENTS[direction.to]
-          }`,
-          {
-            startIndex: animationSequence === 0 ? 12 : 20
-          }
-        )
-      );
+      // vertical up
+      if ([WORM_DIRECTIONS.N].includes(direction.from)) {
+        animationsArr.push(
+          returnValidAnimationSpec(
+            `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: animationSequence === 0 ? 14 : 22 }
+          )
+        );
+        // vertical down
+      } else if ([WORM_DIRECTIONS.S].includes(direction.from)) {
+        animationsArr.push(
+          returnValidAnimationSpec(
+            `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: animationSequence === 0 ? 6 : 14 }
+          )
+        );
+        // horizontal
+      } else {
+        animationsArr.push(
+          returnValidAnimationSpec(
+            `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: animationSequence === 0 ? 12 : 20 }
+          )
+        );
+      }
+      // corner
     } else {
       animationsArr.push(
         returnValidAnimationSpec(
           `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
             FILENAME_SEGMENTS[direction.to]
           }`,
-          {
-            startIndex: animationSequence === 0 ? 6 : 14
-          }
+          { startIndex: animationSequence === 0 ? 12 : 20 }
         )
       );
     }
+    // second last part of the worm
   } else if (bodypart === "TL") {
     // non corner
     if (direction.from === direction.to) {
+      // vertical up
+      if ([WORM_DIRECTIONS.N].includes(direction.from)) {
+        animationsArr.push(
+          returnValidAnimationSpec(
+            `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: animationSequence === 0 ? 2 : 10 }
+          )
+        );
+        // vertical down
+      } else if ([WORM_DIRECTIONS.S].includes(direction.from)) {
+        animationsArr.push(
+          animationSequence === 0
+            ? returnValidAnimationSpec(
+                `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
+                  FILENAME_SEGMENTS[direction.to]
+                }`
+              )
+            : returnValidAnimationSpec(
+                `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+                  FILENAME_SEGMENTS[direction.to]
+                }`,
+                { startIndex: 2 }
+              )
+        );
+        // horizontal
+      } else {
+        animationsArr.push(
+          returnValidAnimationSpec(
+            `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
+              FILENAME_SEGMENTS[direction.to]
+            }`,
+            { startIndex: animationSequence === 0 ? 0 : 8 }
+          )
+        );
+      }
+      // corner
+    } else {
       animationsArr.push(
         returnValidAnimationSpec(
           `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
@@ -99,39 +159,7 @@ const getWormAnimationSpecs = ({
           { startIndex: animationSequence === 0 ? 0 : 8 }
         )
       );
-    } else {
-      animationsArr.push(
-        animationSequence === 0
-          ? returnValidAnimationSpec(
-              `WORM-BY/${FILENAME_SEGMENTS[direction.from]}/2${
-                FILENAME_SEGMENTS[direction.to]
-              }`
-            )
-          : returnValidAnimationSpec(
-              `WORM-${bodypart}/${FILENAME_SEGMENTS[direction.from]}/2${
-                FILENAME_SEGMENTS[direction.to]
-              }`,
-              { startIndex: 2 }
-            )
-      );
     }
-
-    //   // move
-    //   let animation = `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
-    //     FILENAME_SEGMENTS[direction.to]
-    //   }`;
-
-    //   // if its a corner
-    //   if (direction.from !== direction.to) {
-    //     // animationsArr.push(returnValidAnimationSpec(animation, { skipAfter: 2 }));
-    //     animationsArr.push(returnValidAnimationSpec(animation));
-
-    //     // animationsArr.push(
-    //     //   returnValidAnimationSpec(animation, { startIndex: 2 })
-    //     // );
-    //   } else {
-    //     animationsArr.push(returnValidAnimationSpec(animation));
-    //   }
   } else {
     // move
     if (animationSequence === 0) {
