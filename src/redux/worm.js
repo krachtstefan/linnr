@@ -19,7 +19,7 @@ export const getDirection = ({ pos, nextPos }) => {
   } else if (direction.y === 1) {
     return WORM_DIRECTIONS.S;
   } else if (direction.y === -1) {
-    return WORM_DIRECTIONS.S;
+    return WORM_DIRECTIONS.N;
   } else {
     console.warn("unexpected direction");
     return WORM_DIRECTIONS.S;
@@ -66,9 +66,6 @@ const hitsWall = ({ board, spriteSpecs, position }) =>
   spriteSpecs[board[position.y][position.x]] &&
   spriteSpecs[board[position.y][position.x]].collisionType === "wall";
 
-const movesBackwards = ({ nextHeadPos, lastHeadPos }) =>
-  nextHeadPos.x === lastHeadPos.x && nextHeadPos.y === lastHeadPos.y;
-
 // when the destination has dublicate entries
 const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
@@ -92,6 +89,13 @@ export const WORM_DIRECTIONS = {
   W: "west"
 };
 
+const OPPOSITE_DIRECTIONS = {
+  [WORM_DIRECTIONS.N]: WORM_DIRECTIONS.S,
+  [WORM_DIRECTIONS.E]: WORM_DIRECTIONS.W,
+  [WORM_DIRECTIONS.S]: WORM_DIRECTIONS.N,
+  [WORM_DIRECTIONS.W]: WORM_DIRECTIONS.E
+};
+
 export const FILENAME_SEGMENTS = {
   north: "N",
   east: "E",
@@ -108,7 +112,7 @@ let position = [
   { x: 7, y: 2 }
 ];
 
-let nextDirection = WORM_DIRECTIONS.S;
+let nextDirection = getDirection({ pos: position[1], nextPos: position[0] });
 
 let destination = getNextPosition({
   position,
@@ -129,9 +133,10 @@ const DEFAULT_WORM_STATE = {
     };
   }),
   nextDirection,
+  nextDirectionQueue: null,
   age: 0,
   dead: false,
-  animationSequence: 1,
+  animationSequence: 0,
   animations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("WORM-") === true)
     .reduce((accObj, currAnimationName) => {
@@ -152,28 +157,35 @@ export const WORM_ACTION_TYPES = {
 };
 
 /**
- * this function is a collision check that runs in the middle of a move
- * and will check if the
- *
+ * this function is a collision check that runs in the second
+ * animation sequence of a move
  */
 export const collisionCheck = () => (dispatch, state) => {
+  dispatch(readDestinationQueue());
+  let { worm, stage } = state();
+
+  let planedDestination = getNextPosition({
+    position: worm.position,
+    direction: worm.nextDirection
+  });
+
   if (
     isOutOfBounds({
-      board: state().stage.board,
-      position: state().worm.destination[0]
+      board: stage.board,
+      position: planedDestination[0]
     }) === true ||
     hitsWall({
-      board: state().stage.board,
-      spriteSpecs: state().stage.spriteSpecs,
-      position: state().worm.destination[0]
+      board: stage.board,
+      spriteSpecs: stage.spriteSpecs,
+      position: planedDestination[0]
     }) === true ||
-    hitsItself({ destination: state().worm.destination }) === true
+    hitsItself({ destination: planedDestination }) === true
   ) {
     dispatch({
       type: WORM_ACTION_TYPES.SET_DEAD
     });
   } else {
-    let { direction, nextDirection, position } = state().worm;
+    let { direction, nextDirection, position } = worm;
     dispatch({
       type: WORM_ACTION_TYPES.UPDATE,
       payload: {
@@ -186,7 +198,7 @@ export const collisionCheck = () => (dispatch, state) => {
           direction.map((direction, i) =>
             i === 0 ? { from: direction.to, to: nextDirection } : direction
           ),
-        animationSequence: 2
+        animationSequence: 1
       }
     });
   }
@@ -199,7 +211,8 @@ export const collisionCheck = () => (dispatch, state) => {
  * it will also read the current "nextDirection", calculate the next destination and persist it
  */
 export const initiateNextMove = position => (dispatch, state) => {
-  let { direction, nextDirection, dead } = state().worm;
+  let { worm } = state();
+  let { direction, nextDirection, dead } = worm;
   if (dead === false) {
     let payload = {
       destination: getNextPosition({
@@ -213,8 +226,8 @@ export const initiateNextMove = position => (dispatch, state) => {
             ? { from: direction.to, to: nextDirection }
             : directions[i - 1]
         ),
-      age: state().worm.age + 1,
-      animationSequence: 1,
+      age: worm.age + 1,
+      animationSequence: 0,
       position
     };
 
@@ -225,20 +238,50 @@ export const initiateNextMove = position => (dispatch, state) => {
   }
 };
 
+export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
+  let { animationSequence, position, destination } = state().worm;
+  let toDirection = getDirection({
+    pos: position[0],
+    nextPos: destination[0]
+  });
+  if (OPPOSITE_DIRECTIONS[toDirection] !== WORM_DIRECTIONS[pressedKey]) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
+      payload:
+        animationSequence === 1
+          ? // no keyboard input allowed, but add it queue to
+            // use it in the round if no other key was pressed
+            { nextDirectionQueue: WORM_DIRECTIONS[pressedKey] }
+          : // keyboard input is allowed again, clear the queue
+            {
+              nextDirection: WORM_DIRECTIONS[pressedKey],
+              nextDirectionQueue: null
+            }
+    });
+  }
+};
+
+/**
+ * this function will read from nextDirectionQueue and set it as a new nextDirection
+ */
+const readDestinationQueue = () => (dispatch, state) => {
+  let { nextDirectionQueue } = state().worm;
+  if (nextDirectionQueue) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
+      payload: { nextDirection: nextDirectionQueue, nextDirectionQueue: null }
+    });
+  }
+};
+
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_DEAD:
-      return {
-        ...state,
-        dead: true
-      };
+      return { ...state, dead: true };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return { ...state, nextDirection: action.payload };
+      return { ...state, ...action.payload };
     case WORM_ACTION_TYPES.UPDATE:
-      return {
-        ...state,
-        ...action.payload
-      };
+      return { ...state, ...action.payload };
     default:
       return state;
   }

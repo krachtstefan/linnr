@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
 import { collisionCheck, initiateNextMove } from "../../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
-import Bone from "./Bone";
 import PropTypes from "prop-types";
+import React from "react";
+import Texture from "./Texture";
 
 let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
   let dispatch = useDispatch();
+
   const {
     positionStage,
-    destinationStage,
-    destination,
     direction,
-    animations,
+    animationSequence,
     dead,
-    spritesheet
+    destination
   } = useSelector(state => {
     let { worm, stage } = state;
     return {
@@ -23,75 +22,34 @@ let Worm = ({ preloadedAnimations }) => {
         x: stage.tileSize * pos.x,
         y: stage.tileSize * pos.y
       })),
-      destinationStage: worm.destination.map(pos => ({
-        x: stage.tileSize * pos.x,
-        y: stage.tileSize * pos.y
-      })),
       destination: worm.destination,
       direction: worm.direction,
-      animations: worm.animations,
-      dead: worm.dead,
-      spritesheet: stage.assets.spritesheet
+      animationSequence: worm.animationSequence,
+      dead: worm.dead
     };
   });
-
-  let [nextPositions, setNextPositions] = useState({});
-  let [nextCollision, setNextCollision] = useState({});
-
-  useEffect(() => {
-    /**
-     * as soon as all bones have submitted their next position,
-     * dispatch it to redux to persist it and update the bones
-     * position
-     */
-    if (Object.keys(nextPositions).length === positionStage.length) {
-      setNextPositions({});
-      dispatch(
-        initiateNextMove(
-          Object.keys(nextPositions)
-            .sort()
-            .map(key => nextPositions[key])
-        )
-      );
-    }
-  }, [nextPositions, positionStage.length, dispatch]);
-
-  useEffect(() => {
-    if (Object.keys(nextCollision).length === positionStage.length) {
-      setNextCollision({});
-      dispatch(collisionCheck());
-    }
-  }, [nextCollision]);
 
   return (
     <React.Fragment>
       {direction.length > 0
         ? positionStage.map((position, i) => (
-            <Bone
-              key={`bone-${i}`}
+            <Texture
+              key={`${position.x}-${position.y}`}
               x={position.x}
               y={position.y}
-              index={i}
-              boneCount={positionStage.length}
-              destX={destinationStage[i].x}
-              destY={destinationStage[i].y}
               direction={direction[i]}
-              spritesheet={spritesheet}
-              animations={animations}
-              dead={dead}
-              arrived={boneIndex => {
-                setNextPositions(old => ({
-                  ...old,
-                  [boneIndex]: destination[boneIndex]
-                }));
-              }}
-              checkCollision={boneIndex => {
-                setNextCollision(old => ({
-                  ...old,
-                  [boneIndex]: true
-                }));
-              }}
               preloadedAnimations={preloadedAnimations[i]}
+              dead={dead}
+              animationSequence={animationSequence}
+              sequenceFinished={() => {
+                dispatch(
+                  animationSequence === 0
+                    ? collisionCheck()
+                    : initiateNextMove(destination)
+                );
+              }}
+              index={i}
+              elementCount={positionStage.length}
             />
           ))
         : null}
