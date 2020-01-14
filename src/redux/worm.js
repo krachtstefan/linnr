@@ -177,7 +177,7 @@ export const collisionCheck = () => (dispatch, state) => {
       type: WORM_ACTION_TYPES.SET_DEAD
     });
   } else {
-    let { direction, nextDirection, position } = state().worm;
+    let { direction, nextDirection, position } = worm;
     dispatch({
       type: WORM_ACTION_TYPES.UPDATE,
       payload: {
@@ -203,7 +203,8 @@ export const collisionCheck = () => (dispatch, state) => {
  * it will also read the current "nextDirection", calculate the next destination and persist it
  */
 export const initiateNextMove = position => (dispatch, state) => {
-  let { direction, nextDirection, dead } = state().worm;
+  let { worm } = state();
+  let { direction, nextDirection, dead } = worm;
   if (dead === false) {
     let payload = {
       destination: getNextPosition({
@@ -217,7 +218,7 @@ export const initiateNextMove = position => (dispatch, state) => {
             ? { from: direction.to, to: nextDirection }
             : directions[i - 1]
         ),
-      age: state().worm.age + 1,
+      age: worm.age + 1,
       animationSequence: 0,
       position
     };
