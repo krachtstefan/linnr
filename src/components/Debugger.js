@@ -67,7 +67,7 @@ const Debugger = () => {
           <div>
             {renderDirectionEmoji(worm.nextDirection)}
             {worm.nextDirectionQueue
-              ? ` (${renderDirectionEmoji(worm.nextDirectionQueue)})`
+              ? ` (${worm.nextDirectionQueue.length})`
               : null}
           </div>
         </div>

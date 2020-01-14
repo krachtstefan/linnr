@@ -133,7 +133,7 @@ const DEFAULT_WORM_STATE = {
     };
   }),
   nextDirection,
-  nextDirectionQueue: null,
+  nextDirectionQueue: [],
   age: 0,
   dead: false,
   animationSequence: 0,
@@ -239,7 +239,12 @@ export const initiateNextMove = position => (dispatch, state) => {
 };
 
 export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
-  let { animationSequence, position, destination } = state().worm;
+  let {
+    animationSequence,
+    position,
+    destination,
+    nextDirectionQueue
+  } = state().worm;
   let toDirection = getDirection({
     pos: position[0],
     nextPos: destination[0]
@@ -251,11 +256,16 @@ export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
         animationSequence === 1
           ? // no keyboard input allowed, but add it queue to
             // use it in the round if no other key was pressed
-            { nextDirectionQueue: WORM_DIRECTIONS[pressedKey] }
+            {
+              nextDirectionQueue: [
+                ...nextDirectionQueue,
+                WORM_DIRECTIONS[pressedKey]
+              ]
+            }
           : // keyboard input is allowed again, clear the queue
             {
               nextDirection: WORM_DIRECTIONS[pressedKey],
-              nextDirectionQueue: null
+              nextDirectionQueue: []
             }
     });
   }
@@ -266,10 +276,13 @@ export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
  */
 const readDestinationQueue = () => (dispatch, state) => {
   let { nextDirectionQueue } = state().worm;
-  if (nextDirectionQueue) {
+  if (nextDirectionQueue.length > 0) {
     dispatch({
       type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
-      payload: { nextDirection: nextDirectionQueue, nextDirectionQueue: null }
+      payload: {
+        nextDirection: nextDirectionQueue[0],
+        nextDirectionQueue: nextDirectionQueue.slice(1)
+      }
     });
   }
 };
