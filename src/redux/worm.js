@@ -161,17 +161,25 @@ export const WORM_ACTION_TYPES = {
  * animation sequence of a move
  */
 export const collisionCheck = () => (dispatch, state) => {
+  dispatch(readDestinationQueue());
+  let { worm, stage } = state();
+
+  let planedDestination = getNextPosition({
+    position: worm.position,
+    direction: worm.nextDirection
+  });
+
   if (
     isOutOfBounds({
-      board: state().stage.board,
-      position: state().worm.destination[0]
+      board: stage.board,
+      position: planedDestination[0]
     }) === true ||
     hitsWall({
-      board: state().stage.board,
-      spriteSpecs: state().stage.spriteSpecs,
-      position: state().worm.destination[0]
+      board: stage.board,
+      spriteSpecs: stage.spriteSpecs,
+      position: planedDestination[0]
     }) === true ||
-    hitsItself({ destination: state().worm.destination }) === true
+    hitsItself({ destination: planedDestination }) === true
   ) {
     dispatch({
       type: WORM_ACTION_TYPES.SET_DEAD
