@@ -133,6 +133,7 @@ const DEFAULT_WORM_STATE = {
     };
   }),
   nextDirection,
+  nextDirectionQueue: null,
   age: 0,
   dead: false,
   animationSequence: 0,
@@ -230,17 +231,37 @@ export const initiateNextMove = position => (dispatch, state) => {
 
 export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
   let { animationSequence, position, destination } = state().worm;
-  if (animationSequence === 0) {
-    let toDirection = getDirection({
-      pos: position[0],
-      nextPos: destination[0]
+  let toDirection = getDirection({
+    pos: position[0],
+    nextPos: destination[0]
+  });
+  if (OPPOSITE_DIRECTIONS[toDirection] !== WORM_DIRECTIONS[pressedKey]) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
+      payload:
+        animationSequence === 1
+          ? // no keyboard input allowed, but add it queue to
+            // use it in the round if no other key was pressed
+            { nextDirectionQueue: WORM_DIRECTIONS[pressedKey] }
+          : // keyboard input is allowed again, clear the queue
+            {
+              nextDirection: WORM_DIRECTIONS[pressedKey],
+              nextDirectionQueue: null
+            }
     });
-    if (OPPOSITE_DIRECTIONS[toDirection] !== WORM_DIRECTIONS[pressedKey]) {
-      dispatch({
-        type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
-        payload: WORM_DIRECTIONS[pressedKey]
-      });
-    }
+  }
+};
+
+/**
+ * this function will read from nextDirectionQueue and set it as a new nextDirection
+ */
+const readDestinationQueue = () => (dispatch, state) => {
+  let { nextDirectionQueue } = state().worm;
+  if (nextDirectionQueue) {
+    dispatch({
+      type: WORM_ACTION_TYPES.SET_NEXT_DIRECTION,
+      payload: { nextDirection: nextDirectionQueue, nextDirectionQueue: null }
+    });
   }
 };
 
@@ -249,7 +270,7 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
     case WORM_ACTION_TYPES.SET_DEAD:
       return { ...state, dead: true };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
-      return { ...state, nextDirection: action.payload };
+      return { ...state, ...action.payload };
     case WORM_ACTION_TYPES.UPDATE:
       return { ...state, ...action.payload };
     default:
