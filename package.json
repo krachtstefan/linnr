@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@inlet/react-pixi": "^1.1.9",
+    "@inlet/react-pixi": "^1.1.13",
     "lodash": "^4.17.15",
     "pixi.js": "^5.2.0",
     "react": "^16.12.0",
