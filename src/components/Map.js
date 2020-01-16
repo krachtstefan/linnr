@@ -1,4 +1,4 @@
-import { Container, Sprite, Stage } from "@inlet/react-pixi";
+import { Sprite, Stage } from "@inlet/react-pixi";
 
 import React from "react";
 import { ReactReduxContext } from "react-redux";
