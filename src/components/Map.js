@@ -48,35 +48,31 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
-          <Container sortableChildren={true}>
-            <Sprite image={canvasBg.url} width={width} height={height} />
-            {children}
-            {board.map((line, lineNumber) => {
-              return line.map((tile, rowNumber) => {
-                let texture = spritesheet.textures[spriteSpecs[tile].image];
-                texture = texture ? texture : Texture.EMPTY;
-                return (
-                  <Sprite
-                    key={`${lineNumber}_${rowNumber}`}
-                    zIndex={1}
-                    width={tileSize * 2}
-                    height={tileSize * 2}
-                    x={rowNumber * tileSize}
-                    y={lineNumber * tileSize - 50}
-                    texture={texture}
-                  />
-                );
-              });
-            })}
-            {dead === true ? (
-              <Sprite
-                image={deathscreen.url}
-                zIndex={2}
-                x={(width - deathscreen.texture.orig.width) / 2}
-                y={(height - deathscreen.texture.orig.height) / 2}
-              />
-            ) : null}
-          </Container>
+          <Sprite image={canvasBg.url} width={width} height={height} />
+          {children}
+          {board.map((line, lineNumber) => {
+            return line.map((tile, rowNumber) => {
+              let texture = spritesheet.textures[spriteSpecs[tile].image];
+              texture = texture ? texture : Texture.EMPTY;
+              return (
+                <Sprite
+                  key={`${lineNumber}_${rowNumber}`}
+                  width={tileSize}
+                  height={tileSize}
+                  x={rowNumber * tileSize}
+                  y={lineNumber * tileSize}
+                  texture={texture}
+                />
+              );
+            });
+          })}
+          {dead === true ? (
+            <Sprite
+              image={deathscreen.url}
+              x={(width - deathscreen.texture.orig.width) / 2}
+              y={(height - deathscreen.texture.orig.height) / 2}
+            />
+          ) : null}
         </Stage>
       )}
     >
