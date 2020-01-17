@@ -1,16 +1,17 @@
 import "./styles/app.css";
 
+import { startGame, stopGame } from "./redux/game";
 import { useDispatch, useSelector } from "react-redux";
 
 import Debugger from "./components/Debugger";
 import Dpad from "./components/Dpad";
 import Game from "./components/Game";
 import React from "react";
-import { startGame } from "./redux/game";
+import { resetWorm } from "./redux/worm";
 
 let App = () => {
   const dispatch = useDispatch();
-  let { game } = useSelector(state => state);
+  let { game, worm } = useSelector(state => state);
   return (
     <>
       <div className="logo"></div>
@@ -27,7 +28,28 @@ let App = () => {
               </button>
             </div>
           ) : (
-            <Game />
+            <>
+              {worm.dead === true ? (
+                <>
+                  <button
+                    onClick={() => {
+                      dispatch(resetWorm());
+                    }}
+                  >
+                    RESTART
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch(stopGame());
+                      dispatch(resetWorm());
+                    }}
+                  >
+                    QUIT
+                  </button>
+                </>
+              ) : null}
+              <Game />
+            </>
           )}
         </div>
         <Dpad />

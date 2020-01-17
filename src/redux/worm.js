@@ -153,7 +153,8 @@ const DEFAULT_WORM_STATE = {
 const WORM_ACTION_TYPES = {
   UPDATE: "UPDATE",
   SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
-  SET_DEAD: "SET_DEAD"
+  SET_DEAD: "SET_DEAD",
+  RESET: "RESET"
 };
 
 /**
@@ -287,6 +288,12 @@ const readDestinationQueue = () => (dispatch, state) => {
   }
 };
 
+export const resetWorm = () => dispatch => {
+  dispatch({
+    type: WORM_ACTION_TYPES.RESET
+  });
+};
+
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
     case WORM_ACTION_TYPES.SET_DEAD:
@@ -295,6 +302,8 @@ export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
       return { ...state, ...action.payload };
     case WORM_ACTION_TYPES.UPDATE:
       return { ...state, ...action.payload };
+    case WORM_ACTION_TYPES.RESET:
+      return DEFAULT_WORM_STATE;
     default:
       return state;
   }
