@@ -47,20 +47,23 @@ const Game = () => {
   });
 
   useEffect(() => {
-    let setup = () => {
-      dispatch(
-        setAsset({
-          spritesheet: Loader.shared.resources[config.assets.spritesheet],
-          canvasBg: Loader.shared.resources[config.assets.canvasBg],
-          deathscreen: Loader.shared.resources[config.assets.deathscreen]
-        })
-      );
-    };
-    Loader.shared
-      .add(config.assets.spritesheet)
-      .add(config.assets.canvasBg)
-      .add(config.assets.deathscreen)
-      .load(setup);
+    if (spritesheet === null) {
+      let setup = () => {
+        dispatch(
+          setAsset({
+            spritesheet: Loader.shared.resources[config.assets.spritesheet],
+            canvasBg: Loader.shared.resources[config.assets.canvasBg],
+            deathscreen: Loader.shared.resources[config.assets.deathscreen]
+          })
+        );
+      };
+
+      Loader.shared
+        .add(config.assets.spritesheet)
+        .add(config.assets.canvasBg)
+        .add(config.assets.deathscreen)
+        .load(setup);
+    }
   }, [dispatch]);
 
   useEffect(() => {
