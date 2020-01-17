@@ -1,17 +1,32 @@
 import "./styles/app.css";
 
+import React, { useEffect, useRef } from "react";
 import { startGame, stopGame } from "./redux/game";
 import { useDispatch, useSelector } from "react-redux";
 
 import Debugger from "./components/Debugger";
 import Dpad from "./components/Dpad";
 import Game from "./components/Game";
-import React from "react";
 import { resetWorm } from "./redux/worm";
 
 let App = () => {
   const dispatch = useDispatch();
+  const restartButton = useRef();
+  const startButton = useRef();
   let { game, worm } = useSelector(state => state);
+
+  useEffect(() => {
+    if (restartButton.current) {
+      restartButton.current.focus();
+    }
+  }, [worm.dead]);
+
+  useEffect(() => {
+    if (startButton.current) {
+      startButton.current.focus();
+    }
+  }, [startButton, game.isRunning]);
+
   return (
     <>
       <div className="logo"></div>
@@ -20,6 +35,7 @@ let App = () => {
           {game.isRunning === false ? (
             <div className="game-menu">
               <button
+                ref={startButton}
                 onClick={() => {
                   dispatch(startGame());
                 }}
@@ -32,6 +48,7 @@ let App = () => {
               {worm.dead === true ? (
                 <div className="game-menu">
                   <button
+                    ref={restartButton}
                     onClick={() => {
                       dispatch(resetWorm());
                     }}
