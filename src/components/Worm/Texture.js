@@ -308,10 +308,10 @@ let Texture = ({
 
   // stop animation when dead
   useEffect(() => {
-    if (dead === true) {
+    if (dead === true && animationSequence === 0) {
       state.selectedAnimation.animation.stop();
     }
-  }, [dead, state.selectedAnimation]);
+  }, [dead, state.selectedAnimation, animationSequence]);
 
   // on every new animation frame
   useEffect(() => {

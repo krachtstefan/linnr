@@ -158,7 +158,6 @@ const DEFAULT_WORM_STATE = {
 const WORM_ACTION_TYPES = {
   UPDATE: "UPDATE",
   SET_NEXT_DIRECTION: "SET_NEXT_DIRECTION",
-  SET_DEAD: "SET_DEAD",
   RESET: "RESET"
 };
 
@@ -175,6 +174,7 @@ export const collisionCheck = () => (dispatch, state) => {
     direction: worm.nextDirection
   });
 
+  let dead = false;
   if (
     isOutOfBounds({
       board: stage.board,
@@ -187,27 +187,26 @@ export const collisionCheck = () => (dispatch, state) => {
     }) === true ||
     hitsItself({ destination: planedDestination }) === true
   ) {
-    dispatch({
-      type: WORM_ACTION_TYPES.SET_DEAD
-    });
-  } else {
-    let { direction, nextDirection, position } = worm;
-    dispatch({
-      type: WORM_ACTION_TYPES.UPDATE,
-      payload: {
-        destination: getNextPosition({
-          position,
-          direction: nextDirection
-        }),
-        direction:
-          // may change the direction of the head
-          direction.map((direction, i) =>
-            i === 0 ? { from: direction.to, to: nextDirection } : direction
-          ),
-        animationSequence: 1
-      }
-    });
+    dead = true;
   }
+
+  let { direction, nextDirection, position } = worm;
+  dispatch({
+    type: WORM_ACTION_TYPES.UPDATE,
+    payload: {
+      destination: getNextPosition({
+        position,
+        direction: nextDirection
+      }),
+      direction:
+        // may change the direction of the head
+        direction.map((direction, i) =>
+          i === 0 ? { from: direction.to, to: nextDirection } : direction
+        ),
+      animationSequence: 1,
+      dead
+    }
+  });
 };
 
 /**
@@ -219,29 +218,26 @@ export const collisionCheck = () => (dispatch, state) => {
 export const initiateNextMove = position => (dispatch, state) => {
   let { worm } = state();
   let { direction, nextDirection, dead } = worm;
-  if (dead === false) {
-    let payload = {
-      destination: getNextPosition({
-        position,
-        direction: nextDirection
-      }),
-      direction:
-        // shifting the previous direction to each neighbour
-        direction.map((direction, i, directions) =>
-          i === 0
-            ? { from: direction.to, to: nextDirection }
-            : directions[i - 1]
-        ),
-      age: worm.age + 1,
-      animationSequence: 0,
-      position
-    };
 
-    dispatch({
-      type: WORM_ACTION_TYPES.UPDATE,
-      payload
-    });
-  }
+  let payload = {
+    destination: getNextPosition({
+      position,
+      direction: nextDirection
+    }),
+    direction:
+      // shifting the previous direction to each neighbour
+      direction.map((direction, i, directions) =>
+        i === 0 ? { from: direction.to, to: nextDirection } : directions[i - 1]
+      ),
+    age: worm.age + 1,
+    animationSequence: 0,
+    position
+  };
+
+  dispatch({
+    type: WORM_ACTION_TYPES.UPDATE,
+    payload
+  });
 };
 
 export const forwardKeyboardInput = pressedKey => (dispatch, state) => {
@@ -301,8 +297,6 @@ export const resetWorm = () => dispatch => {
 
 export const wormReducer = (state = DEFAULT_WORM_STATE, action) => {
   switch (action.type) {
-    case WORM_ACTION_TYPES.SET_DEAD:
-      return { ...state, dead: true };
     case WORM_ACTION_TYPES.SET_NEXT_DIRECTION:
       return { ...state, ...action.payload };
     case WORM_ACTION_TYPES.UPDATE:
