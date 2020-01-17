@@ -85,9 +85,9 @@ const Game = () => {
   }, [spritesheet, wormAnimations, setPreloadedWormAnimations, boneCounter]);
 
   return (
-    <React.Fragment>
+    <>
       {spritesheet && canvasBg && deathscreen && preloadedWormAnimations ? (
-        <React.Fragment>
+        <>
           <div className="logo"></div>
           <div className="game">
             <Controls>
@@ -98,9 +98,9 @@ const Game = () => {
             <Dpad />
           </div>
           <Debugger />
-        </React.Fragment>
+        </>
       ) : null}
-    </React.Fragment>
+    </>
   );
 };
 export default Game;
