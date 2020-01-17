@@ -30,7 +30,7 @@ let Worm = ({ preloadedAnimations }) => {
     };
   });
 
-  let deadAnimation = preloadedAnimations[0]["WORM-HD/DEAD"];
+  let deadAnimation = preloadedAnimations[0]["WORM-FX/Knall"];
   deadAnimation.loop = false;
   useEffect(() => {
     if (dead === true) {
