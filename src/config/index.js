@@ -16,6 +16,6 @@ export default {
     4 // sequence 1 : worm needs 4 frames to turn
   ],
   tileSize: 48,
-  background: 0x9ac503,
+  background: 0xaf9980,
   autoplay: true
 };
