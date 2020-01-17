@@ -9,13 +9,13 @@ export default {
     canvasBg,
     deathscreen
   },
-  animationSpeed: 0.4,
+  animationSpeed: 0.8,
   fpms: fps / 1000,
   wormSequences: [
     8, // sequence 0 : player has 8 frames to decide the next animation
     4 // sequence 1 : worm needs 4 frames to turn
   ],
-  tileSize: 24,
+  tileSize: 48,
   background: 0x9ac503,
   autoplay: true
 };
