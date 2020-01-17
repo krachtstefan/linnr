@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
 import Controls from "./Controls";
-import Debugger from "./Debugger";
-import Dpad from "./Dpad";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
@@ -84,23 +82,12 @@ const Game = () => {
     }
   }, [spritesheet, wormAnimations, setPreloadedWormAnimations, boneCounter]);
 
-  return (
-    <>
-      {spritesheet && canvasBg && deathscreen && preloadedWormAnimations ? (
-        <>
-          <div className="logo"></div>
-          <div className="game">
-            <Controls>
-              <Map>
-                <Worm preloadedAnimations={preloadedWormAnimations} />
-              </Map>
-            </Controls>
-            <Dpad />
-          </div>
-          <Debugger />
-        </>
-      ) : null}
-    </>
-  );
+  return spritesheet && canvasBg && deathscreen && preloadedWormAnimations ? (
+    <Controls>
+      <Map>
+        <Worm preloadedAnimations={preloadedWormAnimations} />
+      </Map>
+    </Controls>
+  ) : null;
 };
 export default Game;
