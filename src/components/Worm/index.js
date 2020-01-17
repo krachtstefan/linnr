@@ -34,6 +34,7 @@ let Worm = ({ preloadedAnimations }) => {
   deadAnimation.loop = false;
   useEffect(() => {
     if (dead === true) {
+      deadAnimation.animationSpeed = 0.3;
       deadAnimation.gotoAndPlay(0);
     }
   }, [dead, deadAnimation]);
