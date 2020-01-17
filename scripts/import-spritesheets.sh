@@ -4,9 +4,10 @@ ts=$(date '+%s')
 asepriteExportFolder=~/Desktop/_temp/aseprite-export
 texturePackerImportFolder=~/Desktop/_temp/texturepacker-import
 
-spritesheetPath=~/git/linnr/public/images/spritesheet
 
+spritesheetPath=~/git/linnr/public/images/spritesheet
 folder=~/Dropbox/linnr/ART/ASEs
+folderSpritesheetCopy=~/Dropbox/linnr/SHARED/SPRITESHEET/TODO
 fileWorm=WORM
 fileHitboxes=OBJECTS.HITBOX
 
@@ -25,3 +26,6 @@ cp -r $asepriteExportFolder/$fileHitboxes$ts/$fileHitboxes-* $texturePackerImpor
 echo "🔧 creating spritesheet with TexturePacker"
 
 TexturePacker $texturePackerImportFolder/$ts --format pixijs4 --sheet $spritesheetPath.png --data $spritesheetPath.json
+
+echo "🔧 save a copy of the spritesheet"
+cp $spritesheetPath.png $folderSpritesheetCopy
