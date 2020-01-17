@@ -30,7 +30,7 @@ let App = () => {
           ) : (
             <>
               {worm.dead === true ? (
-                <>
+                <div className="game-menu">
                   <button
                     onClick={() => {
                       dispatch(resetWorm());
@@ -46,7 +46,7 @@ let App = () => {
                   >
                     QUIT
                   </button>
-                </>
+                </div>
               ) : null}
               <Game />
             </>
