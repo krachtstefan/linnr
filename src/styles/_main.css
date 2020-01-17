@@ -34,3 +34,21 @@ div#root div.logo {
   background: url("./../assets/images/logo.svg") center center no-repeat;
   background-size: 200px;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  text-decoration: none;
+  text-align: left;
+  line-height: inherit;
+  outline: none;
+  text-transform: inherit;
+  &[disabled] {
+    cursor: auto;
+  }
+}
