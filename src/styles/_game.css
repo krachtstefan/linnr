@@ -1,9 +1,19 @@
+.game-container {
+  display: grid;
+  min-height: 400px;
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
 .game {
   align-self: center;
   justify-self: center;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 50px;
+  width: 100%;
 }
 
 .game canvas {
