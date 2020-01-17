@@ -88,6 +88,8 @@ const Game = () => {
         <Worm preloadedAnimations={preloadedWormAnimations} />
       </Map>
     </Controls>
-  ) : null;
+  ) : (
+    <span>LOADING...</span>
+  );
 };
 export default Game;
