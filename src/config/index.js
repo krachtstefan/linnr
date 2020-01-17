@@ -9,7 +9,7 @@ export default {
     canvasBg,
     deathscreen
   },
-  animationSpeed: 0.8,
+  animationSpeed: 0.6,
   fpms: fps / 1000,
   wormSequences: [
     8, // sequence 0 : player has 8 frames to decide the next animation
