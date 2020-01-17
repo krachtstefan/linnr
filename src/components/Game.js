@@ -64,7 +64,7 @@ const Game = () => {
         .add(config.assets.deathscreen)
         .load(setup);
     }
-  }, [dispatch]);
+  }, [spritesheet, dispatch]);
 
   useEffect(() => {
     if (spritesheet) {
