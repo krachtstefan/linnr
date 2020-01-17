@@ -1,8 +1,9 @@
+import React, { useEffect } from "react";
 import { collisionCheck, initiateNextMove } from "../../redux/worm";
 import { useDispatch, useSelector } from "react-redux";
 
+import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
-import React from "react";
 import Texture from "./Texture";
 
 let Worm = ({ preloadedAnimations }) => {
@@ -29,6 +30,14 @@ let Worm = ({ preloadedAnimations }) => {
     };
   });
 
+  let deadAnimation = preloadedAnimations[0]["WORM-HD/DEAD"];
+  deadAnimation.loop = false;
+  useEffect(() => {
+    if (dead === true) {
+      deadAnimation.gotoAndPlay(0);
+    }
+  }, [dead, deadAnimation]);
+
   return (
     <React.Fragment>
       {direction.length > 0
@@ -53,6 +62,13 @@ let Worm = ({ preloadedAnimations }) => {
             />
           ))
         : null}
+      {dead === true ? (
+        <AnimatedSpritesheet
+          x={positionStage[0].x}
+          y={positionStage[0].y}
+          animation={deadAnimation}
+        />
+      ) : null}
     </React.Fragment>
   );
 };
