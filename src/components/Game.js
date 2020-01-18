@@ -8,8 +8,10 @@ import Controls from "./Controls";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
+import backgroundMusic from "./../assets/sound/Pfeffer.mp3";
 import config from "../config";
 import { setAsset } from "../redux/stage";
+import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 PIXI.settings.TARGET_FPMS = config.fpms;
@@ -28,22 +30,22 @@ const createAnimation = (spritesheet, animation) => {
 
 const Game = () => {
   const dispatch = useDispatch();
+  const [playBackroundMusic] = useAudio(backgroundMusic);
   const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
-  const {
-    spritesheet,
-    canvasBg,
-
-    wormAnimations,
-    boneCounter
-  } = useSelector(state => {
-    let { worm, stage } = state;
-    return {
-      spritesheet: stage.assets.spritesheet,
-      canvasBg: stage.assets.canvasBg,
-      wormAnimations: worm.animations,
-      boneCounter: worm.position.length
-    };
-  });
+  const { spritesheet, canvasBg, wormAnimations, boneCounter } = useSelector(
+    state => {
+      let { worm, stage } = state;
+      return {
+        spritesheet: stage.assets.spritesheet,
+        canvasBg: stage.assets.canvasBg,
+        wormAnimations: worm.animations,
+        boneCounter: worm.position.length
+      };
+    }
+  );
+  useEffect(() => {
+    playBackroundMusic();
+  }, []);
 
   useEffect(() => {
     if (spritesheet === null) {

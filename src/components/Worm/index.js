@@ -10,10 +10,15 @@ import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import CONFIG from "../../config";
 import PropTypes from "prop-types";
 import Texture from "./Texture";
+import deadSound from "./../../assets/sound/sfx_sounds_damage3.mp3";
+import moveSound from "./../../assets/sound/sfx_menu_move4.mp3";
+import useAudio from "./../../hooks/use-audio";
 
 let Worm = ({ preloadedAnimations }) => {
   // console.log("🐛");
   let dispatch = useDispatch();
+  const [playDeadSound] = useAudio(deadSound);
+  const [playMoveSound] = useAudio(moveSound);
 
   const {
     positionStage,
@@ -34,6 +39,10 @@ let Worm = ({ preloadedAnimations }) => {
       dead: worm.dead
     };
   });
+
+  useEffect(() => {
+    playMoveSound();
+  }, [direction[0].to, direction[0].from]);
 
   let [deadAnimation] = useState(preloadedAnimations[0]["WORM-FX/Knall"]);
   let [deadAnimationOffsetX, setDeadAnimationOffsetX] = useState(0);
@@ -62,6 +71,7 @@ let Worm = ({ preloadedAnimations }) => {
           console.warn("unexpected direction");
           break;
       }
+      playDeadSound();
     }
   }, [dead, deadAnimation, direction]);
 
