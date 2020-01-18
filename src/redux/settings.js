@@ -1,5 +1,5 @@
 import { config } from "./../config";
-const DEFAULT_SETTINGS_STATE = { soundOn: config.soundOn };
+export const DEFAULT_SETTINGS_STATE = { soundOn: config.soundOn };
 
 export const soundDisable = () => dispatch => {
   dispatch({

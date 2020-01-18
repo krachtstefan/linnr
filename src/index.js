@@ -6,17 +6,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { persistenceLayer } from "./redux/middleware/persistence-layer";
 import rootReducer from "./redux";
+import { stateInitializer } from "./redux/middleware/state-initializer";
 import thunk from "redux-thunk";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk, persistenceLayer))
-);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
+stateInitializer.then(preloadedState => {
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    composeEnhancers(applyMiddleware(thunk, persistenceLayer))
+  );
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  );
+});
