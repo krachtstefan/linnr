@@ -25,9 +25,10 @@ let Worm = ({ preloadedAnimations }) => {
     direction,
     animationSequence,
     dead,
-    destination
+    destination,
+    soundOn
   } = useSelector(state => {
-    let { worm, stage } = state;
+    let { worm, stage, settings } = state;
     return {
       positionStage: worm.position.map(pos => ({
         x: stage.tileSize * pos.x,
@@ -36,17 +37,18 @@ let Worm = ({ preloadedAnimations }) => {
       destination: worm.destination,
       direction: worm.direction,
       animationSequence: worm.animationSequence,
-      dead: worm.dead
+      dead: worm.dead,
+      soundOn: settings.soundOn
     };
   });
 
   let headDirection = direction[0].from;
 
   useEffect(() => {
-    if (dead === false) {
+    if (dead === false && soundOn === true) {
       moveSound.play();
     }
-  }, [headDirection, dead, moveSound]);
+  }, [headDirection, dead, moveSound, soundOn]);
 
   let [deadAnimation] = useState(preloadedAnimations[0]["WORM-FX/Knall"]);
   let [deadAnimationOffsetX, setDeadAnimationOffsetX] = useState(0);
@@ -75,9 +77,11 @@ let Worm = ({ preloadedAnimations }) => {
           console.warn("unexpected direction");
           break;
       }
-      deadSound.play();
+      if (soundOn === true) {
+        deadSound.play();
+      }
     }
-  }, [dead, deadAnimation, direction, deadSound]);
+  }, [dead, deadAnimation, direction, deadSound, soundOn]);
 
   return (
     <React.Fragment>

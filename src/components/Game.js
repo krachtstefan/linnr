@@ -32,24 +32,33 @@ const Game = () => {
   const dispatch = useDispatch();
   const [backgroundMusic] = useAudio(backgroundMusicFile, true);
   const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
-  const { spritesheet, canvasBg, wormAnimations, boneCounter } = useSelector(
-    state => {
-      let { worm, stage } = state;
-      return {
-        spritesheet: stage.assets.spritesheet,
-        canvasBg: stage.assets.canvasBg,
-        wormAnimations: worm.animations,
-        boneCounter: worm.position.length
-      };
-    }
-  );
+  const {
+    spritesheet,
+    canvasBg,
+    wormAnimations,
+    boneCounter,
+    soundOn
+  } = useSelector(state => {
+    let { worm, stage, settings } = state;
+    return {
+      spritesheet: stage.assets.spritesheet,
+      canvasBg: stage.assets.canvasBg,
+      wormAnimations: worm.animations,
+      boneCounter: worm.position.length,
+      soundOn: settings.soundOn
+    };
+  });
 
   useEffect(() => {
-    backgroundMusic.play();
+    if (soundOn === true) {
+      backgroundMusic.play();
+    } else {
+      backgroundMusic.pause();
+    }
     return () => {
       backgroundMusic.pause();
     };
-  }, [backgroundMusic]);
+  }, [backgroundMusic, soundOn]);
 
   useEffect(() => {
     if (spritesheet === null) {

@@ -17,7 +17,7 @@ const config = {
   tileSize: 48,
   background: 0xaf9980,
   autoplay: true,
-  sound: true,
+  soundOn: true,
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }

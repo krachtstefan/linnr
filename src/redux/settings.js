@@ -1,5 +1,5 @@
 import { config } from "./../config";
-const DEFAULT_SETTINGS_STATE = { sound: config.sound };
+const DEFAULT_SETTINGS_STATE = { soundOn: config.soundOn };
 
 export const soundDisable = () => dispatch => {
   dispatch({
@@ -22,7 +22,7 @@ const SETTNGS_ACTION_TYPES = {
 export const settingsReducer = (state = DEFAULT_SETTINGS_STATE, action) => {
   switch (action.type) {
     case SETTNGS_ACTION_TYPES.SOUND_CHANGE:
-      return { ...state, sound: action.payload };
+      return { ...state, soundOn: action.payload };
     default:
       return state;
   }

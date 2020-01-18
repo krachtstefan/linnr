@@ -31,14 +31,16 @@ let App = () => {
   return (
     <>
       <button
-        className={`sound ${settings.sound ? "disabled" : ""}`.trim()}
+        className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
         onClick={() =>
-          settings.sound === true
+          settings.soundOn === true
             ? dispatch(soundDisable())
             : dispatch(soundEnable())
         }
       >
-        <span role="img">💤</span>
+        <span role="img" aria-label="toggle sound">
+          💤
+        </span>
       </button>
       <div className="logo"></div>
       <div className="game">
