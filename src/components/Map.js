@@ -45,7 +45,6 @@ let Gamestage = props => {
           className={props.className}
         >
           <Sprite image={canvasBg.url} width={width} height={height} />
-          {children}
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {
               let texture = spritesheet.textures[spriteSpecs[tile].image];
@@ -62,6 +61,7 @@ let Gamestage = props => {
               );
             });
           })}
+          {children}
         </Stage>
       )}
     >
