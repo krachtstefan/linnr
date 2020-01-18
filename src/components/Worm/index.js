@@ -42,6 +42,8 @@ let Worm = ({ preloadedAnimations }) => {
     };
   });
 
+  const [deadAnimationPlayed, setDeadAnimationPlayed] = useState(false);
+
   let headDirection = direction[0].from;
 
   useEffect(() => {
@@ -55,7 +57,7 @@ let Worm = ({ preloadedAnimations }) => {
   let [deadAnimationOffsetY, setDeadAnimationOffsetY] = useState(0);
   deadAnimation.loop = false;
   useEffect(() => {
-    if (dead === true) {
+    if (deadAnimationPlayed === false && dead === true) {
       deadAnimation.animationSpeed = 0.3;
       deadAnimation.gotoAndPlay(0);
 
@@ -80,8 +82,21 @@ let Worm = ({ preloadedAnimations }) => {
       if (soundOn === true) {
         deadSound.play();
       }
+      setDeadAnimationPlayed(true);
     }
-  }, [dead, deadAnimation, direction, deadSound, soundOn]);
+    // reset on new game
+    if (deadAnimationPlayed === true && dead === false) {
+      setDeadAnimationPlayed(false);
+    }
+  }, [
+    deadAnimationPlayed,
+    setDeadAnimationPlayed,
+    deadAnimation,
+    direction,
+    deadSound,
+    soundOn,
+    dead
+  ]);
 
   return (
     <React.Fragment>
