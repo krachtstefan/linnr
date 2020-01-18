@@ -3,7 +3,7 @@ import { Sprite, Stage } from "@inlet/react-pixi";
 import React from "react";
 import { ReactReduxContext } from "react-redux";
 import { Texture } from "pixi.js";
-import config from "../config";
+import { config } from "../config";
 import { useSelector } from "react-redux";
 
 // ContextBridge is required to make redux connect work in the child components of

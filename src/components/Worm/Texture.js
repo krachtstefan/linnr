@@ -3,7 +3,7 @@ import React, { useEffect, useReducer } from "react";
 
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
-import config from "../../config";
+import { config } from "../../config";
 
 const getWormAnimationSpecs = ({
   bodypart,

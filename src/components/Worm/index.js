@@ -7,9 +7,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
-import CONFIG from "../../config";
 import PropTypes from "prop-types";
 import Texture from "./Texture";
+import { config } from "../../config";
 import deadSoundFile from "./../../assets/sound/sfx_sounds_damage3.mp3";
 import moveSoundFile from "./../../assets/sound/sfx_menu_move4.mp3";
 import useAudio from "./../../hooks/use-audio";
@@ -60,16 +60,16 @@ let Worm = ({ preloadedAnimations }) => {
       switch (direction[0].to) {
         case WORM_DIRECTIONS.N:
           // setDeadAnimationOffsetX();
-          setDeadAnimationOffsetY(CONFIG.tileSize / 2);
+          setDeadAnimationOffsetY(config.tileSize / 2);
           break;
         case WORM_DIRECTIONS.S:
-          setDeadAnimationOffsetY(-CONFIG.tileSize / 2);
+          setDeadAnimationOffsetY(-config.tileSize / 2);
           break;
         case WORM_DIRECTIONS.E:
-          setDeadAnimationOffsetX(-CONFIG.tileSize / 2);
+          setDeadAnimationOffsetX(-config.tileSize / 2);
           break;
         case WORM_DIRECTIONS.W:
-          setDeadAnimationOffsetX(CONFIG.tileSize / 2);
+          setDeadAnimationOffsetX(config.tileSize / 2);
           break;
         default:
           console.warn("unexpected direction");

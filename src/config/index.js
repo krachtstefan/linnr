@@ -1,8 +1,9 @@
+import Dexie from "dexie";
 import canvasBg from "./../assets/images/ingame/canvasBg.png";
 
 let fps = 60;
 
-export default {
+const config = {
   assets: {
     spritesheet: "images/spritesheet.json",
     canvasBg
@@ -15,5 +16,14 @@ export default {
   ],
   tileSize: 48,
   background: 0xaf9980,
-  autoplay: true
+  autoplay: true,
+  indexDB: {
+    name: "linnr",
+    tabel: { settings: "settings" }
+  }
 };
+
+//   const db = new Dexie(CONFIG.INDEXED_DB.NAME);
+// db.version(1).stores({ [CONFIG.INDEXED_DB.USER_TABLE]: 'key' });
+
+export { config };

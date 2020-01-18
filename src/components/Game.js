@@ -9,7 +9,7 @@ import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
 import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
-import config from "../config";
+import { config } from "../config";
 import { setAsset } from "../redux/stage";
 import useAudio from "./../hooks/use-audio";
 
