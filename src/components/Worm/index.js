@@ -44,7 +44,7 @@ let Worm = ({ preloadedAnimations }) => {
       {direction.length > 0
         ? positionStage.map((position, i) => (
             <Texture
-              key={`${position.x}-${position.y}`}
+              key={`${position.x}-${position.y}_${direction[i].from}_${direction[i].to}`}
               x={position.x}
               y={position.y}
               direction={direction[i]}
