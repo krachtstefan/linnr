@@ -22,25 +22,33 @@ const DEFAULT_STAGE_STATE = {
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
-  spriteSpecs: {
-    x: { image: null, collisionType: null },
-    s: {
+  foodItems: {
+    min: 1,
+    max: 3
+  },
+  spriteSpecs: [
+    { label: "x", image: null, collisionType: null, food: true },
+    {
+      label: "s",
       image: "OBJECTS.HITBOX-OBS/Findling/A_1.png",
       collisionType: "wall"
     },
-    e: {
+    {
+      label: "e",
       image: "OBJECTS.HITBOX-FOOD/Brombeere_1.png",
       collisionType: "food"
     },
-    b: {
+    {
+      label: "b",
       image: "OBJECTS.HITBOX-FOOD/Erdbeere_1.png",
       collisionType: "food"
     },
-    w: {
+    {
+      label: "w",
       image: null,
       collisionType: "wall"
     }
-  }
+  ]
 };
 
 export const STAGE_ACTION_TYPES = {

@@ -62,9 +62,12 @@ const isOutOfBounds = ({ board, position }) =>
   position.y < 0 ||
   position.y > board.length - 1;
 
-const collisionDetected = ({ board, spriteSpecs, position, type = "wall" }) =>
-  spriteSpecs[board[position.y][position.x]] &&
-  spriteSpecs[board[position.y][position.x]].collisionType === type;
+const collisionDetected = ({ board, spriteSpecs, position, type = "wall" }) => {
+  let spec = spriteSpecs.find(
+    sprite => sprite.label === board[position.y][position.x]
+  );
+  return spec && spec.collisionType === type;
+};
 
 // when the destination has dublicate entries
 const hitsItself = ({ destination }) =>

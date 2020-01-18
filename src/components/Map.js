@@ -47,7 +47,10 @@ let Gamestage = props => {
           <Sprite image={canvasBg.url} width={width} height={height} />
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {
-              let texture = spritesheet.textures[spriteSpecs[tile].image];
+              let texture =
+                spritesheet.textures[
+                  spriteSpecs.find(sprite => sprite.label === tile).image
+                ];
               texture = texture ? texture : Texture.EMPTY;
               return (
                 <Sprite
