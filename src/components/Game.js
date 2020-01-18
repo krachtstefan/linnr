@@ -36,16 +36,16 @@ const Game = () => {
     spritesheet,
     canvasBg,
     wormAnimations,
-    boneCounter,
-    soundOn
+    soundOn,
+    stageTileCount
   } = useSelector(state => {
     let { worm, stage, settings } = state;
     return {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
       wormAnimations: worm.animations,
-      boneCounter: worm.position.length,
-      soundOn: settings.soundOn
+      soundOn: settings.soundOn,
+      stageTileCount: stage.board.length + stage.board[0].length
     };
   });
 
@@ -82,10 +82,12 @@ const Game = () => {
     if (spritesheet) {
       /**
        * animations instances can not be used multiple times on stage,
-       * give every bone, every possible animation
+       * give every bone, every possible animation. At an extra index
+       * to give the worm more buffer to grow
        */
-      // TODO, make this more flexible
-      let animations = [...Array(boneCounter + 90)].map(() =>
+
+      console.log(stageTileCount);
+      let animations = [...Array(stageTileCount)].map(() =>
         Object.keys(wormAnimations).reduce(
           (prev, curr) => ({
             ...prev,
@@ -96,7 +98,7 @@ const Game = () => {
       );
       setPreloadedWormAnimations(animations);
     }
-  }, [spritesheet, wormAnimations, setPreloadedWormAnimations, boneCounter]);
+  }, [spritesheet, wormAnimations, setPreloadedWormAnimations, stageTileCount]);
 
   return spritesheet && canvasBg && preloadedWormAnimations ? (
     <Controls>
