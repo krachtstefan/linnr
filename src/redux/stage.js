@@ -24,7 +24,7 @@ const DEFAULT_STAGE_STATE = {
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
   spriteSpecs: {
-    x: { image: "null", collisionType: null },
+    x: { image: null, collisionType: null },
     s: {
       image: "OBJECTS.HITBOX-OBS/Findling/A_1.png",
       collisionType: "wall"
