@@ -84,7 +84,8 @@ const Game = () => {
        * animations instances can not be used multiple times on stage,
        * give every bone, every possible animation
        */
-      let animations = [...Array(boneCounter)].map(() =>
+      // TODO, make this more flexible
+      let animations = [...Array(boneCounter + 90)].map(() =>
         Object.keys(wormAnimations).reduce(
           (prev, curr) => ({
             ...prev,

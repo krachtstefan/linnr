@@ -107,25 +107,7 @@ let position = [
   { x: 10, y: 0 },
   { x: 10, y: -1 },
   { x: 10, y: -2 },
-  { x: 10, y: -3 },
-  { x: 10, y: -4 },
-  { x: 10, y: -5 },
-  { x: 10, y: -6 },
-  { x: 10, y: -7 },
-  { x: 10, y: -8 },
-  { x: 10, y: -9 },
-  { x: 10, y: -10 },
-  { x: 10, y: -11 },
-  { x: 10, y: -12 },
-  { x: 10, y: -13 },
-  { x: 10, y: -14 },
-  { x: 10, y: -15 },
-  { x: 10, y: -16 },
-  { x: 10, y: -17 },
-  { x: 10, y: -18 },
-  { x: 10, y: -19 },
-  { x: 10, y: -20 },
-  { x: 10, y: -21 }
+  { x: 10, y: -3 }
 ];
 
 let nextDirection = getDirection({ pos: position[1], nextPos: position[0] });
@@ -215,22 +197,55 @@ export const collisionCheck = () => (dispatch, state) => {
   }
 
   let { direction, nextDirection, position } = worm;
+
+  let payload = {
+    position,
+    destination: getNextPosition({
+      position,
+      direction: nextDirection
+    }),
+    direction:
+      // may change the direction of the head
+      direction.map((direction, i) =>
+        i === 0 ? { from: direction.to, to: nextDirection } : direction
+      ),
+    animationSequence: 1,
+    dead,
+    food: eatsFood ? worm.food + 1 : worm.food
+  };
+
+  if (eatsFood === true) {
+    payload = {
+      ...payload,
+      /**
+       * the last tails position is the destination of
+       * the new tail segment
+       */
+      destination: [...payload.destination, ...payload.position.slice(-1)],
+      position: [
+        ...payload.position,
+        ...getNextPosition({
+          position: [...payload.position.slice(-1)],
+          direction: OPPOSITE_DIRECTIONS[payload.direction.slice(-1)[0].from]
+        })
+      ],
+      /**
+       * he from direction from the tails end ist the
+       * new from and to value from the new tail part
+       */
+      direction: [
+        ...payload.direction,
+        {
+          from: payload.direction.slice(-1)[0].from,
+          to: payload.direction.slice(-1)[0].from
+        }
+      ]
+    };
+  }
+
   dispatch({
     type: WORM_ACTION_TYPES.UPDATE,
-    payload: {
-      destination: getNextPosition({
-        position,
-        direction: nextDirection
-      }),
-      direction:
-        // may change the direction of the head
-        direction.map((direction, i) =>
-          i === 0 ? { from: direction.to, to: nextDirection } : direction
-        ),
-      animationSequence: 1,
-      dead,
-      food: eatsFood ? worm.food + 1 : worm.food
-    }
+    payload
   });
 };
 
