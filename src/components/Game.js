@@ -85,8 +85,6 @@ const Game = () => {
        * give every bone, every possible animation. At an extra index
        * to give the worm more buffer to grow
        */
-
-      console.log(stageTileCount);
       let animations = [...Array(stageTileCount)].map(() =>
         Object.keys(wormAnimations).reduce(
           (prev, curr) => ({
