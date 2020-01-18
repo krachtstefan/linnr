@@ -1,6 +1,7 @@
 import "./styles/app.css";
 
 import React, { useEffect, useRef } from "react";
+import { soundDisable, soundEnable } from "./redux/settings";
 import { startGame, stopGame } from "./redux/game";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +14,7 @@ let App = () => {
   const dispatch = useDispatch();
   const restartButton = useRef();
   const startButton = useRef();
-  let { game, worm } = useSelector(state => state);
+  let { game, worm, settings } = useSelector(state => state);
 
   useEffect(() => {
     if (restartButton.current) {
@@ -29,6 +30,16 @@ let App = () => {
 
   return (
     <>
+      <button
+        className={`sound ${settings.sound ? "disabled" : ""}`.trim()}
+        onClick={() =>
+          settings.sound === true
+            ? dispatch(soundDisable())
+            : dispatch(soundEnable())
+        }
+      >
+        <span role="img">💤</span>
+      </button>
       <div className="logo"></div>
       <div className="game">
         <div className="game-container">

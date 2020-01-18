@@ -22,7 +22,7 @@ const SETTNGS_ACTION_TYPES = {
 export const settingsReducer = (state = DEFAULT_SETTINGS_STATE, action) => {
   switch (action.type) {
     case SETTNGS_ACTION_TYPES.SOUND_CHANGE:
-      return { ...state, sounf: action.payload };
+      return { ...state, sound: action.payload };
     default:
       return state;
   }
