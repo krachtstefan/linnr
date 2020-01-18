@@ -27,4 +27,4 @@ const config = {
 const db = new Dexie(config.indexDB.name);
 db.version(1).stores({ [config.indexDB.table.settings]: "key" });
 
-export { config };
+export { config, db };

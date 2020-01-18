@@ -15,7 +15,7 @@ export const soundEnable = () => dispatch => {
   });
 };
 
-const SETTNGS_ACTION_TYPES = {
+export const SETTNGS_ACTION_TYPES = {
   SOUND_CHANGE: "SOUND_CHANGE"
 };
 
