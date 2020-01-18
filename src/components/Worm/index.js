@@ -104,7 +104,7 @@ let Worm = ({ preloadedAnimations }) => {
     if (soundOn === true) {
       eatSound.play();
     }
-  }, [positionStage.length, soundOn]);
+  }, [positionStage.length, soundOn, eatSound]);
 
   return (
     <React.Fragment>
