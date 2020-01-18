@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import Texture from "./Texture";
 import { config } from "../../config";
 import deadSoundFile from "./../../assets/sound/sfx_sounds_damage3.mp3";
+import eatSoundFile from "./../../assets/sound/sfx_coin_double1.mp3";
 import moveSoundFile from "./../../assets/sound/sfx_menu_move4.mp3";
 import useAudio from "./../../hooks/use-audio";
 
@@ -19,6 +20,7 @@ let Worm = ({ preloadedAnimations }) => {
   let dispatch = useDispatch();
   const [deadSound] = useAudio(deadSoundFile);
   const [moveSound] = useAudio(moveSoundFile);
+  const [eatSound] = useAudio(eatSoundFile);
 
   const {
     positionStage,
@@ -97,6 +99,12 @@ let Worm = ({ preloadedAnimations }) => {
     soundOn,
     dead
   ]);
+
+  useEffect(() => {
+    if (soundOn === true) {
+      eatSound.play();
+    }
+  }, [positionStage.length, soundOn]);
 
   return (
     <React.Fragment>
