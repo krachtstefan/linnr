@@ -45,7 +45,7 @@ const Game = () => {
       canvasBg: stage.assets.canvasBg,
       wormAnimations: worm.animations,
       soundOn: settings.soundOn,
-      stageTileCount: stage.board.length + stage.board[0].length
+      stageTileCount: stage.board.length * stage.board[0].length
     };
   });
 
