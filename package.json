@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^1.1.13",
+    "dexie": "^2.0.4",
     "lodash": "^4.17.15",
     "pixi.js": "^5.2.0",
     "react": "^16.12.0",
