@@ -62,9 +62,9 @@ const isOutOfBounds = ({ board, position }) =>
   position.y < 0 ||
   position.y > board.length - 1;
 
-const hitsWall = ({ board, spriteSpecs, position }) =>
+const collisionDetected = ({ board, spriteSpecs, position, type = "wall" }) =>
   spriteSpecs[board[position.y][position.x]] &&
-  spriteSpecs[board[position.y][position.x]].collisionType === "wall";
+  spriteSpecs[board[position.y][position.x]].collisionType === type;
 
 // when the destination has dublicate entries
 const hitsItself = ({ destination }) =>
@@ -191,7 +191,7 @@ export const collisionCheck = () => (dispatch, state) => {
       board: stage.board,
       position: planedDestination[0]
     }) === true ||
-    hitsWall({
+    collisionDetected({
       board: stage.board,
       spriteSpecs: stage.spriteSpecs,
       position: planedDestination[0]
