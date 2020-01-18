@@ -8,7 +8,7 @@ import Controls from "./Controls";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
-import backgroundMusic from "./../assets/sound/Pfeffer.mp3";
+import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import config from "../config";
 import { setAsset } from "../redux/stage";
 import useAudio from "./../hooks/use-audio";
@@ -30,7 +30,7 @@ const createAnimation = (spritesheet, animation) => {
 
 const Game = () => {
   const dispatch = useDispatch();
-  const [playBackroundMusic] = useAudio(backgroundMusic);
+  const [backgroundMusic] = useAudio(backgroundMusicFile, true);
   const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
   const { spritesheet, canvasBg, wormAnimations, boneCounter } = useSelector(
     state => {
@@ -43,9 +43,13 @@ const Game = () => {
       };
     }
   );
+
   useEffect(() => {
-    playBackroundMusic();
-  }, []);
+    backgroundMusic.play();
+    return () => {
+      backgroundMusic.pause();
+    };
+  }, [backgroundMusic]);
 
   useEffect(() => {
     if (spritesheet === null) {
