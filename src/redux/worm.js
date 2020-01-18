@@ -151,6 +151,7 @@ const DEFAULT_WORM_STATE = {
   nextDirection,
   nextDirectionQueue: [],
   age: 0,
+  food: 0,
   dead: false,
   animationSequence: 0,
   animations: Object.keys(spritesheetJSON.animations)
@@ -186,6 +187,7 @@ export const collisionCheck = () => (dispatch, state) => {
   });
 
   let dead = false;
+  let eatsFood = false;
   if (
     isOutOfBounds({
       board: stage.board,
@@ -199,6 +201,17 @@ export const collisionCheck = () => (dispatch, state) => {
     hitsItself({ destination: planedDestination }) === true
   ) {
     dead = true;
+  }
+
+  if (
+    collisionDetected({
+      board: stage.board,
+      spriteSpecs: stage.spriteSpecs,
+      position: planedDestination[0],
+      type: "food"
+    }) === true
+  ) {
+    eatsFood = true;
   }
 
   let { direction, nextDirection, position } = worm;
@@ -215,7 +228,8 @@ export const collisionCheck = () => (dispatch, state) => {
           i === 0 ? { from: direction.to, to: nextDirection } : direction
         ),
       animationSequence: 1,
-      dead
+      dead,
+      food: eatsFood ? worm.food + 1 : worm.food
     }
   });
 };

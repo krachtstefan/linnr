@@ -76,6 +76,10 @@ const Debugger = () => {
           <div>{worm.age}</div>
         </div>
         <div className="row">
+          <div>food</div>
+          <div>{worm.food}</div>
+        </div>
+        <div className="row">
           <div>status</div>
           <div>{worm.dead ? "☠️" : "❤️"}</div>
         </div>
