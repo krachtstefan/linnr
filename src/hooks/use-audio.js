@@ -2,29 +2,19 @@ import { useEffect, useState } from "react";
 
 const useAudio = (url, loop = false) => {
   const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => {
-    setPlaying(!playing);
-  };
-
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
-    return () => {
-      audio.pause();
-    };
-  }, [playing, audio]);
 
   useEffect(() => {
     audio.addEventListener("ended", () => {
-      setPlaying(false);
+      if (loop === true) {
+        audio.play();
+      }
     });
     return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
+      audio.removeEventListener("ended", () => audio.pause());
     };
-  }, [audio]);
+  }, [audio, loop]);
 
-  return [toggle];
+  return [audio];
 };
 
 export default useAudio;
