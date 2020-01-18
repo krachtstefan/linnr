@@ -19,11 +19,11 @@ const config = {
   autoplay: true,
   indexDB: {
     name: "linnr",
-    tabel: { settings: "settings" }
+    table: { settings: "settings" }
   }
 };
 
-//   const db = new Dexie(CONFIG.INDEXED_DB.NAME);
-// db.version(1).stores({ [CONFIG.INDEXED_DB.USER_TABLE]: 'key' });
+const db = new Dexie(config.indexDB.name);
+db.version(1).stores({ [config.indexDB.table.settings]: "key" });
 
 export { config };
