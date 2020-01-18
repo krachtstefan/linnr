@@ -24,7 +24,6 @@ let Gamestage = props => {
     board,
     spritesheet,
     canvasBg,
-    dead,
     spriteSpecs
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
@@ -33,7 +32,6 @@ let Gamestage = props => {
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
-    dead: state.worm.dead,
     spriteSpecs: state.stage.spriteSpecs
   }));
   return (

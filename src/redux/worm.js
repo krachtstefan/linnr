@@ -217,7 +217,7 @@ export const collisionCheck = () => (dispatch, state) => {
  */
 export const initiateNextMove = position => (dispatch, state) => {
   let { worm } = state();
-  let { direction, nextDirection, dead } = worm;
+  let { direction, nextDirection } = worm;
 
   let payload = {
     destination: getNextPosition({
