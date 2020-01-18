@@ -26,6 +26,3 @@ cp -r $asepriteExportFolder/$fileHitboxes$ts/$fileHitboxes-* $texturePackerImpor
 echo "🔧 creating spritesheet with TexturePacker"
 
 TexturePacker $texturePackerImportFolder/$ts --format pixijs4 --sheet $spritesheetPath.png --data $spritesheetPath.json
-
-echo "🔧 save a copy of the spritesheet"
-cp $spritesheetPath.png $folderSpritesheetCopy
