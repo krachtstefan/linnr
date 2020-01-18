@@ -32,7 +32,7 @@ const Game = () => {
   const {
     spritesheet,
     canvasBg,
-    deathscreen,
+
     wormAnimations,
     boneCounter
   } = useSelector(state => {
@@ -40,7 +40,6 @@ const Game = () => {
     return {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
-      deathscreen: stage.assets.canvasBg,
       wormAnimations: worm.animations,
       boneCounter: worm.position.length
     };
@@ -52,8 +51,7 @@ const Game = () => {
         dispatch(
           setAsset({
             spritesheet: Loader.shared.resources[config.assets.spritesheet],
-            canvasBg: Loader.shared.resources[config.assets.canvasBg],
-            deathscreen: Loader.shared.resources[config.assets.deathscreen]
+            canvasBg: Loader.shared.resources[config.assets.canvasBg]
           })
         );
       };
@@ -61,7 +59,6 @@ const Game = () => {
       Loader.shared
         .add(config.assets.spritesheet)
         .add(config.assets.canvasBg)
-        .add(config.assets.deathscreen)
         .load(setup);
     }
   }, [spritesheet, dispatch]);
@@ -85,7 +82,7 @@ const Game = () => {
     }
   }, [spritesheet, wormAnimations, setPreloadedWormAnimations, boneCounter]);
 
-  return spritesheet && canvasBg && deathscreen && preloadedWormAnimations ? (
+  return spritesheet && canvasBg && preloadedWormAnimations ? (
     <Controls>
       <Map>
         <Worm preloadedAnimations={preloadedWormAnimations} />
