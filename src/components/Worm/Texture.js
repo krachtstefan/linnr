@@ -1,7 +1,7 @@
 import { FILENAME_SEGMENTS, WORM_DIRECTIONS } from "../../redux/worm";
 import React, { useEffect, useReducer } from "react";
 
-import AnimatedSpritesheet from "./../pixi/AnimatedSprite.js";
+import AnimatedSprite from "./../pixi/AnimatedSprite.js";
 import PropTypes from "prop-types";
 import { config } from "../../config";
 
@@ -333,7 +333,7 @@ let Texture = ({
   }, [state.selectedAnimation, index]);
 
   return state.selectedAnimation && state.active === true ? (
-    <AnimatedSpritesheet
+    <AnimatedSprite
       x={state.x}
       y={state.y}
       animation={state.selectedAnimation.animation}
