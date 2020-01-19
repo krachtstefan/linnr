@@ -39,16 +39,25 @@ const DEFAULT_STAGE_STATE = {
       };
     }, {}),
   spriteSpecs: [
-    { label: "x", image: null, collisionType: null, food: true },
+    {
+      label: "x",
+      image: null,
+      collisionType: null, // remove?
+      spawns: {
+        food: true
+      }
+    }, //
     {
       label: "s",
       image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
-      collisionType: "wall"
+      collisionType: "wall",
+      spawns: {}
     },
     {
       label: "e",
-      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN", // TODO: rename image to texture, or just aniimation
-      collisionType: "food"
+      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN", // TODO: rename image to texture, or make image and animation property
+      collisionType: "food",
+      spawns: {}
     },
     // {
     //   label: "b",
@@ -58,7 +67,8 @@ const DEFAULT_STAGE_STATE = {
     {
       label: "w",
       image: null,
-      collisionType: "wall"
+      collisionType: "wall",
+      spawns: {}
     }
   ]
 };
@@ -95,17 +105,19 @@ export const setAsset = asset => {
 };
 
 export const placeObjects = () => {
-  dispatch({
-    type: STAGE_ACTION_TYPES.PLACE_OBJECTS,
-    payload: 1
-  });
+  return dispatch => {
+    dispatch({
+      type: STAGE_ACTION_TYPES.PLACE_OBJECTS,
+      payload: 1
+    });
+  };
 };
 
 export const placeFood = () => {
   return (dispatch, state) => {
     let { worm, stage } = state();
     let foodAliases = stage.spriteSpecs
-      .filter(spec => spec.food === true)
+      .filter(spec => spec.spawns.food === true)
       .map(x => x.label);
 
     let availableFood = stage.spriteSpecs
@@ -155,7 +167,7 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
     case STAGE_ACTION_TYPES.PLACE_OBJECTS:
       return {
         ...state,
-        objeects: action.payload
+        objects: action.payload
       };
     case STAGE_ACTION_TYPES.SET_ASSET:
       return {
