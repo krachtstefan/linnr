@@ -175,11 +175,7 @@ export const collisionCheck = () => (dispatch, state) => {
       board: stage.board,
       position: planedDestination[0]
     }) === true ||
-    collisionDetected({
-      board: stage.board,
-      spriteAliases: stage.spriteAliases,
-      position: planedDestination[0]
-    }) === true ||
+    _filter(stage.obstacles, matches(planedDestination[0])).length > 0 ||
     hitsItself({ destination: planedDestination }) === true
   ) {
     dead = true;
