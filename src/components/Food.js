@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 const Food = ({ x, y, spritesheet, animation }) => {
   let [pixiAnimation] = useState(() => {
     let pixiAnimation = createAnimation(spritesheet, animation);
+
+    pixiAnimation.animationSpeed = 0.2;
     pixiAnimation.loop = false;
     return pixiAnimation;
   });
