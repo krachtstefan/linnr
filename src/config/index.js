@@ -3,8 +3,10 @@ import canvasBg from "./../assets/images/ingame/Border.png";
 
 let fps = 60;
 
-let randomNumberMinMax = (min, max) =>
-  Math.round(Math.random() * (max - min) + min);
+export const randomNumberMinMax = (min, max, round = true) => {
+  let minMax = Math.random() * (max - min) + min;
+  return round === true ? Math.round(minMax) : minMax;
+};
 
 const config = {
   assets: {
@@ -21,7 +23,7 @@ const config = {
   background: 0xaf9980,
   autoplay: true,
   soundOn: true,
-  foodDropCount: () => randomNumberMinMax(1, 3),
+  foodDropCount: () => randomNumberMinMax(10, 20),
   obstacleDropCount: () => randomNumberMinMax(10, 20),
   defaultAnimationProps: {
     offset: {

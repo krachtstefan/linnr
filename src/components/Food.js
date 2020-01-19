@@ -2,12 +2,13 @@ import AnimatedSprite, { createAnimation } from "./pixi/AnimatedSprite";
 import React, { useState } from "react";
 
 import PropTypes from "prop-types";
+import { randomNumberMinMax } from "./../config";
 
 const Food = ({ x, y, spritesheet, animation }) => {
   let [pixiAnimation] = useState(() => {
     let pixiAnimation = createAnimation(spritesheet, animation);
 
-    pixiAnimation.animationSpeed = 0.2;
+    pixiAnimation.animationSpeed = randomNumberMinMax(0.3, 0.6, false);
     pixiAnimation.loop = false;
     return pixiAnimation;
   });
