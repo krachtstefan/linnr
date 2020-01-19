@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 
 import React, { useEffect, useState } from "react";
+import { placeFood, setAsset } from "../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AnimatedSprite } from "pixi.js";
@@ -10,7 +11,6 @@ import Map from "./Map";
 import Worm from "./Worm";
 import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
-import { setAsset } from "../redux/stage";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -48,6 +48,10 @@ const Game = () => {
       stageTileCount: stage.board.length * stage.board[0].length
     };
   });
+
+  useEffect(() => {
+    dispatch(placeFood());
+  }, [dispatch]);
 
   useEffect(() => {
     if (soundOn === true) {
