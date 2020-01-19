@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { placeFood, placeObstacles, setAsset } from "../redux/stage";
+import { soundDisable, soundEnable } from "../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
@@ -12,6 +13,8 @@ import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
 import { createAnimation } from "./pixi/AnimatedSprite";
 import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
+import { resetWorm } from "../redux/worm";
+import { stopGame } from "../redux/game";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -19,6 +22,7 @@ PIXI.settings.TARGET_FPMS = config.fpms;
 
 const Game = () => {
   const dispatch = useDispatch();
+  const restartButton = useRef();
   const [backgroundMusic] = useAudio(backgroundMusicFile, true);
   const [eatSound] = useAudio(eatSoundFile);
   const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
@@ -28,7 +32,9 @@ const Game = () => {
     wormAnimations,
     soundOn,
     stageTileCount,
-    foodCount
+    foodCount,
+    settings,
+    dead
   } = useSelector(state => {
     let { worm, stage, settings } = state;
     return {
@@ -37,9 +43,17 @@ const Game = () => {
       wormAnimations: worm.animations,
       foodCount: worm.food,
       soundOn: settings.soundOn,
-      stageTileCount: stage.board.length * stage.board[0].length
+      stageTileCount: stage.board.length * stage.board[0].length,
+      settings: settings,
+      dead: worm.dead
     };
   });
+
+  useEffect(() => {
+    if (restartButton.current) {
+      restartButton.current.focus();
+    }
+  }, [dead]);
 
   useEffect(() => {
     dispatch(placeFood());
@@ -109,6 +123,52 @@ const Game = () => {
       <Map>
         <Worm preloadedAnimations={preloadedWormAnimations} />
       </Map>
+      <div className="gamebar">
+        <div className="highscore">
+          <span role="img" aria-label="highscore">
+            🍄
+          </span>{" "}
+          {foodCount}
+        </div>
+
+        {dead === true ? (
+          <>
+            <button
+              ref={restartButton}
+              onClick={() => {
+                dispatch(resetWorm());
+              }}
+            >
+              RETRY
+            </button>
+            <button
+              onClick={() => {
+                dispatch(stopGame());
+                dispatch(resetWorm());
+              }}
+            >
+              QUIT
+            </button>
+          </>
+        ) : (
+          <>
+            <div />
+            <div />
+          </>
+        )}
+        <button
+          className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
+          onClick={() =>
+            settings.soundOn === true
+              ? dispatch(soundDisable())
+              : dispatch(soundEnable())
+          }
+        >
+          <span role="img" aria-label="toggle sound">
+            💤
+          </span>
+        </button>
+      </div>
     </Controls>
   ) : (
     <span>LOADING...</span>
