@@ -4,30 +4,18 @@ import React, { useEffect, useState } from "react";
 import { placeFood, setAsset } from "../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AnimatedSprite } from "pixi.js";
 import Controls from "./Controls";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
 import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
+import { createAnimation } from "./pixi/AnimatedSprite";
 import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 PIXI.settings.TARGET_FPMS = config.fpms;
-
-const createAnimation = (spritesheet, animation) => {
-  let animationArr = spritesheet.spritesheet.animations[animation.name];
-  let newAnimation = new AnimatedSprite(animationArr);
-  newAnimation.y = animation.offset.y;
-  newAnimation.x = animation.offset.x;
-  newAnimation.width = animation.space.width * config.tileSize;
-  newAnimation.height = animation.space.height * config.tileSize;
-  newAnimation.animationSpeed = config.animationSpeed;
-  newAnimation.play();
-  return newAnimation;
-};
 
 const Game = () => {
   const dispatch = useDispatch();
