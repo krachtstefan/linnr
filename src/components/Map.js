@@ -22,21 +22,17 @@ let Gamestage = props => {
     width,
     height,
     tileSize,
-    board,
     spritesheet,
     canvasBg,
-    spriteAliases,
     food,
     obstacles,
     foodAnimations
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
     height: state.stage.board.length * state.stage.tileSize,
-    board: state.stage.board,
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
-    spriteAliases: state.stage.spriteAliases,
     food: state.stage.food,
     obstacles: state.stage.obstacles,
     foodAnimations: state.stage.foodAnimations
