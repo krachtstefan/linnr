@@ -24,7 +24,8 @@ let Gamestage = props => {
     board,
     spritesheet,
     canvasBg,
-    spriteSpecs
+    spriteSpecs,
+    food
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
     height: state.stage.board.length * state.stage.tileSize,
@@ -32,7 +33,8 @@ let Gamestage = props => {
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
-    spriteSpecs: state.stage.spriteSpecs
+    spriteSpecs: state.stage.spriteSpecs,
+    food: state.stage.food
   }));
   return (
     <ContextBridge
@@ -45,6 +47,21 @@ let Gamestage = props => {
           className={props.className}
         >
           <Sprite image={canvasBg.url} width={width} height={height} />
+          {food.map(foodItem => {
+            let texture = spritesheet.textures[foodItem.image];
+            texture = texture ? texture : Texture.EMPTY;
+            return (
+              <Sprite
+                key={`${foodItem.x}_${foodItem.y}`}
+                width={tileSize}
+                height={tileSize}
+                x={foodItem.x * tileSize}
+                y={foodItem.y * tileSize}
+                texture={texture}
+              />
+            );
+          })}
+
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {
               let texture =
