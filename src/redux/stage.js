@@ -1,6 +1,7 @@
 import { differenceWith, isEqual, sample, sampleSize } from "lodash";
 
 import { config } from "../config";
+import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
 
 const DEFAULT_STAGE_STATE = {
   assets: {
@@ -25,6 +26,17 @@ const DEFAULT_STAGE_STATE = {
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
   food: [],
+  foodAnimations: Object.keys(spritesheetJSON.animations)
+    .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
+    .reduce((accObj, currAnimationName) => {
+      return {
+        ...accObj,
+        [currAnimationName]: {
+          name: currAnimationName,
+          ...config.defaultAnimationProps
+        }
+      };
+    }, {}),
   spriteSpecs: [
     { label: "x", image: null, collisionType: null, food: true },
     {
