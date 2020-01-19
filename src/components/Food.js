@@ -1,10 +1,16 @@
-import AnimatedSprite from "./pixi/AnimatedSprite";
-import PropTypes from "prop-types";
-import React from "react";
+import AnimatedSprite, { createAnimation } from "./pixi/AnimatedSprite";
+import React, { useState } from "react";
 
-const Food = ({ x, y, animation }) => {
-  animation.loop = false;
-  return <AnimatedSprite x={x} y={y} animation={animation} />;
+import PropTypes from "prop-types";
+
+const Food = ({ x, y, spritesheet, animation }) => {
+  let [pixiAnimation] = useState(() => {
+    let pixiAnimation = createAnimation(spritesheet, animation);
+    pixiAnimation.loop = false;
+    return pixiAnimation;
+  });
+
+  return <AnimatedSprite x={x} y={y} animation={pixiAnimation} />;
 };
 
 Food.propTypes = {
