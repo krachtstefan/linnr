@@ -1,5 +1,6 @@
 import { Sprite, Stage } from "@inlet/react-pixi";
 
+import Food from "./Food";
 import React from "react";
 import { ReactReduxContext } from "react-redux";
 import { Texture } from "pixi.js";
@@ -25,7 +26,8 @@ let Gamestage = props => {
     spritesheet,
     canvasBg,
     spriteSpecs,
-    food
+    food,
+    foodAnimations
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
     height: state.stage.board.length * state.stage.tileSize,
@@ -34,7 +36,8 @@ let Gamestage = props => {
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
     spriteSpecs: state.stage.spriteSpecs,
-    food: state.stage.food
+    food: state.stage.food,
+    foodAnimations: state.stage.foodAnimations
   }));
   return (
     <ContextBridge
@@ -47,16 +50,13 @@ let Gamestage = props => {
           className={props.className}
         >
           {food.map(foodItem => {
-            let texture = spritesheet.textures[foodItem.image];
-            texture = texture ? texture : Texture.EMPTY;
             return (
-              <Sprite
+              <Food
                 key={`${foodItem.x}_${foodItem.y}`}
-                width={tileSize}
-                height={tileSize}
                 x={foodItem.x * tileSize}
                 y={foodItem.y * tileSize}
-                texture={texture}
+                spritesheet={spritesheet}
+                animation={foodAnimations[foodItem.image]}
               />
             );
           })}
