@@ -11,6 +11,7 @@ import Map from "./Map";
 import Worm from "./Worm";
 import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
+import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -31,6 +32,7 @@ const createAnimation = (spritesheet, animation) => {
 const Game = () => {
   const dispatch = useDispatch();
   const [backgroundMusic] = useAudio(backgroundMusicFile, true);
+  const [eatSound] = useAudio(eatSoundFile);
   const [preloadedWormAnimations, setPreloadedWormAnimations] = useState(null);
   const {
     spritesheet,
@@ -52,8 +54,11 @@ const Game = () => {
   });
 
   useEffect(() => {
+    if (soundOn === true && foodCount > 0) {
+      eatSound.play();
+    }
     dispatch(placeFood());
-  }, [dispatch, foodCount]);
+  }, [dispatch, foodCount, soundOn, eatSound]);
 
   useEffect(() => {
     if (soundOn === true) {
