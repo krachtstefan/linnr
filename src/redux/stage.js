@@ -46,29 +46,23 @@ const DEFAULT_STAGE_STATE = {
       spawns: {
         food: true
       }
-    }, //
+    }
+  ],
+  spriteAliases: [
     {
       label: "s",
       image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
-      collisionType: "wall",
-      spawns: {}
+      collisionType: "wall"
     },
     {
       label: "e",
       image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN", // TODO: rename image to texture, or make image and animation property
-      collisionType: "food",
-      spawns: {}
+      collisionType: "food"
     },
-    // {
-    //   label: "b",
-    //   image: "OBJECTS.HITBOX-FOOD/Himbeere/001_1.png",
-    //   collisionType: "food"
-    // },
     {
       label: "w",
       image: null,
-      collisionType: "wall",
-      spawns: {}
+      collisionType: "wall"
     }
   ]
 };
@@ -120,7 +114,7 @@ export const placeFood = () => {
       .filter(spec => spec.spawns.food === true)
       .map(x => x.label);
 
-    let availableFood = stage.spriteSpecs
+    let availableFood = stage.spriteAliases
       .filter(spec => spec.collisionType === "food")
       .map(x => x.image);
 

@@ -25,7 +25,7 @@ let Gamestage = props => {
     board,
     spritesheet,
     canvasBg,
-    spriteSpecs,
+    spriteAliases,
     food,
     foodAnimations
   } = useSelector(state => ({
@@ -35,7 +35,7 @@ let Gamestage = props => {
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
-    spriteSpecs: state.stage.spriteSpecs,
+    spriteAliases: state.stage.spriteAliases,
     food: state.stage.food,
     foodAnimations: state.stage.foodAnimations
   }));
@@ -63,10 +63,11 @@ let Gamestage = props => {
 
           {board.map((line, lineNumber) => {
             return line.map((tile, rowNumber) => {
+              let imageKey = spriteAliases.find(
+                sprite => sprite.label === tile
+              );
               let texture =
-                spritesheet.textures[
-                  spriteSpecs.find(sprite => sprite.label === tile).image
-                ];
+                spritesheet.textures[imageKey ? imageKey.image : null];
               texture = texture ? texture : Texture.EMPTY;
               return (
                 <Sprite

@@ -65,8 +65,13 @@ const isOutOfBounds = ({ board, position }) =>
   position.y < 0 ||
   position.y > board.length - 1;
 
-const collisionDetected = ({ board, spriteSpecs, position, type = "wall" }) => {
-  let spec = spriteSpecs.find(
+const collisionDetected = ({
+  board,
+  spriteAliases,
+  position,
+  type = "wall"
+}) => {
+  let spec = spriteAliases.find(
     sprite => sprite.label === board[position.y][position.x]
   );
   return spec && spec.collisionType === type;
@@ -172,7 +177,7 @@ export const collisionCheck = () => (dispatch, state) => {
     }) === true ||
     collisionDetected({
       board: stage.board,
-      spriteSpecs: stage.spriteSpecs,
+      spriteAliases: stage.spriteAliases,
       position: planedDestination[0]
     }) === true ||
     hitsItself({ destination: planedDestination }) === true
