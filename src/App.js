@@ -78,6 +78,12 @@ let App = () => {
                   </button>
                 </div>
               ) : null}
+              <div className="highscore">
+                <span role="img" aria-label="highscore">
+                  🍄
+                </span>
+                {worm.food}
+              </div>
               <Game />
             </>
           )}

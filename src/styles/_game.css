@@ -7,6 +7,15 @@
   justify-items: center;
 }
 
+.highscore {
+  text-align: center;
+  top: 0px;
+  width: 100%;
+  font-size: 30px;
+  color: var(--color-beige-dark);
+  position: absolute;
+}
+
 .game {
   align-self: center;
   justify-self: center;
