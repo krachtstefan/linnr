@@ -176,6 +176,12 @@ export const collisionCheck = () => (dispatch, state) => {
       position: planedDestination[0]
     }) === true ||
     _filter(stage.obstacles, matches(planedDestination[0])).length > 0 ||
+    // todo: remove wall detection here, handle it like obstacles, maybe a static type with 100 droprate
+    collisionDetected({
+      board: stage.board,
+      spriteAliases: stage.spriteAliases,
+      position: planedDestination[0]
+    }) === true ||
     hitsItself({ destination: planedDestination }) === true
   ) {
     dead = true;

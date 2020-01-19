@@ -42,7 +42,7 @@ const DEFAULT_STAGE_STATE = {
     {
       label: "x",
       image: null,
-      collisionType: null, // remove?
+      collisionType: null, // remove? no this must be used for static wall?
       spawns: {
         food: true,
         obstacle: true
