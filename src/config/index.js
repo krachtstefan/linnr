@@ -22,6 +22,7 @@ const config = {
   autoplay: true,
   soundOn: true,
   foodDropCount: () => randomNumberMinMax(1, 3),
+  obstacleDropCount: () => randomNumberMinMax(10, 20),
   defaultAnimationProps: {
     offset: {
       x: 0,
