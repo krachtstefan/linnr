@@ -58,8 +58,13 @@ const DEFAULT_STAGE_STATE = {
     // TODO: rename image to texture, or make image and animation property
     // make extra food object, etc
     {
-      label: "e",
+      label: "e", // TODO: label needed?
       image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN",
+      collisionType: "food"
+    },
+    {
+      label: "e",
+      image: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN",
       collisionType: "food"
     },
     {
