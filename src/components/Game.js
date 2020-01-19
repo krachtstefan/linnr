@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 
 import React, { useEffect, useState } from "react";
-import { placeFood, placeObjects, setAsset } from "../redux/stage";
+import { placeFood, placeObstacles, setAsset } from "../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
@@ -45,7 +45,7 @@ const Game = () => {
     if (soundOn === true && foodCount > 0) {
       eatSound.play();
     }
-    dispatch(placeObjects());
+    dispatch(placeObstacles());
     dispatch(placeFood());
   }, [dispatch, foodCount, soundOn, eatSound]);
 

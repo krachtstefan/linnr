@@ -27,6 +27,7 @@ let Gamestage = props => {
     canvasBg,
     spriteAliases,
     food,
+    obstacles,
     foodAnimations
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
@@ -37,6 +38,7 @@ let Gamestage = props => {
     canvasBg: state.stage.assets.canvasBg,
     spriteAliases: state.stage.spriteAliases,
     food: state.stage.food,
+    obstacles: state.stage.obstacles,
     foodAnimations: state.stage.foodAnimations
   }));
   return (
@@ -57,6 +59,23 @@ let Gamestage = props => {
                 y={foodItem.y * tileSize}
                 spritesheet={spritesheet}
                 animation={foodAnimations[foodItem.image]}
+              />
+            );
+          })}
+
+          {console.log(obstacles)}
+          {obstacles.map(obstacle => {
+            let texture = spritesheet.textures[obstacle.image];
+            console.log(texture);
+            texture = texture ? texture : Texture.EMPTY;
+            return (
+              <Sprite
+                key={`${obstacle.x}_${obstacle.y}`}
+                width={tileSize}
+                height={tileSize}
+                x={obstacle.x * tileSize}
+                y={obstacle.y * tileSize}
+                texture={texture}
               />
             );
           })}

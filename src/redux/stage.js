@@ -19,13 +19,13 @@ const DEFAULT_STAGE_STATE = {
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
-    ["w", "x", "x", "x", "x", "x", "x", "x", "x", "s", "s", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
+    ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
-  objects: [],
+  obstacles: [],
   food: [],
   foodAnimations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
@@ -44,7 +44,8 @@ const DEFAULT_STAGE_STATE = {
       image: null,
       collisionType: null, // remove?
       spawns: {
-        food: true
+        food: true,
+        obstacle: true
       }
     }
   ],
@@ -52,7 +53,7 @@ const DEFAULT_STAGE_STATE = {
     {
       label: "s",
       image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
-      collisionType: "wall"
+      collisionType: "obstacle"
     },
     // TODO: rename image to texture, or make image and animation property
     // make extra food object, etc
@@ -88,7 +89,7 @@ let findInBoard = ({ board, arr }) =>
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
   PLACE_FOOD: "PLACE_FOOD",
-  PLACE_OBJECTS: "PLACE_OBJECTS"
+  PLACE_OBSTACLES: "PLACE_OBSTACLES"
 };
 
 export const setAsset = asset => {
@@ -100,11 +101,32 @@ export const setAsset = asset => {
   };
 };
 
-export const placeObjects = () => {
-  return dispatch => {
+export const placeObstacles = () => {
+  return (dispatch, state) => {
+    // todo remove food
+    let { stage } = state();
+    let obstaclesAliases = stage.spriteSpecs
+      .filter(spec => spec.spawns.obstacle === true)
+      .map(x => x.label);
+
+    let availableObstacles = stage.spriteAliases
+      .filter(spec => spec.collisionType === "obstacle")
+      .map(x => x.image);
+
+    let possibleObstaclePositions = findInBoard({
+      board: stage.board,
+      arr: obstaclesAliases
+    });
+
     dispatch({
-      type: STAGE_ACTION_TYPES.PLACE_OBJECTS,
-      payload: 1
+      type: STAGE_ACTION_TYPES.PLACE_OBSTACLES,
+      payload: sampleSize(
+        possibleObstaclePositions.map(coordinates => ({
+          ...coordinates,
+          image: sample(availableObstacles)
+        })),
+        config.obstacleDropCount()
+      )
     });
   };
 };
@@ -124,6 +146,8 @@ export const placeFood = () => {
       board: stage.board,
       arr: foodAliases
     });
+
+    // TODO: REMOVE OBSTACLES
 
     possibleFoodPositions = differenceWith(
       possibleFoodPositions,
@@ -160,10 +184,10 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
         ...state,
         food: action.payload
       };
-    case STAGE_ACTION_TYPES.PLACE_OBJECTS:
+    case STAGE_ACTION_TYPES.PLACE_OBSTACLES:
       return {
         ...state,
-        objects: action.payload
+        obstacles: action.payload
       };
     case STAGE_ACTION_TYPES.SET_ASSET:
       return {
