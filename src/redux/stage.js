@@ -54,9 +54,11 @@ const DEFAULT_STAGE_STATE = {
       image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
       collisionType: "wall"
     },
+    // TODO: rename image to texture, or make image and animation property
+    // make extra food object, etc
     {
       label: "e",
-      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN", // TODO: rename image to texture, or make image and animation property
+      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN",
       collisionType: "food"
     },
     {
