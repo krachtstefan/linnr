@@ -1,4 +1,4 @@
-import { sample, sampleSize } from "lodash";
+import { differenceWith, isEqual, sample, sampleSize } from "lodash";
 
 import { config } from "../config";
 
@@ -91,15 +91,21 @@ export const placeFood = () => {
       .filter(spec => spec.collisionType === "food")
       .map(x => x.image);
 
-    // todo, remove worm positions
+    let possibleFoodPositions = findInBoard({
+      board: stage.board,
+      arr: foodAliases
+    });
+
+    possibleFoodPositions = differenceWith(
+      possibleFoodPositions,
+      worm.position,
+      isEqual
+    );
 
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_FOOD,
       payload: sampleSize(
-        findInBoard({
-          board: stage.board,
-          arr: foodAliases
-        }).map(coordinates => ({
+        possibleFoodPositions.map(coordinates => ({
           ...coordinates,
           image: sample(availableFood)
         })),
