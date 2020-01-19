@@ -1,16 +1,3 @@
-.sound {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 25px;
-  color: var(--color-beige-dark);
-  transition: all 0.5s ease;
-}
-
-.sound.disabled {
-  color: var(--color-beige);
-}
-
 .game-menu {
   position: absolute;
   display: grid;

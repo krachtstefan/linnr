@@ -7,13 +7,31 @@
   justify-items: center;
 }
 
-.highscore {
-  text-align: center;
-  top: 0px;
-  width: 100%;
-  font-size: 30px;
+.gamebar {
+  align-self: flex-start;
+  position: relative;
+  top: -25px;
+  display: grid;
+  font-size: 26px;
+  width: 950px;
+  grid-template-columns: 1fr auto auto auto;
+  justify-items: flex-start;
+  column-gap: 20px;
   color: var(--color-beige-dark);
-  position: absolute;
+}
+.gamebar button {
+  color: var(--color-beige-dark);
+}
+
+.sound {
+  /* position: absolute; */
+  top: 15px;
+  right: 15px;
+  color: var(--color-beige-dark);
+  transition: all 0.5s ease;
+}
+.sound.disabled {
+  color: var(--color-beige);
 }
 
 .game {

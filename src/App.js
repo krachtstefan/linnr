@@ -30,18 +30,6 @@ let App = () => {
 
   return (
     <>
-      <button
-        className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
-        onClick={() =>
-          settings.soundOn === true
-            ? dispatch(soundDisable())
-            : dispatch(soundEnable())
-        }
-      >
-        <span role="img" aria-label="toggle sound">
-          💤
-        </span>
-      </button>
       <div className="logo"></div>
       <div className="game">
         <div className="game-container">
@@ -58,7 +46,7 @@ let App = () => {
             </div>
           ) : (
             <>
-              {worm.dead === true ? (
+              {/* {worm.dead === true ? (
                 <div className="game-menu">
                   <button
                     ref={restartButton}
@@ -77,14 +65,56 @@ let App = () => {
                     QUIT
                   </button>
                 </div>
-              ) : null}
-              <div className="highscore">
-                <span role="img" aria-label="highscore">
-                  🍄
-                </span>{" "}
-                {worm.food}
-              </div>
+              ) : null} */}
               <Game />
+              <div className="gamebar">
+                <div className="highscore">
+                  <span role="img" aria-label="highscore">
+                    🍄
+                  </span>{" "}
+                  {worm.food}
+                </div>
+
+                {worm.dead === true ? (
+                  <>
+                    <button
+                      ref={restartButton}
+                      onClick={() => {
+                        dispatch(resetWorm());
+                      }}
+                    >
+                      RESTART
+                    </button>
+                    <button
+                      onClick={() => {
+                        dispatch(stopGame());
+                        dispatch(resetWorm());
+                      }}
+                    >
+                      QUIT
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div />
+                    <div />
+                  </>
+                )}
+                <button
+                  className={`sound ${
+                    settings.soundOn ? "" : "disabled"
+                  }`.trim()}
+                  onClick={() =>
+                    settings.soundOn === true
+                      ? dispatch(soundDisable())
+                      : dispatch(soundEnable())
+                  }
+                >
+                  <span role="img" aria-label="toggle sound">
+                    💤
+                  </span>
+                </button>
+              </div>
             </>
           )}
         </div>
