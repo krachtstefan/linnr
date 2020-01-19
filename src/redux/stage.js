@@ -102,15 +102,24 @@ export const placeFood = () => {
       isEqual
     );
 
+    let oldFoodWithoutTheEaten = differenceWith(
+      stage.food,
+      worm.destination,
+      (a, b) => a.x === b.x && a.y === b.y
+    );
+
+    let newItemsCount = config.foodDropCount() - oldFoodWithoutTheEaten.length;
+    let newFood = sampleSize(
+      possibleFoodPositions.map(coordinates => ({
+        ...coordinates,
+        image: sample(availableFood)
+      })),
+      newItemsCount
+    );
+
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_FOOD,
-      payload: sampleSize(
-        possibleFoodPositions.map(coordinates => ({
-          ...coordinates,
-          image: sample(availableFood)
-        })),
-        config.foodDropCount()
-      )
+      payload: [...oldFoodWithoutTheEaten, ...newFood]
     });
   };
 };
