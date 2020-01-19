@@ -1,3 +1,5 @@
+import { filter as _filter, matches } from "lodash";
+
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
 
 export const getDirection = ({ pos, nextPos }) => {
@@ -188,14 +190,7 @@ export const collisionCheck = () => (dispatch, state) => {
     dead = true;
   }
 
-  if (
-    collisionDetected({
-      board: stage.board,
-      spriteSpecs: stage.spriteSpecs,
-      position: planedDestination[0],
-      type: "food"
-    }) === true
-  ) {
+  if (_filter(stage.food, matches(planedDestination[0])).length > 0) {
     eatsFood = true;
   }
 
