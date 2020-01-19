@@ -37,13 +37,15 @@ const Game = () => {
     canvasBg,
     wormAnimations,
     soundOn,
-    stageTileCount
+    stageTileCount,
+    foodCount
   } = useSelector(state => {
     let { worm, stage, settings } = state;
     return {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
       wormAnimations: worm.animations,
+      foodCount: worm.food,
       soundOn: settings.soundOn,
       stageTileCount: stage.board.length * stage.board[0].length
     };
@@ -51,7 +53,7 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(placeFood());
-  }, [dispatch]);
+  }, [dispatch, foodCount]);
 
   useEffect(() => {
     if (soundOn === true) {
