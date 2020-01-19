@@ -118,6 +118,13 @@ export const placeObstacles = () => {
       arr: obstaclesAliases
     });
 
+    // avoid food positions (currently food is not the yet but just in case)
+    possibleObstaclePositions = differenceWith(
+      possibleObstaclePositions,
+      stage.food,
+      (a, b) => a.x === b.x && a.y === b.y
+    );
+
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_OBSTACLES,
       payload: sampleSize(
@@ -147,12 +154,18 @@ export const placeFood = () => {
       arr: foodAliases
     });
 
-    // TODO: REMOVE OBSTACLES
-
+    // don't use worm tiles
     possibleFoodPositions = differenceWith(
       possibleFoodPositions,
       worm.position,
       isEqual
+    );
+
+    // don't use obstacle tiles
+    possibleFoodPositions = differenceWith(
+      possibleFoodPositions,
+      stage.obstacles,
+      (a, b) => a.x === b.x && a.y === b.y
     );
 
     let oldFoodWithoutTheEaten = differenceWith(
