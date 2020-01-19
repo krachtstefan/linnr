@@ -63,10 +63,9 @@ let Gamestage = props => {
             );
           })}
 
-          {console.log(obstacles)}
+          {/* TODO: create obstacle component, make multi tile component and animation possible */}
           {obstacles.map(obstacle => {
             let texture = spritesheet.textures[obstacle.image];
-            console.log(texture);
             texture = texture ? texture : Texture.EMPTY;
             return (
               <Sprite
@@ -80,26 +79,6 @@ let Gamestage = props => {
             );
           })}
 
-          {board.map((line, lineNumber) => {
-            return line.map((tile, rowNumber) => {
-              let imageKey = spriteAliases.find(
-                sprite => sprite.label === tile
-              );
-              let texture =
-                spritesheet.textures[imageKey ? imageKey.image : null];
-              texture = texture ? texture : Texture.EMPTY;
-              return (
-                <Sprite
-                  key={`${lineNumber}_${rowNumber}`}
-                  width={tileSize}
-                  height={tileSize}
-                  x={rowNumber * tileSize}
-                  y={lineNumber * tileSize}
-                  texture={texture}
-                />
-              );
-            });
-          })}
           {children}
           <Sprite image={canvasBg.url} width={width} height={height} />
         </Stage>
