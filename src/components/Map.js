@@ -50,7 +50,7 @@ let Gamestage = props => {
           {food.map(foodItem => {
             return (
               <Food
-                key={`${foodItem.x}_${foodItem.y}`}
+                key={`food_${foodItem.x}_${foodItem.y}`}
                 x={foodItem.x * tileSize}
                 y={foodItem.y * tileSize}
                 spritesheet={spritesheet}
@@ -65,7 +65,7 @@ let Gamestage = props => {
             texture = texture ? texture : Texture.EMPTY;
             return (
               <Sprite
-                key={`${obstacle.x}_${obstacle.y}`}
+                key={`obstacle_${obstacle.x}_${obstacle.y}`}
                 width={tileSize}
                 height={tileSize}
                 x={obstacle.x * tileSize}
