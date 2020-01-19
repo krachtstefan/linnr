@@ -1,6 +1,6 @@
 {"frames": {
 
-"OBJECTS.HITBOX-FOOD/Brombeere_1.png":
+"OBJECTS.HITBOX-FOOD/Brombeere/001_1.png":
 {
 	"frame": {"x":1872,"y":96,"w":26,"h":26},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
 	"sourceSize": {"w":26,"h":26}
 },
-"OBJECTS.HITBOX-FOOD/Erdbeere_1.png":
+"OBJECTS.HITBOX-FOOD/Himbeere/001_1.png":
 {
 	"frame": {"x":1898,"y":96,"w":26,"h":26},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
 	"sourceSize": {"w":26,"h":26}
 },
-"OBJECTS.HITBOX-OBS/Findling/A_1.png":
+"OBJECTS.HITBOX-OBS/Findling/001_1.png":
 {
 	"frame": {"x":1950,"y":96,"w":26,"h":26},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":26},
 	"sourceSize": {"w":26,"h":26}
 },
-"OBJECTS.HITBOX-OBS/Findling/B_1.png":
+"OBJECTS.HITBOX-OBS/Findling/002_1.png":
 {
 	"frame": {"x":1924,"y":96,"w":26,"h":26},
 	"rotated": false,
@@ -3424,6 +3424,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2040,"h":122},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:95cbf720e9778de66c7d1c28d9952fdb:7d6b8e41f27cc890c22d09c699dc7317:729adc6043343cfda41c447ce8f464d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:cc7e70e35d76f54140b2045bc460fdb4:fa68a50858186a505b9a806ae79acfa4:729adc6043343cfda41c447ce8f464d6$"
 }
 }

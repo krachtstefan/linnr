@@ -29,17 +29,17 @@ const DEFAULT_STAGE_STATE = {
     { label: "x", image: null, collisionType: null, food: true },
     {
       label: "s",
-      image: "OBJECTS.HITBOX-OBS/Findling/A_1.png",
+      image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
       collisionType: "wall"
     },
     {
       label: "e",
-      image: "OBJECTS.HITBOX-FOOD/Brombeere_1.png",
+      image: "OBJECTS.HITBOX-FOOD/Brombeere/001_1.png",
       collisionType: "food"
     },
     {
       label: "b",
-      image: "OBJECTS.HITBOX-FOOD/Erdbeere_1.png",
+      image: "OBJECTS.HITBOX-FOOD/Himbeere/001_1.png",
       collisionType: "food"
     },
     {
