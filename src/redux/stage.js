@@ -173,6 +173,13 @@ export const placeFood = () => {
       (a, b) => a.x === b.x && a.y === b.y
     );
 
+    // don't use old food positions
+    possibleFoodPositions = differenceWith(
+      possibleFoodPositions,
+      stage.food,
+      (a, b) => a.x === b.x && a.y === b.y
+    );
+
     let oldFoodWithoutTheEaten = differenceWith(
       stage.food,
       worm.destination,
@@ -180,6 +187,7 @@ export const placeFood = () => {
     );
 
     let newItemsCount = config.foodDropCount() - oldFoodWithoutTheEaten.length;
+
     let newFood = sampleSize(
       possibleFoodPositions.map(coordinates => ({
         ...coordinates,
