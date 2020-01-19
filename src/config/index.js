@@ -3,6 +3,9 @@ import canvasBg from "./../assets/images/ingame/canvasBg.png";
 
 let fps = 60;
 
+let randomNumberMinMax = (min, max) =>
+  Math.round(Math.random() * (max - min) + min);
+
 const config = {
   assets: {
     spritesheet: "images/spritesheet.json",
@@ -18,6 +21,7 @@ const config = {
   background: 0xaf9980,
   autoplay: true,
   soundOn: true,
+  foodDropCount: () => randomNumberMinMax(1, 3),
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
