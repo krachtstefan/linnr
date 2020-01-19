@@ -81,7 +81,7 @@ let App = () => {
               <div className="highscore">
                 <span role="img" aria-label="highscore">
                   🍄
-                </span>
+                </span>{" "}
                 {worm.food}
               </div>
               <Game />
