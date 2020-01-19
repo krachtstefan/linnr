@@ -22,6 +22,16 @@ const config = {
   autoplay: true,
   soundOn: true,
   foodDropCount: () => randomNumberMinMax(1, 3),
+  defaultAnimationProps: {
+    offset: {
+      x: 0,
+      y: 0
+    },
+    space: {
+      width: 1,
+      height: 1
+    }
+  },
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }

@@ -1,5 +1,6 @@
 import { filter as _filter, matches } from "lodash";
 
+import { config } from "../config";
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
 
 export const getDirection = ({ pos, nextPos }) => {
@@ -76,17 +77,6 @@ const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
   destination.length;
 
-let defaultAnimationProps = {
-  offset: {
-    x: 0,
-    y: 0
-  },
-  space: {
-    width: 1,
-    height: 1
-  }
-};
-
 export const WORM_DIRECTIONS = {
   N: "north",
   E: "east",
@@ -148,7 +138,7 @@ const DEFAULT_WORM_STATE = {
         ...accObj,
         [currAnimationName]: {
           name: currAnimationName,
-          ...defaultAnimationProps
+          ...config.defaultAnimationProps
         }
       };
     }, {})
