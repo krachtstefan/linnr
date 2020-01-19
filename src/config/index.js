@@ -1,5 +1,5 @@
 import Dexie from "dexie";
-import canvasBg from "./../assets/images/ingame/canvasBg.png";
+import canvasBg from "./../assets/images/ingame/Border.png";
 
 let fps = 60;
 

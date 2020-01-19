@@ -46,7 +46,6 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
-          <Sprite image={canvasBg.url} width={width} height={height} />
           {food.map(foodItem => {
             let texture = spritesheet.textures[foodItem.image];
             texture = texture ? texture : Texture.EMPTY;
@@ -82,6 +81,7 @@ let Gamestage = props => {
             });
           })}
           {children}
+          <Sprite image={canvasBg.url} width={width} height={height} />
         </Stage>
       )}
     >
