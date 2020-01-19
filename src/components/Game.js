@@ -42,12 +42,18 @@ const Game = () => {
   });
 
   useEffect(() => {
+    dispatch(placeFood());
+  }, [dispatch, foodCount]);
+
+  useEffect(() => {
+    dispatch(placeObstacles());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (soundOn === true && foodCount > 0) {
       eatSound.play();
     }
-    dispatch(placeObstacles());
-    dispatch(placeFood());
-  }, [dispatch, foodCount, soundOn, eatSound]);
+  }, [soundOn, eatSound, spritesheet, foodCount]);
 
   useEffect(() => {
     if (soundOn === true) {
