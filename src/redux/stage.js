@@ -25,6 +25,7 @@ const DEFAULT_STAGE_STATE = {
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
+  objects: [],
   food: [],
   foodAnimations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
@@ -80,7 +81,8 @@ let findInBoard = ({ board, arr }) =>
 
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
-  PLACE_FOOD: "PLACE_FOOD"
+  PLACE_FOOD: "PLACE_FOOD",
+  PLACE_OBJECTS: "PLACE_OBJECTS"
 };
 
 export const setAsset = asset => {
@@ -90,6 +92,13 @@ export const setAsset = asset => {
       payload: asset
     });
   };
+};
+
+export const placeObjects = () => {
+  dispatch({
+    type: STAGE_ACTION_TYPES.PLACE_OBJECTS,
+    payload: 1
+  });
 };
 
 export const placeFood = () => {
@@ -142,6 +151,11 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
       return {
         ...state,
         food: action.payload
+      };
+    case STAGE_ACTION_TYPES.PLACE_OBJECTS:
+      return {
+        ...state,
+        objeects: action.payload
       };
     case STAGE_ACTION_TYPES.SET_ASSET:
       return {
