@@ -7,8 +7,7 @@ import { randomNumberMinMax } from "./../config";
 const Food = ({ x, y, spritesheet, animation }) => {
   let [pixiAnimation] = useState(() => {
     let pixiAnimation = createAnimation(spritesheet, animation);
-
-    pixiAnimation.animationSpeed = randomNumberMinMax(0.3, 0.6, false);
+    pixiAnimation.animationSpeed = randomNumberMinMax(0.1, 0.4, false);
     pixiAnimation.loop = false;
     return pixiAnimation;
   });
