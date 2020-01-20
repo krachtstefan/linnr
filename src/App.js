@@ -11,7 +11,7 @@ import { startGame } from "./redux/game";
 let App = () => {
   const dispatch = useDispatch();
   const startButton = useRef();
-  let { game, worm } = useSelector(state => state);
+  let { game } = useSelector(state => state);
 
   useEffect(() => {
     if (startButton.current) {
