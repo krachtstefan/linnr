@@ -12,6 +12,7 @@
 }
 
 button {
+  text-transform: uppercase;
   display: inline;
   padding: 5px;
   color: var(--color-beige);

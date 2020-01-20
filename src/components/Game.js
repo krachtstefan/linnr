@@ -139,7 +139,7 @@ const Game = () => {
                 dispatch(resetWorm());
               }}
             >
-              RETRY
+              retry
             </button>
             <button
               onClick={() => {
@@ -147,7 +147,7 @@ const Game = () => {
                 dispatch(resetWorm());
               }}
             >
-              QUIT
+              quit
             </button>
           </>
         ) : (

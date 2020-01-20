@@ -23,7 +23,7 @@ const config = {
   background: 0xaf9980,
   autoplay: true,
   soundOn: true,
-  foodDropCount: () => randomNumberMinMax(10, 20),
+  foodDropCount: () => randomNumberMinMax(3, 10),
   obstacleDropCount: () => randomNumberMinMax(10, 20),
   defaultAnimationProps: {
     offset: {

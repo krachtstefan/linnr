@@ -32,7 +32,7 @@ let App = () => {
                   dispatch(startGame());
                 }}
               >
-                PLAY
+                play
               </button>
             </div>
           ) : (
