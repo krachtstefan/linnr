@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 
 import React, { useEffect, useRef, useState } from "react";
-import { placeFood, placeObstacles, setAsset } from "../redux/stage";
+import { placeItems, placeObstacles, setAsset } from "../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
@@ -54,7 +54,7 @@ const Game = () => {
   }, [dead]);
 
   useEffect(() => {
-    dispatch(placeFood());
+    dispatch(placeItems("food", true));
   }, [dispatch, foodCount]);
 
   useEffect(() => {

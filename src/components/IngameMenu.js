@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { placeFood, placeObstacles } from "../redux/stage";
+import { placeItems, placeObstacles } from "../redux/stage";
 import { soundDisable, soundEnable } from "../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,14 +18,14 @@ const IngameMenu = () => {
         </span>{" "}
         {worm.food}
       </div>
-      {worm.dead === true ? (
+      {worm.dead === true || true ? (
         <>
           <button
             ref={resetButton}
             onClick={() => {
               dispatch(resetWorm());
               dispatch(placeObstacles());
-              dispatch(placeFood());
+              dispatch(placeItems("food"));
             }}
           >
             reset

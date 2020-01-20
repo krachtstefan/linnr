@@ -54,7 +54,7 @@ let Gamestage = props => {
                 x={foodItem.x * tileSize}
                 y={foodItem.y * tileSize}
                 spritesheet={spritesheet}
-                animation={foodAnimations[foodItem.image]}
+                animation={foodAnimations[foodItem.item.src]}
               />
             );
           })}

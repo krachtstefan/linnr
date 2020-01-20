@@ -3,6 +3,7 @@ import canvasBg from "./../assets/images/ingame/Border.png";
 
 let fps = 60;
 
+// TODO: remove this
 export const randomNumberMinMax = (min, max, round = true) => {
   let minMax = Math.random() * (max - min) + min;
   return round === true ? Math.round(minMax) : minMax;
