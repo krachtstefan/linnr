@@ -38,17 +38,19 @@ const DEFAULT_STAGE_STATE = {
         }
       };
     }, {}),
-  spriteSpecs: [
-    {
-      label: "x",
-      image: null,
-      collisionType: null, // remove? no this must be used for static wall?
-      spawns: {
-        food: true,
-        obstacle: true
+  levelDesign: {
+    templates: [
+      {
+        label: "x",
+        image: null,
+        collisionType: null, // remove? no this must be used for static wall?
+        spawns: {
+          food: true,
+          obstacle: true
+        }
       }
-    }
-  ],
+    ]
+  },
   spriteAliases: [
     {
       label: "s",
@@ -108,9 +110,8 @@ export const setAsset = asset => {
 
 export const placeObstacles = () => {
   return (dispatch, state) => {
-    // todo remove food
     let { stage } = state();
-    let obstaclesAliases = stage.spriteSpecs
+    let obstaclesAliases = stage.levelDesign.templates
       .filter(spec => spec.spawns.obstacle === true)
       .map(x => x.label);
 
@@ -146,7 +147,7 @@ export const placeObstacles = () => {
 export const placeFood = () => {
   return (dispatch, state) => {
     let { worm, stage } = state();
-    let foodAliases = stage.spriteSpecs
+    let foodAliases = stage.levelDesign.templates
       .filter(spec => spec.spawns.food === true)
       .map(x => x.label);
 
