@@ -22,6 +22,7 @@
     "eject": "react-scripts eject",
     "import-sprites": "./scripts/import-spritesheets.sh"
   },
+  "homepage": ".",
   "eslintConfig": {
     "extends": "react-app"
   },
