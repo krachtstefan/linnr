@@ -137,8 +137,13 @@ const Game = () => {
               ref={restartButton}
               onClick={() => {
                 dispatch(resetWorm());
+                dispatch(placeObstacles());
+                dispatch(placeFood());
               }}
             >
+              reset
+            </button>
+            <button ref={restartButton} onClick={() => dispatch(resetWorm())}>
               retry
             </button>
             <button
@@ -152,6 +157,7 @@ const Game = () => {
           </>
         ) : (
           <>
+            <div />
             <div />
             <div />
           </>

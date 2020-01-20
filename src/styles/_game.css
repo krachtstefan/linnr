@@ -14,7 +14,7 @@
   display: grid;
   font-size: 26px;
   width: 950px;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: 1fr auto auto auto auto;
   justify-items: flex-start;
   column-gap: 20px;
   color: var(--color-beige-dark);
