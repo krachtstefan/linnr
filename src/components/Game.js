@@ -2,10 +2,10 @@ import * as PIXI from "pixi.js";
 
 import React, { useEffect, useRef, useState } from "react";
 import { placeFood, placeObstacles, setAsset } from "../redux/stage";
-import { soundDisable, soundEnable } from "../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
+import IngameMenu from "./IngameMenu";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";
@@ -13,8 +13,6 @@ import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
 import { createAnimation } from "./pixi/AnimatedSprite";
 import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
-import { resetWorm } from "../redux/worm";
-import { stopGame } from "../redux/game";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -33,7 +31,7 @@ const Game = () => {
     soundOn,
     stageTileCount,
     foodCount,
-    settings,
+
     dead
   } = useSelector(state => {
     let { worm, stage, settings } = state;
@@ -123,58 +121,7 @@ const Game = () => {
       <Map>
         <Worm preloadedAnimations={preloadedWormAnimations} />
       </Map>
-      <div className="gamebar">
-        <div className="highscore">
-          <span role="img" aria-label="highscore">
-            🍄
-          </span>{" "}
-          {foodCount}
-        </div>
-
-        {dead === true ? (
-          <>
-            <button
-              ref={restartButton}
-              onClick={() => {
-                dispatch(resetWorm());
-                dispatch(placeObstacles());
-                dispatch(placeFood());
-              }}
-            >
-              reset
-            </button>
-            <button ref={restartButton} onClick={() => dispatch(resetWorm())}>
-              retry
-            </button>
-            <button
-              onClick={() => {
-                dispatch(stopGame());
-                dispatch(resetWorm());
-              }}
-            >
-              quit
-            </button>
-          </>
-        ) : (
-          <>
-            <div />
-            <div />
-            <div />
-          </>
-        )}
-        <button
-          className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
-          onClick={() =>
-            settings.soundOn === true
-              ? dispatch(soundDisable())
-              : dispatch(soundEnable())
-          }
-        >
-          <span role="img" aria-label="toggle sound">
-            💤
-          </span>
-        </button>
-      </div>
+      <IngameMenu />
     </Controls>
   ) : (
     <span>LOADING...</span>
