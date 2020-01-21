@@ -114,42 +114,41 @@ export const setAsset = asset => {
 };
 
 export const placeItems = (type, keepExisting = false) => {
-  // TODO: rename variables
   return (dispatch, state) => {
     let { worm, stage } = state();
-    let foodAliases = stage.levelDesign.templates
+    let itemAliases = stage.levelDesign.templates
       .filter(spec => spec.spawns[type] === true)
       .map(x => x.label);
 
     let {
-      items: availableFood,
+      items: itemVariations,
       randomizer,
       stateRef
     } = stage.levelDesign.objectTypes[type];
 
-    let possibleFoodPositions = findInBoard({
+    let possibleItemPositions = findInBoard({
       board: stage.board,
-      arr: foodAliases
+      arr: itemAliases
     });
 
     // don't use worm tiles
-    possibleFoodPositions = differenceWith(
-      possibleFoodPositions,
+    possibleItemPositions = differenceWith(
+      possibleItemPositions,
       worm.position,
       isEqual
     );
 
-    // avoid conflicts with other items
+    // avoid conflicts with items of any type
     Object.entries(stage.levelDesign).map(ot => {
       const [, objectConf] = ot;
-      possibleFoodPositions = differenceWith(
-        possibleFoodPositions,
+      possibleItemPositions = differenceWith(
+        possibleItemPositions,
         stage[objectConf.stateRef],
         (a, b) => a.x === b.x && a.y === b.y
       );
     });
 
-    let oldFoodWithoutTheEaten =
+    let oldItemsWithoutTheConsumed =
       keepExisting === true
         ? differenceWith(
             stage[stateRef],
@@ -158,12 +157,12 @@ export const placeItems = (type, keepExisting = false) => {
           )
         : [];
 
-    let newItemsCount = randomizer() - oldFoodWithoutTheEaten.length; // TODO: this could be negative ??
+    let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length; // TODO: this could be negative ??
 
-    let newFood = sampleSize(
-      possibleFoodPositions.map(coordinates => ({
+    let newItems = sampleSize(
+      possibleItemPositions.map(coordinates => ({
         ...coordinates,
-        item: sample(availableFood)
+        item: sample(itemVariations)
       })),
       newItemsCount
     );
@@ -171,7 +170,7 @@ export const placeItems = (type, keepExisting = false) => {
       type: STAGE_ACTION_TYPES.PLACE_OBJECT,
       payload: {
         stateRef,
-        objects: [...oldFoodWithoutTheEaten, ...newFood]
+        objects: [...oldItemsWithoutTheConsumed, ...newItems]
       }
     });
   };
