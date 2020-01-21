@@ -7,7 +7,6 @@ texturePackerImportFolder=~/Desktop/_temp/texturepacker-import
 
 spritesheetPath=~/git/linnr/public/images/spritesheet
 folder=~/Dropbox/linnr/CHRISTIAN/_ASE
-folderSpritesheetCopy=~/Dropbox/linnr/SHARED/SPRITESHEET/TODO
 fileWorm=WORM
 fileHitboxes=OBJECTS.HITBOX
 
