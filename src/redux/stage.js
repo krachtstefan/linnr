@@ -141,11 +141,11 @@ export const placeItems = (type, keepExisting = false) => {
     // avoid conflicts with items of any type
     Object.entries(stage.levelDesign).map(ot => {
       const [, objectConf] = ot;
-      possibleItemPositions = differenceWith(
+      return (possibleItemPositions = differenceWith(
         possibleItemPositions,
         stage[objectConf.stateRef],
         (a, b) => a.x === b.x && a.y === b.y
-      );
+      ));
     });
 
     let oldItemsWithoutTheConsumed =
