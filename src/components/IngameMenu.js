@@ -18,7 +18,7 @@ const IngameMenu = () => {
         </span>{" "}
         {worm.food}
       </div>
-      {worm.dead === true || true ? (
+      {worm.dead === true ? (
         <>
           <button
             ref={resetButton}
