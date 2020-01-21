@@ -57,6 +57,7 @@ const DEFAULT_STAGE_STATE = {
       food: {
         stateRef: "food",
         randomizer: () => randomizerMinMax(3, 10),
+        pattern: [true],
         items: [
           { src: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN" },
           { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
@@ -66,6 +67,7 @@ const DEFAULT_STAGE_STATE = {
       obstacle: {
         stateRef: "obstacles",
         randomizer: () => randomizerMinMax(10, 20),
+        pattern: [true],
         items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       }
     }
