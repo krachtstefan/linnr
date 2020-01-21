@@ -62,6 +62,7 @@ const DEFAULT_STAGE_STATE = {
           { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
         ]
       },
+      // todo: add groups
       obstacle: {
         stateRef: "obstacles",
         randomizer: () => randomizerMinMax(10, 20),
@@ -69,12 +70,8 @@ const DEFAULT_STAGE_STATE = {
       }
     }
   },
+  // todo: remove this!
   spriteAliases: [
-    {
-      label: "s",
-      image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
-      collisionType: "obstacle"
-    },
     {
       label: "w",
       image: null,
