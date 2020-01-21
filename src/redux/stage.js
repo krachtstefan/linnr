@@ -65,7 +65,7 @@ const DEFAULT_STAGE_STATE = {
       obstacle: {
         stateRef: "obstacles",
         randomizer: () => randomizerMinMax(10, 20),
-        items: [{ src: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN" }]
+        items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       }
     }
   },
@@ -74,18 +74,6 @@ const DEFAULT_STAGE_STATE = {
       label: "s",
       image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
       collisionType: "obstacle"
-    },
-    // TODO: rename image to texture, or make image and animation property
-    // make extra food object, etc
-    {
-      label: "e", // TODO: label needed?
-      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN",
-      collisionType: "food"
-    },
-    {
-      label: "e",
-      image: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN",
-      collisionType: "food"
     },
     {
       label: "w",
@@ -113,7 +101,6 @@ let findInBoard = ({ board, arr }) =>
 
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
-  PLACE_OBSTACLES: "PLACE_OBSTACLES", // REMOVE
   PLACE_OBJECT: "PLACE_OBJECT"
 };
 
@@ -122,42 +109,6 @@ export const setAsset = asset => {
     dispatch({
       type: STAGE_ACTION_TYPES.SET_ASSET,
       payload: asset
-    });
-  };
-};
-
-export const placeObstacles = () => {
-  return (dispatch, state) => {
-    let { stage } = state();
-    let obstaclesAliases = stage.levelDesign.templates
-      .filter(spec => spec.spawns.obstacle === true)
-      .map(x => x.label);
-
-    let availableObstacles = stage.spriteAliases
-      .filter(spec => spec.collisionType === "obstacle")
-      .map(x => x.image);
-
-    let possibleObstaclePositions = findInBoard({
-      board: stage.board,
-      arr: obstaclesAliases
-    });
-
-    // avoid food positions (currently food is not in there yet but just in case)
-    possibleObstaclePositions = differenceWith(
-      possibleObstaclePositions,
-      stage.food,
-      (a, b) => a.x === b.x && a.y === b.y
-    );
-
-    dispatch({
-      type: STAGE_ACTION_TYPES.PLACE_OBSTACLES,
-      payload: sampleSize(
-        possibleObstaclePositions.map(coordinates => ({
-          ...coordinates,
-          image: sample(availableObstacles)
-        })),
-        config.obstacleDropCount()
-      )
     });
   };
 };

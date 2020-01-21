@@ -3,12 +3,6 @@ import canvasBg from "./../assets/images/ingame/Border.png";
 
 let fps = 60;
 
-// TODO: remove this
-export const randomNumberMinMax = (min, max, round = true) => {
-  let minMax = Math.random() * (max - min) + min;
-  return round === true ? Math.round(minMax) : minMax;
-};
-
 const config = {
   assets: {
     spritesheet: "images/spritesheet.json",
@@ -24,8 +18,6 @@ const config = {
   background: 0xaf9980,
   autoplay: true,
   soundOn: true,
-  foodDropCount: () => randomNumberMinMax(3, 10),
-  obstacleDropCount: () => randomNumberMinMax(10, 20),
   defaultAnimationProps: {
     offset: {
       x: 0,

@@ -61,7 +61,7 @@ let Gamestage = props => {
 
           {/* TODO: create obstacle component, make multi tile component and animation possible */}
           {obstacles.map(obstacle => {
-            let texture = spritesheet.textures[obstacle.image];
+            let texture = spritesheet.textures[obstacle.item.src];
             texture = texture ? texture : Texture.EMPTY;
             return (
               <Sprite
