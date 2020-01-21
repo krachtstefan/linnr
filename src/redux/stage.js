@@ -3,6 +3,9 @@ import { differenceWith, isEqual, sample, sampleSize } from "lodash";
 import { config } from "../config";
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
 
+export const randomizerMinMax = (min, max) =>
+  Math.round(Math.random() * (max - min) + min);
+
 const DEFAULT_STAGE_STATE = {
   assets: {
     spritesheet: null,
@@ -38,35 +41,37 @@ const DEFAULT_STAGE_STATE = {
         }
       };
     }, {}),
-  spriteSpecs: [
-    {
-      label: "x",
-      image: null,
-      collisionType: null, // remove? no this must be used for static wall?
-      spawns: {
-        food: true,
-        obstacle: true
+
+  // remove this node from redux and add the components to render inside
+  levelDesign: {
+    templates: [
+      {
+        label: "x",
+        spawns: {
+          food: true,
+          obstacle: true
+        }
+      }
+    ],
+    objectTypes: {
+      food: {
+        stateRef: "food",
+        randomizer: () => randomizerMinMax(3, 10),
+        items: [
+          { src: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN" },
+          { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
+        ]
+      },
+      // todo: add groups
+      obstacle: {
+        stateRef: "obstacles",
+        randomizer: () => randomizerMinMax(10, 20),
+        items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       }
     }
-  ],
+  },
+  // todo: remove this!
   spriteAliases: [
-    {
-      label: "s",
-      image: "OBJECTS.HITBOX-OBS/Findling/001_1.png",
-      collisionType: "obstacle"
-    },
-    // TODO: rename image to texture, or make image and animation property
-    // make extra food object, etc
-    {
-      label: "e", // TODO: label needed?
-      image: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN",
-      collisionType: "food"
-    },
-    {
-      label: "e",
-      image: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN",
-      collisionType: "food"
-    },
     {
       label: "w",
       image: null,
@@ -93,8 +98,7 @@ let findInBoard = ({ board, arr }) =>
 
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
-  PLACE_FOOD: "PLACE_FOOD",
-  PLACE_OBSTACLES: "PLACE_OBSTACLES"
+  PLACE_OBJECT: "PLACE_OBJECT"
 };
 
 export const setAsset = asset => {
@@ -106,109 +110,75 @@ export const setAsset = asset => {
   };
 };
 
-export const placeObstacles = () => {
-  return (dispatch, state) => {
-    // todo remove food
-    let { stage } = state();
-    let obstaclesAliases = stage.spriteSpecs
-      .filter(spec => spec.spawns.obstacle === true)
-      .map(x => x.label);
-
-    let availableObstacles = stage.spriteAliases
-      .filter(spec => spec.collisionType === "obstacle")
-      .map(x => x.image);
-
-    let possibleObstaclePositions = findInBoard({
-      board: stage.board,
-      arr: obstaclesAliases
-    });
-
-    // avoid food positions (currently food is not the yet but just in case)
-    possibleObstaclePositions = differenceWith(
-      possibleObstaclePositions,
-      stage.food,
-      (a, b) => a.x === b.x && a.y === b.y
-    );
-
-    dispatch({
-      type: STAGE_ACTION_TYPES.PLACE_OBSTACLES,
-      payload: sampleSize(
-        possibleObstaclePositions.map(coordinates => ({
-          ...coordinates,
-          image: sample(availableObstacles)
-        })),
-        config.obstacleDropCount()
-      )
-    });
-  };
-};
-
-export const placeFood = () => {
+export const placeItems = (type, keepExisting = false) => {
   return (dispatch, state) => {
     let { worm, stage } = state();
-    let foodAliases = stage.spriteSpecs
-      .filter(spec => spec.spawns.food === true)
+    let itemAliases = stage.levelDesign.templates
+      .filter(spec => spec.spawns[type] === true)
       .map(x => x.label);
 
-    let availableFood = stage.spriteAliases
-      .filter(spec => spec.collisionType === "food")
-      .map(x => x.image);
+    let {
+      items: itemVariations,
+      randomizer,
+      stateRef
+    } = stage.levelDesign.objectTypes[type];
 
-    let possibleFoodPositions = findInBoard({
+    let possibleItemPositions = findInBoard({
       board: stage.board,
-      arr: foodAliases
+      arr: itemAliases
     });
 
     // don't use worm tiles
-    possibleFoodPositions = differenceWith(
-      possibleFoodPositions,
+    possibleItemPositions = differenceWith(
+      possibleItemPositions,
       worm.position,
       isEqual
     );
 
-    // don't use obstacle tiles
-    possibleFoodPositions = differenceWith(
-      possibleFoodPositions,
-      stage.obstacles,
-      (a, b) => a.x === b.x && a.y === b.y
-    );
+    // avoid conflicts with items of any type
+    Object.entries(stage.levelDesign).map(ot => {
+      const [, objectConf] = ot;
+      return (possibleItemPositions = differenceWith(
+        possibleItemPositions,
+        stage[objectConf.stateRef],
+        (a, b) => a.x === b.x && a.y === b.y
+      ));
+    });
 
-    // don't use old food positions
-    possibleFoodPositions = differenceWith(
-      possibleFoodPositions,
-      stage.food,
-      (a, b) => a.x === b.x && a.y === b.y
-    );
+    let oldItemsWithoutTheConsumed =
+      keepExisting === true
+        ? differenceWith(
+            stage[stateRef],
+            worm.destination,
+            (a, b) => a.x === b.x && a.y === b.y
+          )
+        : [];
 
-    let oldFoodWithoutTheEaten = differenceWith(
-      stage.food,
-      worm.destination,
-      (a, b) => a.x === b.x && a.y === b.y
-    );
+    let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length; // TODO: this could be negative ??
 
-    let newItemsCount = config.foodDropCount() - oldFoodWithoutTheEaten.length;
-
-    let newFood = sampleSize(
-      possibleFoodPositions.map(coordinates => ({
+    let newItems = sampleSize(
+      possibleItemPositions.map(coordinates => ({
         ...coordinates,
-        image: sample(availableFood)
+        item: sample(itemVariations)
       })),
       newItemsCount
     );
-
     dispatch({
-      type: STAGE_ACTION_TYPES.PLACE_FOOD,
-      payload: [...oldFoodWithoutTheEaten, ...newFood]
+      type: STAGE_ACTION_TYPES.PLACE_OBJECT,
+      payload: {
+        stateRef,
+        objects: [...oldItemsWithoutTheConsumed, ...newItems]
+      }
     });
   };
 };
 
 export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
   switch (action.type) {
-    case STAGE_ACTION_TYPES.PLACE_FOOD:
+    case STAGE_ACTION_TYPES.PLACE_OBJECT:
       return {
         ...state,
-        food: action.payload
+        [action.payload.stateRef]: action.payload.objects
       };
     case STAGE_ACTION_TYPES.PLACE_OBSTACLES:
       return {

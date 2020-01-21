@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { placeFood, placeObstacles } from "../redux/stage";
 import { soundDisable, soundEnable } from "../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
+import { placeItems } from "../redux/stage";
 import { resetWorm } from "../redux/worm";
 import { stopGame } from "../redux/game";
 
@@ -24,18 +24,26 @@ const IngameMenu = () => {
             ref={resetButton}
             onClick={() => {
               dispatch(resetWorm());
-              dispatch(placeObstacles());
-              dispatch(placeFood());
+              dispatch(placeItems("obstacle"));
+              dispatch(placeItems("food"));
             }}
           >
             reset
           </button>
-          <button onClick={() => dispatch(resetWorm())}>retry</button>
+          <button
+            onClick={() => {
+              dispatch(resetWorm());
+              dispatch(placeItems("food"));
+            }}
+          >
+            retry
+          </button>
           <button
             onClick={() => {
               dispatch(stopGame());
               dispatch(resetWorm());
-              dispatch(placeObstacles());
+              dispatch(placeItems("obstacle"));
+              dispatch(placeItems("food"));
             }}
           >
             quit

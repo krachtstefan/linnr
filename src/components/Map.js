@@ -54,14 +54,14 @@ let Gamestage = props => {
                 x={foodItem.x * tileSize}
                 y={foodItem.y * tileSize}
                 spritesheet={spritesheet}
-                animation={foodAnimations[foodItem.image]}
+                animation={foodAnimations[foodItem.item.src]}
               />
             );
           })}
 
           {/* TODO: create obstacle component, make multi tile component and animation possible */}
           {obstacles.map(obstacle => {
-            let texture = spritesheet.textures[obstacle.image];
+            let texture = spritesheet.textures[obstacle.item.src];
             texture = texture ? texture : Texture.EMPTY;
             return (
               <Sprite
