@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Debugger from "./components/Debugger";
 import Dpad from "./components/Dpad";
 import Game from "./components/Game";
+import HighscoreForm from "./components/highscore/HighscoreForm";
 import HighscoreList from "./components/highscore/HighscoreList";
 import { showHighscore } from "./redux/highscore";
 import { startGame } from "./redux/game";
@@ -30,6 +31,10 @@ let App = () => {
             if (highscore.showList === true) {
               return <HighscoreList />;
             }
+            if (highscore.showForm === true) {
+              return <HighscoreForm />;
+            }
+
             if (game.isRunning === false) {
               return (
                 <div className="game-menu">
