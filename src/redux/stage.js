@@ -29,6 +29,7 @@ const DEFAULT_STAGE_STATE = {
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
   objects: {},
+  // todo: move this into objectTypes
   foodAnimations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
     .reduce((accObj, currAnimationName) => {
