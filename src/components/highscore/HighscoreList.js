@@ -19,10 +19,11 @@ let HighScores = () => {
       ) : highscore.length === 0 ? (
         <div>no highscore yet</div>
       ) : (
-        highscore.map(hs => (
-          <div className="score" key={hs.id}>
-            <div>{hs.player}</div>
+        highscore.map((hs, index) => (
+          <div className={`score place-${index}`} key={hs.id}>
             <div>
+              {hs.emoji} {hs.name} {hs.alias}
+              <br />
               <small>{moment(hs.date.seconds * 1000).fromNow()}</small>
             </div>
             <div>{hs.score}</div>

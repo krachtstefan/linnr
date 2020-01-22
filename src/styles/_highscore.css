@@ -45,10 +45,27 @@ form.highscore button {
 .highscoreForm .right span {
 }
 
-.highscoreForm .row label {
-  /* font-size: 12px; */
-}
-
 .highscoreForm .row label input {
   font-size: 30px;
+}
+
+.highscoreList {
+  text-transform: uppercase;
+  display: grid;
+  grid-gap: 20px;
+}
+.highscoreList .score {
+  font-size: 30px;
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: 1fr auto;
+}
+.highscoreList .score small {
+  font-size: 20px;
+  color: var(--color-beigeTranparent);
+}
+
+.highscoreList .score.place-0 {
+  font-size: 50px;
+  line-height: 30px;
 }
