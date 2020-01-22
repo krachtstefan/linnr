@@ -1,0 +1,54 @@
+form.highscore h1 {
+  text-align: center;
+  font-size: 50px;
+  padding-bottom: 50px;
+}
+
+form.highscore button {
+  margin-top: 50px;
+  font-size: 40px;
+  background: var(--color-beige-dark);
+  color: var(--color-dark);
+}
+
+.highscoreForm {
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.highscoreForm .left {
+  display: grid;
+  grid-gap: 20px;
+}
+.highscoreForm .right {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.highscoreForm .right .emojis {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  font-size: 30px;
+}
+.highscoreForm .right .emojis span {
+  padding: 10px;
+  cursor: pointer;
+}
+.highscoreForm .right .emojis .selected {
+  color: var(--color-dark);
+  background: var(--color-beige-dark);
+}
+
+.highscoreForm .right span {
+}
+
+.highscoreForm .row label {
+  /* font-size: 12px; */
+}
+
+.highscoreForm .row label input {
+  font-size: 30px;
+}
