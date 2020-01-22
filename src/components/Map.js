@@ -49,7 +49,7 @@ let Gamestage = props => {
           {objects.food &&
             objects.food.map(foodItem => {
               const x = foodItem.positions[0].x;
-              const y = foodItem.positions.slice(-1)[0].y;
+              const y = foodItem.positions[0].y;
               return (
                 <Food
                   key={`food_${x}_${y}`}
@@ -67,7 +67,7 @@ let Gamestage = props => {
               let texture = spritesheet.textures[obstacle.item.src];
               texture = texture ? texture : Texture.EMPTY;
               const x = obstacle.positions[0].x;
-              const y = obstacle.positions.slice(-1)[0].y;
+              const y = obstacle.positions[0].y;
               return (
                 <Sprite
                   key={`obstacle_${x}_${y}`}
