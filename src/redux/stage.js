@@ -53,9 +53,10 @@ const DEFAULT_STAGE_STATE = {
         }
       }
     ],
-    objectTypes: {
-      food: {
+    objectTypes: [
+      {
         stateRef: "food",
+        type: "food",
         randomizer: () => randomizerMinMax(3, 10),
         pattern: [true],
         items: [
@@ -63,14 +64,14 @@ const DEFAULT_STAGE_STATE = {
           { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
         ]
       },
-      // todo: add groups
-      obstacle: {
+      {
         stateRef: "obstacles",
+        type: "obstacle",
         randomizer: () => randomizerMinMax(10, 20),
         pattern: [true],
         items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       }
-    }
+    ]
   },
   // todo: remove this!
   spriteAliases: [
@@ -131,7 +132,7 @@ export const placeItems = (type, keepExisting = false) => {
       randomizer,
       stateRef,
       pattern
-    } = stage.levelDesign.objectTypes[type];
+    } = stage.levelDesign.objectTypes.find(spec => spec.type === type);
 
     // possibleItemPositions
     let possibleItemPositions = findInBoard({
@@ -146,8 +147,7 @@ export const placeItems = (type, keepExisting = false) => {
     );
 
     // avoid conflicts with items of any type
-    Object.entries(stage.levelDesign.objectTypes).map(ot => {
-      const [, objectConf] = ot;
+    stage.levelDesign.objectTypes.map(objectConf => {
       stage[objectConf.stateRef].forEach(objOnStage => {
         possibleItemPositions = possibleItemPositions.filter(
           posArray => !matrixOverlap(posArray, objOnStage.positions)
