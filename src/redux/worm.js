@@ -175,8 +175,8 @@ export const collisionCheck = () => (dispatch, state) => {
       board: stage.board,
       position: planedDestination[0]
     }) === true ||
-    (stage.objects.stones &&
-      stage.objects.stones.some(
+    (stage.objects.obstacle &&
+      stage.objects.obstacle.some(
         obs => _filter(obs.positions, matches(planedDestination[0])).length > 0
       )) ||
     // todo: remove wall detection here, handle it like obstacles, maybe a static type with 100 droprate

@@ -54,7 +54,6 @@ const DEFAULT_STAGE_STATE = {
     ],
     objectTypes: [
       {
-        stateRef: "food",
         type: "food",
         randomizer: () => randomizerMinMax(3, 10),
         pattern: [[true]],
@@ -64,14 +63,12 @@ const DEFAULT_STAGE_STATE = {
         ]
       },
       {
-        stateRef: "stones",
         type: "obstacle",
         randomizer: () => randomizerMinMax(10, 20),
         pattern: [[true]],
         items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       },
       {
-        stateRef: "stones",
         type: "obstacle",
         randomizer: () => randomizerMinMax(1, 3),
         pattern: [
@@ -164,9 +161,10 @@ export const placeItems = (type, keepExisting = false) => {
     let {
       items: itemVariations,
       randomizer,
-      stateRef,
       pattern
     } = stage.levelDesign.objectTypes.find(spec => spec.type === type);
+
+    // array
 
     // possibleItemPositions
     let possibleItemPositions = findInBoard({
@@ -182,8 +180,8 @@ export const placeItems = (type, keepExisting = false) => {
 
     // avoid conflicts with items of any type
     stage.levelDesign.objectTypes.forEach(objectConf => {
-      if (stage.objects[objectConf.stateRef]) {
-        stage.objects[objectConf.stateRef].forEach(objOnStage => {
+      if (stage.objects[objectConf.type]) {
+        stage.objects[objectConf.type].forEach(objOnStage => {
           possibleItemPositions = possibleItemPositions.filter(
             posArray => !matrixOverlap(posArray, objOnStage.positions)
           );
@@ -192,8 +190,8 @@ export const placeItems = (type, keepExisting = false) => {
     });
 
     let oldItemsWithoutTheConsumed =
-      keepExisting === true && stage.objects[stateRef]
-        ? stage.objects[stateRef].filter(
+      keepExisting === true && stage.objects[type]
+        ? stage.objects[type].filter(
             oldItems => !matrixOverlap(oldItems.positions, worm.destination)
           )
         : [];
@@ -210,7 +208,7 @@ export const placeItems = (type, keepExisting = false) => {
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_OBJECT,
       payload: {
-        stateRef,
+        stateRef: type,
         objects: [...oldItemsWithoutTheConsumed, ...newItems]
       }
     });
