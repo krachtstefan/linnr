@@ -52,7 +52,6 @@ const IngameMenu = () => {
             onClick={() => {
               dispatch(resetWorm());
               dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
             }}
           >
             reset
