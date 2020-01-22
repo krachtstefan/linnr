@@ -63,17 +63,17 @@ const DEFAULT_STAGE_STATE = {
           { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
         ]
       },
-      // {
-      //   stateRef: "stones",
-      //   type: "obstacle",
-      //   randomizer: () => randomizerMinMax(10, 20),
-      //   pattern: [[true]],
-      //   items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
-      // },
       {
         stateRef: "stones",
         type: "obstacle",
-        randomizer: () => 1,
+        randomizer: () => randomizerMinMax(10, 20),
+        pattern: [[true]],
+        items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
+      },
+      {
+        stateRef: "stones",
+        type: "obstacle",
+        randomizer: () => randomizerMinMax(1, 3),
         pattern: [
           [true, false],
           [false, true]
@@ -92,30 +92,53 @@ const DEFAULT_STAGE_STATE = {
   ]
 };
 
-let findInBoard = ({ board, arr, pattern }) => {
-  return board.reduce((prev, line, y) => {
-    console.log(line);
-    return [
-      ...prev,
-      ...line
-        .map((cell, i) => (arr.includes(cell) ? i : null))
-        .filter(Number)
-        .map(x => {
-          return [
-            // todo: this array is statc for now, create it with pattern analysing
-            {
-              x,
-              y
-            }
-          ];
-        })
-    ];
-  }, []);
-};
-
 // takes two arrays of positions and returns true, when they overlap
 let matrixOverlap = (posArr1, posArr2) =>
   posArr1.some(pos1 => posArr2.some(pos2 => isEqual(pos2, pos1)));
+
+/**
+ * takes a board matrix, searches for a placeholders (arr)
+ * and returns all possible positions for a shape
+ */
+let findInBoard = ({ board, arr, pattern }) => {
+  let [patternWith, patternHeight] = [pattern[0].length, pattern.length];
+  let [boardWidth, boardHeight] = [board[0].length, board.length];
+
+  let result = board.reduce((prev, line, y) => {
+    return [
+      ...prev,
+      ...line
+        .map((cell, i) => (arr.includes(cell) ? i : null)) // all lines with the pattern
+        .filter(Number)
+        .filter(
+          x => x < boardWidth - patternWith && y < boardHeight - patternHeight
+        ) // remove coordinates that would make it leave the board
+        .map(x => {
+          // x and y are the upper left position
+          let result = [];
+          pattern.forEach((row, yIndex) => {
+            row.forEach((cell, xIndex) => {
+              if (cell === true) {
+                result.push({
+                  x: x + xIndex,
+                  y: y + yIndex
+                });
+              }
+            });
+          });
+          return result;
+        })
+    ];
+  }, []);
+
+  return result.reduce(
+    (acc, coordinates) =>
+      acc.some(coord => matrixOverlap(coord, coordinates))
+        ? acc
+        : [...acc, coordinates],
+    []
+  );
+};
 
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
