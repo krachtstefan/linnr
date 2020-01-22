@@ -17,7 +17,6 @@ const config = {
   tileSize: 48,
   spriteSizeScaling: 2,
   background: 0xaf9980,
-  autoplay: true,
   soundOn: true,
   defaultAnimationProps: {
     offset: {
