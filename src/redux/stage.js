@@ -1,4 +1,4 @@
-import { differenceWith, isEqual, sample, sampleSize } from "lodash";
+import { isEqual, sample, sampleSize } from "lodash";
 
 import { config } from "../config";
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
@@ -147,7 +147,7 @@ export const placeItems = (type, keepExisting = false) => {
     );
 
     // avoid conflicts with items of any type
-    stage.levelDesign.objectTypes.map(objectConf => {
+    stage.levelDesign.objectTypes.forEach(objectConf => {
       stage[objectConf.stateRef].forEach(objOnStage => {
         possibleItemPositions = possibleItemPositions.filter(
           posArray => !matrixOverlap(posArray, objOnStage.positions)
