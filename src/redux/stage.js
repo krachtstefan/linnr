@@ -1,4 +1,4 @@
-import { isEqual, sample, sampleSize } from "lodash";
+import { isEqual, sample, sampleSize, shuffle } from "lodash";
 
 import { config } from "../config";
 import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
@@ -129,7 +129,8 @@ let findInBoard = ({ board, arr, pattern }) => {
     ];
   }, []);
 
-  return result.reduce(
+  // remove double (shuffle to make very big items not always spawn on the upper left)
+  return shuffle(result).reduce(
     (acc, coordinates) =>
       acc.some(coord => matrixOverlap(coord, coordinates))
         ? acc
@@ -159,58 +160,69 @@ export const placeItems = (type, keepExisting = false) => {
       .filter(spec => spec.spawns[type] === true)
       .map(x => x.label);
 
-    let {
-      items: itemVariations,
-      randomizer,
-      pattern
-    } = stage.levelDesign.objectTypes.find(spec => spec.type === type);
+    let newItems = [];
 
-    // array
+    stage.levelDesign.objectTypes
+      .filter(spec => spec.type === type)
+      .forEach(objType => {
+        let { items: itemVariations, randomizer, pattern } = objType;
 
-    // possibleItemPositions
-    let possibleItemPositions = findInBoard({
-      board: stage.board,
-      arr: itemAliases,
-      pattern
-    });
+        // possibleItemPositions
+        let possibleItemPositions = findInBoard({
+          board: stage.board,
+          arr: itemAliases,
+          pattern
+        });
 
-    // don't use worm tiles
-    possibleItemPositions = possibleItemPositions.filter(
-      posArray => !matrixOverlap(posArray, worm.position)
-    );
+        // don't use worm tiles
+        possibleItemPositions = possibleItemPositions.filter(
+          posArray => !matrixOverlap(posArray, worm.position)
+        );
 
-    // avoid conflicts with items of any type
-    stage.levelDesign.objectTypes.forEach(objectConf => {
-      if (stage.objects[objectConf.type]) {
-        stage.objects[objectConf.type].forEach(objOnStage => {
+        // avoid conflicts with items of any type
+        stage.levelDesign.objectTypes.forEach(objectConf => {
+          if (stage.objects[objectConf.type]) {
+            stage.objects[objectConf.type].forEach(objOnStage => {
+              possibleItemPositions = possibleItemPositions.filter(
+                posArray => !matrixOverlap(posArray, objOnStage.positions)
+              );
+            });
+          }
+        });
+
+        // avoid conflicts with objects from the previous loop
+        newItems.forEach(objOnStage => {
           possibleItemPositions = possibleItemPositions.filter(
             posArray => !matrixOverlap(posArray, objOnStage.positions)
           );
         });
-      }
-    });
 
-    let oldItemsWithoutTheConsumed =
-      keepExisting === true && stage.objects[type]
-        ? stage.objects[type].filter(
-            oldItems => !matrixOverlap(oldItems.positions, worm.destination)
+        let oldItemsWithoutTheConsumed =
+          keepExisting === true && stage.objects[type]
+            ? stage.objects[type].filter(
+                oldItems => !matrixOverlap(oldItems.positions, worm.destination)
+              )
+            : [];
+
+        let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length;
+        newItems = [
+          ...newItems,
+          ...oldItemsWithoutTheConsumed,
+          ...sampleSize(
+            possibleItemPositions.map(coordinates => ({
+              positions: coordinates,
+              item: sample(itemVariations)
+            })),
+            newItemsCount > 0 ? newItemsCount : 0
           )
-        : [];
+        ];
+      });
 
-    let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length;
-
-    let newItems = sampleSize(
-      possibleItemPositions.map(coordinates => ({
-        positions: coordinates,
-        item: sample(itemVariations)
-      })),
-      newItemsCount > 0 ? newItemsCount : 0
-    );
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_OBJECT,
       payload: {
         stateRef: type,
-        objects: [...oldItemsWithoutTheConsumed, ...newItems]
+        objects: newItems
       }
     });
   };
