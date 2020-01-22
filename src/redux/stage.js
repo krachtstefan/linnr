@@ -65,7 +65,7 @@ const DEFAULT_STAGE_STATE = {
       },
       {
         type: "obstacle",
-        randomizer: () => randomizerMinMax(10, 20),
+        randomizer: () => randomizerMinMax(10, 15),
         pattern: [[true]],
         items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
       },
