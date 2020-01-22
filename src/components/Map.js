@@ -45,6 +45,7 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
+          {children}
           {objects.food &&
             objects.food.map(foodItem => {
               const x = foodItem.positions[0].x;
@@ -78,8 +79,6 @@ let Gamestage = props => {
                 />
               );
             })}
-
-          {children}
           <Sprite image={canvasBg.url} width={width} height={height} />
         </Stage>
       )}
