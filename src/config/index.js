@@ -37,6 +37,12 @@ const config = {
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
+  },
+  highscoreVersion: 0.1,
+  firebase: {
+    collections: {
+      highscore: "highscore"
+    }
   }
 };
 
