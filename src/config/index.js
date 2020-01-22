@@ -15,6 +15,7 @@ const config = {
     4 // sequence 1 : worm needs 4 frames to turn
   ],
   tileSize: 48,
+  spriteSizeScaling: 2,
   background: 0xaf9980,
   autoplay: true,
   soundOn: true,
