@@ -188,11 +188,6 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
         ...state,
         [action.payload.stateRef]: action.payload.objects
       };
-    case STAGE_ACTION_TYPES.PLACE_OBSTACLES:
-      return {
-        ...state,
-        obstacles: action.payload
-      };
     case STAGE_ACTION_TYPES.SET_ASSET:
       return {
         ...state,
