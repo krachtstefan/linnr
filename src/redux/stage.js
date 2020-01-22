@@ -28,8 +28,7 @@ const DEFAULT_STAGE_STATE = {
     ["w", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "w"],
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
-  obstacles: [],
-  food: [],
+  objects: {},
   foodAnimations: Object.keys(spritesheetJSON.animations)
     .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
     .reduce((accObj, currAnimationName) => {
@@ -65,11 +64,18 @@ const DEFAULT_STAGE_STATE = {
         ]
       },
       {
-        stateRef: "obstacles",
+        stateRef: "stones",
         type: "obstacle",
         randomizer: () => randomizerMinMax(10, 20),
         pattern: [true],
         items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
+      },
+      {
+        stateRef: "bigStones",
+        type: "obstacle",
+        randomizer: () => 1,
+        pattern: [true],
+        items: [{ src: "OBJECTS.2x2-OBS/Findling/2X2/003_1.png" }]
       }
     ]
   },
@@ -83,8 +89,9 @@ const DEFAULT_STAGE_STATE = {
   ]
 };
 
-let findInBoard = ({ board, arr, pattern }) =>
-  board.reduce((prev, line, y) => {
+let findInBoard = ({ board, arr, pattern }) => {
+  return board.reduce((prev, line, y) => {
+    console.log(line);
     return [
       ...prev,
       ...line
@@ -101,6 +108,7 @@ let findInBoard = ({ board, arr, pattern }) =>
         })
     ];
   }, []);
+};
 
 // takes two arrays of positions and returns true, when they overlap
 let matrixOverlap = (posArr1, posArr2) =>
@@ -148,16 +156,18 @@ export const placeItems = (type, keepExisting = false) => {
 
     // avoid conflicts with items of any type
     stage.levelDesign.objectTypes.forEach(objectConf => {
-      stage[objectConf.stateRef].forEach(objOnStage => {
-        possibleItemPositions = possibleItemPositions.filter(
-          posArray => !matrixOverlap(posArray, objOnStage.positions)
-        );
-      });
+      if (stage.objects[objectConf.stateRef]) {
+        stage.objects[objectConf.stateRef].forEach(objOnStage => {
+          possibleItemPositions = possibleItemPositions.filter(
+            posArray => !matrixOverlap(posArray, objOnStage.positions)
+          );
+        });
+      }
     });
 
     let oldItemsWithoutTheConsumed =
-      keepExisting === true
-        ? stage[stateRef].filter(
+      keepExisting === true && stage.objects[stateRef]
+        ? stage.objects[stateRef].filter(
             oldItems => !matrixOverlap(oldItems.positions, worm.destination)
           )
         : [];
@@ -186,7 +196,10 @@ export const stageReducer = (state = DEFAULT_STAGE_STATE, action) => {
     case STAGE_ACTION_TYPES.PLACE_OBJECT:
       return {
         ...state,
-        [action.payload.stateRef]: action.payload.objects
+        objects: {
+          ...state.objects,
+          [action.payload.stateRef]: action.payload.objects
+        }
       };
     case STAGE_ACTION_TYPES.SET_ASSET:
       return {

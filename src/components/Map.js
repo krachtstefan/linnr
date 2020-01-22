@@ -24,8 +24,7 @@ let Gamestage = props => {
     tileSize,
     spritesheet,
     canvasBg,
-    food,
-    obstacles,
+    objects,
     foodAnimations
   } = useSelector(state => ({
     width: state.stage.board[0].length * state.stage.tileSize,
@@ -33,8 +32,7 @@ let Gamestage = props => {
     tileSize: state.stage.tileSize,
     spritesheet: state.stage.assets.spritesheet,
     canvasBg: state.stage.assets.canvasBg,
-    food: state.stage.food,
-    obstacles: state.stage.obstacles,
+    objects: state.stage.objects,
     foodAnimations: state.stage.foodAnimations
   }));
   return (
@@ -47,37 +45,39 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
-          {food.map(foodItem => {
-            const x = foodItem.positions[0].x;
-            const y = foodItem.positions.slice(-1)[0].y;
-            return (
-              <Food
-                key={`food_${x}_${y}`}
-                x={x * tileSize}
-                y={y * tileSize}
-                spritesheet={spritesheet}
-                animation={foodAnimations[foodItem.item.src]}
-              />
-            );
-          })}
+          {objects.food &&
+            objects.food.map(foodItem => {
+              const x = foodItem.positions[0].x;
+              const y = foodItem.positions.slice(-1)[0].y;
+              return (
+                <Food
+                  key={`food_${x}_${y}`}
+                  x={x * tileSize}
+                  y={y * tileSize}
+                  spritesheet={spritesheet}
+                  animation={foodAnimations[foodItem.item.src]}
+                />
+              );
+            })}
 
           {/* TODO: create obstacle component, make multi tile component and animation possible */}
-          {obstacles.map(obstacle => {
-            let texture = spritesheet.textures[obstacle.item.src];
-            texture = texture ? texture : Texture.EMPTY;
-            const x = obstacle.positions[0].x;
-            const y = obstacle.positions.slice(-1)[0].y;
-            return (
-              <Sprite
-                key={`obstacle_${x}_${y}`}
-                x={x * tileSize}
-                y={y * tileSize}
-                width={obstacle.positions.length * tileSize} // TODO might store width and height in config
-                height={obstacle.positions.length * tileSize}
-                texture={texture}
-              />
-            );
-          })}
+          {objects.stones &&
+            objects.stones.map(obstacle => {
+              let texture = spritesheet.textures[obstacle.item.src];
+              texture = texture ? texture : Texture.EMPTY;
+              const x = obstacle.positions[0].x;
+              const y = obstacle.positions.slice(-1)[0].y;
+              return (
+                <Sprite
+                  key={`obstacle_${x}_${y}`}
+                  x={x * tileSize}
+                  y={y * tileSize}
+                  width={texture.width * config.spriteSizeScaling}
+                  height={texture.height * config.spriteSizeScaling}
+                  texture={texture}
+                />
+              );
+            })}
 
           {children}
           <Sprite image={canvasBg.url} width={width} height={height} />
