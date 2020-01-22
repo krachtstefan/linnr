@@ -31,7 +31,6 @@ const Game = () => {
     soundOn,
     stageTileCount,
     foodCount,
-
     dead
   } = useSelector(state => {
     let { worm, stage, settings } = state;

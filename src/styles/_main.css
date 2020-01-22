@@ -35,6 +35,23 @@ div#root div.logo {
   background-size: 200px;
 }
 
+input {
+  background-color: transparent;
+  font: inherit;
+  outline: none;
+  text-transform: inherit;
+  border: none;
+  text-transform: uppercase;
+  color: var(--color-beige);
+  border-bottom: 2px solid var(--color-beige);
+  padding-left: 10px;
+  display: block;
+}
+
+input::placeholder {
+  color: var(--color-beigeTranparent);
+}
+
 button {
   background-color: transparent;
   border: none;
@@ -51,4 +68,9 @@ button {
   &[disabled] {
     cursor: auto;
   }
+}
+
+button:disabled,
+input:disabled {
+  opacity: 0.5;
 }

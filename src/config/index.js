@@ -1,5 +1,11 @@
+import "firebase/firestore";
+
 import Dexie from "dexie";
 import canvasBg from "./../assets/images/ingame/Border.png";
+import firebase from "firebase/app";
+import firebaseCredentials from "./firebase";
+
+export const firebaseConfig = firebase.initializeApp(firebaseCredentials);
 
 let fps = 60;
 
@@ -31,10 +37,16 @@ const config = {
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
+  },
+  highscoreVersion: 0.1,
+  firebase: {
+    collections: {
+      highscore: "highscore"
+    }
   }
 };
 
 const db = new Dexie(config.indexDB.name);
 db.version(1).stores({ [config.indexDB.table.settings]: "key" });
 
-export { config, db };
+export { config, db, firebaseConfig as firebase };

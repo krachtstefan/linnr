@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { placeItems } from "../redux/stage";
 import { resetWorm } from "../redux/worm";
+import { showHighscoreForm } from "../redux/highscore";
 import { stopGame } from "../redux/game";
 
 const IngameMenu = () => {
@@ -37,6 +38,18 @@ const IngameMenu = () => {
           <button
             ref={resetButton}
             onClick={() => {
+              dispatch(stopGame());
+              dispatch(placeItems("obstacle"));
+              dispatch(placeItems("food"));
+              dispatch(showHighscoreForm());
+            }}
+          >
+            submit Highscore
+          </button>
+
+          <button
+            ref={resetButton}
+            onClick={() => {
               dispatch(resetWorm());
               dispatch(placeItems("obstacle"));
               dispatch(placeItems("food"));
@@ -65,6 +78,7 @@ const IngameMenu = () => {
         </>
       ) : (
         <>
+          <div />
           <div />
           <div />
           <div />
