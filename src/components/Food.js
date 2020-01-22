@@ -17,8 +17,6 @@ const Food = ({ x, y, spritesheet, animation }) => {
 Food.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
   animation: PropTypes.object.isRequired
 };
 

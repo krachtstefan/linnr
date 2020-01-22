@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { soundDisable, soundEnable } from "../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,15 +10,29 @@ const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
   const resetButton = useRef();
   const dispatch = useDispatch();
+  const [highscoreChanged, setHighscoreChanged] = useState(false);
+
+  useEffect(() => {
+    if (worm.food > 0) {
+      setHighscoreChanged(true);
+      const timer = setTimeout(() => {
+        setHighscoreChanged(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [worm.food]);
+
   return (
     <div className="gamebar">
-      <div className="highscore">
+      <div>
         <span role="img" aria-label="highscore">
           🍄
         </span>{" "}
-        {worm.food}
+        <span className={`highscore ${highscoreChanged ? "changing" : ""}`}>
+          {worm.food}
+        </span>
       </div>
-      {worm.dead === true ? (
+      {worm.dead === true || true ? (
         <>
           <button
             ref={resetButton}

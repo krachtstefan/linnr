@@ -19,8 +19,26 @@
   column-gap: 20px;
   color: var(--color-beige-dark);
 }
+
 .gamebar button {
   color: var(--color-beige-dark);
+}
+
+.highscore {
+  transform-origin: 100% 70%;
+  display: inline-block;
+}
+
+.highscore.changing {
+  /* color: red; */
+
+  animation: bounce 0.5s ease alternate;
+}
+
+@keyframes bounce {
+  50% {
+    transform: scale(1.3);
+  }
 }
 
 .sound {
