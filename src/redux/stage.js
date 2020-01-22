@@ -82,7 +82,7 @@ const DEFAULT_STAGE_STATE = {
   ]
 };
 
-let findInBoard = ({ board, arr }) =>
+let findInBoard = ({ board, arr, pattern }) =>
   board.reduce((prev, line, y) => {
     return [
       ...prev,
@@ -90,13 +90,20 @@ let findInBoard = ({ board, arr }) =>
         .map((cell, i) => (arr.includes(cell) ? i : null))
         .filter(Number)
         .map(x => {
-          return {
-            x,
-            y
-          };
+          return [
+            // todo: this array is statc for now, create it with pattern analysing
+            {
+              x,
+              y
+            }
+          ];
         })
     ];
   }, []);
+
+// takes two arrays of positions and returns true, when they overlap
+let matrixOverlap = (posArr1, posArr2) =>
+  posArr1.some(pos1 => posArr2.some(pos2 => isEqual(pos2, pos1)));
 
 export const STAGE_ACTION_TYPES = {
   SET_ASSET: "SET_ASSET",
@@ -122,48 +129,47 @@ export const placeItems = (type, keepExisting = false) => {
     let {
       items: itemVariations,
       randomizer,
-      stateRef
+      stateRef,
+      pattern
     } = stage.levelDesign.objectTypes[type];
 
+    // possibleItemPositions
     let possibleItemPositions = findInBoard({
       board: stage.board,
-      arr: itemAliases
+      arr: itemAliases,
+      pattern
     });
 
     // don't use worm tiles
-    possibleItemPositions = differenceWith(
-      possibleItemPositions,
-      worm.position,
-      isEqual
+    possibleItemPositions = possibleItemPositions.filter(
+      posArray => !matrixOverlap(posArray, worm.position)
     );
 
     // avoid conflicts with items of any type
-    Object.entries(stage.levelDesign).map(ot => {
+    Object.entries(stage.levelDesign.objectTypes).map(ot => {
       const [, objectConf] = ot;
-      return (possibleItemPositions = differenceWith(
-        possibleItemPositions,
-        stage[objectConf.stateRef],
-        (a, b) => a.x === b.x && a.y === b.y
-      ));
+      stage[objectConf.stateRef].forEach(objOnStage => {
+        possibleItemPositions = possibleItemPositions.filter(
+          posArray => !matrixOverlap(posArray, objOnStage.positions)
+        );
+      });
     });
 
     let oldItemsWithoutTheConsumed =
       keepExisting === true
-        ? differenceWith(
-            stage[stateRef],
-            worm.destination,
-            (a, b) => a.x === b.x && a.y === b.y
+        ? stage[stateRef].filter(
+            oldItems => !matrixOverlap(oldItems.positions, worm.destination)
           )
         : [];
 
-    let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length; // TODO: this could be negative ??
+    let newItemsCount = randomizer() - oldItemsWithoutTheConsumed.length;
 
     let newItems = sampleSize(
       possibleItemPositions.map(coordinates => ({
-        ...coordinates,
+        positions: coordinates,
         item: sample(itemVariations)
       })),
-      newItemsCount
+      newItemsCount > 0 ? newItemsCount : 0
     );
     dispatch({
       type: STAGE_ACTION_TYPES.PLACE_OBJECT,

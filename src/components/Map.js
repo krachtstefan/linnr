@@ -48,11 +48,13 @@ let Gamestage = props => {
           className={props.className}
         >
           {food.map(foodItem => {
+            const x = foodItem.positions[0].x;
+            const y = foodItem.positions.slice(-1)[0].y;
             return (
               <Food
-                key={`food_${foodItem.x}_${foodItem.y}`}
-                x={foodItem.x * tileSize}
-                y={foodItem.y * tileSize}
+                key={`food_${x}_${y}`}
+                x={x * tileSize}
+                y={y * tileSize}
                 spritesheet={spritesheet}
                 animation={foodAnimations[foodItem.item.src]}
               />
@@ -63,13 +65,15 @@ let Gamestage = props => {
           {obstacles.map(obstacle => {
             let texture = spritesheet.textures[obstacle.item.src];
             texture = texture ? texture : Texture.EMPTY;
+            const x = obstacle.positions[0].x;
+            const y = obstacle.positions.slice(-1)[0].y;
             return (
               <Sprite
-                key={`obstacle_${obstacle.x}_${obstacle.y}`}
-                width={tileSize}
-                height={tileSize}
-                x={obstacle.x * tileSize}
-                y={obstacle.y * tileSize}
+                key={`obstacle_${x}_${y}`}
+                x={x * tileSize}
+                y={y * tileSize}
+                width={obstacle.positions.length * tileSize} // TODO might store width and height in config
+                height={obstacle.positions.length * tileSize}
                 texture={texture}
               />
             );
