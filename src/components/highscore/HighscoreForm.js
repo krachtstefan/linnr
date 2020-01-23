@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { setHighscore, showHighscore } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
+import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 
@@ -25,7 +26,8 @@ let HighScores = () => {
       alias,
       emoji,
       score: worm.food,
-        worm: worm.position
+      worm: worm.position,
+      version: config.highscoreVersion
     };
     if (twitter !== "") {
       highscore = { ...highscore, twitter };
