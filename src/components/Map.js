@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { Sprite, Stage } from "@inlet/react-pixi";
 
 import Food from "./Food";
-import React from "react";
+import PlusOne from "./PlusOne";
 import { ReactReduxContext } from "react-redux";
 import { Texture } from "pixi.js";
 import { config } from "../config";
@@ -18,16 +19,47 @@ const ContextBridge = ({ render, Context, children }) => (
 );
 
 let Gamestage = props => {
-  let { width, height, tileSize, spritesheet, canvasBg, objects } = useSelector(
-    state => ({
-      width: state.stage.board[0].length * state.stage.tileSize,
-      height: state.stage.board.length * state.stage.tileSize,
-      tileSize: state.stage.tileSize,
-      spritesheet: state.stage.assets.spritesheet,
-      canvasBg: state.stage.assets.canvasBg,
-      objects: state.stage.objects
-    })
-  );
+  let {
+    width,
+    height,
+    tileSize,
+    spritesheet,
+    canvasBg,
+    objects,
+    worm
+  } = useSelector(state => ({
+    width: state.stage.board[0].length * state.stage.tileSize,
+    height: state.stage.board.length * state.stage.tileSize,
+    tileSize: state.stage.tileSize,
+    spritesheet: state.stage.assets.spritesheet,
+    canvasBg: state.stage.assets.canvasBg,
+    objects: state.stage.objects,
+    worm: state.worm
+  }));
+
+  let [plusOneState, setPlusOneState] = useState({
+    x: 0,
+    y: 0,
+    highscore: 0
+  });
+
+  useEffect(() => {
+    const { x, y } = worm.destination[0];
+    if (worm.food > 0 && plusOneState.highscore !== worm.food) {
+      setPlusOneState({
+        x: x * config.tileSize,
+        y: y * config.tileSize,
+        highscore: worm.food
+      });
+    }
+  }, [
+    worm.food,
+    worm.destination,
+    plusOneState.x,
+    plusOneState.y,
+    plusOneState.highscore
+  ]);
+
   return (
     <ContextBridge
       Context={ReactReduxContext}
@@ -39,6 +71,11 @@ let Gamestage = props => {
           className={props.className}
         >
           {children}
+          <PlusOne
+            x={plusOneState.x}
+            y={plusOneState.y}
+            spritesheet={spritesheet}
+          />
           {objects.food &&
             objects.food.map(foodItem => {
               const x = foodItem.positions[0].x;
