@@ -56,7 +56,7 @@ let App = () => {
         </div>
         <Dpad />
       </div>
-      <Debugger />
+      {/* <Debugger /> */}
     </>
   );
 };
