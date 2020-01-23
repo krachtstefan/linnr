@@ -41,7 +41,9 @@ const config = {
   highscoreVersion: 0.1,
   firebase: {
     collections: {
-      highscore: "highscore"
+      highscore: `highscore${
+        process.env.NODE_ENV === "development" ? "_dev" : ""
+      }`
     }
   }
 };
