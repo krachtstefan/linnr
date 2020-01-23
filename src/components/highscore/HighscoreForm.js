@@ -24,7 +24,8 @@ let HighScores = () => {
       name,
       alias,
       emoji,
-      score: worm.food
+      score: worm.food,
+        worm: worm.position
     };
     if (twitter !== "") {
       highscore = { ...highscore, twitter };
