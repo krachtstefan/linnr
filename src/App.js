@@ -54,7 +54,6 @@ let App = () => {
             return <Game />;
           })()}
         </div>
-        <Dpad />
       </div>
       {/* <Debugger /> */}
     </>

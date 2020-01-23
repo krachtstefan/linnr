@@ -27,7 +27,7 @@ div#root {
   display: grid;
   height: 100vh;
   row-gap: 20px;
-  grid-template-rows: 100px 1fr auto;
+  grid-template-rows: 100px 1fr;
 }
 
 div#root div.logo {
