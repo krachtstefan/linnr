@@ -18,23 +18,16 @@ const ContextBridge = ({ render, Context, children }) => (
 );
 
 let Gamestage = props => {
-  let {
-    width,
-    height,
-    tileSize,
-    spritesheet,
-    canvasBg,
-    objects,
-    foodAnimations
-  } = useSelector(state => ({
-    width: state.stage.board[0].length * state.stage.tileSize,
-    height: state.stage.board.length * state.stage.tileSize,
-    tileSize: state.stage.tileSize,
-    spritesheet: state.stage.assets.spritesheet,
-    canvasBg: state.stage.assets.canvasBg,
-    objects: state.stage.objects,
-    foodAnimations: state.stage.foodAnimations
-  }));
+  let { width, height, tileSize, spritesheet, canvasBg, objects } = useSelector(
+    state => ({
+      width: state.stage.board[0].length * state.stage.tileSize,
+      height: state.stage.board.length * state.stage.tileSize,
+      tileSize: state.stage.tileSize,
+      spritesheet: state.stage.assets.spritesheet,
+      canvasBg: state.stage.assets.canvasBg,
+      objects: state.stage.objects
+    })
+  );
   return (
     <ContextBridge
       Context={ReactReduxContext}
@@ -50,13 +43,17 @@ let Gamestage = props => {
             objects.food.map(foodItem => {
               const x = foodItem.positions[0].x;
               const y = foodItem.positions[0].y;
+              const animation =
+                config.leveldesign.objects.availableAnimations[
+                  foodItem.item.src
+                ];
               return (
                 <Food
                   key={`food_${x}_${y}`}
                   x={x * tileSize}
                   y={y * tileSize}
                   spritesheet={spritesheet}
-                  animation={foodAnimations[foodItem.item.src]}
+                  animation={animation}
                 />
               );
             })}

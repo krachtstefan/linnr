@@ -135,18 +135,7 @@ const DEFAULT_WORM_STATE = {
   age: 0,
   food: 0,
   dead: false,
-  animationSequence: 0,
-  animations: Object.keys(spritesheetJSON.animations)
-    .filter(key => key.startsWith("WORM-") === true)
-    .reduce((accObj, currAnimationName) => {
-      return {
-        ...accObj,
-        [currAnimationName]: {
-          name: currAnimationName,
-          ...config.defaultAnimationProps
-        }
-      };
-    }, {})
+  animationSequence: 0
 };
 
 const WORM_ACTION_TYPES = {

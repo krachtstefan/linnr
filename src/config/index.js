@@ -4,8 +4,9 @@ import Dexie from "dexie";
 import canvasBg from "./../assets/images/ingame/Border.png";
 import firebase from "firebase/app";
 import firebaseCredentials from "./firebase";
+import leveldesign from "./leveldesign";
 
-export const firebaseConfig = firebase.initializeApp(firebaseCredentials);
+const firebaseConfig = firebase.initializeApp(firebaseCredentials);
 
 let fps = 60;
 
@@ -24,16 +25,7 @@ const config = {
   spriteSizeScaling: 2,
   background: 0xaf9980,
   soundOn: true,
-  defaultAnimationProps: {
-    offset: {
-      x: 0,
-      y: 0
-    },
-    space: {
-      width: 1,
-      height: 1
-    }
-  },
+  leveldesign,
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }

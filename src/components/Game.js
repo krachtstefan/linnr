@@ -37,7 +37,7 @@ const Game = () => {
     return {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
-      wormAnimations: worm.animations,
+      wormAnimations: config.leveldesign.worm.animations,
       foodCount: worm.food,
       soundOn: settings.soundOn,
       stageTileCount: stage.board.length * stage.board[0].length,

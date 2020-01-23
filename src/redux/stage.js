@@ -1,10 +1,6 @@
 import { isEqual, sample, sampleSize, shuffle } from "lodash";
 
 import { config } from "../config";
-import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
-
-export const randomizerMinMax = (min, max) =>
-  Math.round(Math.random() * (max - min) + min);
 
 const DEFAULT_STAGE_STATE = {
   assets: {
@@ -29,57 +25,6 @@ const DEFAULT_STAGE_STATE = {
     ["w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
   ],
   objects: {},
-  // todo: move this into objectTypes
-  foodAnimations: Object.keys(spritesheetJSON.animations)
-    .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
-    .reduce((accObj, currAnimationName) => {
-      return {
-        ...accObj,
-        [currAnimationName]: {
-          name: currAnimationName,
-          ...config.defaultAnimationProps
-        }
-      };
-    }, {}),
-
-  // remove this node from redux and add the components to render inside
-  levelDesign: {
-    templates: [
-      {
-        label: "x",
-        spawns: {
-          food: true,
-          obstacle: true
-        }
-      }
-    ],
-    objectTypes: [
-      {
-        type: "food",
-        randomizer: () => randomizerMinMax(3, 10),
-        pattern: [[true]],
-        items: [
-          { src: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN" },
-          { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
-        ]
-      },
-      {
-        type: "obstacle",
-        randomizer: () => randomizerMinMax(10, 15),
-        pattern: [[true]],
-        items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
-      },
-      {
-        type: "obstacle",
-        randomizer: () => randomizerMinMax(1, 3),
-        pattern: [
-          [true, false],
-          [false, true]
-        ],
-        items: [{ src: "OBJECTS.2x2-OBS/Findling/2X2/003_1.png" }]
-      }
-    ]
-  },
   // todo: remove this!
   spriteAliases: [
     {
@@ -156,13 +101,13 @@ export const setAsset = asset => {
 export const placeItems = (type, keepExisting = false) => {
   return (dispatch, state) => {
     let { worm, stage } = state();
-    let itemAliases = stage.levelDesign.templates
+    let itemAliases = config.leveldesign.templates
       .filter(spec => spec.spawns[type] === true)
       .map(x => x.label);
 
     let newItems = [];
 
-    stage.levelDesign.objectTypes
+    config.leveldesign.objects.types
       .filter(spec => spec.type === type)
       .forEach(objType => {
         let { items: itemVariations, randomizer, pattern } = objType;
@@ -180,7 +125,7 @@ export const placeItems = (type, keepExisting = false) => {
         );
 
         // avoid conflicts with items of any type
-        stage.levelDesign.objectTypes.forEach(objectConf => {
+        config.leveldesign.objects.types.forEach(objectConf => {
           if (stage.objects[objectConf.type]) {
             stage.objects[objectConf.type].forEach(objOnStage => {
               possibleItemPositions = possibleItemPositions.filter(
