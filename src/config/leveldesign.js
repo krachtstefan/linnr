@@ -26,7 +26,7 @@ const templates = [
 
 const objects = {
   availableAnimations: Object.keys(spritesheetJSON.animations)
-    .filter(key => key.startsWith("OBJECTS.HITBOX-FOOD/") === true)
+    .filter(key => key.startsWith("OBJECTS") === true)
     .reduce((accObj, currAnimationName) => {
       return {
         ...accObj,
