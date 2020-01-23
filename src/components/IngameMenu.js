@@ -52,6 +52,7 @@ const IngameMenu = () => {
             onClick={() => {
               dispatch(resetWorm());
               dispatch(placeItems("obstacle"));
+              dispatch(placeItems("food"));
             }}
           >
             reset
@@ -59,7 +60,6 @@ const IngameMenu = () => {
           <button
             onClick={() => {
               dispatch(resetWorm());
-              dispatch(placeItems("food"));
             }}
           >
             retry
