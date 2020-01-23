@@ -1,8 +1,5 @@
 import { filter as _filter, matches } from "lodash";
 
-import { config } from "../config";
-import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_PATH=.to work
-
 export const getDirection = ({ pos, nextPos }) => {
   let direction = {
     x: nextPos.x - pos.x,

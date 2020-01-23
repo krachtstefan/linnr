@@ -51,7 +51,7 @@ let HighScores = () => {
       dispatch(resetWorm());
       dispatch(showHighscore());
     }
-  }, [highscore.submited]);
+  }, [dispatch, highscore.submited]);
 
   return (
     <form

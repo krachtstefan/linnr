@@ -17,7 +17,8 @@ const Food = ({ x, y, spritesheet, animation }) => {
 Food.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  animation: PropTypes.object.isRequired
+  animation: PropTypes.object.isRequired,
+  spritesheet: PropTypes.object.isRequired
 };
 
 export default Food;

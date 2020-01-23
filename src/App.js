@@ -3,8 +3,6 @@ import "./styles/app.css";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Debugger from "./components/Debugger";
-import Dpad from "./components/Dpad";
 import Game from "./components/Game";
 import HighscoreForm from "./components/highscore/HighscoreForm";
 import HighscoreList from "./components/highscore/HighscoreList";
