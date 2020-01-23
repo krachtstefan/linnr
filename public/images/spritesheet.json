@@ -2,7 +2,7 @@
 	"frames": {
 		"OBJECTS.2x2-OBS/Findling/2X2/001_1.png": {
 			"frame": {
-				"x": 338,
+				"x": 364,
 				"y": 558,
 				"w": 52,
 				"h": 52
@@ -22,7 +22,7 @@
 		},
 		"OBJECTS.2x2-OBS/Findling/2X2/002_1.png": {
 			"frame": {
-				"x": 182,
+				"x": 208,
 				"y": 558,
 				"w": 52,
 				"h": 52
@@ -42,7 +42,7 @@
 		},
 		"OBJECTS.2x2-OBS/Findling/2X2/003_1.png": {
 			"frame": {
-				"x": 234,
+				"x": 260,
 				"y": 558,
 				"w": 52,
 				"h": 52
@@ -62,7 +62,7 @@
 		},
 		"OBJECTS.HIGHBOX-OBS/Weide/A_1.png": {
 			"frame": {
-				"x": 286,
+				"x": 312,
 				"y": 558,
 				"w": 26,
 				"h": 52
@@ -82,7 +82,7 @@
 		},
 		"OBJECTS.HIGHBOX-OBS/Weide/B_1.png": {
 			"frame": {
-				"x": 312,
+				"x": 338,
 				"y": 558,
 				"w": 26,
 				"h": 52
@@ -102,7 +102,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/KILL_1.png": {
 			"frame": {
-				"x": 234,
+				"x": 260,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -122,7 +122,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/KILL_2.png": {
 			"frame": {
-				"x": 260,
+				"x": 286,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -142,7 +142,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/KILL_3.png": {
 			"frame": {
-				"x": 208,
+				"x": 234,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -162,7 +162,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/KILL_4.png": {
 			"frame": {
-				"x": 156,
+				"x": 182,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -182,7 +182,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_1.png": {
 			"frame": {
-				"x": 286,
+				"x": 312,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -202,7 +202,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_2.png": {
 			"frame": {
-				"x": 390,
+				"x": 416,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -222,7 +222,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_3.png": {
 			"frame": {
-				"x": 442,
+				"x": 468,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -242,7 +242,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_4.png": {
 			"frame": {
-				"x": 364,
+				"x": 390,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -262,7 +262,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_5.png": {
 			"frame": {
-				"x": 312,
+				"x": 156,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -282,7 +282,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_6.png": {
 			"frame": {
-				"x": 130,
+				"x": 208,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -302,7 +302,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_7.png": {
 			"frame": {
-				"x": 26,
+				"x": 78,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -322,7 +322,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_8.png": {
 			"frame": {
-				"x": 414,
+				"x": 388,
 				"y": 480,
 				"w": 26,
 				"h": 26
@@ -342,7 +342,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_9.png": {
 			"frame": {
-				"x": 388,
+				"x": 440,
 				"y": 480,
 				"w": 26,
 				"h": 26
@@ -362,7 +362,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_10.png": {
 			"frame": {
-				"x": 338,
+				"x": 364,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -382,7 +382,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN_11.png": {
 			"frame": {
-				"x": 416,
+				"x": 442,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -442,7 +442,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/KILLl_2.png": {
 			"frame": {
-				"x": 440,
+				"x": 414,
 				"y": 480,
 				"w": 26,
 				"h": 26
@@ -462,8 +462,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/KILLl_3.png": {
 			"frame": {
-				"x": 466,
-				"y": 480,
+				"x": 26,
+				"y": 506,
 				"w": 26,
 				"h": 26
 			},
@@ -482,7 +482,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/KILLl_4.png": {
 			"frame": {
-				"x": 78,
+				"x": 104,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -502,8 +502,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_1.png": {
 			"frame": {
-				"x": 104,
-				"y": 506,
+				"x": 466,
+				"y": 480,
 				"w": 26,
 				"h": 26
 			},
@@ -542,8 +542,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_3.png": {
 			"frame": {
-				"x": 182,
-				"y": 506,
+				"x": 0,
+				"y": 532,
 				"w": 26,
 				"h": 26
 			},
@@ -562,8 +562,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_4.png": {
 			"frame": {
-				"x": 78,
-				"y": 532,
+				"x": 338,
+				"y": 506,
 				"w": 26,
 				"h": 26
 			},
@@ -582,7 +582,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_5.png": {
 			"frame": {
-				"x": 442,
+				"x": 468,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -602,7 +602,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_6.png": {
 			"frame": {
-				"x": 468,
+				"x": 442,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -642,8 +642,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_8.png": {
 			"frame": {
-				"x": 364,
-				"y": 532,
+				"x": 26,
+				"y": 558,
 				"w": 26,
 				"h": 26
 			},
@@ -662,7 +662,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_9.png": {
 			"frame": {
-				"x": 390,
+				"x": 364,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -682,7 +682,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_10.png": {
 			"frame": {
-				"x": 52,
+				"x": 130,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -702,7 +702,7 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN_11.png": {
 			"frame": {
-				"x": 468,
+				"x": 52,
 				"y": 506,
 				"w": 26,
 				"h": 26
@@ -722,8 +722,8 @@
 		},
 		"OBJECTS.HITBOX-FOOD/Himbeere/001_1.png": {
 			"frame": {
-				"x": 78,
-				"y": 558,
+				"x": 390,
+				"y": 532,
 				"w": 26,
 				"h": 26
 			},
@@ -741,26 +741,6 @@
 			}
 		},
 		"OBJECTS.HITBOX-OBS/Findling/001_1.png": {
-			"frame": {
-				"x": 130,
-				"y": 558,
-				"w": 26,
-				"h": 26
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 26,
-				"h": 26
-			},
-			"sourceSize": {
-				"w": 26,
-				"h": 26
-			}
-		},
-		"OBJECTS.HITBOX-OBS/Findling/002_1.png": {
 			"frame": {
 				"x": 104,
 				"y": 558,
@@ -780,9 +760,29 @@
 				"h": 26
 			}
 		},
-		"OBJECTS.HITBOX-ONO/PlusEins_1.png": {
+		"OBJECTS.HITBOX-OBS/Findling/002_1.png": {
 			"frame": {
 				"x": 156,
+				"y": 558,
+				"w": 26,
+				"h": 26
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 26,
+				"h": 26
+			},
+			"sourceSize": {
+				"w": 26,
+				"h": 26
+			}
+		},
+		"OBJECTS.HITBOX-ONO/PlusEins_1.png": {
+			"frame": {
+				"x": 130,
 				"y": 558,
 				"w": 26,
 				"h": 26
@@ -842,7 +842,7 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_4.png": {
 			"frame": {
-				"x": 52,
+				"x": 78,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -862,7 +862,7 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_5.png": {
 			"frame": {
-				"x": 0,
+				"x": 26,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -962,7 +962,7 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_10.png": {
 			"frame": {
-				"x": 52,
+				"x": 182,
 				"y": 558,
 				"w": 26,
 				"h": 26
@@ -982,7 +982,7 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_11.png": {
 			"frame": {
-				"x": 26,
+				"x": 78,
 				"y": 558,
 				"w": 26,
 				"h": 26
@@ -1002,8 +1002,8 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_12.png": {
 			"frame": {
-				"x": 416,
-				"y": 532,
+				"x": 52,
+				"y": 558,
 				"w": 26,
 				"h": 26
 			},
@@ -1022,7 +1022,7 @@
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_13.png": {
 			"frame": {
-				"x": 26,
+				"x": 416,
 				"y": 532,
 				"w": 26,
 				"h": 26
@@ -1041,6 +1041,26 @@
 			}
 		},
 		"OBJECTS.HITBOX-ONO/PlusEins_14.png": {
+			"frame": {
+				"x": 52,
+				"y": 532,
+				"w": 26,
+				"h": 26
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 26,
+				"h": 26
+			},
+			"sourceSize": {
+				"w": 26,
+				"h": 26
+			}
+		},
+		"OBJECTS.HITBOX-ONO/PlusEins_15.png": {
 			"frame": {
 				"x": 104,
 				"y": 532,
@@ -2562,8 +2582,8 @@
 		},
 		"WORM-HD/E/2N_10.png": {
 			"frame": {
-				"x": 24,
-				"y": 288,
+				"x": 72,
+				"y": 384,
 				"w": 24,
 				"h": 24
 			},
@@ -2582,8 +2602,8 @@
 		},
 		"WORM-HD/E/2N_11.png": {
 			"frame": {
-				"x": 72,
-				"y": 384,
+				"x": 24,
+				"y": 288,
 				"w": 24,
 				"h": 24
 			},
@@ -3522,7 +3542,7 @@
 		},
 		"WORM-HD/N/2W_2.png": {
 			"frame": {
-				"x": 264,
+				"x": 312,
 				"y": 480,
 				"w": 24,
 				"h": 24
@@ -3542,7 +3562,7 @@
 		},
 		"WORM-HD/N/2W_3.png": {
 			"frame": {
-				"x": 312,
+				"x": 288,
 				"y": 480,
 				"w": 24,
 				"h": 24
@@ -3562,7 +3582,7 @@
 		},
 		"WORM-HD/N/2W_4.png": {
 			"frame": {
-				"x": 288,
+				"x": 240,
 				"y": 480,
 				"w": 24,
 				"h": 24
@@ -3582,7 +3602,7 @@
 		},
 		"WORM-HD/N/2W_5.png": {
 			"frame": {
-				"x": 240,
+				"x": 264,
 				"y": 480,
 				"w": 24,
 				"h": 24
@@ -5042,8 +5062,8 @@
 		},
 		"WORM-HD/S/Ref_14.png": {
 			"frame": {
-				"x": 24,
-				"y": 0,
+				"x": 312,
+				"y": 264,
 				"w": 24,
 				"h": 24
 			},
@@ -5062,8 +5082,8 @@
 		},
 		"WORM-HD/S/Ref_15.png": {
 			"frame": {
-				"x": 312,
-				"y": 264,
+				"x": 24,
+				"y": 0,
 				"w": 24,
 				"h": 24
 			},
@@ -9854,7 +9874,8 @@
 			"OBJECTS.HITBOX-ONO/PlusEins_11.png",
 			"OBJECTS.HITBOX-ONO/PlusEins_12.png",
 			"OBJECTS.HITBOX-ONO/PlusEins_13.png",
-			"OBJECTS.HITBOX-ONO/PlusEins_14.png"
+			"OBJECTS.HITBOX-ONO/PlusEins_14.png",
+			"OBJECTS.HITBOX-ONO/PlusEins_15.png"
 		],
 		"WORM-BY/E/2E": [
 			"WORM-BY/E/2E_1.png",
@@ -10381,6 +10402,6 @@
 			"h": 610
 		},
 		"scale": "1",
-		"smartupdate": "$TexturePacker:SmartUpdate:b1745e272c4debdbeed1f461d0295aa9:4e48768689ed12c1018094274e0a0720:729adc6043343cfda41c447ce8f464d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b6b6cc9048d6fe6394671b1d474c87f0:578d4e3ff78dcef1e6b668eaec9e48b6:729adc6043343cfda41c447ce8f464d6$"
 	}
 }
