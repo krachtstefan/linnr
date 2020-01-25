@@ -130,7 +130,7 @@ const DEFAULT_WORM_STATE = {
   nextDirection,
   nextDirectionQueue: [],
   age: 0,
-  food: 0,
+  highscore: 0,
   dead: false,
   animationSequence: 0
 };
@@ -200,7 +200,7 @@ export const collisionCheck = () => (dispatch, state) => {
       ),
     animationSequence: 1,
     dead,
-    food: eatsFood ? worm.food + 1 : worm.food
+    highscore: eatsFood ? worm.highscore + 1 : worm.highscore
   };
 
   if (eatsFood === true) {

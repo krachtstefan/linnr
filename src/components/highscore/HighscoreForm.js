@@ -25,7 +25,7 @@ let HighScores = () => {
       name,
       alias,
       emoji,
-      score: worm.food,
+      score: worm.highscore,
       worm: worm.position,
       version: config.highscoreVersion
     };
@@ -52,7 +52,7 @@ let HighScores = () => {
     }
   }, [dispatch, highscore.submited]);
 
-  return worm.food > 0 ? (
+  return worm.highscore > 0 ? (
     <form
       className="highscore"
       onSubmit={e => {
@@ -61,7 +61,7 @@ let HighScores = () => {
       }}
     >
       <h1>
-        Your score is <span className="score">{worm.food}</span>
+        Your score is <span className="score">{worm.highscore}</span>
       </h1>
       <div className="highscoreForm">
         <div className="left">

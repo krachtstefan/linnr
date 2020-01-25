@@ -14,14 +14,14 @@ const IngameMenu = () => {
   const [highscoreChanged, setHighscoreChanged] = useState(false);
 
   useEffect(() => {
-    if (worm.food > 0) {
+    if (worm.highscore > 0) {
       setHighscoreChanged(true);
       const timer = setTimeout(() => {
         setHighscoreChanged(false);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [worm.food]);
+  }, [worm.highscore]);
 
   return (
     <div className="gamebar">
@@ -30,7 +30,7 @@ const IngameMenu = () => {
           🍄
         </span>{" "}
         <span className={`highscore ${highscoreChanged ? "changing" : ""}`}>
-          {worm.food}
+          {worm.highscore}
         </span>
       </div>
       {worm.dead === true ? (

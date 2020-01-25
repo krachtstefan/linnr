@@ -31,7 +31,7 @@ const Game = () => {
     wormAnimations,
     soundOn,
     stageTileCount,
-    foodCount,
+    highscore,
     dead
   } = useSelector(state => {
     let { worm, stage, settings } = state;
@@ -39,7 +39,7 @@ const Game = () => {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
       wormAnimations: config.leveldesign.worm.animations,
-      foodCount: worm.food,
+      highscore: worm.highscore,
       soundOn: settings.soundOn,
       stageTileCount: stage.board.length * stage.board[0].length,
       settings: settings,
@@ -61,17 +61,17 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(placeItems("food", true));
-  }, [dispatch, foodCount]);
+  }, [dispatch, highscore]);
 
   useEffect(() => {
     dispatch(placeItems("obstacle"));
   }, [dispatch]);
 
   useEffect(() => {
-    if (soundOn === true && foodCount > 0) {
+    if (soundOn === true && highscore > 0) {
       eatSound.play();
     }
-  }, [soundOn, eatSound, spritesheet, foodCount]);
+  }, [soundOn, eatSound, spritesheet, highscore]);
 
   useEffect(() => {
     if (soundOn === true) {
