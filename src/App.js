@@ -2,6 +2,7 @@ import "./styles/app.css";
 
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
+import Credits from "./components/screens/Credits";
 import GAListener from "./components/utils/GAListener";
 import Game from "./components/screens/Game";
 import HighscoreForm from "./components/screens/HighscoreForm";
@@ -28,6 +29,7 @@ let App = () => (
               children={<HighscoreForm />}
             />
             <Route path={config.navigation.play} children={<Game />} />
+            <Route path={config.navigation.credits} children={<Credits />} />
             <Route path={config.navigation.start} children={<Start />} />
           </Switch>
         </div>

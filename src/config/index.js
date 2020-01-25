@@ -35,7 +35,7 @@ const config = {
     play: "/play",
     highscore: "/highscore",
     submitHighscore: "/submit-highscore",
-    about: "/about"
+    credits: "/credits"
   },
   indexDB: {
     name: "linnr",
