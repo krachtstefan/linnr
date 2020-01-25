@@ -42,7 +42,6 @@ let App = () => {
                   >
                     play
                   </button>
-
                   <button onClick={() => dispatch(showHighscore())}>
                     highscore
                   </button>
