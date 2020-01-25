@@ -31,7 +31,10 @@ export const setHighscore = highscore => dispatch => {
     .collection(config.firebase.collections.highscore)
     .add(highscore)
     .then(() => {
-      dispatch({ type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED });
+      dispatch({
+        type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED,
+        payload: highscore
+      });
       dispatch(getHighscore());
     });
 };
@@ -66,7 +69,14 @@ export const highscoreReducer = (state = DEFAULT_HIGHSCORE_STATE, action) => {
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_REQUEST:
       return { ...state, loading: true };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED:
-      return { ...state, loading: false, submited: true };
+      let player = {
+        name: action.payload.name,
+        alias: action.payload.alias,
+        twitter: action.payload.twitter,
+        instagram: action.payload.instagram,
+        emoji: action.payload.emoji
+      };
+      return { ...state, loading: false, player, submited: true };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_RESET_FORM:
       return { ...state, loading: false, submited: false };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_RECEIVE:
