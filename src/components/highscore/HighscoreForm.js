@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { resetHighscoreForm, setHighscore } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Redirect } from "react-router-dom";
 import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
-import { setHighscore } from "../../redux/highscore";
 
 const emojis = ["👾", "🦀", "😸", "🐟", "🐥", "💁", "🐰", "😹", "🦉"];
 let HighScores = () => {
@@ -49,6 +49,7 @@ let HighScores = () => {
 
   useEffect(() => {
     if (highscore.submited === true) {
+      dispatch(resetHighscoreForm());
       dispatch(resetWorm());
     }
   }, [dispatch, highscore.submited]);
