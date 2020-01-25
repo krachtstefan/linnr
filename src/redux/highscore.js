@@ -6,6 +6,8 @@ export let DEFAULT_HIGHSCORE_STATE = {
   player: {
     name: "",
     alias: "",
+    twitter: "",
+    instagram: "",
     emoji: ""
   },
   highscore: []
