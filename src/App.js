@@ -1,18 +1,24 @@
 import "./styles/app.css";
 
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
 
 import Credits from "./components/screens/Credits";
 import GAListener from "./components/utils/GAListener";
 import Game from "./components/screens/Game";
 import HighscoreForm from "./components/screens/HighscoreForm";
 import HighscoreList from "./components/screens/HighscoreList";
-import React from "react";
 import Start from "./components/screens/Start";
 import { config } from "./config";
 
-let App = () => (
-  <Router>
+let App = () => {
+  let location = useLocation();
+
+  useEffect(() => {
+    document.body.className = location.pathname.substring(1); // remove the / from the path
+  }, [location]);
+
+  return (
     <GAListener trackingId={config.ga.trackingId} deactivate={config.isDev}>
       <div className="logo">
         <Link to={config.navigation.start} className="logo"></Link>
@@ -35,7 +41,7 @@ let App = () => (
         </div>
       </div>
     </GAListener>
-  </Router>
-);
+  );
+};
 
 export default App;
