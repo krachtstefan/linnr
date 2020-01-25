@@ -55,7 +55,7 @@ let HighScores = () => {
               )}{" "}
               {hs.instagram ? (
                 <a
-                  href={`https://twitter.com/${hs.instagram}`}
+                  href={`https://instagram.com/${hs.instagram}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
