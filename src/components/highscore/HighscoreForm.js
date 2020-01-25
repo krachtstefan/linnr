@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { setHighscore, showHighscore } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Redirect } from "react-router-dom";
 import { config } from "../../config";
-import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
+import { setHighscore } from "../../redux/highscore";
 
 const emojis = ["👾", "🦀", "😸", "🐟", "🐥", "💁", "🐰", "😹", "🦉"];
 let HighScores = () => {
@@ -47,13 +47,12 @@ let HighScores = () => {
   }, [highscore.loading]);
 
   useEffect(() => {
+    // reset score!
     if (highscore.submited === true) {
-      dispatch(resetWorm());
-      dispatch(showHighscore());
     }
   }, [dispatch, highscore.submited]);
 
-  return (
+  return worm.food > 0 ? (
     <form
       className="highscore"
       onSubmit={e => {
@@ -133,6 +132,8 @@ let HighScores = () => {
         </button>
       </center>
     </form>
+  ) : (
+    <Redirect to={config.navigation.highscore} />
   );
 };
 
