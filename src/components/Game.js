@@ -5,7 +5,7 @@ import { placeItems, setAsset } from "../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
 import Controls from "./Controls";
-import IngameMenu from "./IngameMenu";
+import IngameMenu from "./menu/IngameMenu";
 import { Loader } from "pixi.js";
 import Map from "./Map";
 import Worm from "./Worm";

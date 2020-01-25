@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { soundDisable, soundEnable } from "../redux/settings";
+import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
-import { placeItems } from "../redux/stage";
-import { resetWorm } from "../redux/worm";
-import { showHighscoreForm } from "../redux/highscore";
-import { stopGame } from "../redux/game";
+import { placeItems } from "../../redux/stage";
+import { resetWorm } from "../../redux/worm";
+import { showHighscoreForm } from "../../redux/highscore";
+import { stopGame } from "../../redux/game";
 
 const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
