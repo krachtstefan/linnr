@@ -7,7 +7,7 @@ import firebaseCredentials from "./firebase";
 import leveldesign from "./leveldesign";
 
 const firebaseConfig = firebase.initializeApp(firebaseCredentials);
-
+const isDev = process.env.NODE_ENV === "development";
 let fps = 60;
 
 const config = {
@@ -26,6 +26,13 @@ const config = {
   background: 0xaf9980,
   soundOn: true,
   leveldesign,
+  ga: {
+    trackingId: "UA-748711-16",
+    debug: isDev === true ? true : false,
+    gaOptions: {
+      cookieDomain: "none"
+    }
+  },
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
@@ -33,9 +40,7 @@ const config = {
   highscoreVersion: 0.1,
   firebase: {
     collections: {
-      highscore: `highscore${
-        process.env.NODE_ENV === "development" ? "_dev" : ""
-      }`
+      highscore: `highscore${isDev === true ? "_dev" : ""}`
     }
   }
 };
