@@ -1,15 +1,14 @@
 import "./styles/app.css";
 
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 
 import Game from "./components/Game";
 import HighscoreForm from "./components/highscore/HighscoreForm";
 import HighscoreList from "./components/highscore/HighscoreList";
+import React from "react";
 import StartMenu from "./components/menu/StartMenu";
 import { config } from "./config";
-import { showHighscore } from "./redux/highscore";
+import { useSelector } from "react-redux";
 
 let App = () => {
   let { game, highscore } = useSelector(state => state);
