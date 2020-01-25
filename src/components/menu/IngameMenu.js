@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Link } from "react-router-dom";
+import { config } from "../../config";
 import { placeItems } from "../../redux/stage";
 import { resetWorm } from "../../redux/worm";
-import { showHighscoreForm } from "../../redux/highscore";
-import { stopGame } from "../../redux/game";
 
 const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
@@ -35,18 +35,7 @@ const IngameMenu = () => {
       </div>
       {worm.dead === true ? (
         <>
-          <button
-            ref={resetButton}
-            onClick={() => {
-              dispatch(stopGame());
-              dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
-              dispatch(showHighscoreForm());
-            }}
-          >
-            submit Highscore
-          </button>
-
+          <Link to={config.navigation.submitHighscore}>submit highscore</Link>
           <button
             ref={resetButton}
             onClick={() => {
@@ -57,23 +46,8 @@ const IngameMenu = () => {
           >
             reset
           </button>
-          <button
-            onClick={() => {
-              dispatch(resetWorm());
-            }}
-          >
-            retry
-          </button>
-          <button
-            onClick={() => {
-              dispatch(stopGame());
-              dispatch(resetWorm());
-              dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
-            }}
-          >
-            quit
-          </button>
+          <button onClick={() => dispatch(resetWorm())}>retry</button>
+          <Link to={() => config.navigation.start}>quit</Link>
         </>
       ) : (
         <>
