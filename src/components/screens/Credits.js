@@ -103,6 +103,7 @@ const Credits = () => {
         >
           Unikorn Beta
         </a>{" "}
+        and{" "}
         <a
           href="https://www.dafont.com/poppkorn.font"
           target="_blank"

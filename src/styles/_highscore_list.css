@@ -35,20 +35,16 @@
   color: var(--color-blue-darker);
 }
 
-.highscore-list .player .name-time {
-  display: grid;
-  column-gap: 20px;
-  grid-template-columns: 1fr auto;
-}
-
 .highscore-list .player .name-time span.time {
+  font-size: 15px;
   opacity: 0.5;
 }
 
+.highscore-list .player:hover .name-time span.time {
+  opacity: 1;
+}
+
 @media screen and (max-width: 600px) {
-  .highscore-list .player .name-time {
-    display: block;
-  }
   .highscore-list .player .name-time span {
     display: block;
   }

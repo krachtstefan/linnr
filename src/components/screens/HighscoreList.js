@@ -35,7 +35,7 @@ let HighScores = () => {
               {hs.emoji} {hs.alias}
             </span>
             <span className="name-time">
-              <span className="name">{hs.name}</span>
+              <span className="name">{hs.name}</span>{" "}
               <span className="time">
                 {moment(hs.date.seconds * 1000).fromNow()}
               </span>
