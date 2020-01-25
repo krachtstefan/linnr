@@ -33,6 +33,13 @@ const config = {
       cookieDomain: "none"
     }
   },
+  navigation: {
+    start: "/",
+    play: "/play",
+    highscore: "/highscore",
+    submitHighscore: "/submit-highscore",
+    about: "/about"
+  },
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
