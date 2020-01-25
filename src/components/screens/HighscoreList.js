@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
-import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
 
@@ -36,8 +34,37 @@ let HighScores = () => {
             <span className="alias">
               {hs.emoji} {hs.alias}
             </span>
-            <span className="name">{hs.name}</span>
-            {/* <small>{moment(hs.date.seconds * 1000).fromNow()}</small> */}
+            <span className="name-time">
+              <span className="name">{hs.name}</span>
+              <span className="time">
+                {moment(hs.date.seconds * 1000).fromNow()}
+              </span>
+            </span>
+
+            <span className="link">
+              {hs.twitter ? (
+                <a
+                  href={`https://twitter.com/${hs.twitter}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  
+                </a>
+              ) : (
+                ""
+              )}{" "}
+              {hs.instagram ? (
+                <a
+                  href={`https://twitter.com/${hs.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  
+                </a>
+              ) : (
+                ""
+              )}
+            </span>
 
             <span className="score">{hs.score}</span>
           </div>

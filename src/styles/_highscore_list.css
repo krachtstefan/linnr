@@ -10,7 +10,8 @@
   display: grid;
   align-items: baseline;
   column-gap: 20px;
-  grid-template-columns: 50px 60px 1fr 50px;
+  grid-template-columns: 50px 60px 1fr 40px 50px;
+  color: var(--color-blue-dark);
 }
 
 .highscore-list .player.place-0 {
@@ -29,9 +30,30 @@
 .highscore-list .player .alias {
   color: var(--color-blue-darker);
 }
-.highscore-list .player .name {
-  color: var(--color-blue-dark);
+
+.highscore-list .player .link a {
+  color: var(--color-blue-darker);
 }
+
+.highscore-list .player .name-time {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: 1fr auto;
+}
+
+.highscore-list .player .name-time span.time {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 600px) {
+  .highscore-list .player .name-time {
+    display: block;
+  }
+  .highscore-list .player .name-time span {
+    display: block;
+  }
+}
+
 .highscore-list .player .score {
   color: var(--color-yellow);
 }
