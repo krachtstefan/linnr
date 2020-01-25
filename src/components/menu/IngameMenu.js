@@ -29,7 +29,9 @@ const IngameMenu = () => {
         <span role="img" aria-label="highscore">
           🍄
         </span>{" "}
-        <span className={`highscore ${highscoreChanged ? "changing" : ""}`}>
+        <span
+          className={`current-highscore ${highscoreChanged ? "changing" : ""}`}
+        >
           {worm.highscore}
         </span>
       </div>

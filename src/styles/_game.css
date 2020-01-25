@@ -24,12 +24,12 @@
   color: var(--color-beige-dark);
 }
 
-.highscore {
+.current-highscore {
   transform-origin: 100% 70%;
   display: inline-block;
 }
 
-.highscore.changing {
+.current-highscore.changing {
   animation: bounce 0.5s ease alternate;
 }
 

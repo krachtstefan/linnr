@@ -9,7 +9,7 @@ export const getDirection = ({ pos, nextPos }) => {
     console.warn("attempted a move over 2 tiles at once", pos, nextPos);
   }
   if (Math.abs(direction.x) === 1 && Math.abs(direction.y) === 1) {
-    console.warn("attempted a move diagonal", pos, nextPos);
+    console.warn("attempted to move diagonal", pos, nextPos);
   }
 
   if (direction.x === 1) {
