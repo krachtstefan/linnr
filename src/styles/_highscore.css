@@ -8,7 +8,7 @@ form.highscore button {
   margin-top: 50px;
   font-size: 40px;
   background: var(--color-beige-dark);
-  color: var(--color-dark);
+  color: var(--color-beige-light);
 }
 
 .highscoreForm {
@@ -38,7 +38,7 @@ form.highscore button {
   cursor: pointer;
 }
 .highscoreForm .right .emojis .selected {
-  color: var(--color-dark);
+  color: var(--color-beige-light);
   background: var(--color-beige-dark);
 }
 

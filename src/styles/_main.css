@@ -5,11 +5,11 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-beige);
-  background-color: var(--color-dark);
+  background-color: var(--color-beige-light);
 }
 
 strong {
-  color: var(--color-dark);
+  color: var(--color-beige-light);
 }
 
 h1 {

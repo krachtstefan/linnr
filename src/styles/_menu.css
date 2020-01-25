@@ -3,7 +3,7 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  background: var(--color-dark);
+  background: var(--color-beige-light);
   row-gap: 20px;
   padding: 20px 50px;
   border: 5px solid var(--color-beige-dark);
