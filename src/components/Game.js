@@ -13,6 +13,7 @@ import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
 import { config } from "../config";
 import { createAnimation } from "./pixi/AnimatedSprite";
 import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
+import { resetWorm } from "./../redux/worm";
 import useAudio from "./../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -45,6 +46,12 @@ const Game = () => {
       dead: worm.dead
     };
   });
+
+  useEffect(() => {
+    dispatch(resetWorm());
+    dispatch(placeItems("obstacle"));
+    dispatch(placeItems("food"));
+  }, [dispatch]);
 
   useEffect(() => {
     if (restartButton.current) {
