@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Redirect } from "react-router-dom";
 import { config } from "../../config";
+import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 import { setHighscore } from "../../redux/highscore";
 
@@ -47,8 +48,8 @@ let HighScores = () => {
   }, [highscore.loading]);
 
   useEffect(() => {
-    // reset score!
     if (highscore.submited === true) {
+      dispatch(resetWorm());
     }
   }, [dispatch, highscore.submited]);
 
