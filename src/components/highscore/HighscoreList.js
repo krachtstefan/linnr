@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { getHighscore, showHighscore } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Link } from "react-router-dom";
+import { config } from "../../config";
+import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
 
 let HighScores = () => {
@@ -30,7 +32,7 @@ let HighScores = () => {
           </div>
         ))
       )}
-      <button onClick={() => dispatch(showHighscore(false))}>← back</button>
+      <Link to={config.navigation.start}>← back</Link>
     </div>
   );
 };
