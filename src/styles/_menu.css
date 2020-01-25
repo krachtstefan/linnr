@@ -7,13 +7,10 @@
   row-gap: 20px;
   padding: 20px 50px;
   border: 5px solid var(--color-beige-dark);
-  border-top-color: var(--color-beige);
-  border-left-color: var(--color-beige);
 }
 
 button {
   text-transform: uppercase;
   display: inline;
   padding: 5px;
-  color: var(--color-beige);
 }

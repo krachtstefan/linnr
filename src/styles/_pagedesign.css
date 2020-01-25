@@ -1,13 +1,21 @@
+body {
+  background-color: var(--color-beige-light);
+}
+body div#root div.logo a {
+  background: url("./../assets/images/logo-beige.svg") center center no-repeat;
+}
+
 body.credits {
-  background-color: red;
+  background-color: var(--color-beige-dark);
 }
 body.credits div#root div.logo a {
   background: url("./../assets/images/logo-white.svg") center center no-repeat;
 }
 
 body.highscore {
-  background-color: green;
+  background-color: var(--color-blue);
 }
 body.highscore div#root div.logo a {
-  background: url("./../assets/images/logo-white.svg") center center no-repeat;
+  background: url("./../assets/images/logo-yellow-orange.svg") center center
+    no-repeat;
 }

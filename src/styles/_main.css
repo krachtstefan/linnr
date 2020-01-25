@@ -4,8 +4,7 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
-  color: var(--color-beige);
-  background-color: var(--color-beige-light);
+  color: var(--color-beige-dark);
 }
 
 strong {
@@ -39,7 +38,6 @@ div#root div.logo a {
   display: block;
   width: 200px;
   height: 100%;
-  background: url("./../assets/images/logo-beige.svg") center center no-repeat;
   background-size: contain;
 }
 
@@ -50,8 +48,8 @@ input {
   text-transform: inherit;
   border: none;
   text-transform: uppercase;
-  color: var(--color-beige);
-  border-bottom: 2px solid var(--color-beige);
+  color: red;
+  border-bottom: 2px solid red;
   padding-left: 10px;
   display: block;
 }
