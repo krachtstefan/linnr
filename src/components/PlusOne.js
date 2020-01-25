@@ -18,10 +18,7 @@ const Food = ({ x, y, spritesheet }) => {
     return pixiAnimation;
   });
 
-  useEffect(() => {
-    console.log(x, y);
-    pixiAnimation.gotoAndPlay(0);
-  }, [x, y, pixiAnimation]);
+  useEffect(() => pixiAnimation.gotoAndPlay(0), [x, y, pixiAnimation]);
 
   return <AnimatedSprite x={x} y={y} animation={pixiAnimation} />;
 };
