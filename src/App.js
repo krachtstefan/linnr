@@ -23,7 +23,7 @@ let App = () => {
       <div className="logo">
         <Link to={config.navigation.start} className="logo"></Link>
       </div>
-      <div className="game">
+      <div className="main">
         <div className="game-container">
           <Switch>
             <Route

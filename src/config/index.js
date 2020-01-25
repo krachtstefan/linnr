@@ -42,6 +42,7 @@ const config = {
     table: { settings: "settings" }
   },
   highscoreVersion: 0.1,
+  version: "1.0",
   firebase: {
     collections: {
       highscore: `highscore${isDev === true ? "_dev" : ""}`
