@@ -1,16 +1,12 @@
+import { Link } from "react-router-dom";
 import React from "react";
-import { showHighscore } from "../../redux/highscore";
-import { startGame } from "../../redux/game";
-import { useDispatch } from "react-redux";
+import { config } from "./../../config";
 
-const StartMenu = () => {
-  const dispatch = useDispatch();
-  return (
-    <div className="start-menu">
-      <button onClick={() => dispatch(startGame())}>play</button>
-      <button onClick={() => dispatch(showHighscore())}>highscore</button>
-    </div>
-  );
-};
+const StartMenu = () => (
+  <div className="start-menu">
+    <Link to={config.navigation.play}>play</Link>
+    <Link to={config.navigation.highscore}>highscore</Link>
+  </div>
+);
 
 export default StartMenu;
