@@ -91,6 +91,7 @@ let HighScores = () => {
                 disabled={formDisabled}
                 placeholder="type your name"
                 value={name}
+                maxLength="20"
                 onChange={e => setName(e.target.value)}
               />
             </label>
