@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { config } from "../config";
 
-const Food = ({ x, y, spritesheet }) => {
+const PlusOne = ({ x, y, spritesheet }) => {
   let [pixiAnimation] = useState(() => {
     let pixiAnimation = createAnimation(
       spritesheet,
@@ -23,10 +23,10 @@ const Food = ({ x, y, spritesheet }) => {
   return <AnimatedSprite x={x} y={y} animation={pixiAnimation} />;
 };
 
-Food.propTypes = {
+PlusOne.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   spritesheet: PropTypes.object.isRequired
 };
 
-export default Food;
+export default PlusOne;
