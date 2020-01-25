@@ -1,21 +1,35 @@
 import { config, db } from "./../../config";
 
+import { DEFAULT_HIGHSCORE_STATE } from "./../highscore";
 import { DEFAULT_SETTINGS_STATE } from "./../settings";
 
-const getSettings = state => {
+const importFromIndexDB = state => {
   return new Promise(resolve => {
-    let stateKeys = ["soundOn"];
-    state = { ...state, settings: { ...DEFAULT_SETTINGS_STATE } };
+    const stateMapping = [
+      {
+        key: "soundOn",
+        state: "settings",
+        defaultState: DEFAULT_SETTINGS_STATE
+      },
+      {
+        key: "player",
+        state: "highscore",
+        defaultState: DEFAULT_HIGHSCORE_STATE
+      }
+    ];
+
     db.table(config.indexDB.table.settings)
       .toCollection()
       .each(storedKey => {
-        if (stateKeys.includes(storedKey.key)) {
-          state = Object.assign(state, {
-            settings: {
-              ...state.settings,
+        let matching = stateMapping.find(map => map.key === storedKey.key);
+        if (matching) {
+          state = {
+            ...state,
+            [matching.state]: {
+              ...matching.defaultState,
               [storedKey.key]: storedKey[storedKey.key]
             }
-          });
+          };
         }
       })
       .then(() => resolve(state));
@@ -24,7 +38,7 @@ const getSettings = state => {
 
 let stateInitializer = new Promise(resolve => {
   let initialState = {};
-  resolve(getSettings(initialState));
+  resolve(importFromIndexDB(initialState));
 });
 
 export { stateInitializer };

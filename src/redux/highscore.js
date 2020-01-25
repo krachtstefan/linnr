@@ -1,7 +1,5 @@
 import { config, firebase } from "../config";
 
-import { displayPartsToString } from "typescript";
-
 export let DEFAULT_HIGHSCORE_STATE = {
   loading: false,
   submited: false,
