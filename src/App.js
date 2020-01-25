@@ -1,7 +1,7 @@
 import "./styles/app.css";
 
 import { Link, Route, Switch, useLocation } from "react-router-dom";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 import Credits from "./components/screens/Credits";
 import GAListener from "./components/utils/GAListener";

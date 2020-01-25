@@ -5,7 +5,7 @@ import kraski from "./../../assets/images/kraski@2x.png";
 const Credits = () => {
   return (
     <div className="credits-container">
-      <img className="kraski" src={kraski} width="220" />
+      <img className="kraski" alt="Kraski Logo" src={kraski} width="220" />
       <p className="game-info">
         LINNR Version {config.version}
         <br />© 2020 - Hamburg/Berlin
@@ -15,10 +15,18 @@ const Credits = () => {
           <li>Code</li>
           <li>
             Stefan Kracht{" "}
-            <a href="https://twitter.com/stefan_kracht" target="_blank">
+            <a
+              href="https://twitter.com/stefan_kracht"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               
             </a>{" "}
-            <a href="https://stefankracht.de" target="_blank">
+            <a
+              href="https://stefankracht.de"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               ⌂
             </a>
           </li>
@@ -27,10 +35,18 @@ const Credits = () => {
           <li>Design</li>
           <li>
             Christian Wischnewski{" "}
-            <a href="https://www.instagram.com/wischnikdraws/" target="_blank">
+            <a
+              href="https://www.instagram.com/wischnikdraws/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               
             </a>{" "}
-            <a href="https://www.wischnik.de/" target="_blank">
+            <a
+              href="https://www.wischnik.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               ⌂
             </a>
           </li>
@@ -41,36 +57,57 @@ const Credits = () => {
       </ul>
       <p className="software-info">
         Made for{" "}
-        <a href="https://itch.io/jam/jamuary-second-chances" target="_blank">
+        <a
+          href="https://itch.io/jam/jamuary-second-chances"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Jamuary: Second Chances
         </a>
         .<br />
         Powered by{" "}
-        <a href="https://www.pixijs.com/" target="_blank">
+        <a
+          href="https://www.pixijs.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           PixiJS
         </a>
         ,{" "}
-        <a href="https://www.aseprite.org//" target="_blank">
+        <a
+          href="https://www.aseprite.org//"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Aseprite
         </a>
         ,{" "}
-        <a href="https://beepbox.co/" target="_blank">
+        <a href="https://beepbox.co/" target="_blank" rel="noopener noreferrer">
           Beepbox
         </a>
         ,{" "}
         <a
           href="https://www.pentacom.jp/pentacom/bitfontmaker2/"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Bitfontmaker
         </a>
         .
         <br />
         Download Game Fonts{" "}
-        <a href="https://www.dafont.com/poppkorn.font" target="_blank">
+        <a
+          href="https://www.dafont.com/poppkorn.font"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Unikorn Beta
         </a>{" "}
-        <a href="https://www.dafont.com/poppkorn.font" target="_blank">
+        <a
+          href="https://www.dafont.com/poppkorn.font"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Poppkorn
         </a>
         .
