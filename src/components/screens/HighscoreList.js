@@ -15,20 +15,22 @@ let HighScores = () => {
   }, [dispatch]);
 
   return (
-    <div className="highscoreList">
+    <div className="highscore-list">
+      <h1>highscore</h1>
       {loading === true && highscore.length === 0 ? (
         <center>loading...</center>
       ) : highscore.length === 0 ? (
         <div>no highscore yet</div>
       ) : (
         highscore.map((hs, index) => (
-          <div className={`score place-${index}`} key={hs.id}>
-            <div>
-              {hs.emoji} {hs.name} {hs.alias}
-              <br />
-              <small>{moment(hs.date.seconds * 1000).fromNow()}</small>
-            </div>
-            <div>{hs.score}</div>
+          <div className={`player place-${index}`} key={hs.id}>
+            <span className="place">{`${index + 1}`.padStart(3, "0")}</span>
+            <span className="icon">{hs.emoji}</span>
+            <span className="alias">{hs.alias}</span>
+            <span className="name">{hs.name}</span>
+            {/* <small>{moment(hs.date.seconds * 1000).fromNow()}</small> */}
+
+            <span className="score">{hs.score}</span>
           </div>
         ))
       )}
