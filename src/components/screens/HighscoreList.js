@@ -16,10 +16,12 @@ let HighScores = () => {
 
   return (
     <div className="highscore-list">
-      <h1>highscore</h1>
-      {loading === true && highscore.length === 0 ? (
-        <center>loading...</center>
-      ) : highscore.length === 0 ? (
+      <h1>
+        {loading === true && highscore.length === 0
+          ? "loading..."
+          : "highscore"}
+      </h1>
+      {loading === false && highscore.length === 0 ? (
         <div>no highscore yet</div>
       ) : (
         highscore.map((hs, index) => (
@@ -41,7 +43,6 @@ let HighScores = () => {
           </div>
         ))
       )}
-      <Link to={config.navigation.start}>← back</Link>
     </div>
   );
 };
