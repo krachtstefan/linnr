@@ -3,22 +3,29 @@
   text-align: center;
   color: white;
   font-size: 50px;
+  letter-spacing: 4px;
 }
 
 .highscore-list .player {
   display: grid;
+  align-items: baseline;
   column-gap: 20px;
-  grid-template-columns: auto 20px 40px 1fr auto;
+  grid-template-columns: 50px 60px 1fr 50px;
+}
+
+.highscore-list .player.place-0 {
+  margin-bottom: 10px;
 }
 
 .highscore-list .player .place {
+  text-align: right;
   color: white;
 }
 
-.highscore-list .player .icon {
-  justify-self: center;
-  color: var(--color-blue-darker);
+.highscore-list .player.you .place {
+  animation: blink 1s ease-in-out infinite;
 }
+
 .highscore-list .player .alias {
   color: var(--color-blue-darker);
 }
@@ -29,23 +36,14 @@
   color: var(--color-yellow);
 }
 
-/* .highscoreList {
-  text-transform: uppercase;
-  display: grid;
-  grid-gap: 20px;
-}
-.highscoreList .score {
-  font-size: 30px;
-  display: grid;
-  grid-gap: 50px;
-  grid-template-columns: 1fr auto;
-}
-.highscoreList .score small {
-  font-size: 20px;
-  color: var(--color-beigeTranparent);
+.highscore-list .player.place-0 .place,
+.highscore-list .player.place-0 .score {
+  font-size: 40px;
+  color: var(--color-yellow);
 }
 
-.highscoreList .score.place-0 {
-  font-size: 50px;
-  line-height: 30px;
-} */
+@keyframes blink {
+  50% {
+    opacity: 0.2;
+  }
+}

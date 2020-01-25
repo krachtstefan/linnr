@@ -8,7 +8,7 @@ import moment from "moment";
 
 let HighScores = () => {
   let dispatch = useDispatch();
-  const { loading, highscore } = useSelector(state => state.highscore);
+  const { loading, highscore, player } = useSelector(state => state.highscore);
 
   useEffect(() => {
     dispatch(getHighscore());
@@ -23,10 +23,17 @@ let HighScores = () => {
         <div>no highscore yet</div>
       ) : (
         highscore.map((hs, index) => (
-          <div className={`player place-${index}`} key={hs.id}>
+          <div
+            className={`player place-${index} ${
+              player.name === hs.name && player.alias === hs.alias ? "you" : ""
+            }`.trim()}
+            key={hs.id}
+          >
             <span className="place">{`${index + 1}`.padStart(3, "0")}</span>
-            <span className="icon">{hs.emoji}</span>
-            <span className="alias">{hs.alias}</span>
+
+            <span className="alias">
+              {hs.emoji} {hs.alias}
+            </span>
             <span className="name">{hs.name}</span>
             {/* <small>{moment(hs.date.seconds * 1000).fromNow()}</small> */}
 
