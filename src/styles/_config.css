@@ -9,3 +9,8 @@
   font-family: "Vollkorn";
   src: url(./../assets/fonts/vollkorn.ttf);
 }
+
+@font-face {
+  font-family: "Poppkorn";
+  src: url(./../assets/fonts/poppkorn.ttf);
+}
