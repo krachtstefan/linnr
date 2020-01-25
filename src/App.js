@@ -1,28 +1,24 @@
 import "./styles/app.css";
 
+import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Game from "./components/Game";
 import HighscoreForm from "./components/highscore/HighscoreForm";
 import HighscoreList from "./components/highscore/HighscoreList";
+import StartMenu from "./components/menu/StartMenu";
+import { config } from "./config";
 import { showHighscore } from "./redux/highscore";
-import { startGame } from "./redux/game";
 
 let App = () => {
-  const dispatch = useDispatch();
-  const startButton = useRef();
   let { game, highscore } = useSelector(state => state);
 
-  useEffect(() => {
-    if (startButton.current) {
-      startButton.current.focus();
-    }
-  }, [startButton, game.isRunning]);
-
   return (
-    <>
-      <div className="logo"></div>
+    <Router>
+      <div className="logo">
+        <Link to={config.navigation.start} className="logo"></Link>
+      </div>
       <div className="game">
         <div className="game-container">
           {(() => {
@@ -34,25 +30,13 @@ let App = () => {
             }
 
             if (game.isRunning === false) {
-              return (
-                <div className="game-menu">
-                  <button
-                    ref={startButton}
-                    onClick={() => dispatch(startGame())}
-                  >
-                    play
-                  </button>
-                  <button onClick={() => dispatch(showHighscore())}>
-                    highscore
-                  </button>
-                </div>
-              );
+              return <StartMenu />;
             }
             return <Game />;
           })()}
         </div>
       </div>
-    </>
+    </Router>
   );
 };
 
