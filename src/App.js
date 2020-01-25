@@ -3,11 +3,11 @@ import "./styles/app.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import GAListener from "./components/utils/GAListener";
-import Game from "./components/Game";
-import HighscoreForm from "./components/highscore/HighscoreForm";
-import HighscoreList from "./components/highscore/HighscoreList";
+import Game from "./components/screens/Game";
+import HighscoreForm from "./components/screens/HighscoreForm";
+import HighscoreList from "./components/screens/HighscoreList";
 import React from "react";
-import StartMenu from "./components/menu/StartMenu";
+import Start from "./components/screens/Start";
 import { config } from "./config";
 
 let App = () => (
@@ -28,7 +28,7 @@ let App = () => (
               children={<HighscoreForm />}
             />
             <Route path={config.navigation.play} children={<Game />} />
-            <Route path={config.navigation.start} children={<StartMenu />} />
+            <Route path={config.navigation.start} children={<Start />} />
           </Switch>
         </div>
       </div>

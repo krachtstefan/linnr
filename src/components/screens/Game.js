@@ -1,20 +1,20 @@
 import * as PIXI from "pixi.js";
 
 import React, { useEffect, useRef, useState } from "react";
-import { placeItems, setAsset } from "../redux/stage";
+import { placeItems, setAsset } from "../../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
-import Controls from "./Controls";
-import IngameMenu from "./menu/IngameMenu";
+import Controls from "./../Controls";
+import IngameMenu from "./../menu/IngameMenu";
 import { Loader } from "pixi.js";
-import Map from "./Map";
-import Worm from "./Worm";
-import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
-import { config } from "../config";
-import { createAnimation } from "./pixi/AnimatedSprite";
-import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
-import { resetWorm } from "./../redux/worm";
-import useAudio from "./../hooks/use-audio";
+import Map from "./../Map";
+import Worm from "./../Worm";
+import backgroundMusicFile from "./../../assets/sound/Pfeffer.mp3";
+import { config } from "../../config";
+import { createAnimation } from "./../pixi/AnimatedSprite";
+import eatSoundFile from "./../../assets/sound/sfx_coin_double1.mp3";
+import { resetWorm } from "./../../redux/worm";
+import useAudio from "./../../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 PIXI.settings.TARGET_FPMS = config.fpms;
