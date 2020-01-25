@@ -15,6 +15,7 @@ const config = {
     spritesheet: "images/spritesheet.json",
     canvasBg
   },
+  isDev,
   animationSpeed: 0.6,
   fpms: fps / 1000,
   wormSequences: [
@@ -27,11 +28,7 @@ const config = {
   soundOn: true,
   leveldesign,
   ga: {
-    trackingId: "UA-748711-16",
-    debug: isDev === true ? true : false,
-    gaOptions: {
-      cookieDomain: "none"
-    }
+    trackingId: "UA-748711-16"
   },
   navigation: {
     start: "/",
