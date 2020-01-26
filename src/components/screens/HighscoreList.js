@@ -1,27 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
-import { useHistory } from "react-router-dom";
-import useKeyPress from "./../../hooks/use-keypress";
 
 let HighScores = () => {
   let dispatch = useDispatch();
-  let history = useHistory();
-  const { Escape: escape } = useKeyPress(["Escape"]);
   const { loading, highscore, player } = useSelector(state => state.highscore);
 
   useEffect(() => {
     dispatch(getHighscore());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (escape === true) {
-      history.push(config.navigation.start);
-    }
-  }, [escape, history]);
 
   return (
     <div className="highscore-list">

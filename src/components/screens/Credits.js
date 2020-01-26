@@ -1,20 +1,8 @@
-import React, { useEffect } from "react";
-
+import React from "react";
 import { config } from "./../../config";
 import kraski from "./../../assets/images/kraski@2x.png";
-import { useHistory } from "react-router-dom";
-import useKeyPress from "./../../hooks/use-keypress";
 
 const Credits = () => {
-  let history = useHistory();
-  const { Escape: escape } = useKeyPress(["Escape"]);
-
-  useEffect(() => {
-    if (escape === true) {
-      history.push(config.navigation.start);
-    }
-  }, [escape, history]);
-
   return (
     <div className="credits-container">
       <img className="kraski" alt="Kraski Logo" src={kraski} width="220" />
