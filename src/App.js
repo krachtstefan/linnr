@@ -10,13 +10,20 @@ import HighscoreForm from "./components/screens/HighscoreForm";
 import HighscoreList from "./components/screens/HighscoreList";
 import Start from "./components/screens/Start";
 import { config } from "./config";
+import { getHighscore } from "./redux/highscore";
+import { useDispatch } from "react-redux";
 
 let App = () => {
-  let location = useLocation();
+  const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.body.className = location.pathname.substring(1); // remove the / from the path
   }, [location]);
+
+  useEffect(() => {
+    dispatch(getHighscore());
+  }, [dispatch]);
 
   return (
     <GAListener trackingId={config.ga.trackingId} deactivate={config.isDev}>
