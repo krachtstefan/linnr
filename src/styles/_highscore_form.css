@@ -85,7 +85,7 @@
 .highscore-row span {
   display: block;
   color: var(--color-blue-light);
-  line-height: 40px;
+  line-height: 50px;
   font-size: 80px;
 }
 
