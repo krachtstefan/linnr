@@ -66,29 +66,35 @@ const IngameMenu = () => {
         ) : null;
       })()}
       <div className="gamebar">
-        <div>
-          <span role="img" aria-label="highscore">
-            🍄
-          </span>{" "}
-          <span
-            className={`current-highscore ${
-              highscoreChanged ? "changing" : ""
-            }`}
-          >
-            {worm.highscore}
-          </span>{" "}
-          {highscorePos ? (
-            <>
-              Place{" "}
-              <span
-                className={`current-highscore ${posChanged ? "changing" : ""}`}
-              >
-                {highscorePos > config.highscoreLimit
-                  ? `>${config.highscoreLimit}`
-                  : `#${highscorePos}`}
-              </span>
-            </>
-          ) : null}
+        <div className="score-info">
+          <div>
+            <span role="img" aria-label="highscore">
+              🍄
+            </span>{" "}
+            <span
+              className={`current-highscore ${
+                highscoreChanged ? "changing" : ""
+              }`}
+            >
+              {worm.highscore}
+            </span>
+          </div>
+          <div>
+            {highscorePos ? (
+              <>
+                Rank №{" "}
+                <span
+                  className={`current-highscore ${
+                    posChanged ? "changing" : ""
+                  }`}
+                >
+                  {highscorePos > config.highscoreLimit
+                    ? `>${config.highscoreLimit}`
+                    : `${highscorePos}`}
+                </span>
+              </>
+            ) : null}
+          </div>
         </div>
         <div>
           {worm.dead === true && showMenu === false ? "[PRESS SPACEBAR]" : null}
