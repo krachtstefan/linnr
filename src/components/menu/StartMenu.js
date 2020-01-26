@@ -32,7 +32,7 @@ const StartMenu = () => {
       shortcut: keyP,
       Component: props => (
         <Link to={config.navigation.play} {...props}>
-          play
+          <span className="shortcut">p</span>lay
         </Link>
       ),
       action: () => history.push(config.navigation.play)
@@ -42,7 +42,7 @@ const StartMenu = () => {
       shortcut: keyH,
       Component: props => (
         <Link to={config.navigation.highscore} {...props}>
-          highscore
+          <span className="shortcut">h</span>ighscore
         </Link>
       ),
       action: () => history.push(config.navigation.highscore)
@@ -52,7 +52,7 @@ const StartMenu = () => {
       shortcut: keyC,
       Component: props => (
         <Link to={config.navigation.credits} {...props}>
-          credits
+          <span className="shortcut">c</span>redits
         </Link>
       ),
       action: () => history.push(config.navigation.credits)
