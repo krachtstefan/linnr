@@ -8,15 +8,15 @@ const useKeyPress = targetKeys => {
   // Add event listeners
   useEffect(() => {
     const downHandler = e => {
-      if (Object.keys(keyPressed).includes(e.key)) {
-        setKeyPressed(old => ({ ...old, [e.key]: true }));
+      if (Object.keys(keyPressed).includes(e.code)) {
+        setKeyPressed(old => ({ ...old, [e.code]: true }));
         e.preventDefault();
       }
     };
 
     const upHandler = e => {
-      if (Object.keys(keyPressed).includes(e.key)) {
-        setKeyPressed(old => ({ ...old, [e.key]: false }));
+      if (Object.keys(keyPressed).includes(e.code)) {
+        setKeyPressed(old => ({ ...old, [e.code]: false }));
         e.preventDefault();
       }
     };
