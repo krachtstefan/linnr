@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import ExitWithEscape from "./../utils/ExitWithEscape";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
 
@@ -14,6 +15,7 @@ let HighScores = () => {
 
   return (
     <div className="highscore-list">
+      <ExitWithEscape />
       <h1>
         {loading === true && highscore.length === 0
           ? "loading..."

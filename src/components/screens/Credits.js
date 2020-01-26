@@ -1,3 +1,4 @@
+import ExitWithEscape from "./../utils/ExitWithEscape";
 import React from "react";
 import { config } from "./../../config";
 import kraski from "./../../assets/images/kraski@2x.png";
@@ -5,6 +6,7 @@ import kraski from "./../../assets/images/kraski@2x.png";
 const Credits = () => {
   return (
     <div className="credits-container">
+      <ExitWithEscape />
       <img className="kraski" alt="Kraski Logo" src={kraski} width="220" />
       <p className="game-info">
         LINNR Version {config.version}

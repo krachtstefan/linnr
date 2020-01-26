@@ -6,6 +6,7 @@ import {
 } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
+import ExitWithEscape from "./../utils/ExitWithEscape";
 import { Redirect } from "react-router-dom";
 import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
@@ -161,6 +162,7 @@ let HighScores = () => {
         submit();
       }}
     >
+      <ExitWithEscape />
       <h1>Submit your score</h1>
       <div className="highscore-form-columns">
         <div className="left">
