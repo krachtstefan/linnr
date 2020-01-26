@@ -9,7 +9,7 @@ const PlusOne = ({ x, y, spritesheet }) => {
     let pixiAnimation = createAnimation(
       spritesheet,
       config.leveldesign.objects.availableAnimations[
-        "OBJECTS.HITBOX-ONO/PlusEins"
+        "SPRITES.1x1-META/1x1/PlusEins"
       ]
     );
 

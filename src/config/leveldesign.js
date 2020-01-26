@@ -26,7 +26,7 @@ const templates = [
 
 const objects = {
   availableAnimations: Object.keys(spritesheetJSON.animations)
-    .filter(key => key.startsWith("OBJECTS") === true)
+    .filter(key => key.startsWith("SPRITES") === true)
     .reduce((accObj, currAnimationName) => {
       return {
         ...accObj,
@@ -42,24 +42,74 @@ const objects = {
       randomizer: () => randomizerMinMax(3, 10),
       pattern: [[true]],
       items: [
-        { src: "OBJECTS.HITBOX-FOOD/Himbeere/001/SPAWN" },
-        { src: "OBJECTS.HITBOX-FOOD/Brombeere/001/SPAWN" }
+        { src: "SPRITES.1x1-FOOD/Beere/001A/SPAWN/F" },
+        { src: "SPRITES.1x1-FOOD/Beere/001B/SPAWN/F" },
+        { src: "SPRITES.1x1-FOOD/Beere/002A/SPAWN/F" },
+        { src: "SPRITES.1x1-FOOD/Beere/002B/SPAWN/F" }
       ]
     },
+    /**
+     * 1 X 1
+     */
     {
       type: "obstacle",
       randomizer: () => randomizerMinMax(10, 15),
       pattern: [[true]],
-      items: [{ src: "OBJECTS.HITBOX-OBS/Findling/001_1.png" }]
+      items: [
+        { src: "SPRITES.1x1-OBS/Findling/1x1/006A/X_1.png" },
+        { src: "SPRITES.1x1-OBS/Findling/1x1/006B/X_1.png" },
+        { src: "SPRITES.1x1-OBS/Findling/1x1/007A/X_1.png" },
+        { src: "SPRITES.1x1-OBS/Findling/1x1/007B/X_1.png" }
+      ]
     },
+    /**
+     * 2 X 2
+     * unused:
+     * SPRITES.2x2-OBS/Findling/2x2/001B/0X:X0_1.png
+     * SPRITES.2x2-OBS/Findling/2x2/002B/XX:0X_1.png
+     * SPRITES.2x2-OBS/Findling/2x2/003A/X0:XX_1.png
+     * SPRITES.2x2-OBS/Findling/2x2/003B/0X:XX_1.png
+     */
     {
       type: "obstacle",
-      randomizer: () => randomizerMinMax(1, 3),
+      randomizer: () => randomizerMinMax(0, 1),
       pattern: [
         [true, false],
         [false, true]
       ],
-      items: [{ src: "OBJECTS.2x2-OBS/Findling/2X2/003_1.png" }]
+      items: [{ src: "SPRITES.2x2-OBS/Findling/2x2/001A/X0:0X_1.png" }]
+    },
+    {
+      type: "obstacle",
+      randomizer: () => randomizerMinMax(0, 1),
+      pattern: [
+        [true, true],
+        [false, true]
+      ],
+      items: [{ src: "SPRITES.2x2-OBS/Findling/2x2/002A/XX:X0_1.png" }]
+    },
+    /**
+     * 1 X 2
+     */
+    {
+      type: "obstacle",
+      randomizer: () => randomizerMinMax(0, 1),
+      pattern: [[true, true]],
+      items: [
+        { src: "SPRITES.1x2-OBS/Findling/1x2/004A/XX_1.png" },
+        { src: "SPRITES.1x2-OBS/Findling/1x2/004B/XX_1.png" },
+        { src: "SPRITES.1x2-OBS/Findling/1x2/005A/XX_1.png" },
+        { src: "SPRITES.1x2-OBS/Findling/1x2/005B/XX_1.png" }
+      ]
+    },
+    /**
+     * 2 X 1
+     */
+    {
+      type: "obstacle",
+      randomizer: () => randomizerMinMax(1, 2),
+      pattern: [[true], [true]],
+      items: [{ src: "SPRITES.2x1-OBS/Weide/2x1/01A/C:1_1.png" }]
     }
   ]
 };
