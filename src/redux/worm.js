@@ -62,18 +62,6 @@ const isOutOfBounds = ({ board, position }) =>
   position.y < 0 ||
   position.y > board.length - 1;
 
-const collisionDetected = ({
-  board,
-  spriteAliases,
-  position,
-  type = "wall"
-}) => {
-  let spec = spriteAliases.find(
-    sprite => sprite.label === board[position.y][position.x]
-  );
-  return spec && spec.collisionType === type;
-};
-
 // when the destination has dublicate entries
 const hitsItself = ({ destination }) =>
   [...new Set(destination.map(pos => `${pos.x}-${pos.y}`))].length !==
@@ -165,12 +153,6 @@ export const collisionCheck = () => (dispatch, state) => {
       stage.objects.obstacle.some(
         obs => _filter(obs.positions, matches(planedDestination[0])).length > 0
       )) ||
-    // todo: remove wall detection here, handle it like obstacles, maybe a static type with 100 droprate
-    collisionDetected({
-      board: stage.board,
-      spriteAliases: stage.spriteAliases,
-      position: planedDestination[0]
-    }) === true ||
     hitsItself({ destination: planedDestination }) === true
   ) {
     dead = true;

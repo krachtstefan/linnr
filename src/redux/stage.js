@@ -24,15 +24,7 @@ const DEFAULT_STAGE_STATE = {
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"]
   ],
-  objects: {},
-  // todo: remove this!
-  spriteAliases: [
-    {
-      label: "w",
-      image: null,
-      collisionType: "wall"
-    }
-  ]
+  objects: {}
 };
 
 // takes two arrays of positions and returns true, when they overlap
