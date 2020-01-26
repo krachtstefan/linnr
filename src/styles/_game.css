@@ -11,14 +11,15 @@
   position: relative;
   display: grid;
   font-size: 26px;
-  width: 950px;
-  grid-template-columns: 1fr auto auto auto auto auto;
+  width: 1016px;
+  grid-template-columns: 1fr auto 1fr;
   justify-items: flex-start;
   column-gap: 20px;
   color: var(--color-beige-dark);
 }
 
 .gamebar button {
+  justify-self: right;
   color: var(--color-beige-dark);
 }
 

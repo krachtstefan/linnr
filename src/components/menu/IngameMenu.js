@@ -3,16 +3,20 @@ import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
+import MainMenu from "./MainMenu";
 import { config } from "../../config";
 import { highscorePosSelector } from "../../redux/highscore";
 import { placeItems } from "../../redux/stage";
 import { resetWorm } from "../../redux/worm";
+import useKeyPress from "../../hooks/use-keypress";
 
 const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
+  const { Space: space } = useKeyPress(["Space"]);
   const resetButton = useRef();
   const dispatch = useDispatch();
   const [highscoreChanged, setHighscoreChanged] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [posChanged, setPosChanged] = useState(false);
   const highscorePos = useSelector(state => highscorePosSelector(state));
 
@@ -35,67 +39,65 @@ const IngameMenu = () => {
     return () => clearTimeout(timer);
   }, [highscorePos]);
 
+  useEffect(() => {
+    if (space === true) {
+      setShowMenu(worm.dead === true);
+    }
+  }, [worm.dead, space]);
+
+  useEffect(() => {
+    if (worm.dead === false) {
+      setShowMenu(false);
+    }
+  }, [worm.dead]);
+
   return (
-    <div className="gamebar">
-      <div>
-        <span role="img" aria-label="highscore">
-          🍄
-        </span>{" "}
-        <span
-          className={`current-highscore ${highscoreChanged ? "changing" : ""}`}
-        >
-          {worm.highscore}
-        </span>{" "}
-        {highscorePos ? (
-          <>
-            Place{" "}
-            <span
-              className={`current-highscore ${posChanged ? "changing" : ""}`}
-            >
-              {highscorePos > config.highscoreLimit
-                ? `>${config.highscoreLimit}`
-                : `#${highscorePos}`}
-            </span>
-          </>
-        ) : null}
-      </div>
-      {worm.dead === true ? (
-        <>
-          <Link to={config.navigation.submitHighscore}>submit highscore</Link>
-          <button
-            ref={resetButton}
-            onClick={() => {
-              dispatch(resetWorm());
-              dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
-            }}
+    <>
+      {showMenu ? <MainMenu /> : null}
+
+      <div className="gamebar">
+        <div>
+          <span role="img" aria-label="highscore">
+            🍄
+          </span>{" "}
+          <span
+            className={`current-highscore ${
+              highscoreChanged ? "changing" : ""
+            }`}
           >
-            reset
-          </button>
-          <button onClick={() => dispatch(resetWorm())}>retry</button>
-          <Link to={() => config.navigation.start}>quit</Link>
-        </>
-      ) : (
-        <>
-          <div />
-          <div />
-          <div />
-          <div />
-        </>
-      )}
-      <button
-        className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
-        onClick={() =>
-          settings.soundOn === true
-            ? dispatch(soundDisable())
-            : dispatch(soundEnable())
-        }
-      >
-        <span role="img" aria-label="toggle sound">
-          💤
-        </span>
-      </button>
-    </div>
+            {worm.highscore}
+          </span>{" "}
+          {highscorePos ? (
+            <>
+              Place{" "}
+              <span
+                className={`current-highscore ${posChanged ? "changing" : ""}`}
+              >
+                {highscorePos > config.highscoreLimit
+                  ? `>${config.highscoreLimit}`
+                  : `#${highscorePos}`}
+              </span>
+            </>
+          ) : null}
+        </div>
+        <div>
+          {worm.dead === true && showMenu === false ? "[PRESS SPACEBAR]" : null}
+        </div>
+
+        <button
+          className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
+          onClick={() =>
+            settings.soundOn === true
+              ? dispatch(soundDisable())
+              : dispatch(soundEnable())
+          }
+        >
+          <span role="img" aria-label="toggle sound">
+            💤
+          </span>
+        </button>
+      </div>
+    </>
   );
 };
 
