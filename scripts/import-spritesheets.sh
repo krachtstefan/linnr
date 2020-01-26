@@ -8,7 +8,7 @@ texturePackerImportFolder=~/Desktop/_temp/texturepacker-import
 spritesheetPath=~/git/linnr/public/images/spritesheet
 folder=~/Dropbox/linnr/CHRISTIAN/_ASE
 
-files=(WORM OBJECTS.HITBOX OBJECTS.HIGHBOX OBJECTS.2x2)
+files=(WORM SPRITES.1x1 SPRITES.1x2 SPRITES.2x1 SPRITES.2x2)
 
 echo "📁 asepriteExportFolder: $asepriteExportFolder"
 echo "📁 texturePackerImportFolder: $texturePackerImportFolder"
