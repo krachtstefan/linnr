@@ -20,6 +20,10 @@
       "dest": "/index.html"
     },
     {
+      "src": "/submit-highscore",
+      "dest": "/index.html"
+    },
+    {
       "src": "/play",
       "dest": "/index.html"
     },
