@@ -10,6 +10,8 @@ import { Redirect } from "react-router-dom";
 import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
+import { useHistory } from "react-router-dom";
+import useKeyPress from "./../../hooks/use-keypress";
 
 const emojiList = [
   "☺",
@@ -94,6 +96,15 @@ let HighScores = () => {
       };
     }
   );
+  const { Escape: escape } = useKeyPress(["Escape"]);
+  let history = useHistory();
+
+  useEffect(() => {
+    if (escape === true) {
+      history.push(config.navigation.start);
+    }
+  }, [escape, history]);
+
   let [name, setName] = useState(player.name ? player.name : "");
   let [alias, setAlias] = useState(player.alias ? player.alias : "");
 
