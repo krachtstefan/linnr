@@ -80,9 +80,15 @@ let HighScores = () => {
       version: config.highscoreVersion
     };
     if (twitter !== "") {
+      if (twitter[0] === "@") {
+        twitter = twitter.slice(1);
+      }
       highscoreSubmit = { ...highscoreSubmit, twitter };
     }
     if (instagram !== "") {
+      if (instagram[0] === "@") {
+        instagram = instagram.slice(1);
+      }
       highscoreSubmit = { ...highscoreSubmit, instagram };
     }
     dispatch(setHighscore(highscoreSubmit));
