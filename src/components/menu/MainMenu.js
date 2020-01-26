@@ -142,7 +142,7 @@ const MainMenu = ({ filter = [] }) => {
       ),
       action: () => toggleSound()
     }
-  ];
+  ].filter(item => filter.includes(item.label));
 
   const shortCutKeys = menuItems.map(x => x.shortcut);
 

@@ -49,7 +49,19 @@ const IngameMenu = () => {
 
   return (
     <>
-      {showMenu ? <MainMenu ingame={true} /> : null}
+      {showMenu ? (
+        <MainMenu
+          filter={[
+            "retry",
+            "reset",
+            "highscoreSubmit",
+            "highscoreView",
+            "credits",
+            "quit",
+            "sound"
+          ]}
+        />
+      ) : null}
       <div className="gamebar">
         <div>
           <span role="img" aria-label="highscore">
