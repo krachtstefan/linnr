@@ -1,7 +1,7 @@
 import "firebase/firestore";
 
 import Dexie from "dexie";
-import canvasBg from "./../assets/images/ingame/Border.png";
+import canvasBg from "./../assets/images/ingame/border.png";
 import firebase from "firebase/app";
 import firebaseCredentials from "./firebase";
 import leveldesign from "./leveldesign";
