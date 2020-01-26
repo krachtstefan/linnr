@@ -45,7 +45,7 @@ export const getHighscore = () => dispatch => {
     .firestore()
     .collection(config.firebase.collections.highscore)
     .orderBy("score", "desc")
-    .limit(10)
+    .limit(config.highscoreLimit)
     .get()
     .then(results => {
       dispatch({
