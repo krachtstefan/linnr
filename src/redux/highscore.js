@@ -62,6 +62,21 @@ export const resetHighscoreForm = () => dispatch => {
   dispatch({ type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_RESET_FORM });
 };
 
+export const highscorePosSelector = state => {
+  const highscore = 0; //state.worm.highscore;
+  const highscoreList = state.highscore.highscore;
+  const listLength =
+    highscoreList.length === config.highscoreLimit
+      ? config.highscoreLimit
+      : highscoreList.length;
+
+  const placeIndex = highscoreList.findIndex(
+    entry => entry.score <= highscore - 1 // find the place behind me
+  );
+
+  return placeIndex === -1 ? listLength + 1 : placeIndex + 1;
+};
+
 export const highscoreReducer = (state = DEFAULT_HIGHSCORE_STATE, action) => {
   switch (action.type) {
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_REQUEST:

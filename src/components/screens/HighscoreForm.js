@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { resetHighscoreForm, setHighscore } from "../../redux/highscore";
+import {
+  highscorePosSelector,
+  resetHighscoreForm,
+  setHighscore
+} from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Redirect } from "react-router-dom";
@@ -55,7 +59,9 @@ let HighScores = () => {
   );
   let [name, setName] = useState(player.name ? player.name : "");
   let [alias, setAlias] = useState(player.alias ? player.alias : "");
-  let [highscorePos, setHighscorePos] = useState(30);
+
+  const highscorePos = useSelector(state => highscorePosSelector(state));
+
   let [twitter, setTwitter] = useState(player.twitter ? player.twitter : "");
   let [instagram, setInstagram] = useState(
     player.instagram ? player.instagram : ""
