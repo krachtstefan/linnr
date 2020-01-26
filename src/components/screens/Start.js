@@ -1,6 +1,6 @@
+import MainMenu from "./../menu/MainMenu";
 import React from "react";
-import StartMenu from "./../menu/StartMenu";
 
-const Start = () => <StartMenu />;
+const Start = () => <MainMenu />;
 
 export default Start;

@@ -8,7 +8,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
 
-const StartMenu = () => {
+const MainMenu = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   const { soundOn } = useSelector(state => state.settings);
@@ -126,4 +126,4 @@ const StartMenu = () => {
   );
 };
 
-export default StartMenu;
+export default MainMenu;
