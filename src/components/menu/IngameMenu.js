@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { soundDisable, soundEnable } from "../redux/settings";
+import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
-import { placeItems } from "../redux/stage";
-import { resetWorm } from "../redux/worm";
-import { showHighscoreForm } from "../redux/highscore";
-import { stopGame } from "../redux/game";
+import { Link } from "react-router-dom";
+import { config } from "../../config";
+import { placeItems } from "../../redux/stage";
+import { resetWorm } from "../../redux/worm";
 
 const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
@@ -14,14 +14,14 @@ const IngameMenu = () => {
   const [highscoreChanged, setHighscoreChanged] = useState(false);
 
   useEffect(() => {
-    if (worm.food > 0) {
+    if (worm.highscore > 0) {
       setHighscoreChanged(true);
       const timer = setTimeout(() => {
         setHighscoreChanged(false);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [worm.food]);
+  }, [worm.highscore]);
 
   return (
     <div className="gamebar">
@@ -29,24 +29,15 @@ const IngameMenu = () => {
         <span role="img" aria-label="highscore">
           🍄
         </span>{" "}
-        <span className={`highscore ${highscoreChanged ? "changing" : ""}`}>
-          {worm.food}
+        <span
+          className={`current-highscore ${highscoreChanged ? "changing" : ""}`}
+        >
+          {worm.highscore}
         </span>
       </div>
       {worm.dead === true ? (
         <>
-          <button
-            ref={resetButton}
-            onClick={() => {
-              dispatch(stopGame());
-              dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
-              dispatch(showHighscoreForm());
-            }}
-          >
-            submit Highscore
-          </button>
-
+          <Link to={config.navigation.submitHighscore}>submit highscore</Link>
           <button
             ref={resetButton}
             onClick={() => {
@@ -57,23 +48,8 @@ const IngameMenu = () => {
           >
             reset
           </button>
-          <button
-            onClick={() => {
-              dispatch(resetWorm());
-            }}
-          >
-            retry
-          </button>
-          <button
-            onClick={() => {
-              dispatch(stopGame());
-              dispatch(resetWorm());
-              dispatch(placeItems("obstacle"));
-              dispatch(placeItems("food"));
-            }}
-          >
-            quit
-          </button>
+          <button onClick={() => dispatch(resetWorm())}>retry</button>
+          <Link to={() => config.navigation.start}>quit</Link>
         </>
       ) : (
         <>

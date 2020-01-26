@@ -8,7 +8,7 @@ form.highscore button {
   margin-top: 50px;
   font-size: 40px;
   background: var(--color-beige-dark);
-  color: var(--color-dark);
+  color: var(--color-beige-light);
 }
 
 .highscoreForm {
@@ -21,10 +21,12 @@ form.highscore button {
   display: grid;
   grid-gap: 20px;
 }
+
 .highscoreForm .right {
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
 .highscoreForm .right .emojis {
   display: grid;
   grid-gap: 20px;
@@ -38,7 +40,7 @@ form.highscore button {
   cursor: pointer;
 }
 .highscoreForm .right .emojis .selected {
-  color: var(--color-dark);
+  color: var(--color-beige-light);
   background: var(--color-beige-dark);
 }
 
@@ -47,25 +49,4 @@ form.highscore button {
 
 .highscoreForm .row label input {
   font-size: 30px;
-}
-
-.highscoreList {
-  text-transform: uppercase;
-  display: grid;
-  grid-gap: 20px;
-}
-.highscoreList .score {
-  font-size: 30px;
-  display: grid;
-  grid-gap: 50px;
-  grid-template-columns: 1fr auto;
-}
-.highscoreList .score small {
-  font-size: 20px;
-  color: var(--color-beigeTranparent);
-}
-
-.highscoreList .score.place-0 {
-  font-size: 50px;
-  line-height: 30px;
 }

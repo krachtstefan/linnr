@@ -1,59 +1,46 @@
 import "./styles/app.css";
 
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
 
-import Game from "./components/Game";
-import HighscoreForm from "./components/highscore/HighscoreForm";
-import HighscoreList from "./components/highscore/HighscoreList";
-import { showHighscore } from "./redux/highscore";
-import { startGame } from "./redux/game";
+import Credits from "./components/screens/Credits";
+import GAListener from "./components/utils/GAListener";
+import Game from "./components/screens/Game";
+import HighscoreForm from "./components/screens/HighscoreForm";
+import HighscoreList from "./components/screens/HighscoreList";
+import Start from "./components/screens/Start";
+import { config } from "./config";
 
 let App = () => {
-  const dispatch = useDispatch();
-  const startButton = useRef();
-  let { game, highscore } = useSelector(state => state);
+  let location = useLocation();
 
   useEffect(() => {
-    if (startButton.current) {
-      startButton.current.focus();
-    }
-  }, [startButton, game.isRunning]);
+    document.body.className = location.pathname.substring(1); // remove the / from the path
+  }, [location]);
 
   return (
-    <>
-      <div className="logo"></div>
-      <div className="game">
+    <GAListener trackingId={config.ga.trackingId} deactivate={config.isDev}>
+      <div className="logo">
+        <Link to={config.navigation.start} className="logo"></Link>
+      </div>
+      <div className="main">
         <div className="game-container">
-          {(() => {
-            if (highscore.showList === true) {
-              return <HighscoreList />;
-            }
-            if (highscore.showForm === true) {
-              return <HighscoreForm />;
-            }
-
-            if (game.isRunning === false) {
-              return (
-                <div className="game-menu">
-                  <button
-                    ref={startButton}
-                    onClick={() => dispatch(startGame())}
-                  >
-                    play
-                  </button>
-
-                  <button onClick={() => dispatch(showHighscore())}>
-                    highscore
-                  </button>
-                </div>
-              );
-            }
-            return <Game />;
-          })()}
+          <Switch>
+            <Route
+              path={config.navigation.highscore}
+              children={<HighscoreList />}
+            />
+            <Route
+              path={config.navigation.submitHighscore}
+              children={<HighscoreForm />}
+            />
+            <Route path={config.navigation.play} children={<Game />} />
+            <Route path={config.navigation.credits} children={<Credits />} />
+            <Route path={config.navigation.start} children={<Start />} />
+          </Switch>
         </div>
       </div>
-    </>
+    </GAListener>
   );
 };
 

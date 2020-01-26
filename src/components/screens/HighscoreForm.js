@@ -1,41 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { setHighscore, showHighscore } from "../../redux/highscore";
+import { resetHighscoreForm, setHighscore } from "../../redux/highscore";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Redirect } from "react-router-dom";
 import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 
-const emojis = ["👾", "🦀", "😸", "🐟", "🐥", "💁", "🐰", "😹", "🦉"];
+const emojiList = ["👾", "🦀", "😸", "🐟", "🐥", "💁", "🐰", "😹", "🦉"];
 let HighScores = () => {
-  let [name, setName] = useState("");
-  let [alias, setAlias] = useState("");
-  let [twitter, setTwitter] = useState("");
-  let [instagram, setInstagram] = useState("");
-  let [emoji, setEmoji] = useState(sample(emojis));
+  const { highscore, position, player, loading, submited } = useSelector(
+    state => {
+      const { highscore, worm } = state;
+      return {
+        highscore: worm.highscore,
+        position: worm.position,
+        loading: highscore.loading,
+        submited: highscore.submited,
+        player: highscore.player
+      };
+    }
+  );
+  let [name, setName] = useState(player.name ? player.name : "");
+  let [alias, setAlias] = useState(player.alias ? player.alias : "");
+  let [twitter, setTwitter] = useState(player.twitter ? player.twitter : "");
+  let [instagram, setInstagram] = useState(
+    player.instagram ? player.instagram : ""
+  );
+  let [emoji, setEmoji] = useState(
+    player.emoji && emojiList.includes(player.emoji)
+      ? player.emoji
+      : sample(emojiList)
+  );
   let [buttonDisabled, setButtonDisabled] = useState(true);
   let [formDisabled, setFormDisabled] = useState(false);
   let dispatch = useDispatch();
-  const { highscore, worm } = useSelector(state => state);
 
   const submit = () => {
     setFormDisabled(true);
-    let highscore = {
+    let highscoreSubmit = {
       date: new Date(),
       name,
       alias,
       emoji,
-      score: worm.food,
-      worm: worm.position,
+      score: highscore,
+      worm: position,
       version: config.highscoreVersion
     };
     if (twitter !== "") {
-      highscore = { ...highscore, twitter };
+      highscoreSubmit = { ...highscoreSubmit, twitter };
     }
     if (instagram !== "") {
-      highscore = { ...highscore, instagram };
+      highscoreSubmit = { ...highscoreSubmit, instagram };
     }
-    dispatch(setHighscore(highscore));
+    dispatch(setHighscore(highscoreSubmit));
   };
 
   useEffect(() => {
@@ -43,17 +61,17 @@ let HighScores = () => {
   }, [name, alias]);
 
   useEffect(() => {
-    setButtonDisabled(highscore.loading);
-  }, [highscore.loading]);
+    setButtonDisabled(loading);
+  }, [loading]);
 
   useEffect(() => {
-    if (highscore.submited === true) {
+    if (submited === true) {
+      dispatch(resetHighscoreForm());
       dispatch(resetWorm());
-      dispatch(showHighscore());
     }
-  }, [dispatch, highscore.submited]);
+  }, [dispatch, submited]);
 
-  return (
+  return highscore > 0 ? (
     <form
       className="highscore"
       onSubmit={e => {
@@ -62,7 +80,7 @@ let HighScores = () => {
       }}
     >
       <h1>
-        Your score is <span className="score">{worm.food}</span>
+        Your score is <span className="score">{highscore}</span>
       </h1>
       <div className="highscoreForm">
         <div className="left">
@@ -73,6 +91,7 @@ let HighScores = () => {
                 disabled={formDisabled}
                 placeholder="type your name"
                 value={name}
+                maxLength="20"
                 onChange={e => setName(e.target.value)}
               />
             </label>
@@ -115,7 +134,7 @@ let HighScores = () => {
         <div className="right">
           <label>pick your character</label>
           <div className="emojis">
-            {emojis.map(e => (
+            {emojiList.map(e => (
               <span
                 key={e}
                 className={emoji === e ? "selected" : ""}
@@ -129,10 +148,12 @@ let HighScores = () => {
       </div>
       <center>
         <button disabled={buttonDisabled || formDisabled} type="submit">
-          {highscore.loading ? "loading..." : "submit"}
+          {loading ? "loading..." : "submit"}
         </button>
       </center>
     </form>
+  ) : (
+    <Redirect to={config.navigation.highscore} />
   );
 };
 

@@ -1,10 +1,9 @@
 .game-container {
-  display: grid;
-  min-height: 650px;
   position: relative;
   display: grid;
   align-items: center;
   justify-items: center;
+  padding: 0 20px;
 }
 
 .gamebar {
@@ -24,12 +23,12 @@
   color: var(--color-beige-dark);
 }
 
-.highscore {
+.current-highscore {
   transform-origin: 100% 70%;
   display: inline-block;
 }
 
-.highscore.changing {
+.current-highscore.changing {
   animation: bounce 0.5s ease alternate;
 }
 
@@ -40,17 +39,16 @@
 }
 
 .sound {
-  /* position: absolute; */
   top: 15px;
   right: 15px;
   color: var(--color-beige-dark);
   transition: all 0.5s ease;
 }
 .sound.disabled {
-  color: var(--color-beige);
+  opacity: 0.5;
 }
 
-.game {
+.main {
   align-self: center;
   justify-self: center;
   display: grid;
@@ -58,6 +56,6 @@
   width: 100%;
 }
 
-.game canvas {
+.main canvas {
   max-width: 100%;
 }

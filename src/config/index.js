@@ -1,7 +1,7 @@
 import "firebase/firestore";
 
 import Dexie from "dexie";
-import canvasBg from "./../assets/images/ingame/Border.png";
+import canvasBg from "./../assets/images/ingame/border.png";
 import firebase from "firebase/app";
 import firebaseCredentials from "./firebase";
 import leveldesign from "./leveldesign";
@@ -15,6 +15,7 @@ const config = {
     spritesheet: "images/spritesheet.json",
     canvasBg
   },
+  isDev,
   animationSpeed: 0.6,
   fpms: fps / 1000,
   wormSequences: [
@@ -27,17 +28,21 @@ const config = {
   soundOn: true,
   leveldesign,
   ga: {
-    trackingId: "UA-748711-16",
-    debug: isDev === true ? true : false,
-    gaOptions: {
-      cookieDomain: "none"
-    }
+    trackingId: "UA-748711-16"
+  },
+  navigation: {
+    start: "/",
+    play: "/play",
+    highscore: "/highscore",
+    submitHighscore: "/submit-highscore",
+    credits: "/credits"
   },
   indexDB: {
     name: "linnr",
     table: { settings: "settings" }
   },
   highscoreVersion: 0.1,
+  version: "1.0",
   firebase: {
     collections: {
       highscore: `highscore${isDev === true ? "_dev" : ""}`

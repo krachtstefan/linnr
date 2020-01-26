@@ -1,5 +1,6 @@
 import { config, db } from "./../../config";
 
+import { HIGHSCORE_ACTION_TYPES } from "./../highscore";
 import { SETTNGS_ACTION_TYPES } from "./../settings";
 
 const persistenceRules = [
@@ -8,6 +9,13 @@ const persistenceRules = [
     actions: [SETTNGS_ACTION_TYPES.SOUND_CHANGE],
     storageValue: state => {
       return state["settings"]["soundOn"];
+    }
+  },
+  {
+    storageKey: "player",
+    actions: [HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED],
+    storageValue: state => {
+      return state["highscore"]["player"];
     }
   }
 ];

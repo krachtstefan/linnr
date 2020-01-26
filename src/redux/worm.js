@@ -9,7 +9,7 @@ export const getDirection = ({ pos, nextPos }) => {
     console.warn("attempted a move over 2 tiles at once", pos, nextPos);
   }
   if (Math.abs(direction.x) === 1 && Math.abs(direction.y) === 1) {
-    console.warn("attempted a move diagonal", pos, nextPos);
+    console.warn("attempted to move diagonal", pos, nextPos);
   }
 
   if (direction.x === 1) {
@@ -130,7 +130,7 @@ const DEFAULT_WORM_STATE = {
   nextDirection,
   nextDirectionQueue: [],
   age: 0,
-  food: 0,
+  highscore: 0,
   dead: false,
   animationSequence: 0
 };
@@ -200,7 +200,7 @@ export const collisionCheck = () => (dispatch, state) => {
       ),
     animationSequence: 1,
     dead,
-    food: eatsFood ? worm.food + 1 : worm.food
+    highscore: eatsFood ? worm.highscore + 1 : worm.highscore
   };
 
   if (eatsFood === true) {

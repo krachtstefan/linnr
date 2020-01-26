@@ -1,0 +1,67 @@
+.highscore-list h1 {
+  font-family: "Poppkorn";
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  letter-spacing: 4px;
+}
+
+.highscore-list .player {
+  display: grid;
+  align-items: baseline;
+  column-gap: 20px;
+  grid-template-columns: 50px 60px 1fr 40px 50px;
+  color: var(--color-blue-dark);
+}
+
+.highscore-list .player.place-0 {
+  margin-bottom: 10px;
+}
+
+.highscore-list .player .place {
+  text-align: right;
+  color: white;
+}
+
+.highscore-list .player.you .place {
+  animation: blink 1s ease-in-out infinite;
+}
+
+.highscore-list .player .alias {
+  color: var(--color-blue-darker);
+}
+
+.highscore-list .player .link a {
+  color: var(--color-blue-darker);
+}
+
+.highscore-list .player .name-time span.time {
+  font-size: 15px;
+  opacity: 0.5;
+}
+
+.highscore-list .player:hover .name-time span.time {
+  opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .highscore-list .player .name-time span {
+    display: block;
+  }
+}
+
+.highscore-list .player .score {
+  color: var(--color-yellow);
+}
+
+.highscore-list .player.place-0 .place,
+.highscore-list .player.place-0 .score {
+  font-size: 40px;
+  color: var(--color-yellow);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.2;
+  }
+}

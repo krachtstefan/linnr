@@ -1,23 +1,22 @@
 import { config, firebase } from "../config";
 
 export let DEFAULT_HIGHSCORE_STATE = {
-  showList: false,
-  showForm: false,
   loading: false,
   submited: false,
   player: {
     name: "",
     alias: "",
+    twitter: "",
+    instagram: "",
     emoji: ""
   },
   highscore: []
 };
 
 export const HIGHSCORE_ACTION_TYPES = {
+  HIGHSCORE_RESET_FORM: "HIGHSCORE_RESET_FORM",
   HIGHSCORE_REQUEST: "HIGHSCORE_REQUEST",
   HIGHSCORE_RECEIVE: "HIGHSCORE_RECEIVE",
-  HIGHSCORE_SHOW: "HIGHSCORE_SHOW",
-  HIGHSCORE_SHOW_FORM: "HIGHSCORE_SHOW_FORM",
   HIGHSCORE_SUBMITTED: "HIGHSCORE_SUBMITTED"
 };
 
@@ -30,7 +29,10 @@ export const setHighscore = highscore => dispatch => {
     .collection(config.firebase.collections.highscore)
     .add(highscore)
     .then(() => {
-      dispatch({ type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED });
+      dispatch({
+        type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED,
+        payload: highscore
+      });
       dispatch(getHighscore());
     });
 };
@@ -43,7 +45,7 @@ export const getHighscore = () => dispatch => {
     .firestore()
     .collection(config.firebase.collections.highscore)
     .orderBy("score", "desc")
-    .limit(5)
+    .limit(10)
     .get()
     .then(results => {
       dispatch({
@@ -56,35 +58,25 @@ export const getHighscore = () => dispatch => {
     });
 };
 
-export const showHighscore = (show = true) => dispatch => {
-  dispatch({
-    type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SHOW,
-    payload: show
-  });
-};
-
-export const showHighscoreForm = (show = true) => dispatch => {
-  dispatch({
-    type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SHOW_FORM,
-    payload: show
-  });
+export const resetHighscoreForm = () => dispatch => {
+  dispatch({ type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_RESET_FORM });
 };
 
 export const highscoreReducer = (state = DEFAULT_HIGHSCORE_STATE, action) => {
   switch (action.type) {
-    case HIGHSCORE_ACTION_TYPES.HIGHSCORE_SHOW:
-      return {
-        ...state,
-        showList: action.payload,
-        submited: false,
-        showForm: false
-      };
-    case HIGHSCORE_ACTION_TYPES.HIGHSCORE_SHOW_FORM:
-      return { ...state, showForm: action.payload, showList: false };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_REQUEST:
       return { ...state, loading: true };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED:
-      return { ...state, loading: false, submited: true };
+      let player = {
+        name: action.payload.name,
+        alias: action.payload.alias,
+        twitter: action.payload.twitter,
+        instagram: action.payload.instagram,
+        emoji: action.payload.emoji
+      };
+      return { ...state, loading: false, player, submited: true };
+    case HIGHSCORE_ACTION_TYPES.HIGHSCORE_RESET_FORM:
+      return { ...state, loading: false, submited: false };
     case HIGHSCORE_ACTION_TYPES.HIGHSCORE_RECEIVE:
       return { ...state, highscore: action.payload, loading: false };
     default:

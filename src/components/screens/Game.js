@@ -1,19 +1,20 @@
 import * as PIXI from "pixi.js";
 
 import React, { useEffect, useRef, useState } from "react";
-import { placeItems, setAsset } from "../redux/stage";
+import { placeItems, setAsset } from "../../redux/stage";
 import { useDispatch, useSelector } from "react-redux";
 
-import Controls from "./Controls";
-import IngameMenu from "./IngameMenu";
+import Controls from "./../Controls";
+import IngameMenu from "./../menu/IngameMenu";
 import { Loader } from "pixi.js";
-import Map from "./Map";
-import Worm from "./Worm";
-import backgroundMusicFile from "./../assets/sound/Pfeffer.mp3";
-import { config } from "../config";
-import { createAnimation } from "./pixi/AnimatedSprite";
-import eatSoundFile from "./../assets/sound/sfx_coin_double1.mp3";
-import useAudio from "./../hooks/use-audio";
+import Map from "./../Map";
+import Worm from "./../Worm";
+import backgroundMusicFile from "./../../assets/sound/Pfeffer.mp3";
+import { config } from "../../config";
+import { createAnimation } from "./../pixi/AnimatedSprite";
+import eatSoundFile from "./../../assets/sound/sfx_coin_double1.mp3";
+import { resetWorm } from "./../../redux/worm";
+import useAudio from "./../../hooks/use-audio";
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 PIXI.settings.TARGET_FPMS = config.fpms;
@@ -30,7 +31,7 @@ const Game = () => {
     wormAnimations,
     soundOn,
     stageTileCount,
-    foodCount,
+    highscore,
     dead
   } = useSelector(state => {
     let { worm, stage, settings } = state;
@@ -38,13 +39,19 @@ const Game = () => {
       spritesheet: stage.assets.spritesheet,
       canvasBg: stage.assets.canvasBg,
       wormAnimations: config.leveldesign.worm.animations,
-      foodCount: worm.food,
+      highscore: worm.highscore,
       soundOn: settings.soundOn,
       stageTileCount: stage.board.length * stage.board[0].length,
       settings: settings,
       dead: worm.dead
     };
   });
+
+  useEffect(() => {
+    dispatch(resetWorm());
+    dispatch(placeItems("obstacle"));
+    dispatch(placeItems("food"));
+  }, [dispatch]);
 
   useEffect(() => {
     if (restartButton.current) {
@@ -54,17 +61,17 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(placeItems("food", true));
-  }, [dispatch, foodCount]);
+  }, [dispatch, highscore]);
 
   useEffect(() => {
     dispatch(placeItems("obstacle"));
   }, [dispatch]);
 
   useEffect(() => {
-    if (soundOn === true && foodCount > 0) {
+    if (soundOn === true && highscore > 0) {
       eatSound.play();
     }
-  }, [soundOn, eatSound, spritesheet, foodCount]);
+  }, [soundOn, eatSound, spritesheet, highscore]);
 
   useEffect(() => {
     if (soundOn === true) {

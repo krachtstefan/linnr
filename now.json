@@ -12,6 +12,18 @@
   ],
   "routes": [
     {
+      "src": "/credits",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/highscore",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/play",
+      "dest": "/index.html"
+    },
+    {
       "src": "/static/(.*)",
       "dest": "/static/$1"
     },

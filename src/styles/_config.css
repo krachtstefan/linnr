@@ -1,11 +1,20 @@
 :root {
-  --color-beige: #af9980;
+  --color-beige-light: #cfcbbb;
+  --color-beige-dark: #b09a7f;
   --color-beigeTranparent: #af998055;
-  --color-beige-dark: #797258;
-  --color-dark: #cfcbbb;
+  --color-blue: #0185b2;
+  --color-blue-link: #3062b2;
+  --color-blue-dark: #01608c;
+  --color-blue-darker: #003a65;
+  --color-yellow: #ffd054;
 }
 
 @font-face {
   font-family: "Vollkorn";
   src: url(./../assets/fonts/vollkorn.ttf);
+}
+
+@font-face {
+  font-family: "Poppkorn";
+  src: url(./../assets/fonts/poppkorn.ttf);
 }

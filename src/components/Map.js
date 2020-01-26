@@ -45,15 +45,15 @@ let Gamestage = props => {
 
   useEffect(() => {
     const { x, y } = worm.destination[0];
-    if (worm.food > 0 && plusOneState.highscore !== worm.food) {
+    if (worm.highscore > 0 && plusOneState.highscore !== worm.highscore) {
       setPlusOneState({
         x: x * config.tileSize,
         y: y * config.tileSize,
-        highscore: worm.food
+        highscore: worm.highscore
       });
     }
   }, [
-    worm.food,
+    worm.highscore,
     worm.destination,
     plusOneState.x,
     plusOneState.y,
