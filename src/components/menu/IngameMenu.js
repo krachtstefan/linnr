@@ -27,15 +27,13 @@ const IngameMenu = () => {
   }, [worm.highscore]);
 
   useEffect(() => {
-    if (worm.highscore > 0) {
-      setPosChanged(true);
-      const timer = setTimeout(() => {
-        setPosChanged(false);
-      }, 1000);
+    setPosChanged(true);
+    const timer = setTimeout(() => {
+      setPosChanged(false);
+    }, 1000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [highscorePos, worm.highscore]);
+    return () => clearTimeout(timer);
+  }, [highscorePos]);
 
   return (
     <div className="gamebar">
@@ -50,7 +48,7 @@ const IngameMenu = () => {
         </span>{" "}
         {highscorePos ? (
           <>
-            Place:{" "}
+            Place{" "}
             <span
               className={`current-highscore ${posChanged ? "changing" : ""}`}
             >
