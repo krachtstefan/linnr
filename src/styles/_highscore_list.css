@@ -2,8 +2,11 @@
   display: grid;
   align-items: baseline;
   column-gap: 20px;
-  grid-template-columns: 50px 70px 1fr 40px 50px;
+  grid-template-columns: 50px 75px 1fr auto 50px;
   color: var(--color-blue-dark);
+  min-height: 30px;
+  /* border: 1px solid red; */
+  align-items: baseline;
 }
 
 .highscore-list .no-entries {
@@ -13,6 +16,7 @@
 
 .highscore-list .player.place-0 {
   margin-bottom: 10px;
+  min-height: 60px;
 }
 
 .highscore-list .player .place {
@@ -32,6 +36,7 @@
 .highscore-list .player .link {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 5px;
 }
 
 .highscore-list .player .link a {
@@ -48,7 +53,18 @@
 }
 
 @media screen and (max-width: 600px) {
-  .highscore-list .player .name-time span {
+  .highscore-list .player {
+    column-gap: 15px;
+    grid-template-columns: 50px 50px 1fr 10px 50px;
+  }
+
+  .highscore-list .player .name {
+    max-width: 80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .highscore-list .player .name-time span,
+  .highscore-list .player .link {
     display: block;
   }
 }
@@ -61,6 +77,12 @@
 .highscore-list .player.place-0 .score {
   font-size: 40px;
   color: var(--color-yellow);
+}
+@media screen and (max-width: 600px) {
+  .highscore-list .player.place-0 .place,
+  .highscore-list .player.place-0 .score {
+    font-size: 30px;
+  }
 }
 
 @keyframes blink {

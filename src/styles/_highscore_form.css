@@ -54,7 +54,7 @@
   margin-top: 50px;
   grid-gap: 30px;
   align-items: baseline;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 @media screen and (max-width: 650px) {
@@ -90,7 +90,6 @@
 }
 
 .emojis {
-  max-width: 240px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
