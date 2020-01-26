@@ -106,6 +106,6 @@
 
 .emojis span:hover,
 .emojis span.selected {
-  color: var(--color-blue-darker);
-  background-color: var(--color-blue-link);
+  background-color: var(--color-yellow);
+  border-color: var(--color-yellow);
 }
