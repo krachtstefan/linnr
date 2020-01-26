@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { config } from "../../config";
+import { placeItems } from "../../redux/stage";
+import { resetWorm } from "../../redux/worm";
 import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
 
-const MainMenu = () => {
+// TODO: add proptypes
+const MainMenu = ({ filter = [] }) => {
   let history = useHistory();
   const dispatch = useDispatch();
   const { soundOn } = useSelector(state => state.settings);
@@ -26,7 +29,11 @@ const MainMenu = () => {
     KeyP: keyP,
     KeyH: keyH,
     KeyC: keyC,
-    KeyS: keyS
+    KeyS: keyS,
+    KeyR: keyR,
+    KeyE: keyE,
+    KeyQ: keyQ,
+    KeyU: keyU
   } = useKeyPress([
     "ArrowUp",
     "ArrowDown",
@@ -35,7 +42,11 @@ const MainMenu = () => {
     "KeyP",
     "KeyH",
     "KeyC",
-    "KeyS"
+    "KeyS",
+    "KeyR",
+    "KeyE",
+    "KeyQ",
+    "KeyU"
   ]);
 
   const menuItems = [
@@ -50,11 +61,52 @@ const MainMenu = () => {
       action: () => history.push(config.navigation.play)
     },
     {
-      label: "highscore",
+      label: "retry",
+      shortcut: keyR,
+      Component: props => (
+        <button onClick={() => dispatch(resetWorm())} {...props}>
+          <span className="shortcut">r</span>etry
+        </button>
+      ),
+      action: () => dispatch(resetWorm())
+    },
+    {
+      label: "reset",
+      shortcut: keyE,
+      Component: props => (
+        <button
+          onClick={() => {
+            dispatch(resetWorm());
+            dispatch(placeItems("obstacle"));
+            dispatch(placeItems("food"));
+          }}
+          {...props}
+        >
+          r<span className="shortcut">e</span>set
+        </button>
+      ),
+      action: () => {
+        dispatch(resetWorm());
+        dispatch(placeItems("obstacle"));
+        dispatch(placeItems("food"));
+      }
+    },
+    {
+      label: "highscoreSubmit",
+      shortcut: keyU,
+      Component: props => (
+        <Link to={config.navigation.submitHighscore} {...props}>
+          s<span className="shortcut">u</span>bmit highscore
+        </Link>
+      ),
+      action: () => history.push(config.navigation.submitHighscore)
+    },
+    {
+      label: "highscoreView",
       shortcut: keyH,
       Component: props => (
         <Link to={config.navigation.highscore} {...props}>
-          <span className="shortcut">h</span>ighscore
+          view <span className="shortcut">h</span>ighscore
         </Link>
       ),
       action: () => history.push(config.navigation.highscore)
@@ -68,6 +120,16 @@ const MainMenu = () => {
         </Link>
       ),
       action: () => history.push(config.navigation.credits)
+    },
+    {
+      label: "quit",
+      shortcut: keyQ,
+      Component: props => (
+        <Link to={() => config.navigation.start} {...props}>
+          <span className="shortcut">q</span>uit
+        </Link>
+      ),
+      action: () => history.push(config.navigation.start)
     },
     {
       label: "sound",

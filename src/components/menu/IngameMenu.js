@@ -1,19 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
 import MainMenu from "./MainMenu";
 import { config } from "../../config";
 import { highscorePosSelector } from "../../redux/highscore";
-import { placeItems } from "../../redux/stage";
-import { resetWorm } from "../../redux/worm";
 import useKeyPress from "../../hooks/use-keypress";
 
 const IngameMenu = () => {
   const { settings, worm } = useSelector(state => state);
   const { Space: space } = useKeyPress(["Space"]);
-  const resetButton = useRef();
   const dispatch = useDispatch();
   const [highscoreChanged, setHighscoreChanged] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -53,7 +49,7 @@ const IngameMenu = () => {
 
   return (
     <>
-      {showMenu ? <MainMenu /> : null}
+      {showMenu ? <MainMenu ingame={true} /> : null}
       <div className="gamebar">
         <div>
           <span role="img" aria-label="highscore">
