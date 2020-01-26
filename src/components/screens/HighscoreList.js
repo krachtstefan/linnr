@@ -20,7 +20,7 @@ let HighScores = () => {
           : "highscore"}
       </h1>
       {loading === false && highscore.length === 0 ? (
-        <div>no highscore yet</div>
+        <div className="no-entries">no highscore yet</div>
       ) : (
         highscore.map((hs, index) => (
           <div

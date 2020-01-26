@@ -6,6 +6,11 @@
   color: var(--color-blue-dark);
 }
 
+.highscore-list .no-entries {
+  color: var(--color-yellow);
+  text-align: center;
+}
+
 .highscore-list .player.place-0 {
   margin-bottom: 10px;
 }
