@@ -116,7 +116,7 @@ let HighScores = () => {
     }
   }, [dispatch, submited]);
 
-  return highscore > 0 || true ? (
+  return highscore > 0 ? (
     <form
       className="highscore-form"
       onSubmit={e => {
