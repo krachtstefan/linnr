@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { config } from "../../config";
+import { highscorePosSelector } from "../../redux/highscore";
 import { placeItems } from "../../redux/stage";
 import { resetWorm } from "../../redux/worm";
 
@@ -12,6 +13,8 @@ const IngameMenu = () => {
   const resetButton = useRef();
   const dispatch = useDispatch();
   const [highscoreChanged, setHighscoreChanged] = useState(false);
+  const [posChanged, setPosChanged] = useState(false);
+  const highscorePos = useSelector(state => highscorePosSelector(state));
 
   useEffect(() => {
     if (worm.highscore > 0) {
@@ -23,6 +26,17 @@ const IngameMenu = () => {
     }
   }, [worm.highscore]);
 
+  useEffect(() => {
+    if (worm.highscore > 0) {
+      setPosChanged(true);
+      const timer = setTimeout(() => {
+        setPosChanged(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [highscorePos, worm.highscore]);
+
   return (
     <div className="gamebar">
       <div>
@@ -33,7 +47,19 @@ const IngameMenu = () => {
           className={`current-highscore ${highscoreChanged ? "changing" : ""}`}
         >
           {worm.highscore}
-        </span>
+        </span>{" "}
+        {highscorePos ? (
+          <>
+            Place:{" "}
+            <span
+              className={`current-highscore ${posChanged ? "changing" : ""}`}
+            >
+              {highscorePos > config.highscoreLimit
+                ? `>${config.highscoreLimit}`
+                : `#${highscorePos}`}
+            </span>
+          </>
+        ) : null}
       </div>
       {worm.dead === true ? (
         <>

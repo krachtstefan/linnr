@@ -63,8 +63,12 @@ export const resetHighscoreForm = () => dispatch => {
 };
 
 export const highscorePosSelector = state => {
-  const highscore = 0; //state.worm.highscore;
+  const highscore = state.worm.highscore;
   const highscoreList = state.highscore.highscore;
+  const highscoreLoading = state.highscore.loading;
+  if (highscoreLoading === true && highscoreList.length === 0) {
+    return null;
+  }
   const listLength =
     highscoreList.length === config.highscoreLimit
       ? config.highscoreLimit

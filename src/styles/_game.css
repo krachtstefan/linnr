@@ -9,7 +9,6 @@
 .gamebar {
   align-self: flex-start;
   position: relative;
-  top: -25px;
   display: grid;
   font-size: 26px;
   width: 950px;
