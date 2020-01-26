@@ -6,7 +6,6 @@
   background: var(--color-beige-light);
   row-gap: 20px;
   padding: 20px 50px;
-  /* border: 5px solid var(--color-beige-dark); */
 }
 
 .start-menu a,
@@ -17,16 +16,19 @@
 
 .start-menu .shortcut {
   text-decoration: underline;
+  color: var(--color-pink);
+  text-decoration-color: var(--color-beige-dark);
 }
 
 .start-menu .state {
-  color: var(--color-pink);
+  color: var(--color-orange);
 }
 
 .start-menu a.selected::before,
 .start-menu a.selected::after,
 .start-menu button.selected::before,
 .start-menu button.selected::after {
+  color: var(--color-blue);
   content: "> ";
 }
 .start-menu a.selected::after,
