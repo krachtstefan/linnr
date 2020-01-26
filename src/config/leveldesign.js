@@ -108,8 +108,10 @@ const objects = {
     {
       type: "obstacle",
       randomizer: () => randomizerMinMax(1, 2),
-      pattern: [[true], [true]],
-      items: [{ src: "SPRITES.2x1-OBS/Weide/2x1/01A/C:1_1.png" }]
+      pattern: [[true]],
+      items: [
+        { src: "SPRITES.2x1-OBS/Weide/2x1/01A/C:1_1.png", offset: { y: -1 } }
+      ]
     }
   ]
 };

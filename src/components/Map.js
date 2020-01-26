@@ -100,8 +100,11 @@ let Gamestage = props => {
             objects.obstacle.map(obstacle => {
               let texture = spritesheet.textures[obstacle.item.src];
               texture = texture ? texture : Texture.EMPTY;
-              const x = obstacle.positions[0].x;
-              const y = obstacle.positions[0].y;
+              let { x: xOffset, y: yOffset } = obstacle.item.offset
+                ? obstacle.item.offset
+                : {};
+              const x = obstacle.positions[0].x + (xOffset ? xOffset : 0);
+              const y = obstacle.positions[0].y + (yOffset ? yOffset : 0);
               return (
                 <Sprite
                   key={`obstacle_${x}_${y}`}
