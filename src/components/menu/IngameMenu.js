@@ -54,7 +54,6 @@ const IngameMenu = () => {
   return (
     <>
       {showMenu ? <MainMenu /> : null}
-
       <div className="gamebar">
         <div>
           <span role="img" aria-label="highscore">
@@ -83,7 +82,6 @@ const IngameMenu = () => {
         <div>
           {worm.dead === true && showMenu === false ? "[PRESS SPACEBAR]" : null}
         </div>
-
         <button
           className={`sound ${settings.soundOn ? "" : "disabled"}`.trim()}
           onClick={() =>

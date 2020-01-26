@@ -6,6 +6,9 @@
   background: var(--color-beige-light);
   row-gap: 20px;
   padding: 20px 50px;
+  width: 200px;
+  border: 2px solid var(--color-blue-dark);
+  box-shadow: 5px 5px 0px 0px var(--color-blue-dark);
 }
 
 .main-menu a,
@@ -28,7 +31,7 @@
 .main-menu a.selected::after,
 .main-menu button.selected::before,
 .main-menu button.selected::after {
-  color: var(--color-blue);
+  color: var(--color-blue-dark);
   content: "> ";
 }
 .main-menu a.selected::after,
