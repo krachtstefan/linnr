@@ -177,7 +177,7 @@ let HighScores = () => {
                   <span>
                     {highscorePos > config.highscoreLimit
                       ? `>${config.highscoreLimit}`
-                      : `#${highscorePos}`}
+                      : `№${highscorePos}`}
                   </span>
                 </>
               ) : null}

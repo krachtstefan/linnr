@@ -69,7 +69,7 @@
 
 .highscore-row {
   display: grid;
-  column-gap: 38px;
+  column-gap: 20px;
   grid-template-columns: auto auto 1fr;
 }
 
