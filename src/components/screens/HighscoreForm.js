@@ -7,7 +7,39 @@ import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 
-const emojiList = ["👾", "🦀", "😸", "🐟", "🐥", "💁", "🐰", "😹", "🦉"];
+const emojiList = [
+  "☺",
+  "😁",
+  "🙃",
+  "🙄",
+  "🤤",
+  "😎",
+  "🙀",
+  "👻",
+  "👽",
+  "🤖",
+  "💀",
+  "☠",
+  "🤷",
+  "🐙",
+  "🐌",
+  "🦔",
+  "🐟",
+  "🦀",
+  "⛵",
+  "🚌",
+  "🚲",
+  "🏯",
+  "🏰",
+  "🗺",
+  "🌍",
+  "🏳‍🌈",
+  "🏴‍☠️",
+  "♥",
+  "💣",
+  "🔥",
+  ""
+];
 let HighScores = () => {
   const { highscore, position, player, loading, submited } = useSelector(
     state => {
