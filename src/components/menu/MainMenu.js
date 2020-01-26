@@ -96,7 +96,10 @@ const MainMenu = ({ filter = [] }) => {
       shortcut: keyU,
       Component: props => (
         <Link to={config.navigation.submitHighscore} {...props}>
-          s<span className="shortcut">u</span>bmit highscore
+          {/* TODO: add className to parent*/}
+          <span className="submit">
+            s<span className="shortcut">u</span>bmit highscore
+          </span>
         </Link>
       ),
       action: () => history.push(config.navigation.submitHighscore)
