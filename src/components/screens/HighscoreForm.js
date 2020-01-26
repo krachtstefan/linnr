@@ -168,12 +168,12 @@ let HighScores = () => {
         <div className="left">
           <div className="highscore-row">
             <label>
-              Your score is <span>{highscore}</span>
+              your SCORE<span>{highscore}</span>
             </label>
             <label>
               {highscorePos ? (
                 <>
-                  your are place{" "}
+                  your RANK
                   <span>
                     {highscorePos > config.highscoreLimit
                       ? `>${config.highscoreLimit}`
@@ -206,7 +206,7 @@ let HighScores = () => {
           </label>
 
           <label>
-            /
+            
             <input
               disabled={formDisabled}
               value={twitter}
@@ -216,7 +216,7 @@ let HighScores = () => {
           </label>
 
           <label>
-            /
+            
             <input
               disabled={formDisabled}
               value={instagram}
