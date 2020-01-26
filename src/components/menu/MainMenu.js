@@ -3,7 +3,7 @@ import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { config } from "./../../config";
+import { config } from "../../config";
 import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
@@ -112,7 +112,7 @@ const MainMenu = () => {
   }, [shortCutKeys, menuItems]);
 
   return (
-    <div className="start-menu">
+    <div className="main-menu">
       {menuItems.map((item, index) => {
         const { Component, label } = item;
         return (

@@ -1,4 +1,4 @@
-.start-menu {
+.main-menu {
   position: absolute;
   display: grid;
   align-items: center;
@@ -8,30 +8,30 @@
   padding: 20px 50px;
 }
 
-.start-menu a,
-.start-menu button {
+.main-menu a,
+.main-menu button {
   text-transform: uppercase;
   color: var(--color-beige-dark);
 }
 
-.start-menu .shortcut {
+.main-menu .shortcut {
   text-decoration: underline;
   color: var(--color-pink);
   text-decoration-color: var(--color-beige-dark);
 }
 
-.start-menu .state {
+.main-menu .state {
   color: var(--color-orange);
 }
 
-.start-menu a.selected::before,
-.start-menu a.selected::after,
-.start-menu button.selected::before,
-.start-menu button.selected::after {
+.main-menu a.selected::before,
+.main-menu a.selected::after,
+.main-menu button.selected::before,
+.main-menu button.selected::after {
   color: var(--color-blue);
   content: "> ";
 }
-.start-menu a.selected::after,
-.start-menu button.selected::after {
+.main-menu a.selected::after,
+.main-menu button.selected::after {
   content: " <";
 }
