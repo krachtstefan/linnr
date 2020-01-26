@@ -51,7 +51,7 @@ let HighScores = () => {
                   
                 </a>
               ) : (
-                ""
+                <span></span>
               )}{" "}
               {hs.instagram ? (
                 <a
@@ -62,7 +62,7 @@ let HighScores = () => {
                   
                 </a>
               ) : (
-                ""
+                <span></span>
               )}
             </span>
 
