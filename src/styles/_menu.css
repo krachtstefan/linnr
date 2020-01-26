@@ -9,29 +9,27 @@
   /* border: 5px solid var(--color-beige-dark); */
 }
 
-.start-menu a {
+.start-menu a,
+.start-menu button {
   text-transform: uppercase;
   color: var(--color-beige-dark);
 }
 
-.start-menu a .shortcut {
+.start-menu .shortcut {
   text-decoration: underline;
 }
 
-.start-menu a .state {
+.start-menu .state {
   color: var(--color-pink);
 }
 
 .start-menu a.selected::before,
-.start-menu a.selected::after {
+.start-menu a.selected::after,
+.start-menu button.selected::before,
+.start-menu button.selected::after {
   content: "> ";
 }
-.start-menu a.selected::after {
+.start-menu a.selected::after,
+.start-menu button.selected::after {
   content: " <";
-}
-
-button {
-  text-transform: uppercase;
-  display: inline;
-  padding: 5px;
 }
