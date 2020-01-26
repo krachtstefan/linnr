@@ -19,3 +19,11 @@ body.highscore div#root div.logo a {
   background: url("./../assets/images/logo-yellow-orange.svg") center center
     no-repeat;
 }
+
+body.submit-highscore {
+  background-color: var(--color-blue-darker);
+}
+body.submit-highscore div#root div.logo a {
+  background: url("./../assets/images/logo-green-orange.svg") center center
+    no-repeat;
+}
