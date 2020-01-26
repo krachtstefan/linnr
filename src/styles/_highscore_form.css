@@ -1,52 +1,97 @@
-form.highscore h1 {
-  text-align: center;
-  font-size: 50px;
-  padding-bottom: 50px;
+.highscore-form {
+  max-width: 800px;
 }
 
-form.highscore button {
-  margin-top: 50px;
+.highscore-form h1 {
+  color: var(--color-pink);
+}
+
+.highscore-form label {
+  display: block;
+  color: var(--color-orange);
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.highscore-form input {
+  background-color: transparent;
+  font: inherit;
+  outline: none;
+  text-transform: inherit;
+  display: block;
+  width: 100%;
+  color: white;
+  border: 2px solid var(--color-yellow);
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  text-transform: uppercase;
   font-size: 40px;
-  background: var(--color-beige-dark);
-  color: var(--color-beige-light);
 }
 
-.highscoreForm {
-  display: grid;
-  grid-gap: 50px;
-  grid-template-columns: 1fr 1fr;
+.highscore-form input::placeholder {
+  color: var(--color-blue-link);
 }
 
-.highscoreForm .left {
-  display: grid;
-  grid-gap: 20px;
+.highscore-form button {
+  display: inline;
+  justify-self: right;
+  margin-top: 28px;
+  padding: 0px 10px 8px 10px;
+  line-height: 40px;
+  font-size: 40px;
+  background: var(--color-pink);
+  color: white;
+  border-bottom: 2px solid var(--color-blue-link);
 }
 
-.highscoreForm .right {
-  display: grid;
-  grid-template-rows: auto 1fr;
+.highscore-form button:active {
+  background: var(--color-blue-link);
 }
 
-.highscoreForm .right .emojis {
+.highscore-form-columns {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  justify-items: center;
-  font-size: 30px;
+  margin-top: 50px;
+  grid-gap: 30px;
+  align-items: baseline;
+  grid-template-columns: 3fr 2fr;
 }
-.highscoreForm .right .emojis span {
-  padding: 10px;
+
+.highscore-form-columns .left {
+  display: grid;
+}
+
+.highscore-row {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: 1fr 1fr 2fr;
+}
+
+.highscore-row span {
+  display: block;
+  color: var(--color-blue-light);
+  line-height: 40px;
+  font-size: 80px;
+}
+
+.emojis {
+  max-width: 240px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.emojis span {
+  color: var(--color-blue-link);
+  display: inline-block;
+  border: 2px solid var(--color-blue-link);
+  padding: 2px 2px 4px 4px;
+  margin: 0 6px 6px 0;
+  font-size: 35px;
   cursor: pointer;
 }
-.highscoreForm .right .emojis .selected {
-  color: var(--color-beige-light);
-  background: var(--color-beige-dark);
-}
 
-.highscoreForm .right span {
-}
-
-.highscoreForm .row label input {
-  font-size: 30px;
+.emojis span:hover,
+.emojis span.selected {
+  color: var(--color-blue-darker);
+  background-color: var(--color-blue-link);
 }

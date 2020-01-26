@@ -111,30 +111,22 @@ let HighScores = () => {
 
   return highscore > 0 || true ? (
     <form
-      className="highscore"
+      className="highscore-form"
       onSubmit={e => {
         e.preventDefault();
         submit();
       }}
     >
-      <h1>
-        Your score is <span className="score">{highscore}</span>
-      </h1>
-      <div className="highscoreForm">
+      <h1>Submit your score</h1>
+      <div className="highscore-form-columns">
         <div className="left">
-          <div className="row">
+          <div className="highscore-row">
             <label>
-              Name
-              <input
-                disabled={formDisabled}
-                placeholder="type your name"
-                value={name}
-                maxLength="20"
-                onChange={e => setName(e.target.value)}
-              />
+              Your score is <span>{highscore}</span>
             </label>
-          </div>
-          <div className="row">
+            <label>
+              your are place <span>{}</span>
+            </label>
             <label>
               Alias
               <input
@@ -146,31 +138,44 @@ let HighScores = () => {
               />
             </label>
           </div>
-          <div className="row">
-            <label>
-              /
-              <input
-                disabled={formDisabled}
-                value={twitter}
-                placeholder="@"
-                onChange={e => setTwitter(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className="row">
-            <label>
-              /
-              <input
-                disabled={formDisabled}
-                value={instagram}
-                placeholder="@"
-                onChange={e => setInstagram(e.target.value)}
-              />
-            </label>
-          </div>
+
+          <label>
+            Name
+            <input
+              disabled={formDisabled}
+              placeholder="type your name"
+              value={name}
+              maxLength="20"
+              onChange={e => setName(e.target.value)}
+            />
+          </label>
+
+          <label>
+            /
+            <input
+              disabled={formDisabled}
+              value={twitter}
+              placeholder="@"
+              onChange={e => setTwitter(e.target.value)}
+            />
+          </label>
+
+          <label>
+            /
+            <input
+              disabled={formDisabled}
+              value={instagram}
+              placeholder="@"
+              onChange={e => setInstagram(e.target.value)}
+            />
+          </label>
+
+          <button disabled={buttonDisabled || formDisabled} type="submit">
+            {loading ? "loading..." : "submit now"}
+          </button>
         </div>
         <div className="right">
-          <label>pick your character</label>
+          <label>Pick a symbol!</label>
           <div className="emojis">
             {emojiList.map(e => (
               <span
@@ -184,11 +189,6 @@ let HighScores = () => {
           </div>
         </div>
       </div>
-      <center>
-        <button disabled={buttonDisabled || formDisabled} type="submit">
-          {loading ? "loading..." : "submit"}
-        </button>
-      </center>
     </form>
   ) : (
     <Redirect to={config.navigation.highscore} />
