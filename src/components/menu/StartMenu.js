@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { soundDisable, soundEnable } from "../../redux/settings";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { config } from "./../../config";
+import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
 
 const StartMenu = () => {
   let history = useHistory();
+  const dispatch = useDispatch();
+  const { soundOn } = useSelector(state => state.settings);
+
+  const [toggleSound] = useDebouncedCallback(test => {
+    dispatch(soundOn === true ? soundDisable() : soundEnable());
+  }, 500);
+
   const [activeItem, setActiveItem] = useState(0);
   const {
     ArrowUp: arrowUp,
@@ -15,7 +25,8 @@ const StartMenu = () => {
     Space: space,
     KeyP: keyP,
     KeyH: keyH,
-    KeyC: keyC
+    KeyC: keyC,
+    KeyS: keyS
   } = useKeyPress([
     "ArrowUp",
     "ArrowDown",
@@ -23,7 +34,8 @@ const StartMenu = () => {
     "Space",
     "KeyP",
     "KeyH",
-    "KeyC"
+    "KeyC",
+    "KeyS"
   ]);
 
   const menuItems = [
@@ -56,6 +68,17 @@ const StartMenu = () => {
         </Link>
       ),
       action: () => history.push(config.navigation.credits)
+    },
+    {
+      label: "sound",
+      shortcut: keyS,
+      Component: props => (
+        <button onClick={() => toggleSound()} {...props}>
+          <span className="shortcut">s</span>ound is{" "}
+          <span className="state">{soundOn === true ? "ON" : "OFF"}</span>
+        </button>
+      ),
+      action: () => toggleSound()
     }
   ];
 

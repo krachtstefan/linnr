@@ -18,6 +18,10 @@
   text-decoration: underline;
 }
 
+.start-menu a .state {
+  color: var(--color-pink);
+}
+
 .start-menu a.selected::before,
 .start-menu a.selected::after {
   content: "> ";
