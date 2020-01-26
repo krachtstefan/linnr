@@ -55,6 +55,7 @@ let HighScores = () => {
   );
   let [name, setName] = useState(player.name ? player.name : "");
   let [alias, setAlias] = useState(player.alias ? player.alias : "");
+  let [highscorePos, setHighscorePos] = useState(30);
   let [twitter, setTwitter] = useState(player.twitter ? player.twitter : "");
   let [instagram, setInstagram] = useState(
     player.instagram ? player.instagram : ""
@@ -125,7 +126,16 @@ let HighScores = () => {
               Your score is <span>{highscore}</span>
             </label>
             <label>
-              your are place <span>{}</span>
+              {highscorePos ? (
+                <>
+                  your are place{" "}
+                  <span>
+                    {highscorePos > config.highscoreLimit
+                      ? `>${config.highscoreLimit}`
+                      : `#${highscorePos}`}
+                  </span>
+                </>
+              ) : null}
             </label>
             <label>
               Alias

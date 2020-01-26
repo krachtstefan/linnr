@@ -63,8 +63,8 @@
 
 .highscore-row {
   display: grid;
-  column-gap: 10px;
-  grid-template-columns: 1fr 1fr 2fr;
+  column-gap: 38px;
+  grid-template-columns: auto auto 1fr;
 }
 
 .highscore-row span {
