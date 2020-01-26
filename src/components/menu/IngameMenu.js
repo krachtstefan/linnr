@@ -49,19 +49,22 @@ const IngameMenu = () => {
 
   return (
     <>
-      {showMenu ? (
-        <MainMenu
-          filter={[
-            "retry",
-            "reset",
-            "highscoreSubmit",
-            "highscoreView",
-            "credits",
-            "quit",
-            "sound"
-          ]}
-        />
-      ) : null}
+      {(() => {
+        const submitScore = worm.highscore > 0 ? ["highscoreSubmit"] : [];
+        return showMenu ? (
+          <MainMenu
+            filter={[
+              "retry",
+              "reset",
+              ...submitScore,
+              "highscoreView",
+              "credits",
+              "quit",
+              "sound"
+            ]}
+          />
+        ) : null;
+      })()}
       <div className="gamebar">
         <div>
           <span role="img" aria-label="highscore">
