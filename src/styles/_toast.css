@@ -1,0 +1,7 @@
+.Toastify .Toastify__toast--default {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Vollkorn, "Courier New", Courier, monospace;
+  color: white;
+  background: var(--color-pink);
+}
