@@ -10,14 +10,12 @@ const useKeyPress = targetKeys => {
     const downHandler = e => {
       if (Object.keys(keyPressed).includes(e.code)) {
         setKeyPressed(old => ({ ...old, [e.code]: true }));
-        e.preventDefault();
       }
     };
 
     const upHandler = e => {
       if (Object.keys(keyPressed).includes(e.code)) {
         setKeyPressed(old => ({ ...old, [e.code]: false }));
-        e.preventDefault();
       }
     };
 
