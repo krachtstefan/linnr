@@ -18,7 +18,7 @@ const Notifications = () => {
 
   useEffect(() => {
     if (hasSeenMobileInfo === false && isTouchDevice === true) {
-      toast("No keyboard detected. Please come back with a weapon!", {
+      toast("No keyboard detected. Please come back with a weapon! ⌨️", {
         onClose: () => dispatch(setMobileInfoSeen())
       });
     }

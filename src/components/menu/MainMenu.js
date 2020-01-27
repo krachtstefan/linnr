@@ -71,9 +71,9 @@ const MainMenu = ({ filter = [] }) => {
               <span role="img" aria-label="sad">
                 ☹️
               </span>{" "}
-              no Keyboard
-              <span role="img" aria-label="sad">
-                ☹️
+              no Keyboard{" "}
+              <span role="img" aria-label="keyboard">
+                ⌨️
               </span>
             </span>
           </button>
