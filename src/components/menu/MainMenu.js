@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { soundDisable, soundEnable } from "../../redux/settings";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { config } from "../../config";
+import menuSoundfile from "./../../assets/sound/menu.m4a";
 import { placeItems } from "../../redux/stage";
 import { resetWorm } from "../../redux/worm";
+import useAudio from "../../hooks/use-audio";
 import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
 
 // TODO: add proptypes
 const MainMenu = ({ filter = [] }) => {
+  const [menuSound] = useAudio(menuSoundfile);
   let history = useHistory();
   const dispatch = useDispatch();
   const { soundOn } = useSelector(state => state.settings);
+
+  const playMenuSound = useCallback(() => {
+    if (soundOn === true) {
+      menuSound.play();
+    }
+  }, [menuSound, soundOn]);
 
   const [toggleSound] = useDebouncedCallback(test => {
     dispatch(soundOn === true ? soundDisable() : soundEnable());
@@ -151,23 +160,26 @@ const MainMenu = ({ filter = [] }) => {
 
   useEffect(() => {
     if (arrowUp === true) {
+      playMenuSound();
       setActiveItem(activeItem =>
         activeItem === 0 ? menuItems.length - 1 : activeItem - 1
       );
     }
 
     if (arrowDown === true) {
+      playMenuSound();
       setActiveItem(activeItem =>
         activeItem < menuItems.length - 1 ? activeItem + 1 : 0
       );
     }
-  }, [arrowUp, arrowDown, menuItems.length]);
+  }, [arrowUp, arrowDown, menuItems.length, playMenuSound]);
 
   useEffect(() => {
     if (enter === true || space === true) {
       menuItems[activeItem].action();
+      playMenuSound();
     }
-  }, [enter, space, activeItem, menuItems]);
+  }, [enter, space, activeItem, menuItems, playMenuSound]);
 
   useEffect(() => {
     const menuItem = menuItems.find(x => x.shortcut === true);
