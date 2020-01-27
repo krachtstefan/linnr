@@ -86,7 +86,7 @@ const objects = {
         [true, true],
         [false, true]
       ],
-      items: [{ src: "SPRITES.2x2-OBS/Findling/2x2/002A/XX:X0_1.png" }]
+      items: [{ src: "SPRITES.2x2-OBS/Findling/2x2/002A/XX:0X_1.png" }]
     },
     /**
      * 1 X 2
