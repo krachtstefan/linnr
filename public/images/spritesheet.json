@@ -1920,7 +1920,7 @@
 				"h": 48
 			}
 		},
-		"SPRITES.2x2-OBS/Findling/2x2/002A/XX:X0_1.png": {
+		"SPRITES.2x2-OBS/Findling/2x2/002A/XX:0X_1.png": {
 			"frame": {
 				"x": 48,
 				"y": 1536,
@@ -1940,7 +1940,7 @@
 				"h": 48
 			}
 		},
-		"SPRITES.2x2-OBS/Findling/2x2/002B/XX:0X_1.png": {
+		"SPRITES.2x2-OBS/Findling/2x2/002B/XX:X0_1.png": {
 			"frame": {
 				"x": 0,
 				"y": 1536,
@@ -13175,6 +13175,6 @@
 			"h": 1584
 		},
 		"scale": "1",
-		"smartupdate": "$TexturePacker:SmartUpdate:cf17459de20fb5f5ce18cfcecf92cdf7:7b69c3b36624fa6f4fec3a2ffc6bd124:729adc6043343cfda41c447ce8f464d6$"
+		"smartupdate": "$TexturePacker:SmartUpdate:52c78b868618df6e22d30d96cf7999ae:7b69c3b36624fa6f4fec3a2ffc6bd124:729adc6043343cfda41c447ce8f464d6$"
 	}
 }
