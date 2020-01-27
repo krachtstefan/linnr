@@ -1,23 +1,30 @@
 import { config, db } from "./../../config";
 
+import { DEFAULT_HIGHSCORE_STATE } from "./../highscore";
+import { DEFAULT_SETTINGS_STATE } from "./../settings";
+
 const importFromIndexDB = state => {
   return new Promise(resolve => {
     const stateMapping = [
       {
         key: "soundOn",
-        state: "settings"
+        state: "settings",
+        defaultState: DEFAULT_SETTINGS_STATE
       },
       {
         key: "hasSeenChromeInfo",
-        state: "settings"
+        state: "settings",
+        defaultState: DEFAULT_SETTINGS_STATE
       },
       {
         key: "hasSeenMobileInfo",
-        state: "settings"
+        state: "settings",
+        defaultState: DEFAULT_SETTINGS_STATE
       },
       {
         key: "player",
-        state: "highscore"
+        state: "highscore",
+        DEFAULT_HIGHSCORE_STATE
       }
     ];
 
@@ -26,9 +33,12 @@ const importFromIndexDB = state => {
       .each(storedKey => {
         let matching = stateMapping.find(map => map.key === storedKey.key);
         if (matching) {
+          // only set default state once
+          let defaultState = state[matching.state] ? {} : matching.defaultState;
           state = {
             ...state,
             [matching.state]: {
+              ...defaultState,
               [storedKey.key]: storedKey[storedKey.key]
             }
           };
