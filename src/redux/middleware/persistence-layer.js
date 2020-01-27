@@ -12,6 +12,20 @@ const persistenceRules = [
     }
   },
   {
+    storageKey: "hasSeenChromeInfo",
+    actions: [SETTNGS_ACTION_TYPES.HAS_SEEN_CHROME_INFO],
+    storageValue: state => {
+      return state["settings"]["hasSeenChromeInfo"];
+    }
+  },
+  {
+    storageKey: "hasSeenMobileInfo",
+    actions: [SETTNGS_ACTION_TYPES.HAS_SEEN_MOBILE_INFO],
+    storageValue: state => {
+      return state["settings"]["hasSeenMobileInfo"];
+    }
+  },
+  {
     storageKey: "player",
     actions: [HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED],
     storageValue: state => {
