@@ -3,8 +3,8 @@ import { config, db } from "./../../config";
 import { DEFAULT_HIGHSCORE_STATE } from "./../highscore";
 import { DEFAULT_SETTINGS_STATE } from "./../settings";
 
-const importFromIndexDB = state => {
-  return new Promise(resolve => {
+const importFromIndexDB = state =>
+  new Promise(resolve => {
     const stateMapping = [
       {
         key: "soundOn",
@@ -33,8 +33,10 @@ const importFromIndexDB = state => {
       .each(storedKey => {
         let matching = stateMapping.find(map => map.key === storedKey.key);
         if (matching) {
-          // only set default state once
-          let defaultState = state[matching.state] ? {} : matching.defaultState;
+          // use default or previous state (that might be set by another init loop)
+          let defaultState = state[matching.state]
+            ? state[matching.state]
+            : matching.defaultState;
           state = {
             ...state,
             [matching.state]: {
@@ -46,7 +48,6 @@ const importFromIndexDB = state => {
       })
       .then(() => resolve(state));
   });
-};
 
 let stateInitializer = new Promise(resolve => {
   let initialState = {};
