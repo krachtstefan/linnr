@@ -18,7 +18,7 @@ const Notifications = () => {
 
   useEffect(() => {
     if (hasSeenMobileInfo === false && isTouchDevice === true) {
-      toast("No keyboard :(", {
+      toast("No keyboard detected. Please come back with a weapon!", {
         onClose: () => dispatch(setMobileInfoSeen())
       });
     }
@@ -30,13 +30,19 @@ const Notifications = () => {
       hasSeenChromeInfo === false &&
       isChrome === false
     ) {
-      toast("FYI: Linnr works best when using Chrome!", {
+      toast("Linnr works best when using Chrome! Just sayin...", {
         onClose: () => dispatch(setChromeInfoSeen())
       });
     }
   }, [hasSeenChromeInfo, dispatch]);
 
-  return <ToastContainer />;
+  return (
+    <ToastContainer
+      position="bottom-center"
+      hideProgressBar={true}
+      autoClose={false}
+    />
+  );
 };
 
 export default Notifications;
