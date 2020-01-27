@@ -8,6 +8,7 @@ import GAListener from "./components/utils/GAListener";
 import Game from "./components/screens/Game";
 import HighscoreForm from "./components/screens/HighscoreForm";
 import HighscoreList from "./components/screens/HighscoreList";
+import Notifications from "./components/utils/Notifications";
 import Start from "./components/screens/Start";
 import { config } from "./config";
 import { getHighscore } from "./redux/highscore";
@@ -47,6 +48,7 @@ let App = () => {
           </Switch>
         </div>
       </div>
+      <Notifications />
     </GAListener>
   );
 };
