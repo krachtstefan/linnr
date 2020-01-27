@@ -8,13 +8,19 @@ const importFromIndexDB = state => {
     const stateMapping = [
       {
         key: "soundOn",
-        state: "settings",
-        defaultState: DEFAULT_SETTINGS_STATE
+        state: "settings"
+      },
+      {
+        key: "hasSeenChromeInfo",
+        state: "settings"
+      },
+      {
+        key: "hasSeenMobileInfo",
+        state: "settings"
       },
       {
         key: "player",
-        state: "highscore",
-        defaultState: DEFAULT_HIGHSCORE_STATE
+        state: "highscore"
       }
     ];
 
@@ -26,7 +32,6 @@ const importFromIndexDB = state => {
           state = {
             ...state,
             [matching.state]: {
-              ...matching.defaultState,
               [storedKey.key]: storedKey[storedKey.key]
             }
           };
