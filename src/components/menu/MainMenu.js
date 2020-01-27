@@ -67,7 +67,15 @@ const MainMenu = ({ filter = [] }) => {
       Component: props => {
         return isTouchDevice ? (
           <button {...props}>
-            <span className="no-keyboard">☹️ no Keyboard ☹️</span>
+            <span className="no-keyboard">
+              <span role="img" aria-label="sad">
+                ☹️
+              </span>{" "}
+              no Keyboard
+              <span role="img" aria-label="sad">
+                ☹️
+              </span>
+            </span>
           </button>
         ) : (
           <Link to={config.navigation.play} {...props}>
