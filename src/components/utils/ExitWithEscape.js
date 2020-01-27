@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "./../../hooks/use-keypress";
 
-const ExitWithEscape = ({ children }) => {
+const ExitWithEscape = () => {
   let history = useHistory();
   const { Escape: escape } = useKeyPress(["Escape"]);
 
