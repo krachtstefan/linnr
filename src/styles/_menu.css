@@ -17,6 +17,10 @@
   color: var(--color-beige-dark);
 }
 
+.main-menu .no-keyboard {
+  opacity: 0.5;
+}
+
 .main-menu .submit {
   color: var(--color-blue);
   animation: highlighHighscore 1s ease-in-out infinite;

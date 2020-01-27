@@ -12,6 +12,8 @@ import { useDebouncedCallback } from "use-debounce";
 import { useHistory } from "react-router-dom";
 import useKeyPress from "../../hooks/use-keypress";
 
+const isTouchDevice = "ontouchstart" in window;
+
 // TODO: add proptypes
 const MainMenu = ({ filter = [] }) => {
   const [menuSound] = useAudio(menuSoundfile);
@@ -62,12 +64,20 @@ const MainMenu = ({ filter = [] }) => {
     {
       label: "play",
       shortcut: keyP,
-      Component: props => (
-        <Link to={config.navigation.play} {...props}>
-          <span className="shortcut">p</span>lay
-        </Link>
-      ),
-      action: () => history.push(config.navigation.play)
+      Component: props => {
+        return isTouchDevice ? (
+          <button {...props}>
+            <span className="no-keyboard">☹️ no Keyboard ☹️</span>
+          </button>
+        ) : (
+          <Link to={config.navigation.play} {...props}>
+            <span className="shortcut">p</span>lay
+          </Link>
+        );
+      },
+      action: () => {
+        return isTouchDevice ? null : history.push(config.navigation.play);
+      }
     },
     {
       label: "retry",
