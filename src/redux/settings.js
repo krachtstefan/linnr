@@ -19,14 +19,14 @@ export const soundEnable = () => dispatch => {
   });
 };
 
-export const hasSeenChromeInfo = () => dispatch => {
+export const setChromeInfoSeen = () => dispatch => {
   dispatch({
     type: SETTNGS_ACTION_TYPES.HAS_SEEN_CHROME_INFO,
     payload: true
   });
 };
 
-export const hasSeenMobileInfo = () => dispatch => {
+export const setMobileInfoSeen = () => dispatch => {
   dispatch({
     type: SETTNGS_ACTION_TYPES.HAS_SEEN_MOBILE_INFO,
     payload: true
