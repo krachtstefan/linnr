@@ -7,30 +7,22 @@ const persistenceRules = [
   {
     storageKey: "soundOn",
     actions: [SETTNGS_ACTION_TYPES.SOUND_CHANGE],
-    storageValue: state => {
-      return state["settings"]["soundOn"];
-    }
+    storageValue: state => state["settings"]["soundOn"]
   },
   {
     storageKey: "hasSeenChromeInfo",
     actions: [SETTNGS_ACTION_TYPES.HAS_SEEN_CHROME_INFO],
-    storageValue: state => {
-      return state["settings"]["hasSeenChromeInfo"];
-    }
+    storageValue: state => state["settings"]["hasSeenChromeInfo"]
   },
   {
     storageKey: "hasSeenMobileInfo",
     actions: [SETTNGS_ACTION_TYPES.HAS_SEEN_MOBILE_INFO],
-    storageValue: state => {
-      return state["settings"]["hasSeenMobileInfo"];
-    }
+    storageValue: state => state["settings"]["hasSeenMobileInfo"]
   },
   {
     storageKey: "player",
     actions: [HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED],
-    storageValue: state => {
-      return state["highscore"]["player"];
-    }
+    storageValue: state => state["highscore"]["player"]
   }
 ];
 
