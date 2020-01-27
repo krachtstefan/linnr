@@ -10,10 +10,9 @@ const isChrome =
 const isTouchDevice = "ontouchstart" in window;
 
 const Notifications = () => {
-  const { hasSeenChromeInfo, hasSeenMobileInfo } = useSelector(state => {
-    console.log(state);
-    return state.settings;
-  });
+  const { hasSeenChromeInfo, hasSeenMobileInfo } = useSelector(
+    state => state.settings
+  );
 
   const dispatch = useDispatch();
 
