@@ -42,6 +42,9 @@ const persistenceLayer = store => next => action => {
           })
           .then(() => {
             if (rule.callback) rule.callback(appState);
+          })
+          .catch(() => {
+            if (rule.callback) rule.callback(appState);
           });
       });
     });

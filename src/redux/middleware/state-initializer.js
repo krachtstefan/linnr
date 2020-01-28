@@ -46,7 +46,10 @@ const importFromIndexDB = state =>
           };
         }
       })
-      .then(() => resolve(state));
+      .then(() => resolve(state))
+      .catch(() => {
+        resolve(state);
+      });
   });
 
 let stateInitializer = new Promise(resolve => {
