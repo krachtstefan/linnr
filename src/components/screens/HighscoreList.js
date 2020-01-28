@@ -26,8 +26,10 @@ let HighScores = () => {
         if (
           acc.some(
             x =>
-              x.score.name === curr.score.name &&
-              x.score.alias === curr.score.alias
+              x.score.name.toLocaleLowerCase() ===
+                curr.score.name.toLocaleLowerCase() &&
+              x.score.alias.toLocaleLowerCase() ===
+                curr.score.alias.toLocaleLowerCase()
           )
         ) {
           return [...acc];
@@ -78,7 +80,10 @@ let HighScores = () => {
           {highscoreList.map(hs => (
             <div
               className={`player place-${hs.place} ${
-                player.name === hs.score.name && player.alias === hs.score.alias
+                player.name.toLocaleLowerCase() ===
+                  hs.score.name.toLocaleLowerCase() &&
+                player.alias.toLocaleLowerCase() ===
+                  hs.score.alias.toLocaleLowerCase()
                   ? "you"
                   : ""
               }`.trim()}
