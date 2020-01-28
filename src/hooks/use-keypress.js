@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+// trigger preventDefault when arrow keys are used (prevents scrolling)
+const preventDefaultList = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft"];
+
 const useKeyPress = targetKeys => {
   const [keyPressed, setKeyPressed] = useState(
     targetKeys.reduce((acc, curr) => ({ ...acc, [curr]: false }), {})
@@ -9,12 +12,18 @@ const useKeyPress = targetKeys => {
   useEffect(() => {
     const downHandler = e => {
       if (Object.keys(keyPressed).includes(e.code)) {
+        if (preventDefaultList.includes(e.code)) {
+          e.preventDefault();
+        }
         setKeyPressed(old => ({ ...old, [e.code]: true }));
       }
     };
 
     const upHandler = e => {
       if (Object.keys(keyPressed).includes(e.code)) {
+        if (preventDefaultList.includes(e.code)) {
+          e.preventDefault();
+        }
         setKeyPressed(old => ({ ...old, [e.code]: false }));
       }
     };
