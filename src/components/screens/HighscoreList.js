@@ -55,24 +55,26 @@ let HighScores = () => {
         <div className="no-entries">no highscore yet</div>
       ) : (
         <>
-          <div className="highscore-filter">
-            <button
-              className={groupByPlayer ? "selected" : ""}
-              onClick={() => {
-                setGroupByPlayer(oldValue => !oldValue);
-              }}
-            >
-              group by player {groupByPlayer ? "☑️" : "☐"}
-            </button>
-            <button
-              className={sortByDate ? "selected" : ""}
-              onClick={() => {
-                setSortByDate(oldValue => !oldValue);
-              }}
-            >
-              sort by date {sortByDate ? "☑️" : "☐"}
-            </button>
-          </div>
+          {highscoreList.length > 0 ? (
+            <div className="highscore-filter">
+              <button
+                className={groupByPlayer ? "selected" : ""}
+                onClick={() => {
+                  setGroupByPlayer(oldValue => !oldValue);
+                }}
+              >
+                group by player {groupByPlayer ? "☑️" : "☐"}
+              </button>
+              <button
+                className={sortByDate ? "selected" : ""}
+                onClick={() => {
+                  setSortByDate(oldValue => !oldValue);
+                }}
+              >
+                sort by date {sortByDate ? "☑️" : "☐"}
+              </button>
+            </div>
+          ) : null}
           {highscoreList.map(hs => (
             <div
               className={`player place-${hs.place} ${
