@@ -168,7 +168,7 @@ const MainMenu = ({ filter = [] }) => {
       shortcut: escape,
       Component: props => (
         <Link to={() => config.navigation.start} {...props}>
-          back
+          back <span className="shorcutkey">esc</span>
         </Link>
       ),
       action: () => history.push(config.navigation.start)
