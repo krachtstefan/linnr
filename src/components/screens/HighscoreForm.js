@@ -140,7 +140,7 @@ let HighScores = () => {
   };
 
   useEffect(() => {
-    setButtonDisabled(!(name !== "" && alias !== ""));
+    setButtonDisabled(!(name.trim() !== "" && alias.trim() !== ""));
   }, [name, alias]);
 
   useEffect(() => {
