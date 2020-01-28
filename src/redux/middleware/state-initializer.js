@@ -24,7 +24,7 @@ const importFromIndexDB = state =>
       {
         key: "player",
         state: "highscore",
-        DEFAULT_HIGHSCORE_STATE
+        defaultState: DEFAULT_HIGHSCORE_STATE
       }
     ];
 
