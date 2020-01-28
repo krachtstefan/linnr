@@ -117,8 +117,8 @@ let HighScores = () => {
     setFormDisabled(true);
     let highscoreSubmit = {
       date: new Date(),
-      name,
-      alias,
+      name: name.trim(),
+      alias: alias.trim(),
       emoji,
       score: highscore,
       worm: position,
