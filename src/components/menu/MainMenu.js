@@ -43,7 +43,7 @@ const MainMenu = ({ filter = [] }) => {
     KeyM: keyM,
     KeyR: keyR,
     KeyE: keyE,
-    KeyQ: keyQ,
+    Escape: escape,
     KeyU: keyU
   } = useKeyPress([
     "ArrowUp",
@@ -57,7 +57,8 @@ const MainMenu = ({ filter = [] }) => {
     "KeyR",
     "KeyE",
     "KeyQ",
-    "KeyU"
+    "KeyU",
+    "Escape"
   ]);
 
   const menuItems = [
@@ -163,11 +164,11 @@ const MainMenu = ({ filter = [] }) => {
       action: () => toggleSound()
     },
     {
-      label: "quit",
-      shortcut: keyQ,
+      label: "back",
+      shortcut: escape,
       Component: props => (
         <Link to={() => config.navigation.start} {...props}>
-          <span className="shortcut">q</span>uit
+          back
         </Link>
       ),
       action: () => history.push(config.navigation.start)

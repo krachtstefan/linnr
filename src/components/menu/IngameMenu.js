@@ -59,7 +59,7 @@ const IngameMenu = () => {
               ...submitScore,
               "highscoreView",
               "about",
-              "quit",
+              "back",
               "sound"
             ]}
           />
