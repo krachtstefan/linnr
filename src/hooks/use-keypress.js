@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 
 // trigger preventDefault when arrow keys are used (prevents scrolling)
-const preventDefaultList = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft"];
+const preventDefaultList = [
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowRight",
+  "ArrowLeft",
+  "Space"
+];
 
 const useKeyPress = targetKeys => {
   const [keyPressed, setKeyPressed] = useState(
