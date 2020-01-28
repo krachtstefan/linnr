@@ -51,6 +51,7 @@ const IngameMenu = () => {
     <>
       {(() => {
         const submitScore = worm.highscore > 0 ? ["highscoreSubmit"] : [];
+        const fullscreen = document.fullscreenEnabled ? ["fullscreen"] : [];
         return showMenu ? (
           <MainMenu
             filter={[
@@ -60,7 +61,8 @@ const IngameMenu = () => {
               "highscoreView",
               "about",
               "back",
-              "sound"
+              "sound",
+              ...fullscreen
             ]}
           />
         ) : null;

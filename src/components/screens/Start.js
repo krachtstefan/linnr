@@ -1,8 +1,9 @@
 import MainMenu from "./../menu/MainMenu";
 import React from "react";
 
-const Start = () => (
-  <MainMenu filter={["play", "highscoreView", "about", "sound"]} />
-);
+const fullscreen = document.fullscreenEnabled ? ["fullscreen"] : [];
+const menuItems = ["play", "highscoreView", "about", "sound", ...fullscreen];
+
+const Start = () => <MainMenu filter={menuItems} />;
 
 export default Start;

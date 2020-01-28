@@ -27,9 +27,22 @@ const MainMenu = ({ filter = [] }) => {
     }
   }, [menuSound, soundOn]);
 
-  const [toggleSound] = useDebouncedCallback(test => {
+  const [toggleSound] = useDebouncedCallback(() => {
     dispatch(soundOn === true ? soundDisable() : soundEnable());
   }, 500);
+
+  const [toggleFullscreen] = useDebouncedCallback(() => {
+    let elem = document.querySelector("body");
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen().catch(err => {
+        console.warn(
+          `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+        );
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }, 1000);
 
   const [activeItem, setActiveItem] = useState(0);
   const {
@@ -43,6 +56,7 @@ const MainMenu = ({ filter = [] }) => {
     KeyM: keyM,
     KeyR: keyR,
     KeyE: keyE,
+    KeyF: keyF,
     Escape: escape,
     KeyU: keyU
   } = useKeyPress([
@@ -56,6 +70,7 @@ const MainMenu = ({ filter = [] }) => {
     "KeyM",
     "KeyR",
     "KeyE",
+    "KeyF",
     "KeyQ",
     "KeyU",
     "Escape"
@@ -162,6 +177,16 @@ const MainMenu = ({ filter = [] }) => {
         </button>
       ),
       action: () => toggleSound()
+    },
+    {
+      label: "fullscreen",
+      shortcut: keyF,
+      Component: props => (
+        <button onClick={() => toggleFullscreen()} {...props}>
+          toggle <span className="shortcut">f</span>ullscreen
+        </button>
+      ),
+      action: () => toggleFullscreen()
     },
     {
       label: "back",

@@ -1,4 +1,5 @@
-body {
+body,
+::backdrop {
   background-color: var(--color-beige-light);
 }
 body div#root div.logo a {
