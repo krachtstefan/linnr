@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ExitWithEscape from "./../utils/ExitWithEscape";
 import { getHighscore } from "../../redux/highscore";
-import { isPropertyAccessOrQualifiedName } from "typescript";
 import moment from "moment";
 
 let HighScores = () => {
