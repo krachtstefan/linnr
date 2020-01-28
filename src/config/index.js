@@ -42,7 +42,8 @@ const config = {
     table: { settings: "settings" }
   },
   highscoreVersion: 0.1,
-  highscoreLimit: 30,
+  highscoreLimit: 150,
+  highscoreShown: 30,
   version: "1.0",
   firebase: {
     collections: {

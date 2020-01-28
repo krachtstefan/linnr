@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ExitWithEscape from "./../utils/ExitWithEscape";
+import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
 
@@ -34,9 +35,8 @@ let HighScores = () => {
           return [...acc, curr];
         }
       }, []);
-      console.log(hsList);
     }
-    setHighscoreList(hsList);
+    setHighscoreList(hsList.slice(0, config.highscoreShown));
   }, [highscore, groupByPlayer, sortByDate]);
 
   useEffect(() => {
