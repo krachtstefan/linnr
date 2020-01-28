@@ -39,8 +39,8 @@ const MainMenu = ({ filter = [] }) => {
     Space: space,
     KeyP: keyP,
     KeyH: keyH,
-    KeyC: keyC,
-    KeyS: keyS,
+    KeyA: keyA,
+    KeyM: keyM,
     KeyR: keyR,
     KeyE: keyE,
     KeyQ: keyQ,
@@ -52,8 +52,8 @@ const MainMenu = ({ filter = [] }) => {
     "Space",
     "KeyP",
     "KeyH",
-    "KeyC",
-    "KeyS",
+    "KeyA",
+    "KeyM",
     "KeyR",
     "KeyE",
     "KeyQ",
@@ -142,14 +142,25 @@ const MainMenu = ({ filter = [] }) => {
       action: () => history.push(config.navigation.highscore)
     },
     {
-      label: "credits",
-      shortcut: keyC,
+      label: "about",
+      shortcut: keyA,
       Component: props => (
-        <Link to={config.navigation.credits} {...props}>
-          <span className="shortcut">c</span>redits
+        <Link to={config.navigation.about} {...props}>
+          <span className="shortcut">a</span>bout
         </Link>
       ),
-      action: () => history.push(config.navigation.credits)
+      action: () => history.push(config.navigation.about)
+    },
+    {
+      label: "sound",
+      shortcut: keyM,
+      Component: props => (
+        <button onClick={() => toggleSound()} {...props}>
+          {soundOn === true ? "" : "un"}
+          <span className="shortcut">m</span>ute sound
+        </button>
+      ),
+      action: () => toggleSound()
     },
     {
       label: "quit",
@@ -160,17 +171,6 @@ const MainMenu = ({ filter = [] }) => {
         </Link>
       ),
       action: () => history.push(config.navigation.start)
-    },
-    {
-      label: "sound",
-      shortcut: keyS,
-      Component: props => (
-        <button onClick={() => toggleSound()} {...props}>
-          <span className="shortcut">s</span>ound is{" "}
-          <span className="state">{soundOn === true ? "ON" : "OFF"}</span>
-        </button>
-      ),
-      action: () => toggleSound()
     }
   ].filter(item => filter.includes(item.label));
 
@@ -208,6 +208,7 @@ const MainMenu = ({ filter = [] }) => {
 
   return (
     <div className="main-menu">
+      <h1>Menu</h1>
       {menuItems.map((item, index) => {
         const { Component, label } = item;
         return (

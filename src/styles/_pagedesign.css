@@ -5,10 +5,10 @@ body div#root div.logo a {
   background: url("./../assets/images/logo-beige.svg") center center no-repeat;
 }
 
-body.credits {
+body.about {
   background-color: var(--color-beige-dark);
 }
-body.credits div#root div.logo a {
+body.about div#root div.logo a {
   background: url("./../assets/images/logo-white.svg") center center no-repeat;
 }
 

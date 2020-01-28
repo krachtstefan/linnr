@@ -1,7 +1,9 @@
 :root {
   --color-beige-light: #cfcbbb;
   --color-beige-dark: #b09a7f;
+  --color-beige-shadow: #a6a295;
   --color-blue: #0185b2;
+  --color-blue2: #0086f1;
   --color-blue-light: #01cfff;
   --color-blue-link: #3062b2;
   --color-blue-dark: #01608c;
@@ -9,6 +11,8 @@
   --color-yellow: #ffd054;
   --color-pink: #ee557b;
   --color-orange: #f18700;
+  --color-grey: #688390;
+  --color-grey-deactivated: #d4e1e8;
 }
 
 @font-face {

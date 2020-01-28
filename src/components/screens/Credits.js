@@ -5,7 +5,7 @@ import kraski from "./../../assets/images/kraski@2x.png";
 
 const Credits = () => {
   return (
-    <div className="credits-container">
+    <div className="about-container">
       <ExitWithEscape />
       <img className="kraski" alt="Kraski Logo" src={kraski} width="220" />
       <p className="game-info">

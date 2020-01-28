@@ -12,7 +12,7 @@
   ],
   "routes": [
     {
-      "src": "/credits",
+      "src": "/about",
       "dest": "/index.html"
     },
     {

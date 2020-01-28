@@ -1,4 +1,4 @@
-.credits-container {
+.about-container {
   color: var(--color-blue-darker);
   display: grid;
   grid-template-columns: 1fr 220px 1fr;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .credits-container {
+  .about-container {
     grid-template-columns: auto;
     grid-template-areas:
       "image"

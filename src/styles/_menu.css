@@ -1,20 +1,28 @@
 .main-menu {
   position: absolute;
   display: grid;
-  align-items: center;
-  justify-items: center;
-  background: var(--color-beige-light);
-  row-gap: 20px;
-  padding: 20px 50px;
-  width: 200px;
+  background: white;
+
+  row-gap: 5px;
+  padding-bottom: 20px;
+  /* width: 250px; */
   border: 2px solid var(--color-blue-dark);
-  box-shadow: 5px 5px 0px 0px var(--color-blue-dark);
+  box-shadow: 5px 5px 0px 0px var(--color-beige-shadow);
+}
+
+.main-menu h1 {
+  display: block;
+  line-height: 27px;
+  padding-bottom: 8px;
+  margin: 0 0 10px 0;
+  background: var(--color-blue-dark);
 }
 
 .main-menu a,
 .main-menu button {
+  padding: 0 20px;
   text-transform: uppercase;
-  color: var(--color-beige-dark);
+  color: var(--color-grey);
 }
 
 .main-menu .no-keyboard {
@@ -22,7 +30,6 @@
 }
 
 .main-menu .submit {
-  color: var(--color-blue);
   animation: highlighHighscore 1s ease-in-out infinite;
 }
 
@@ -32,28 +39,27 @@
   }
 }
 
-.main-menu .submit .shortcut {
-  text-decoration-color: var(--color-blue);
-}
-
 .main-menu .shortcut {
   text-decoration: underline;
-  color: var(--color-pink);
-  text-decoration-color: var(--color-beige-dark);
 }
 
-.main-menu .state {
-  color: var(--color-orange);
+.main-menu a.selected,
+.main-menu button.selected {
+  color: var(--color-blue2);
+}
+
+.main-menu a::before,
+.main-menu button::before,
+.main-menu a::after,
+.main-menu button::after {
+  color: var(--color-blue2);
+  display: inline-block;
+  width: 20px;
+  color: var(--color-blue2);
+  content: " ";
 }
 
 .main-menu a.selected::before,
-.main-menu a.selected::after,
-.main-menu button.selected::before,
-.main-menu button.selected::after {
-  color: var(--color-blue-dark);
-  content: "> ";
-}
-.main-menu a.selected::after,
-.main-menu button.selected::after {
-  content: " <";
+.main-menu button.selected::before {
+  content: "→ ";
 }

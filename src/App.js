@@ -43,7 +43,7 @@ let App = () => {
               children={<HighscoreForm />}
             />
             <Route path={config.navigation.play} children={<Game />} />
-            <Route path={config.navigation.credits} children={<Credits />} />
+            <Route path={config.navigation.about} children={<Credits />} />
             <Route path={config.navigation.start} children={<Start />} />
           </Switch>
         </div>
