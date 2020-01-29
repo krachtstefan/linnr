@@ -27,33 +27,14 @@ export const setHighscore = highscore => dispatch => {
   firebase
     .firestore()
     .collection(config.firebase.collections.highscore)
-    .get()
-    .then(ss => {
-      ss.forEach(doc => {
-        var ref = firebase
-          .firestore()
-          .collection(config.firebase.collections.highscore)
-          .doc(doc.id);
-
-        return ref.update({
-          board: {
-            width: 22,
-            height: 13
-          }
-        });
+    .add(highscore)
+    .then(() => {
+      dispatch({
+        type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED,
+        payload: highscore
       });
+      dispatch(getHighscore());
     });
-  // firebase
-  //   .firestore()
-  //   .collection(config.firebase.collections.highscore)
-  //   .add(highscore)
-  //   .then(() => {
-  //     dispatch({
-  //       type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_SUBMITTED,
-  //       payload: highscore
-  //     });
-  //     dispatch(getHighscore());
-  //   });
 };
 
 export const getHighscore = () => dispatch => {
