@@ -121,6 +121,7 @@ const MainMenu = ({ filter = [] }) => {
           onClick={() => {
             dispatch(resetWorm());
             dispatch(placeItems("obstacle"));
+            dispatch(placeItems("atmo"));
             dispatch(placeItems("food"));
           }}
           {...props}
@@ -131,6 +132,7 @@ const MainMenu = ({ filter = [] }) => {
       action: () => {
         dispatch(resetWorm());
         dispatch(placeItems("obstacle"));
+        dispatch(placeItems("atmo"));
         dispatch(placeItems("food"));
       }
     },

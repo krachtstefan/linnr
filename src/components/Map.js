@@ -70,6 +70,26 @@ let Gamestage = props => {
           height={height}
           className={props.className}
         >
+          {objects.atmo &&
+            objects.atmo.map(atmo => {
+              let texture = spritesheet.textures[atmo.item.src];
+              texture = texture ? texture : Texture.EMPTY;
+              let { x: xOffset, y: yOffset } = atmo.item.offset
+                ? atmo.item.offset
+                : {};
+              const x = atmo.positions[0].x + (xOffset ? xOffset : 0);
+              const y = atmo.positions[0].y + (yOffset ? yOffset : 0);
+              return (
+                <Sprite
+                  key={`atmo_${x}_${y}`}
+                  x={x * tileSize}
+                  y={y * tileSize}
+                  width={texture.width * config.spriteSizeScaling}
+                  height={texture.height * config.spriteSizeScaling}
+                  texture={texture}
+                />
+              );
+            })}
           {children}
           <PlusOne
             x={plusOneState.x}

@@ -19,7 +19,8 @@ const templates = [
     label: "x",
     spawns: {
       food: true,
-      obstacle: true
+      obstacle: true,
+      atmo: true
     }
   }
 ];
@@ -46,6 +47,19 @@ const objects = {
         { src: "SPRITES.1x1-FOOD/Beere/001B/SPAWN/F" },
         { src: "SPRITES.1x1-FOOD/Beere/002A/SPAWN/F" },
         { src: "SPRITES.1x1-FOOD/Beere/002B/SPAWN/F" }
+      ]
+    },
+    {
+      type: "atmo",
+      randomizer: () => randomizerMinMax(3, 10),
+      pattern: [[true]],
+      items: [
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/001A/0_1.png" },
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/001B/0_1.png" },
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/002A/0_1.png" },
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/002B/0_1.png" },
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/003A/0_1.png" },
+        { src: "SPRITES.1x1-ATMO/Gras/1x1/003B/0_1.png" }
       ]
     },
     /**

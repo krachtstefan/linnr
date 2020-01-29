@@ -50,6 +50,7 @@ const Game = () => {
   useEffect(() => {
     dispatch(resetWorm());
     dispatch(placeItems("obstacle"));
+    dispatch(placeItems("atmo"));
     dispatch(placeItems("food"));
   }, [dispatch]);
 
