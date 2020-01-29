@@ -16,12 +16,20 @@ const Minimap = ({ width, height, matrix }) => {
 
               const isTail = isWorm === matrix.length - 1;
               const isHead = isWorm === 0;
+
               return (
                 <div
                   key={`pixel_${x}_${y}`}
                   className={`pixel ${isWorm === -1 ? "x" : "o"} ${
                     isHead ? "head" : ""
-                  } ${isTail ? "tail" : ""}`}
+                  } ${isTail ? "tail" : ""} ${
+                    y === 0 ||
+                    y === height + padding ||
+                    x === 0 ||
+                    x === width + padding
+                      ? "border"
+                      : ""
+                  }`.trim()}
                 ></div>
               );
             })}

@@ -15,6 +15,10 @@
   background: var(--color-blue-dark);
 }
 
+.minimap .pixel.border {
+  background: var(--color-pink);
+}
+
 .minimap .pixel.head {
   background: var(--color-blue-darker);
 }
