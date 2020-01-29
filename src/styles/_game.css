@@ -3,6 +3,7 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  row-gap: 5px;
   padding: 0 20px;
 }
 
@@ -11,7 +12,7 @@
   position: relative;
   display: grid;
   font-size: 26px;
-  width: 1016px;
+  width: 1036px;
   grid-template-columns: 1fr auto 1fr;
   justify-items: flex-start;
   column-gap: 20px;
