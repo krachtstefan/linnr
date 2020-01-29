@@ -4,6 +4,8 @@
 
 .highscore-form h1 {
   color: var(--color-pink);
+  position: relative;
+  right: -5px;
 }
 
 .highscore-form label {
