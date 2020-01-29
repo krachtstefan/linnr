@@ -7,6 +7,25 @@ import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
 
+moment.updateLocale("en", {
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: "a few secs",
+    ss: "%d secs",
+    m: "a minute",
+    mm: "%d mins",
+    h: "an hr",
+    hh: "%d hrs",
+    d: "a day",
+    dd: "%d days",
+    M: "a month",
+    MM: "%d months",
+    y: "a year",
+    yy: "%d years"
+  }
+});
+
 let HighScores = () => {
   let dispatch = useDispatch();
   let [groupByPlayer, setGroupByPlayer] = useState(false);
