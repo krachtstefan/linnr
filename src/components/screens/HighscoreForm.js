@@ -83,15 +83,16 @@ const emojiList = [
   "💾"
 ];
 let HighScores = () => {
-  const { highscore, position, player, loading, submited } = useSelector(
+  const { highscore, position, player, loading, submited, board } = useSelector(
     state => {
-      const { highscore, worm } = state;
+      const { highscore, worm, stage } = state;
       return {
         highscore: worm.highscore,
         position: worm.position,
         loading: highscore.loading,
         submited: highscore.submited,
-        player: highscore.player
+        player: highscore.player,
+        board: { width: stage.board[0].length, height: stage.board.length }
       };
     }
   );
@@ -122,6 +123,7 @@ let HighScores = () => {
       emoji,
       score: highscore,
       worm: position,
+      board,
       version: config.highscoreVersion
     };
     if (twitter !== "") {
