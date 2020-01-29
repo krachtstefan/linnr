@@ -54,12 +54,48 @@ const objects = {
       randomizer: () => randomizerMinMax(3, 10),
       pattern: [[true]],
       items: [
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/001A/0_1.png" },
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/001B/0_1.png" },
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/002A/0_1.png" },
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/002B/0_1.png" },
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/003A/0_1.png" },
-        { src: "SPRITES.1x1-ATMO/Gras/1x1/003B/0_1.png" }
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/001A/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        },
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/001B/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        },
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/002A/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        },
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/002B/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        },
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/003A/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        },
+        {
+          src: "SPRITES.1x1-ATMO/Gras/1x1/003B/0_1.png",
+          offset: {
+            x: randomizerMinMax(0, 5) / 10,
+            y: randomizerMinMax(0, 5) / 10
+          }
+        }
       ]
     },
     /**
