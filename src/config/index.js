@@ -24,7 +24,6 @@ const config = {
   ],
   tileSize: 48,
   spriteSizeScaling: 2,
-  background: 0xaf9980,
   soundOn: true,
   leveldesign,
   ga: {

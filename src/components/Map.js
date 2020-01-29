@@ -65,7 +65,7 @@ let Gamestage = props => {
       Context={ReactReduxContext}
       render={children => (
         <Stage
-          options={{ backgroundColor: config.background }}
+          options={{ transparent: true }}
           width={width}
           height={height}
           className={props.className}
