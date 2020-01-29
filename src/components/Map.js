@@ -81,7 +81,7 @@ let Gamestage = props => {
               const y = atmo.positions[0].y + (yOffset ? yOffset : 0);
               return (
                 <Sprite
-                  key={`atmo_${x}_${y}`}
+                  key={`atmo_${atmo.positions[0].x}_${atmo.positions[0].y}`}
                   x={x * tileSize}
                   y={y * tileSize}
                   width={texture.width * config.spriteSizeScaling}
@@ -127,7 +127,7 @@ let Gamestage = props => {
               const y = obstacle.positions[0].y + (yOffset ? yOffset : 0);
               return (
                 <Sprite
-                  key={`obstacle_${x}_${y}`}
+                  key={`obstacle_${obstacle.positions[0].x}_${obstacle.positions[0].y}`}
                   x={x * tileSize}
                   y={y * tileSize}
                   width={texture.width * config.spriteSizeScaling}
