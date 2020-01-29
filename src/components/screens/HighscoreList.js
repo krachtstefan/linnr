@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ExitWithEscape from "./../utils/ExitWithEscape";
@@ -47,7 +47,7 @@ let HighScores = () => {
   }, [dispatch]);
 
   return (
-    <div className="highscore-list">
+    <div className="highscore-list-container">
       <ExitWithEscape />
       <h1>
         {loading === true && highscore.length === 0
@@ -78,64 +78,78 @@ let HighScores = () => {
               </button>
             </div>
           ) : null}
-          {highscoreList.map(hs => (
-            <div
-              className={`player place-${hs.place} ${
+          <div className="list">
+            {highscoreList.map(hs => {
+              const you =
                 player.name.toLocaleLowerCase() ===
                   hs.score.name.toLocaleLowerCase() &&
                 player.alias.toLocaleLowerCase() ===
                   hs.score.alias.toLocaleLowerCase()
-                  ? "you"
-                  : ""
-              }`.trim()}
-              key={hs.score.id}
-            >
-              <span className="place">{`${hs.place}`.padStart(3, "0")}</span>
+                  ? true
+                  : false;
+              const placeClass = `place-${hs.place}${
+                sortByDate ? "-date" : ""
+              }`;
 
-              <span className="alias">
-                {hs.score.emoji} {hs.score.alias}
-              </span>
-              <span className="name-time">
-                <span className="name">{hs.score.name}</span>{" "}
-                <span className="time">
-                  {moment(hs.score.date.seconds * 1000).fromNow()}
-                </span>
-              </span>
+              return (
+                <Fragment key={hs.score.id}>
+                  <span
+                    className={`place ${placeClass} ${
+                      you === true ? "you" : ""
+                    }`.trim()}
+                  >
+                    {`${hs.place}`.padStart(3, "0")}
+                  </span>
+                  {hs.score.board ? (
+                    <Minimap
+                      width={hs.score.board.width}
+                      height={hs.score.board.height}
+                      matrix={hs.score.worm}
+                    />
+                  ) : (
+                    <div></div>
+                  )}
+                  <span className="emoji">{hs.score.emoji}</span>
+                  <span className="alias">{hs.score.alias}</span>
 
-              <span className="link">
-                {hs.score.twitter ? (
-                  <a
-                    href={`https://twitter.com/${hs.score.twitter}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    
-                  </a>
-                ) : (
-                  <span></span>
-                )}{" "}
-                {hs.score.instagram ? (
-                  <a
-                    href={`https://instagram.com/${hs.score.instagram}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    
-                  </a>
-                ) : (
-                  <span></span>
-                )}
-              </span>
-              <span className="score">{hs.score.score}</span>
-              {hs.score.board ? (
-                <Minimap
-                  width={hs.score.board.width}
-                  height={hs.score.board.height}
-                  matrix={hs.score.worm}
-                />
-              ) : null}
-            </div>
-          ))}
+                  <span className="name-time">
+                    <span className="name">{hs.score.name}</span>{" "}
+                    <span className="time">
+                      {moment(hs.score.date.seconds * 1000).fromNow()}
+                    </span>
+                  </span>
+
+                  <span className="link">
+                    {hs.score.twitter ? (
+                      <a
+                        href={`https://twitter.com/${hs.score.twitter}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        
+                      </a>
+                    ) : (
+                      <span></span>
+                    )}{" "}
+                    {hs.score.instagram ? (
+                      <a
+                        href={`https://instagram.com/${hs.score.instagram}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        
+                      </a>
+                    ) : (
+                      <span></span>
+                    )}
+                  </span>
+                  <span className={`score ${placeClass}`}>
+                    {hs.score.score}
+                  </span>
+                </Fragment>
+              );
+            })}
+          </div>
         </>
       )}
     </div>
