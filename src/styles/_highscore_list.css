@@ -4,6 +4,11 @@
   text-align: center;
 }
 
+.highscore-list-container h1 {
+  position: relative;
+  right: -5px;
+}
+
 .highscore-list-container .highscore-filter button {
   color: var(--color-blue-dark);
   margin: 0 10px;
