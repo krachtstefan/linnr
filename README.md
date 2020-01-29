@@ -6,7 +6,7 @@ For development on your local machine, copy the `.env.example` to `.env.local` a
 
 ## deployment
 
-For deployment with [Now CLI](https://zeit.co/download), you need to add the environment variables with the [now secrets](https://zeit.co/docs/v2/build-step#adding-secrets) command
+For deployment with [Now CLI](https://zeit.co/download), you need to add the environment variables with the [now secrets](https://zeit.co/docs/v2/build-step#adding-secrets) command.
 
 `now secrets add <secret-name> <secret-value>`
 
