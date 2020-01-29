@@ -114,7 +114,8 @@ export const placeItems = (type, keepExisting = false) => {
 
         // don't use worm tiles
         possibleItemPositions = possibleItemPositions.filter(
-          posArray => !matrixOverlap(posArray, worm.position)
+          posArray =>
+            !matrixOverlap(posArray, [...worm.position, worm.destination[0]])
         );
 
         // avoid conflicts with items of any type
