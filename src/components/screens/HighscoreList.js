@@ -126,6 +126,7 @@ let HighScores = () => {
                   <span></span>
                 )}
               </span>
+              <span className="score">{hs.score.score}</span>
               {hs.score.board ? (
                 <Minimap
                   width={hs.score.board.width}
