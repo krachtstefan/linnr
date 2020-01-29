@@ -27,8 +27,11 @@
   padding: 0 10px;
   box-sizing: border-box;
   margin-top: 8px;
-  text-transform: uppercase;
   font-size: 40px;
+}
+
+.highscore-form input.alias {
+  text-transform: uppercase;
 }
 
 .highscore-form input::placeholder {
@@ -45,6 +48,7 @@
   background: var(--color-pink);
   color: white;
   border-bottom: 2px solid var(--color-blue-link);
+  text-transform: uppercase;
 }
 
 .highscore-form button:active {
@@ -54,9 +58,9 @@
 .highscore-form-columns {
   display: grid;
   margin-top: 50px;
-  grid-gap: 30px;
+  grid-gap: 40px;
   align-items: baseline;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 9fr 11fr;
 }
 
 @media screen and (max-width: 650px) {

@@ -170,16 +170,16 @@ let HighScores = () => {
         <div className="left">
           <div className="highscore-row">
             <label>
-              your SCORE<span>{highscore}</span>
+              Your SCORE<span>{highscore}</span>
             </label>
             <label>
               {highscorePos ? (
                 <>
-                  your RANK
+                  Your RANK
                   <span>
                     {highscorePos > config.highscoreLimit
-                      ? `>${config.highscoreLimit}`
-                      : `№${highscorePos}`}
+                      ? `> ${config.highscoreLimit}`
+                      : `${highscorePos}.`}
                   </span>
                 </>
               ) : null}
@@ -189,6 +189,7 @@ let HighScores = () => {
               <input
                 disabled={formDisabled}
                 placeholder="XXX"
+                className="alias"
                 maxLength="3"
                 value={alias}
                 onChange={e => setAlias(e.target.value)}
