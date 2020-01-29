@@ -28,7 +28,7 @@
   text-align: center;
 }
 
-.highscore-list .player.place-0 {
+.highscore-list .player.place-1 {
   margin-bottom: 10px;
   min-height: 60px;
 }
@@ -87,14 +87,15 @@
   color: var(--color-yellow);
 }
 
-.highscore-list .player.place-0 .place,
-.highscore-list .player.place-0 .score {
+.highscore-list .player.place-1 .place,
+.highscore-list .player.place-1 .score {
   font-size: 40px;
   color: var(--color-yellow);
 }
+
 @media screen and (max-width: 600px) {
-  .highscore-list .player.place-0 .place,
-  .highscore-list .player.place-0 .score {
+  .highscore-list .player.place-1 .place,
+  .highscore-list .player.place-1 .score {
     font-size: 30px;
   }
 }
