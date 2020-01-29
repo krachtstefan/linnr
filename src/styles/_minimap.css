@@ -1,0 +1,24 @@
+.minimap {
+  display: flex;
+}
+
+.minimap .pixel-row {
+}
+
+.minimap .pixel {
+  width: 2px;
+  height: 2px;
+  background: var(--color-blue);
+}
+
+.minimap .pixel.x {
+  background: var(--color-blue-dark);
+}
+
+.minimap .pixel.head {
+  background: var(--color-blue-darker);
+}
+
+.minimap .pixel.tail {
+  background: var(--color-blue-light);
+}
