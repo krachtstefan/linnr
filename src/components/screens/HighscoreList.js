@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ExitWithEscape from "./../utils/ExitWithEscape";
+import Minimap from "../../components/Minimap";
 import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
@@ -125,8 +126,13 @@ let HighScores = () => {
                   <span></span>
                 )}
               </span>
-
-              <span className="score">{hs.score.score}</span>
+              {hs.score.board ? (
+                <Minimap
+                  width={hs.score.board.width}
+                  height={hs.score.board.height}
+                  matrix={hs.score.worm}
+                />
+              ) : null}
             </div>
           ))}
         </>
