@@ -63,6 +63,10 @@ img.kraski {
   .dev-info ul {
     display: block;
     grid-template-columns: auto;
+    margin-bottom: 20px;
+  }
+  .dev-info ul li span {
+    display: block;
   }
 
   .dev-info ul li:first-child {

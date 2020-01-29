@@ -17,40 +17,44 @@ const Credits = () => {
           <li>Code</li>
           <li>
             Stefan Kracht{" "}
-            <a
-              href="https://twitter.com/stefan_kracht"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              
-            </a>{" "}
-            <a
-              href="https://stefankracht.de"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ⌂
-            </a>
+            <span>
+              <a
+                href="https://twitter.com/stefan_kracht"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                
+              </a>{" "}
+              <a
+                href="https://stefankracht.de"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ⌂
+              </a>
+            </span>
           </li>
         </ul>
         <ul>
           <li>Design</li>
           <li>
             Christian Wischnewski{" "}
-            <a
-              href="https://www.instagram.com/wischnikdraws/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              
-            </a>{" "}
-            <a
-              href="https://www.wischnik.de/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ⌂
-            </a>
+            <span>
+              <a
+                href="https://www.instagram.com/wischnikdraws/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                
+              </a>{" "}
+              <a
+                href="https://www.wischnik.de/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ⌂
+              </a>
+            </span>
           </li>
         </ul>
         <ul>
