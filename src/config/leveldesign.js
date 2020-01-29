@@ -56,7 +56,7 @@ const objects = {
     },
     {
       type: "atmo",
-      randomizer: () => randomizerMinMax(3, 10),
+      randomizer: () => randomizerMinMax(10, 50),
       pattern: [[true]],
       items: [
         {
