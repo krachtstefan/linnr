@@ -117,7 +117,7 @@ let HighScores = () => {
                       you === true ? "you" : ""
                     }`.trim()}
                   >
-                    {hs.place}
+                    {hs.place}.
                   </span>
                   {hs.score.board ? (
                     <Minimap
