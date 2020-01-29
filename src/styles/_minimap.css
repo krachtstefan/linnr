@@ -23,3 +23,10 @@
 .minimap .pixel.tail {
   background: var(--color-blue-light);
 }
+
+@media screen and (max-width: 500px) {
+  .minimap .pixel {
+    width: 1px;
+    height: 1px;
+  }
+}

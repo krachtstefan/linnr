@@ -21,7 +21,6 @@
 /* highscore list */
 .highscore-list-container .list {
   display: grid;
-  align-items: baseline;
   column-gap: 10px;
   row-gap: 10px;
   grid-template-columns: auto auto auto auto minmax(0, 1fr) auto auto;
@@ -81,5 +80,19 @@
 @keyframes blink {
   50% {
     opacity: 0.2;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .highscore-list-container .list .minimap {
+    align-self: baseline;
+  }
+
+  .highscore-list-container .list .name-time .name {
+    max-width: 80px;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
