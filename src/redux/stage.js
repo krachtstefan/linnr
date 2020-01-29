@@ -38,16 +38,17 @@ let matrixOverlap = (posArr1, posArr2) =>
 let findInBoard = ({ board, arr, pattern }) => {
   let [patternWith, patternHeight] = [pattern[0].length, pattern.length];
   let [boardWidth, boardHeight] = [board[0].length, board.length];
-
   let result = board.reduce((prev, line, y) => {
     return [
       ...prev,
       ...line
         .map((cell, i) => (arr.includes(cell) ? i : null)) // all lines with the pattern
-        .filter(Number)
-        .filter(
-          x => x < boardWidth - patternWith && y < boardHeight - patternHeight
-        ) // remove coordinates that would make it leave the board
+        .filter(x => x !== null)
+        .filter(x => {
+          return (
+            x <= boardWidth - patternWith && y <= boardHeight - patternHeight
+          );
+        }) // remove coordinates that would make it leave the board
         .map(x => {
           // x and y are the upper left position
           let result = [];
