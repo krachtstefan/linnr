@@ -65,10 +65,6 @@ const Game = () => {
   }, [dispatch, highscore]);
 
   useEffect(() => {
-    dispatch(placeItems("obstacle"));
-  }, [dispatch]);
-
-  useEffect(() => {
     if (soundOn === true && highscore > 0) {
       eatSound.play();
     }
