@@ -2,21 +2,18 @@
   display: flex;
 }
 
-.minimap .pixel-row {
-}
-
 .minimap .pixel {
   width: 2px;
   height: 2px;
-  background: var(--color-blue);
-}
-
-.minimap .pixel.x {
-  background: var(--color-blue-dark);
 }
 
 .minimap .pixel.border {
-  background: var(--color-pink);
+  opacity: 0.5;
+  background: var(--color-blue-dark);
+}
+
+.minimap .pixel.worm {
+  background: var(--color-blue-dark);
 }
 
 .minimap .pixel.head {

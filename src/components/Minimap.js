@@ -20,7 +20,7 @@ const Minimap = ({ width, height, matrix }) => {
               return (
                 <div
                   key={`pixel_${x}_${y}`}
-                  className={`pixel ${isWorm === -1 ? "x" : "o"} ${
+                  className={`pixel ${isWorm === -1 ? "" : "worm"} ${
                     isHead ? "head" : ""
                   } ${isTail ? "tail" : ""} ${
                     y === 0 ||
