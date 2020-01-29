@@ -3,6 +3,11 @@ import spritesheetJSON from "public/images/spritesheet.json"; // requires NODE_P
 const randomizerMinMax = (min, max) =>
   Math.round(Math.random() * (max - min) + min);
 
+const halfTileOffset = () => {
+  const ZeroToHalf = randomizerMinMax(0, 5) / 10;
+  return Math.random() < 0.5 ? -ZeroToHalf : ZeroToHalf;
+};
+
 const defaultAnimationProps = {
   offset: {
     x: 0,
@@ -57,43 +62,43 @@ const objects = {
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/001A/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         },
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/001B/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         },
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/002A/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         },
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/002B/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         },
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/003A/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         },
         {
           src: "SPRITES.1x1-ATMO/Gras/1x1/003B/0_1.png",
           offset: {
-            x: randomizerMinMax(0, 5) / 10,
-            y: randomizerMinMax(0, 5) / 10
+            x: halfTileOffset(),
+            y: halfTileOffset()
           }
         }
       ]
