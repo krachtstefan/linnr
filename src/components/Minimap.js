@@ -2,13 +2,15 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const Minimap = ({ width, height, matrix }) => {
-  const padding = 1; // padding around stage
+  const padding = 2; // padding around stage
+  const verticalItemCount = height + 2 * padding;
+  const horizontalItemCount = width + 2 * padding;
   return (
     <div className="minimap">
-      {[...new Array(width + 2 * padding)].map((_, x) => {
+      {[...new Array(horizontalItemCount)].map((_, x) => {
         return (
           <div key={`row_${x}`} className="pixel-row">
-            {[...new Array(height + 2 * padding)].map((_, y) => {
+            {[...new Array(verticalItemCount)].map((_, y) => {
               const isWorm = matrix.findIndex(
                 coordinates =>
                   coordinates.x + padding === x && coordinates.y + padding === y
@@ -24,9 +26,9 @@ const Minimap = ({ width, height, matrix }) => {
                     isHead ? "head" : ""
                   } ${isTail ? "tail" : ""} ${
                     y === 0 ||
-                    y === height + padding ||
+                    y === verticalItemCount - 1 ||
                     x === 0 ||
-                    x === width + padding
+                    x === horizontalItemCount - 1
                       ? "border"
                       : ""
                   }`.trim()}
