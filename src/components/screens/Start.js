@@ -41,7 +41,7 @@ const Start = () => {
         <span></span>
       ) : (
         <button className="start-button" onClick={() => setShowMenu(true)}>
-          {isTouchDevice ? "→ START ←" : "[PRESS SPACEBAR]"}
+          {isTouchDevice ? "→ START ←" : "[PRESS SPACEBAR OR CLICK HERE]"}
         </button>
       )}
     </div>
