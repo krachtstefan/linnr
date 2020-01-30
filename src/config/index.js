@@ -40,7 +40,10 @@ const config = {
     name: "linnr",
     table: { settings: "settings" }
   },
-  highscoreVersion: 0.1,
+  /**
+   * highscore versions
+   */
+  highscoreVersion: 1,
   highscoreLimit: 150,
   highscoreShown: 30,
   version: "1.0",
