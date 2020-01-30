@@ -12,6 +12,8 @@ import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 
+const date = new Date();
+
 const emojiList = [
   "☺",
   "😁",
@@ -114,7 +116,7 @@ let HighScores = () => {
   const submit = () => {
     setFormDisabled(true);
     let highscoreSubmit = {
-      date: new Date(),
+      date,
       name: name.trim(),
       alias: alias.trim(),
       emoji,
@@ -246,7 +248,12 @@ let HighScores = () => {
       </div>
     </form>
   ) : (
-    <Redirect to={config.navigation.highscore} />
+    <Redirect
+      to={{
+        pathname: config.navigation.highscore,
+        state: { lastHighscoreDate: date }
+      }}
+    />
   );
 };
 

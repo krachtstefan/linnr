@@ -6,6 +6,7 @@ import Minimap from "../../components/Minimap";
 import { config } from "../../config";
 import { getHighscore } from "../../redux/highscore";
 import moment from "moment";
+import { useLocation } from "react-router-dom";
 
 moment.updateLocale("en", {
   relativeTime: {
@@ -27,6 +28,11 @@ moment.updateLocale("en", {
 });
 
 let HighScores = () => {
+  const location = useLocation();
+  const lastHighscoreDate =
+    location && location.state && location.state.lastHighscoreDate
+      ? location.state.lastHighscoreDate
+      : null;
   let dispatch = useDispatch();
   let [groupByPlayer, setGroupByPlayer] = useState(false);
   let [highscoreList, setHighscoreList] = useState([]);
@@ -110,11 +116,20 @@ let HighScores = () => {
                 sortByDate ? "-date" : ""
               }`;
 
+              const yourLastScore =
+                you &&
+                moment(lastHighscoreDate).diff(
+                  hs.score.date.seconds * 1000,
+                  "seconds"
+                ) < 10;
+
               return (
                 <Fragment key={hs.score.id}>
                   <span
                     className={`place ${placeClass} ${
                       you === true ? "you" : ""
+                    } ${
+                      yourLastScore === true ? "your-last-score" : ""
                     }`.trim()}
                   >
                     {hs.place}.

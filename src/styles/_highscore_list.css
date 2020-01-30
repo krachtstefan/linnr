@@ -52,6 +52,10 @@
   animation: blink 1s ease-in-out infinite;
 }
 
+.highscore-list-container .list .your-last-score {
+  color: var(--color-yellow);
+}
+
 .highscore-list-container .list .alias,
 .highscore-list-container .list .emoji {
   text-transform: uppercase;
