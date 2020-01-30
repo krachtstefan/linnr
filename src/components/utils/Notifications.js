@@ -30,7 +30,7 @@ const Notifications = () => {
       hasSeenChromeInfo === false &&
       isChrome === false
     ) {
-      toast("Linnr works best when using Chrome  Just sayin...", {
+      toast("Linnr works best when using Chrome  Just sayin' ...", {
         onClose: () => dispatch(setChromeInfoSeen())
       });
     }

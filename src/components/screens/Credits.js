@@ -86,20 +86,11 @@ const Credits = () => {
           rel="noopener noreferrer"
         >
           Aseprite
-        </a>
-        ,{" "}
+        </a>{" "}
+        &{" "}
         <a href="https://beepbox.co/" target="_blank" rel="noopener noreferrer">
-          Beepbox
+          Beepbox.co
         </a>
-        ,{" "}
-        <a
-          href="https://www.pentacom.jp/pentacom/bitfontmaker2/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Bitfontmaker
-        </a>
-        .
         <br />
         Download Game Fonts{" "}
         <a
