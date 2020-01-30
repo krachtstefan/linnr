@@ -5,9 +5,8 @@
 
   row-gap: 5px;
   padding-bottom: 20px;
-  /* width: 250px; */
   border: 2px solid var(--color-blue-dark);
-  box-shadow: 5px 5px 0px 0px var(--color-beige-shadow);
+  box-shadow: 5px 5px 0px 0px var(--color-shadow);
 }
 
 .main-menu h1 {
