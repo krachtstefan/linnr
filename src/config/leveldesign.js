@@ -162,10 +162,18 @@ const objects = {
      */
     {
       type: "obstacle",
-      randomizer: () => randomizerMinMax(1, 2),
+      randomizer: () => randomizerMinMax(2, 5),
       pattern: [[true]],
       items: [
-        { src: "SPRITES.2x1-OBS/Weide/2x1/01A/C:1_1.png", offset: { y: -1 } }
+        { src: "SPRITES.2x1-OBS/Weide/2x1/01B/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/02A/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/02B/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/03A/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/03B/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/04A/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/04B/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/05A/C:1_1.png", offset: { y: -1 } },
+        { src: "SPRITES.2x1-OBS/Weide/2x1/05B/C:1_1.png", offset: { y: -1 } }
       ]
     }
   ]
