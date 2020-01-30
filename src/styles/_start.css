@@ -4,6 +4,7 @@
   grid-template-rows: 1fr 30px;
   align-items: baseline;
   justify-items: center;
+  max-width: 1056px;
 }
 
 .start-screen .start-button {
