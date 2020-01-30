@@ -91,23 +91,6 @@ const Credits = () => {
         <a href="https://beepbox.co/" target="_blank" rel="noopener noreferrer">
           Beepbox.co
         </a>
-        <br />
-        Download Game Fonts{" "}
-        <a
-          href="https://www.dafont.com/poppkorn.font"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Unikorn Beta
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://www.dafont.com/poppkorn.font"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Poppkorn
-        </a>
         .
       </p>
     </div>
