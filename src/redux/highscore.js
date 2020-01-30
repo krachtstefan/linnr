@@ -49,12 +49,21 @@ export const getHighscore = () => dispatch => {
     .limit(config.highscoreLimit)
     .get()
     .then(results => {
+      let payload = results.docs.map(hs => ({
+        id: hs.id,
+        ...hs.data()
+      }));
+
+      payload = payload.sort((a, b) => {
+        if (a.score === b.score) {
+          return a.date.seconds > b.date.seconds ? 1 : -1;
+        }
+        return 0;
+      });
+
       dispatch({
         type: HIGHSCORE_ACTION_TYPES.HIGHSCORE_RECEIVE,
-        payload: results.docs.map(hs => ({
-          id: hs.id,
-          ...hs.data()
-        }))
+        payload
       });
     });
 };
