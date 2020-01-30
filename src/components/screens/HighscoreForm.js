@@ -12,8 +12,6 @@ import { config } from "../../config";
 import { resetWorm } from "../../redux/worm";
 import { sample } from "lodash";
 
-const date = new Date();
-
 const emojiList = [
   "☺",
   "😁",
@@ -95,6 +93,8 @@ let HighScores = () => {
       };
     }
   );
+
+  const [date] = useState(new Date());
   let [name, setName] = useState(player.name ? player.name : "");
   let [alias, setAlias] = useState(player.alias ? player.alias : "");
 
