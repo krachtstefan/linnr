@@ -1,2 +1,22 @@
+.start-screen {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-rows: 1fr 30px;
+  align-items: baseline;
+  justify-items: center;
+}
+
+.start-screen .start-button {
+  color: var(--color-beige-dark);
+}
+
 .title-card {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+}
+
+.title-card img {
+  max-width: 100%;
 }

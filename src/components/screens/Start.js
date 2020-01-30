@@ -4,6 +4,8 @@ import MainMenu from "./../menu/MainMenu";
 import titleCard from "./../../assets/images/title_card.png";
 import useKeyPress from "../../hooks/use-keypress";
 
+const isTouchDevice = "ontouchstart" in window;
+
 const fullscreen = document.fullscreenEnabled ? ["fullscreen"] : [];
 const menuItems = ["play", "highscoreView", "about", "sound", ...fullscreen];
 
@@ -30,14 +32,19 @@ const Start = () => {
   }, [escape]);
 
   return (
-    <>
-      <img
-        className="title-card"
-        alt="Linnr - it's not snake"
-        src={titleCard}
-      />
-      {showMenu === true ? <MainMenu filter={menuItems} /> : null}
-    </>
+    <div className="start-screen">
+      <div className="title-card">
+        {showMenu === true ? <MainMenu filter={menuItems} /> : null}
+        <img alt="Linnr - it's not snake" src={titleCard} />
+      </div>
+      {showMenu === true ? (
+        <span></span>
+      ) : (
+        <button className="start-button" onClick={() => setShowMenu(true)}>
+          {isTouchDevice ? "→ START ←" : "[PRESS SPACEBAR]"}
+        </button>
+      )}
+    </div>
   );
 };
 
