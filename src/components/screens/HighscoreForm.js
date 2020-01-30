@@ -229,7 +229,7 @@ let HighScores = () => {
           </label>
 
           <button disabled={buttonDisabled || formDisabled} type="submit">
-            {loading ? "loading..." : "submit now"}
+            {loading ? "loading ..." : "submit now"}
           </button>
         </div>
         <div className="right">

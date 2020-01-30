@@ -70,7 +70,7 @@ let HighScores = () => {
       <ExitWithEscape />
       <h1>
         {loading === true && highscore.length === 0
-          ? "loading..."
+          ? "loading ..."
           : "highscore"}
       </h1>
       {loading === false && highscore.length === 0 ? (
