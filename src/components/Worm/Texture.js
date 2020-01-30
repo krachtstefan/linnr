@@ -93,7 +93,7 @@ const getWormAnimationSpecs = ({
             `WORM-TL/${FILENAME_SEGMENTS[direction.from]}/2${
               FILENAME_SEGMENTS[direction.to]
             }`,
-            { startIndex: animationSequence === 0 ? 12 : 20 }
+            { startIndex: animationSequence === 0 ? 12 : 20 } // should not change
           )
         );
       }
